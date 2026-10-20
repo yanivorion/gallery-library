@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-perspectivestack"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&h=500&fit=crop",
+          "defaultValue": "assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp",
           "group": "Content",
           "description": "Comma-separated image URLs (5-7 recommended)"
         },
@@ -76,31 +76,31 @@ window.__GALLERY_MODULES__["gallery-perspectivestack"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#F5F5F4",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "cardBorderColor": {
           "dataType": "color",
           "displayName": "Card Border Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "shadowColor": {
           "dataType": "color",
           "displayName": "Shadow Color",
-          "defaultValue": "#1C1917",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#1C1917",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#44403C",
+          "defaultValue": "#444444",
           "group": "Colors"
         },
         "borderRadius": {
@@ -207,11 +207,11 @@ window.__GALLERY_MODULES__["gallery-perspectivestack"] = function (React) {
     const galleryTitle = config?.galleryTitle || 'Discover Beautiful Moments';
     const showTitle = config?.showTitle !== false;
     const spreadDirection = config?.spreadDirection || 'center';
-    const backgroundColor = config?.backgroundColor || '#F5F5F4';
-    const cardBorderColor = config?.cardBorderColor || '#FFFFFF';
-    const shadowColor = config?.shadowColor || '#1C1917';
-    const titleColor = config?.titleColor || '#1C1917';
-    const accentColor = config?.accentColor || '#44403C';
+    const backgroundColor = config?.backgroundColor || '#eeeeee';
+    const cardBorderColor = config?.cardBorderColor || '#ffffff';
+    const shadowColor = config?.shadowColor || '#111111';
+    const titleColor = config?.titleColor || '#111111';
+    const accentColor = config?.accentColor || '#444444';
     const borderRadius = parseInt(config?.borderRadius || '16');
     const cardWidth = parseInt(config?.cardWidth || '200');
     const cardHeight = parseInt(config?.cardHeight || '280');
@@ -320,12 +320,12 @@ window.__GALLERY_MODULES__["gallery-perspectivestack"] = function (React) {
           justifyContent: 'center',
           minHeight: '400px',
           padding: '40px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: 'center',
-          color: '#78716C'
+          color: '#777777'
         }
       }, /*#__PURE__*/React.createElement("p", {
         style: {
@@ -346,7 +346,7 @@ window.__GALLERY_MODULES__["gallery-perspectivestack"] = function (React) {
         backgroundColor,
         minHeight: '600px',
         padding: '60px 40px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -436,7 +436,7 @@ window.__GALLERY_MODULES__["gallery-perspectivestack"] = function (React) {
           height: '28px',
           borderRadius: '50%',
           backgroundColor: accentColor,
-          color: '#FFFFFF',
+          color: '#ffffff',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -472,7 +472,7 @@ window.__GALLERY_MODULES__["gallery-perspectivestack"] = function (React) {
         height: '8px',
         borderRadius: '4px',
         border: 'none',
-        backgroundColor: activeIndex === index ? accentColor : '#D6D3D1',
+        backgroundColor: activeIndex === index ? accentColor : '#cccccc',
         cursor: 'pointer',
         padding: 0,
         transition: prefersReducedMotion ? 'none' : `all ${transitionSpeed}ms ease-out`

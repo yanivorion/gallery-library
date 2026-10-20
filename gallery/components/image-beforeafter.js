@@ -70,25 +70,25 @@ window.__GALLERY_MODULES__["image-beforeafter"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "dividerColor": {
           "dataType": "color",
           "displayName": "Divider Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "handleColor": {
           "dataType": "color",
           "displayName": "Handle Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "glowColor": {
           "dataType": "color",
           "displayName": "Glow Color",
-          "defaultValue": "#3F3F46",
+          "defaultValue": "#444444",
           "group": "Colors"
         }
       },
@@ -133,12 +133,12 @@ window.__GALLERY_MODULES__["image-beforeafter"] = function (React) {
       style: {
         width: '100%',
         minHeight: '700px',
-        backgroundColor: config?.backgroundColor || '#18181B',
+        backgroundColor: config?.backgroundColor || '#111111',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         padding: '40px',
-        fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         position: 'relative',
         overflow: 'hidden',
         cursor: isDragging ? 'grabbing' : 'grab',
@@ -155,10 +155,10 @@ window.__GALLERY_MODULES__["image-beforeafter"] = function (React) {
         aspectRatio: '16/9',
         overflow: 'hidden',
         borderRadius: '12px',
-        boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)'
       }
     }, /*#__PURE__*/React.createElement("img", {
-      src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=675&fit=crop",
+      src: "assets/05.webp",
       alt: "After",
       style: {
         width: '100%',
@@ -178,7 +178,7 @@ window.__GALLERY_MODULES__["image-beforeafter"] = function (React) {
         overflow: 'hidden'
       }
     }, /*#__PURE__*/React.createElement("img", {
-      src: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&h=675&fit=crop",
+      src: "assets/06.webp",
       alt: "Before",
       style: {
         width: '1000px',
@@ -193,9 +193,9 @@ window.__GALLERY_MODULES__["image-beforeafter"] = function (React) {
         top: 0,
         bottom: 0,
         width: `${dividerWidth}px`,
-        backgroundColor: config?.dividerColor || '#FFFFFF',
+        backgroundColor: config?.dividerColor || '#ffffff',
         transform: 'translateX(-50%)',
-        boxShadow: `0 0 20px ${config?.glowColor || '#3F3F46'}`,
+        boxShadow: `0 0 20px ${config?.glowColor || '#444444'}`,
         pointerEvents: 'none'
       }
     }), /*#__PURE__*/React.createElement("div", {
@@ -205,16 +205,16 @@ window.__GALLERY_MODULES__["image-beforeafter"] = function (React) {
         top: '50%',
         width: `${handleSize}px`,
         height: `${handleSize}px`,
-        backgroundColor: config?.handleColor || '#FFFFFF',
+        backgroundColor: config?.handleColor || '#ffffff',
         borderRadius: '50%',
         transform: 'translate(-50%,-50%)',
         cursor: 'grab',
-        boxShadow: `0 4px 12px rgba(0,0,0,0.3), 0 0 0 ${dividerWidth * 2}px ${config?.glowColor || '#3F3F46'}`,
+        boxShadow: `0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 ${dividerWidth * 2}px ${config?.glowColor || '#444444'}`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: '20px',
-        color: config?.backgroundColor || '#18181B',
+        color: config?.backgroundColor || '#111111',
         animation: isPulsing ? 'pulse 1.5s ease-in-out infinite' : 'none',
         zIndex: 10
       },

@@ -48,7 +48,7 @@ window.__GALLERY_MODULES__["hero-glitch"] = function (React) {
       "data": {
         "images": {
           "dataType": "text",
-          "defaultValue": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1000,https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=1000",
+          "defaultValue": "assets/06.webp,assets/07.webp",
           "group": "Content"
         }
       },
@@ -77,7 +77,7 @@ window.__GALLERY_MODULES__["hero-glitch"] = function (React) {
         minHeight: '600px',
         position: 'relative',
         overflow: 'hidden',
-        backgroundColor: '#000'
+        backgroundColor: '#000000'
       }
     }, /*#__PURE__*/React.createElement("style", null, `
         @keyframes glitch-anim-1 { 0% { clip-path: inset(20% 0 80% 0); transform: translate(-5px,0); } 20% { clip-path: inset(60% 0 10% 0); transform: translate(5px,0); } 100% { clip-path: inset(10% 0 50% 0); transform: translate(-5px,0); } }
@@ -116,8 +116,8 @@ window.__GALLERY_MODULES__["hero-glitch"] = function (React) {
         position: 'absolute',
         bottom: 30,
         left: 30,
-        color: '#0F0',
-        fontFamily: 'monospace'
+        color: '#bbbbbb',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, "SYSTEM.GLITCH // CLICK"));
   }

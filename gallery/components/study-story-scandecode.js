@@ -1,0 +1,528 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["study-story-scandecode"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Studies after tomoyaokada.com (batch 1) — storytelling sequences
+   * Structure: staged timeline, after S-004 "Eight Animation"
+   * Component Type: Story.ScanDecode
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Story.ScanDecode",
+    "description": "Five-act decode sequence: a scan line sweeps noise into place, characters resolve one by one, the word locks in brackets, glitches, then scrambles away",
+    "editorElement": {
+      "selector": ".story-scan-decode",
+      "displayName": "Story — Scan & Decode",
+      "archetype": "container",
+      "data": {
+        "text": {
+          "dataType": "text",
+          "displayName": "Text",
+          "defaultValue": "STUDIES",
+          "group": "Content"
+        },
+        "showTextInput": {
+          "dataType": "booleanValue",
+          "displayName": "Show Live Text Input",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "inputLabel": {
+          "dataType": "text",
+          "displayName": "Input Label",
+          "defaultValue": "TEXT",
+          "group": "Content"
+        },
+        "maxLength": {
+          "dataType": "number",
+          "displayName": "Max Characters",
+          "defaultValue": "16",
+          "group": "Content"
+        },
+        "alphabet": {
+          "dataType": "text",
+          "displayName": "Scramble Alphabet",
+          "defaultValue": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*/\\|<>+=-",
+          "group": "Content"
+        },
+        "title": {
+          "dataType": "text",
+          "displayName": "Title",
+          "defaultValue": "Scan & Decode",
+          "group": "Content"
+        },
+        "subtitle": {
+          "dataType": "text",
+          "displayName": "Subtitle",
+          "defaultValue": "five acts",
+          "group": "Content"
+        },
+        "showTitle": {
+          "dataType": "booleanValue",
+          "displayName": "Show Title",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "showActReadout": {
+          "dataType": "booleanValue",
+          "displayName": "Show Act Readout",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "height": {
+          "dataType": "number",
+          "displayName": "Stage Height (px)",
+          "defaultValue": "620",
+          "group": "Layout"
+        },
+        "fullHeight": {
+          "dataType": "booleanValue",
+          "displayName": "Full Viewport Height",
+          "defaultValue": false,
+          "group": "Layout"
+        },
+        "textScale": {
+          "dataType": "select",
+          "displayName": "Text Size",
+          "defaultValue": "0.76",
+          "options": ["0.45", "0.6", "0.76", "0.9"],
+          "group": "Layout"
+        },
+        "showBrackets": {
+          "dataType": "booleanValue",
+          "displayName": "Show Brackets",
+          "defaultValue": true,
+          "group": "Layout"
+        },
+        "showScanLine": {
+          "dataType": "booleanValue",
+          "displayName": "Show Scan Line",
+          "defaultValue": true,
+          "group": "Layout"
+        },
+        "speed": {
+          "dataType": "select",
+          "displayName": "Playback Speed",
+          "defaultValue": "1",
+          "options": ["0.5", "0.75", "1", "1.5", "2"],
+          "group": "Animation"
+        },
+        "scrambleRate": {
+          "dataType": "select",
+          "displayName": "Scramble Rate",
+          "defaultValue": "45",
+          "options": ["20", "45", "80", "140"],
+          "group": "Animation"
+        },
+        "glitchAmount": {
+          "dataType": "select",
+          "displayName": "Glitch Amount",
+          "defaultValue": "1",
+          "options": ["0", "0.5", "1", "2"],
+          "group": "Animation"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background",
+          "defaultValue": "#000000",
+          "group": "Colors"
+        },
+        "textColorMain": {
+          "dataType": "color",
+          "displayName": "Locked Character",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "noiseColor": {
+          "dataType": "color",
+          "displayName": "Scrambling Character",
+          "defaultValue": "#666666",
+          "group": "Colors"
+        },
+        "scanColor": {
+          "dataType": "color",
+          "displayName": "Scan Line",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "glitchColorA": {
+          "dataType": "color",
+          "displayName": "Glitch Ghost A",
+          "defaultValue": "#666666",
+          "group": "Colors"
+        },
+        "glitchColorB": {
+          "dataType": "color",
+          "displayName": "Glitch Ghost B",
+          "defaultValue": "#999999",
+          "group": "Colors"
+        },
+        "titleColor": {
+          "dataType": "color",
+          "displayName": "Title",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        }
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const hostRef = React.useRef(null);
+    const canvasRef = React.useRef(null);
+    const rafRef = React.useRef(0);
+    const [act, setAct] = React.useState({
+      index: 0,
+      total: 5,
+      name: 'SCAN'
+    });
+    const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    const maxLength = Math.max(1, parseInt(config?.maxLength || '16', 10));
+    const initialText = (config?.text || 'STUDIES').slice(0, maxLength) || 'STUDIES';
+    const [textInput, setTextInput] = React.useState(initialText);
+    React.useEffect(() => {
+      setTextInput(initialText);
+    }, [initialText]);
+    const text = textInput.trim().length ? textInput : initialText;
+    const showTextInput = config?.showTextInput !== false;
+    const inputLabel = config?.inputLabel || 'TEXT';
+    const alphabet = config?.alphabet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*/\\|<>+=-';
+    const title = config?.title || 'Scan & Decode';
+    const subtitle = config?.subtitle || 'five acts';
+    const showTitle = config?.showTitle !== false;
+    const showActReadout = config?.showActReadout !== false;
+    const height = Math.max(240, parseInt(config?.height || '620', 10));
+    const fullHeight = config?.fullHeight === true;
+    const textScale = parseFloat(config?.textScale || '0.76') || 0.76;
+    const showBrackets = config?.showBrackets !== false;
+    const showScanLine = config?.showScanLine !== false;
+    const speed = parseFloat(config?.speed || '1') || 1;
+    const scrambleRate = Math.max(10, parseInt(config?.scrambleRate || '45', 10));
+    const glitchAmount = parseFloat(config?.glitchAmount || '1') || 0;
+    const backgroundColor = config?.backgroundColor || '#000000';
+    const textColorMain = config?.textColorMain || '#eeeeee';
+    const noiseColor = config?.noiseColor || '#666666';
+    const scanColor = config?.scanColor || '#eeeeee';
+    const glitchColorA = config?.glitchColorA || '#666666';
+    const glitchColorB = config?.glitchColorB || '#999999';
+    const titleColor = config?.titleColor || '#eeeeee';
+    const mono = '"SF Mono", ui-monospace, "Roboto Mono", Menlo, "Courier New", monospace';
+    const sans = '"PP Neue Montreal", "Helvetica Neue", Inter, system-ui, -apple-system, sans-serif';
+    React.useEffect(() => {
+      const host = hostRef.current;
+      const canvas = canvasRef.current;
+      if (!host || !canvas) return undefined;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return undefined;
+      let w = 0;
+      let h = 0;
+      let fontPx = 40;
+      let cellW = 24;
+      let startX = 0;
+      const chars = text.split('');
+      const alpha = alphabet.length ? alphabet.split('') : ['#'];
+      // One stable random order so characters never lock in left-to-right.
+      const lockOrder = chars.map((_, i) => i).sort(() => Math.random() - 0.5);
+      const lockRank = [];
+      lockOrder.forEach((charIndex, rank) => {
+        lockRank[charIndex] = rank;
+      });
+      const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+      const easeOut = v => 1 - Math.pow(1 - v, 3);
+      const randChar = (i, ts) => alpha[Math.floor(Math.abs(Math.sin(i * 12.9898 + Math.floor(ts / scrambleRate) * 78.233)) * 9999) % alpha.length];
+      const measure = () => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = host.clientWidth || 1;
+        h = host.clientHeight || 1;
+        canvas.width = Math.max(1, Math.round(w * dpr));
+        canvas.height = Math.max(1, Math.round(h * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        fontPx = Math.round(h * 0.2);
+        ctx.font = '700 ' + fontPx + 'px ' + mono;
+        const run = ctx.measureText(text).width || 1;
+        fontPx = Math.max(10, Math.round(fontPx * (w * textScale / run)));
+        ctx.font = '700 ' + fontPx + 'px ' + mono;
+        cellW = ctx.measureText('M').width || fontPx * 0.6;
+        startX = (w - cellW * chars.length) / 2;
+      };
+      measure();
+      let ro = null;
+      if (typeof ResizeObserver !== 'undefined') {
+        ro = new ResizeObserver(measure);
+        ro.observe(host);
+      } else {
+        window.addEventListener('resize', measure);
+      }
+      const drawCell = (i, glyph, color, dx, dy, a) => {
+        ctx.globalAlpha = a;
+        ctx.fillStyle = color;
+        ctx.fillText(glyph, startX + cellW * i + cellW / 2 + (dx || 0), h / 2 + (dy || 0));
+      };
+      const drawBrackets = (a, spread) => {
+        if (!showBrackets || a <= 0.01) return;
+        const pad = cellW * 0.5 + spread;
+        const left = startX - pad;
+        const right = startX + cellW * chars.length + pad;
+        const top = h / 2 - fontPx * 0.72;
+        const bottom = h / 2 + fontPx * 0.52;
+        const arm = fontPx * 0.26;
+        ctx.globalAlpha = a;
+        ctx.strokeStyle = textColorMain;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(left + arm, top);
+        ctx.lineTo(left, top);
+        ctx.lineTo(left, bottom);
+        ctx.lineTo(left + arm, bottom);
+        ctx.moveTo(right - arm, top);
+        ctx.lineTo(right, top);
+        ctx.lineTo(right, bottom);
+        ctx.lineTo(right - arm, bottom);
+        ctx.stroke();
+      };
+
+      // --- the five acts ------------------------------------------------------
+      const acts = [{
+        name: 'SCAN',
+        d: 1500,
+        draw: (p, ts) => {
+          const sweep = easeOut(p);
+          const edge = startX - cellW + sweep * (cellW * chars.length + cellW * 2);
+          for (let i = 0; i < chars.length; i++) {
+            const cellX = startX + cellW * i + cellW / 2;
+            if (cellX > edge) continue;
+            const age = clamp01((edge - cellX) / (cellW * 2));
+            drawCell(i, randChar(i, ts), noiseColor, 0, 0, 0.2 + age * 0.5);
+          }
+          if (showScanLine) {
+            ctx.globalAlpha = 0.9;
+            ctx.fillStyle = scanColor;
+            ctx.fillRect(edge, h / 2 - fontPx * 0.78, 1.5, fontPx * 1.3);
+          }
+        }
+      }, {
+        name: 'DECODE',
+        d: 2200,
+        draw: (p, ts) => {
+          for (let i = 0; i < chars.length; i++) {
+            const rank = lockRank[i] / Math.max(1, chars.length - 1);
+            const locked = p > rank * 0.82 + 0.06;
+            if (locked) {
+              const since = clamp01((p - (rank * 0.82 + 0.06)) / 0.08);
+              drawCell(i, chars[i], textColorMain, 0, 0, 1);
+              if (since < 1) {
+                ctx.globalAlpha = (1 - since) * 0.5;
+                ctx.fillStyle = scanColor;
+                ctx.fillRect(startX + cellW * i, h / 2 - fontPx * 0.78, cellW, fontPx * 1.3);
+              }
+            } else {
+              drawCell(i, randChar(i, ts), noiseColor, 0, 0, 0.75);
+            }
+          }
+          drawBrackets(easeOut(clamp01((p - 0.6) / 0.4)), (1 - easeOut(clamp01((p - 0.6) / 0.4))) * fontPx * 0.5);
+        }
+      }, {
+        name: 'LOCK',
+        d: 1100,
+        draw: () => {
+          for (let i = 0; i < chars.length; i++) drawCell(i, chars[i], textColorMain, 0, 0, 1);
+          drawBrackets(1, 0);
+        }
+      }, {
+        name: 'GLITCH',
+        d: 900,
+        draw: (p, ts) => {
+          const burst = Math.sin(p * Math.PI) * glitchAmount;
+          for (let i = 0; i < chars.length; i++) {
+            const jig = Math.sin(i * 9.7 + Math.floor(ts / 55) * 3.1) * 0.5 * burst * fontPx * 0.16;
+            if (burst > 0.08) {
+              drawCell(i, chars[i], glitchColorA, -burst * 4 + jig, jig * 0.4, 0.55);
+              drawCell(i, chars[i], glitchColorB, burst * 4 + jig, -jig * 0.4, 0.55);
+            }
+            drawCell(i, chars[i], textColorMain, jig * 0.3, 0, 1);
+          }
+          drawBrackets(1 - p * 0.3, burst * 3);
+        }
+      }, {
+        name: 'SCRAMBLE',
+        d: 1300,
+        draw: (p, ts) => {
+          for (let i = 0; i < chars.length; i++) {
+            const rank = 1 - lockRank[i] / Math.max(1, chars.length - 1);
+            const gone = clamp01((p - rank * 0.5) / 0.45);
+            if (gone >= 1) continue;
+            const glyph = gone > 0.15 ? randChar(i, ts) : chars[i];
+            drawCell(i, glyph, gone > 0.15 ? noiseColor : textColorMain, 0, gone * fontPx * 0.4, 1 - gone);
+          }
+          drawBrackets(clamp01(0.7 - p), 0);
+        }
+      }];
+      const total = acts.reduce((s, a) => s + a.d, 0);
+      let origin = 0;
+      let lastAct = -1;
+      const frame = ts => {
+        if (!origin) origin = ts;
+        ctx.fillStyle = backgroundColor;
+        ctx.fillRect(0, 0, w, h);
+        ctx.font = '700 ' + fontPx + 'px ' + mono;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        let local = prefersReducedMotion ? 3200 : (ts - origin) * speed % total;
+        for (let i = 0; i < acts.length; i++) {
+          if (local < acts[i].d) {
+            if (i !== lastAct) {
+              lastAct = i;
+              setAct({
+                index: i,
+                total: acts.length,
+                name: acts[i].name
+              });
+            }
+            acts[i].draw(local / acts[i].d, ts);
+            break;
+          }
+          local -= acts[i].d;
+        }
+        ctx.globalAlpha = 1;
+        rafRef.current = requestAnimationFrame(frame);
+      };
+      rafRef.current = requestAnimationFrame(frame);
+      return () => {
+        cancelAnimationFrame(rafRef.current);
+        if (ro) ro.disconnect();else window.removeEventListener('resize', measure);
+      };
+    }, [text, alphabet, textScale, showBrackets, showScanLine, speed, scrambleRate, glitchAmount, backgroundColor, textColorMain, noiseColor, scanColor, glitchColorA, glitchColorB, prefersReducedMotion]);
+    return /*#__PURE__*/React.createElement("div", {
+      className: "story-scan-decode",
+      ref: hostRef,
+      style: {
+        position: 'relative',
+        width: '100%',
+        height: fullHeight ? '100svh' : height + 'px',
+        overflow: 'hidden',
+        backgroundColor,
+        boxSizing: 'border-box'
+      }
+    }, /*#__PURE__*/React.createElement("canvas", {
+      ref: canvasRef,
+      role: "img",
+      "aria-label": text,
+      style: {
+        display: 'block',
+        width: '100%',
+        height: '100%'
+      }
+    }), showTitle && /*#__PURE__*/React.createElement("h2", {
+      style: {
+        position: 'absolute',
+        top: '20px',
+        left: '20px',
+        zIndex: 2,
+        margin: 0,
+        color: titleColor,
+        fontFamily: sans,
+        fontSize: '13px',
+        fontWeight: 500,
+        lineHeight: 1.35,
+        pointerEvents: 'none'
+      }
+    }, title, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: '10px',
+        opacity: 0.72
+      }
+    }, subtitle)), showActReadout && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: '20px',
+        right: '20px',
+        zIndex: 2,
+        color: titleColor,
+        fontFamily: sans,
+        fontSize: '10px',
+        letterSpacing: '0.08em',
+        opacity: 0.55,
+        fontVariantNumeric: 'tabular-nums',
+        pointerEvents: 'none'
+      }
+    }, 'ACT ' + (act.index + 1) + ' / ' + act.total + ' — ' + act.name), showTextInput && /*#__PURE__*/React.createElement("label", {
+      style: {
+        position: 'absolute',
+        left: '50%',
+        bottom: '24px',
+        transform: 'translateX(-50%)',
+        zIndex: 2,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        padding: '8px 14px',
+        borderRadius: '999px',
+        border: '1px solid ' + titleColor + '33',
+        background: backgroundColor + 'cc',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        fontFamily: sans
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: '10px',
+        letterSpacing: '0.08em',
+        color: titleColor,
+        opacity: 0.55
+      }
+    }, inputLabel), /*#__PURE__*/React.createElement("input", {
+      type: "text",
+      value: textInput,
+      maxLength: maxLength,
+      placeholder: "type a word",
+      onChange: e => setTextInput(e.target.value),
+      "aria-label": inputLabel,
+      style: {
+        width: Math.min(240, Math.max(90, maxLength * 13)) + 'px',
+        border: 'none',
+        outline: 'none',
+        background: 'transparent',
+        color: titleColor,
+        fontFamily: sans,
+        fontSize: '13px',
+        padding: 0
+      }
+    })));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

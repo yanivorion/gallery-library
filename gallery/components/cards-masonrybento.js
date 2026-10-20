@@ -158,49 +158,49 @@ window.__GALLERY_MODULES__["cards-masonrybento"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "cardBackgroundColor": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "featuredCardBg": {
           "dataType": "color",
           "displayName": "Featured Card Background",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "featuredTextColor": {
           "dataType": "color",
           "displayName": "Featured Text Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#52525B",
+          "defaultValue": "#555555",
           "group": "Colors"
         },
         "borderColor": {
           "dataType": "color",
           "displayName": "Border Color",
-          "defaultValue": "#E4E4E7",
+          "defaultValue": "#dddddd",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         }
       },
@@ -242,14 +242,14 @@ window.__GALLERY_MODULES__["cards-masonrybento"] = function (React) {
       icon: config?.small3Icon || '○'
     }];
     const gridGap = parseInt(config?.gridGap || '16');
-    const backgroundColor = config?.backgroundColor || '#FAFAFA';
-    const cardBackgroundColor = config?.cardBackgroundColor || '#FFFFFF';
-    const featuredCardBg = config?.featuredCardBg || '#18181B';
-    const featuredTextColor = config?.featuredTextColor || '#FAFAFA';
-    const titleColor = config?.titleColor || '#18181B';
-    const textColor = config?.textColor || '#52525B';
-    const borderColor = config?.borderColor || '#E4E4E7';
-    const accentColor = config?.accentColor || '#3B82F6';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
+    const cardBackgroundColor = config?.cardBackgroundColor || '#ffffff';
+    const featuredCardBg = config?.featuredCardBg || '#111111';
+    const featuredTextColor = config?.featuredTextColor || '#ffffff';
+    const titleColor = config?.titleColor || '#111111';
+    const textColor = config?.textColor || '#555555';
+    const borderColor = config?.borderColor || '#dddddd';
+    const accentColor = config?.accentColor || '#777777';
     const getCardStyle = (cardId, isLarge = false, isFeatured = false) => {
       const isHovered = hoveredCard === cardId;
       return {
@@ -259,7 +259,7 @@ window.__GALLERY_MODULES__["cards-masonrybento"] = function (React) {
         padding: isLarge ? '32px' : '24px',
         cursor: 'pointer',
         transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-        boxShadow: isHovered ? '0 20px 40px rgba(0,0,0,0.1)' : '0 2px 8px rgba(0,0,0,0.04)',
+        boxShadow: isHovered ? '0 20px 40px rgba(0, 0, 0, 0.1)' : '0 2px 8px rgba(0, 0, 0, 0.04)',
         transition: prefersReducedMotion ? 'none' : 'all 300ms cubic-bezier(0.34, 1.56, 0.64, 1)',
         position: 'relative',
         overflow: 'hidden',

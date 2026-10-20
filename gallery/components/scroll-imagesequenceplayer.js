@@ -88,13 +88,13 @@ window.__GALLERY_MODULES__["scroll-imagesequenceplayer"] = function (React) {
         "progressColor": {
           "dataType": "color",
           "displayName": "Progress Bar Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         }
       },
@@ -119,8 +119,8 @@ window.__GALLERY_MODULES__["scroll-imagesequenceplayer"] = function (React) {
     const showProgress = config?.showProgress !== false;
     const showFrameNumber = config?.showFrameNumber !== false;
     const backgroundColor = config?.backgroundColor || "#000000";
-    const progressColor = config?.progressColor || "#FFFFFF";
-    const textColor = config?.textColor || "#FFFFFF";
+    const progressColor = config?.progressColor || "#ffffff";
+    const textColor = config?.textColor || "#ffffff";
     const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
 
     // Generate procedural frames (geometric patterns for demo)
@@ -256,7 +256,7 @@ window.__GALLERY_MODULES__["scroll-imagesequenceplayer"] = function (React) {
       color: textColor,
       fontSize: '14px',
       fontWeight: '500',
-      fontFamily: 'monospace',
+      fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
       opacity: 0.7
     };
     return /*#__PURE__*/React.createElement("div", {

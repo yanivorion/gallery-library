@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-fibonaccivortex"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (Comma Sep)",
-          "defaultValue": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400,https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400,https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400,https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400,https://images.unsplash.com/photo-1488161628813-99c97485fe11?w=400,https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400",
+          "defaultValue": "assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp",
           "group": "Content"
         },
         "spread": {
@@ -67,7 +67,7 @@ window.__GALLERY_MODULES__["gallery-fibonaccivortex"] = function (React) {
         "fogColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#050505",
+          "defaultValue": "#000000",
           "group": "Colors"
         }
       },
@@ -95,7 +95,7 @@ window.__GALLERY_MODULES__["gallery-fibonaccivortex"] = function (React) {
     }, [rawImages]);
     const spread = parseFloat(config?.spread || '40'); // X/Y spread
     const depthSpacing = parseFloat(config?.depthSpacing || '200'); // Z distance per item
-    const fogColor = config?.fogColor || '#050505';
+    const fogColor = config?.fogColor || '#000000';
 
     // Math Constants
     const GOLDEN_ANGLE = 137.508; // Degrees
@@ -186,7 +186,7 @@ window.__GALLERY_MODULES__["gallery-fibonaccivortex"] = function (React) {
           borderRadius: '50%',
           // Circular nodes
           boxShadow: `0 0 15px ${fogColor}`,
-          border: '2px solid rgba(255,255,255,0.1)'
+          border: '2px solid rgba(255, 255, 255, 0.1)'
         }
       }));
     })), /*#__PURE__*/React.createElement("div", {
@@ -195,7 +195,7 @@ window.__GALLERY_MODULES__["gallery-fibonaccivortex"] = function (React) {
         bottom: 30,
         left: '50%',
         transform: 'translateX(-50%)',
-        color: 'rgba(255,255,255,0.5)',
+        color: 'rgba(255, 255, 255, 0.5)',
         textTransform: 'uppercase',
         fontSize: '12px',
         letterSpacing: '2px',

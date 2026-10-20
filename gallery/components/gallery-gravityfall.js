@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-gravityfall"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&h=400&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&h=400&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=500&h=400&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=500&h=400&fit=crop",
+          "defaultValue": "assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp",
           "group": "Content"
         },
         "gravity": {
@@ -111,7 +111,7 @@ window.__GALLERY_MODULES__["gallery-gravityfall"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0f0f1a",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "shadowColor": {
@@ -139,7 +139,7 @@ window.__GALLERY_MODULES__["gallery-gravityfall"] = function (React) {
     const itemHeight = parseInt(config?.itemHeight || '200');
     const containerHeight = parseInt(config?.containerHeight || '600');
     const borderRadius = parseInt(config?.borderRadius || '12');
-    const backgroundColor = config?.backgroundColor || '#0f0f1a';
+    const backgroundColor = config?.backgroundColor || '#111111';
     const shadowColor = config?.shadowColor || '#000000';
     const images = React.useMemo(() => {
       return imagesRaw.split(',').map(url => url.trim()).filter(Boolean);
@@ -317,8 +317,8 @@ window.__GALLERY_MODULES__["gallery-gravityfall"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor,
-          color: 'rgba(255,255,255,0.5)',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          color: 'rgba(255, 255, 255, 0.5)',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, "Add comma-separated image URLs");
     }
@@ -331,7 +331,7 @@ window.__GALLERY_MODULES__["gallery-gravityfall"] = function (React) {
         height: `${containerHeight}px`,
         backgroundColor,
         overflow: 'hidden',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -340,7 +340,7 @@ window.__GALLERY_MODULES__["gallery-gravityfall"] = function (React) {
         left: '5%',
         right: '5%',
         height: '1px',
-        background: `linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent)`
+        background: `linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent)`
       }
     }), items.map(item => /*#__PURE__*/React.createElement("div", {
       key: item.id,
@@ -372,9 +372,9 @@ window.__GALLERY_MODULES__["gallery-gravityfall"] = function (React) {
         top: '24px',
         right: '24px',
         padding: '10px 20px',
-        backgroundColor: 'rgba(255,255,255,0.1)',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
         backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255,255,255,0.2)',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
         borderRadius: '24px',
         color: '#ffffff',
         fontSize: '13px',
@@ -386,8 +386,8 @@ window.__GALLERY_MODULES__["gallery-gravityfall"] = function (React) {
         transition: 'all 200ms ease',
         zIndex: 10
       },
-      onMouseEnter: e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)',
-      onMouseLeave: e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'
+      onMouseEnter: e => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)',
+      onMouseLeave: e => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'
     }, "↺ Drop Again"), /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'absolute',
@@ -395,10 +395,10 @@ window.__GALLERY_MODULES__["gallery-gravityfall"] = function (React) {
         left: '50%',
         transform: 'translateX(-50%)',
         padding: '8px 16px',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         backdropFilter: 'blur(10px)',
         borderRadius: '20px',
-        color: 'rgba(255,255,255,0.7)',
+        color: 'rgba(255, 255, 255, 0.7)',
         fontSize: '11px',
         fontWeight: '500',
         textTransform: 'uppercase',

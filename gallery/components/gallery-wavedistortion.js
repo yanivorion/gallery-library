@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-wavedistortion"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200&h=800&fit=crop",
+          "defaultValue": "assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp",
           "group": "Content"
         },
         "autoPlay": {
@@ -95,7 +95,7 @@ window.__GALLERY_MODULES__["gallery-wavedistortion"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0a0a1a",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "navColor": {
@@ -124,7 +124,7 @@ window.__GALLERY_MODULES__["gallery-wavedistortion"] = function (React) {
     const waveSpeed = config?.waveSpeed || 'medium';
     const continuousWave = config?.continuousWave === true;
     const containerHeight = config?.containerHeight || '600';
-    const backgroundColor = config?.backgroundColor || '#0a0a1a';
+    const backgroundColor = config?.backgroundColor || '#111111';
     const navColor = config?.navColor || '#ffffff';
     const images = React.useMemo(() => {
       return imagesRaw.split(',').map(url => url.trim()).filter(Boolean);
@@ -251,8 +251,8 @@ window.__GALLERY_MODULES__["gallery-wavedistortion"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor,
-          color: 'rgba(255,255,255,0.5)',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          color: 'rgba(255, 255, 255, 0.5)',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, "Add comma-separated image URLs");
     }
@@ -266,7 +266,7 @@ window.__GALLERY_MODULES__["gallery-wavedistortion"] = function (React) {
         height: heightStyle,
         backgroundColor,
         overflow: 'hidden',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       dangerouslySetInnerHTML: {
@@ -292,7 +292,7 @@ window.__GALLERY_MODULES__["gallery-wavedistortion"] = function (React) {
       style: {
         position: 'absolute',
         inset: 0,
-        background: 'linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4))',
+        background: 'linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.4))',
         pointerEvents: 'none'
       }
     }), continuousWave && /*#__PURE__*/React.createElement("div", {
@@ -301,7 +301,7 @@ window.__GALLERY_MODULES__["gallery-wavedistortion"] = function (React) {
         top: '24px',
         left: '24px',
         padding: '8px 14px',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         backdropFilter: 'blur(10px)',
         borderRadius: '20px',
         color: navColor,
@@ -319,7 +319,7 @@ window.__GALLERY_MODULES__["gallery-wavedistortion"] = function (React) {
         width: '8px',
         height: '8px',
         borderRadius: '50%',
-        backgroundColor: '#4ade80',
+        backgroundColor: '#bbbbbb',
         animation: 'pulse 1.5s infinite'
       }
     }), "Wave Active"), /*#__PURE__*/React.createElement("button", {
@@ -334,7 +334,7 @@ window.__GALLERY_MODULES__["gallery-wavedistortion"] = function (React) {
         width: '50px',
         height: '50px',
         borderRadius: '50%',
-        backgroundColor: 'rgba(0,0,0,0.4)',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
         backdropFilter: 'blur(10px)',
         border: `1px solid ${navColor}30`,
         color: navColor,
@@ -359,7 +359,7 @@ window.__GALLERY_MODULES__["gallery-wavedistortion"] = function (React) {
         width: '50px',
         height: '50px',
         borderRadius: '50%',
-        backgroundColor: 'rgba(0,0,0,0.4)',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
         backdropFilter: 'blur(10px)',
         border: `1px solid ${navColor}30`,
         color: navColor,
@@ -402,7 +402,7 @@ window.__GALLERY_MODULES__["gallery-wavedistortion"] = function (React) {
         top: '24px',
         right: '24px',
         padding: '8px 14px',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         backdropFilter: 'blur(10px)',
         borderRadius: '20px',
         color: navColor,

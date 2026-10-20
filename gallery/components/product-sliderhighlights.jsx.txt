@@ -129,37 +129,37 @@ const MANIFEST = {
       "backgroundColor": {
         "dataType": "color",
         "displayName": "Background Color",
-        "defaultValue": "#FFFFFF",
+        "defaultValue": "#ffffff",
         "group": "Colors"
       },
       "cardBackground": {
         "dataType": "color",
         "displayName": "Card Background",
-        "defaultValue": "#F8FAFC",
+        "defaultValue": "#ffffff",
         "group": "Colors"
       },
       "titleColor": {
         "dataType": "color",
         "displayName": "Title Color",
-        "defaultValue": "#0F172A",
+        "defaultValue": "#111111",
         "group": "Colors"
       },
       "textColor": {
         "dataType": "color",
         "displayName": "Text Color",
-        "defaultValue": "#64748B",
+        "defaultValue": "#777777",
         "group": "Colors"
       },
       "accentColor": {
         "dataType": "color",
         "displayName": "Accent Color",
-        "defaultValue": "#EA580C",
+        "defaultValue": "#777777",
         "group": "Colors"
       },
       "borderColor": {
         "dataType": "color",
         "displayName": "Border Color",
-        "defaultValue": "#E2E8F0",
+        "defaultValue": "#eeeeee",
         "group": "Colors"
       }
     },
@@ -206,19 +206,19 @@ function Component({ config = {} }) {
     { title: config?.accordion3Title || 'Returning an item', icon: '↩️' }
   ];
   
-  const backgroundColor = config?.backgroundColor || '#FFFFFF';
-  const cardBackground = config?.cardBackground || '#F8FAFC';
-  const titleColor = config?.titleColor || '#0F172A';
-  const textColor = config?.textColor || '#64748B';
-  const accentColor = config?.accentColor || '#EA580C';
-  const borderColor = config?.borderColor || '#E2E8F0';
+  const backgroundColor = config?.backgroundColor || '#ffffff';
+  const cardBackground = config?.cardBackground || '#ffffff';
+  const titleColor = config?.titleColor || '#111111';
+  const textColor = config?.textColor || '#777777';
+  const accentColor = config?.accentColor || '#777777';
+  const borderColor = config?.borderColor || '#eeeeee';
 
   const totalSlides = 13;
   const thumbnails = Array.from({ length: 8 }, (_, i) => i);
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <span key={i} style={{ color: i < rating ? accentColor : '#E2E8F0', fontSize: '14px' }}>★</span>
+      <span key={i} style={{ color: i < rating ? accentColor : '#eeeeee', fontSize: '14px' }}>★</span>
     ));
   };
 
@@ -274,16 +274,16 @@ function Component({ config = {} }) {
               style={{
                 width: '40%',
                 height: '80%',
-                background: 'linear-gradient(180deg, #F5F5F4 0%, #E7E5E4 100%)',
+                background: 'linear-gradient(180deg, #eeeeee 0%, #dddddd 100%)',
                 borderRadius: '8px',
                 position: 'relative',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.15)'
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)'
               }}
             >
               {/* Speaker drivers */}
-              <div style={{ position: 'absolute', top: '15%', left: '50%', transform: 'translateX(-50%)', width: '60%', height: '20%', borderRadius: '50%', backgroundColor: '#1C1917' }} />
-              <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translateX(-50%)', width: '50%', height: '15%', borderRadius: '50%', backgroundColor: '#1C1917' }} />
-              <div style={{ position: 'absolute', top: '60%', left: '50%', transform: 'translateX(-50%)', width: '40%', height: '12%', borderRadius: '50%', backgroundColor: '#1C1917' }} />
+              <div style={{ position: 'absolute', top: '15%', left: '50%', transform: 'translateX(-50%)', width: '60%', height: '20%', borderRadius: '50%', backgroundColor: '#111111' }} />
+              <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translateX(-50%)', width: '50%', height: '15%', borderRadius: '50%', backgroundColor: '#111111' }} />
+              <div style={{ position: 'absolute', top: '60%', left: '50%', transform: 'translateX(-50%)', width: '40%', height: '12%', borderRadius: '50%', backgroundColor: '#111111' }} />
             </div>
 
             {/* Navigation Arrows */}
@@ -382,7 +382,7 @@ function Component({ config = {} }) {
                     width: '100%',
                     height: '100%',
                     borderRadius: '4px',
-                    backgroundColor: '#E7E5E4',
+                    backgroundColor: '#dddddd',
                     opacity: 0.4 + (index * 0.08)
                   }}
                 />
@@ -532,7 +532,7 @@ function Component({ config = {} }) {
                 padding: '16px',
                 borderRadius: '8px',
                 backgroundColor: accentColor,
-                color: '#FFFFFF',
+                color: '#ffffff',
                 border: 'none',
                 fontSize: '15px',
                 fontWeight: '500',
@@ -552,8 +552,8 @@ function Component({ config = {} }) {
                 marginBottom: '8px'
               }}
             >
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22C55E' }} />
-              <span style={{ fontSize: '14px', color: '#22C55E', fontWeight: '500' }}>
+              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#999999' }} />
+              <span style={{ fontSize: '14px', color: '#999999', fontWeight: '500' }}>
                 {stockCount} in stock - Get yours today!
               </span>
             </div>
@@ -562,7 +562,7 @@ function Component({ config = {} }) {
             <div
               style={{
                 height: '4px',
-                backgroundColor: '#22C55E',
+                backgroundColor: '#999999',
                 borderRadius: '2px',
                 marginBottom: '32px'
               }}

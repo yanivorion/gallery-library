@@ -97,19 +97,19 @@ window.__GALLERY_MODULES__["interactive-momentumcarousel"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "itemBackgroundColor": {
           "dataType": "color",
           "displayName": "Item Background",
-          "defaultValue": "#F4F4F5",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "fontSize": {
@@ -153,9 +153,9 @@ window.__GALLERY_MODULES__["interactive-momentumcarousel"] = function (React) {
     const snapToItems = config?.snapToItems !== false;
     const momentumMultiplier = parseFloat(config?.momentumMultiplier || "1.5");
     const borderRadius = parseInt(config?.borderRadius || "12");
-    const backgroundColor = config?.backgroundColor || "#FFFFFF";
-    const itemBackgroundColor = config?.itemBackgroundColor || "#F4F4F5";
-    const textColor = config?.textColor || "#18181B";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const itemBackgroundColor = config?.itemBackgroundColor || "#eeeeee";
+    const textColor = config?.textColor || "#111111";
     const fontSize = config?.fontSize || 18;
     const fontWeight = config?.fontWeight || "500";
     const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;

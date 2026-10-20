@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-glitchwave"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200&h=800&fit=crop",
+          "defaultValue": "assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp",
           "group": "Content"
         },
         "autoPlay": {
@@ -100,13 +100,13 @@ window.__GALLERY_MODULES__["gallery-glitchwave"] = function (React) {
         "glitchColor1": {
           "dataType": "color",
           "displayName": "Glitch Color 1",
-          "defaultValue": "#ff0066",
+          "defaultValue": "#444444",
           "group": "Colors"
         },
         "glitchColor2": {
           "dataType": "color",
           "displayName": "Glitch Color 2",
-          "defaultValue": "#00ffff",
+          "defaultValue": "#cccccc",
           "group": "Colors"
         },
         "navColor": {
@@ -140,8 +140,8 @@ window.__GALLERY_MODULES__["gallery-glitchwave"] = function (React) {
     const showNoise = config?.showNoise !== false;
     const containerHeight = config?.containerHeight || '600';
     const backgroundColor = config?.backgroundColor || '#000000';
-    const glitchColor1 = config?.glitchColor1 || '#ff0066';
-    const glitchColor2 = config?.glitchColor2 || '#00ffff';
+    const glitchColor1 = config?.glitchColor1 || '#444444';
+    const glitchColor2 = config?.glitchColor2 || '#cccccc';
     const navColor = config?.navColor || '#ffffff';
     const images = React.useMemo(() => {
       return imagesRaw.split(',').map(url => url.trim()).filter(Boolean);
@@ -239,8 +239,8 @@ window.__GALLERY_MODULES__["gallery-glitchwave"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor,
-          color: 'rgba(255,255,255,0.5)',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          color: 'rgba(255, 255, 255, 0.5)',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, "Add comma-separated image URLs");
     }
@@ -253,7 +253,7 @@ window.__GALLERY_MODULES__["gallery-glitchwave"] = function (React) {
         height: heightStyle,
         backgroundColor,
         overflow: 'hidden',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -379,7 +379,7 @@ window.__GALLERY_MODULES__["gallery-glitchwave"] = function (React) {
         width: '50px',
         height: '50px',
         borderRadius: '50%',
-        backgroundColor: 'rgba(0,0,0,0.6)',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
         border: `1px solid ${navColor}30`,
         color: navColor,
         fontSize: '20px',
@@ -403,7 +403,7 @@ window.__GALLERY_MODULES__["gallery-glitchwave"] = function (React) {
         width: '50px',
         height: '50px',
         borderRadius: '50%',
-        backgroundColor: 'rgba(0,0,0,0.6)',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
         border: `1px solid ${navColor}30`,
         color: navColor,
         fontSize: '20px',
@@ -422,12 +422,12 @@ window.__GALLERY_MODULES__["gallery-glitchwave"] = function (React) {
         left: '50%',
         transform: 'translateX(-50%)',
         padding: '10px 20px',
-        backgroundColor: 'rgba(0,0,0,0.6)',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
         borderRadius: '24px',
         color: navColor,
         fontSize: '13px',
         fontWeight: '500',
-        fontFamily: 'monospace',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         zIndex: 10,
         letterSpacing: '0.05em'
       }
@@ -437,14 +437,14 @@ window.__GALLERY_MODULES__["gallery-glitchwave"] = function (React) {
         top: '24px',
         right: '24px',
         padding: '8px 14px',
-        backgroundColor: 'rgba(0,0,0,0.6)',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
         borderRadius: '20px',
         color: glitchColor1,
         fontSize: '11px',
         fontWeight: '500',
         textTransform: 'uppercase',
         letterSpacing: '0.1em',
-        fontFamily: 'monospace',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         zIndex: 10
       }
     }, glitchIntensity, "_mode"));

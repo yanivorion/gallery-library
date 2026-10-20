@@ -50,22 +50,22 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
           "dataType": "text",
           "displayName": "Images (JSON Array - 6 images)",
           "defaultValue": JSON.stringify([{
-            url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+            url: "assets/02.webp",
             label: "Front"
           }, {
-            url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+            url: "assets/03.webp",
             label: "Back"
           }, {
-            url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
+            url: "assets/04.webp",
             label: "Right"
           }, {
-            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800",
+            url: "assets/05.webp",
             label: "Left"
           }, {
-            url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+            url: "assets/06.webp",
             label: "Top"
           }, {
-            url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800",
+            url: "assets/07.webp",
             label: "Bottom"
           }]),
           "group": "Content",
@@ -74,25 +74,25 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0F0F0F",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "controlsColor": {
           "dataType": "color",
           "displayName": "Controls Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "controlsBackground": {
           "dataType": "color",
           "displayName": "Controls Background",
-          "defaultValue": "#1F1F1F",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "cubeSize": {
@@ -146,29 +146,29 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
     config = {}
   }) {
     const imagesData = config?.images || JSON.stringify([{
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+      url: "assets/08.webp",
       label: "Front"
     }, {
-      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+      url: "assets/01.webp",
       label: "Back"
     }, {
-      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
+      url: "assets/02.webp",
       label: "Right"
     }, {
-      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800",
+      url: "assets/03.webp",
       label: "Left"
     }, {
-      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+      url: "assets/04.webp",
       label: "Top"
     }, {
-      url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800",
+      url: "assets/05.webp",
       label: "Bottom"
     }]);
     const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
-    const backgroundColor = config?.backgroundColor || "#0F0F0F";
-    const controlsColor = config?.controlsColor || "#FAFAFA";
-    const controlsBackground = config?.controlsBackground || "#1F1F1F";
-    const accentColor = config?.accentColor || "#3B82F6";
+    const backgroundColor = config?.backgroundColor || "#111111";
+    const controlsColor = config?.controlsColor || "#ffffff";
+    const controlsBackground = config?.controlsBackground || "#222222";
+    const accentColor = config?.accentColor || "#777777";
     const cubeSize = parseInt(config?.cubeSize || "400");
     const perspective = parseInt(config?.perspective || "1000");
     const showLabels = config?.showLabels !== false;
@@ -289,7 +289,7 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '48px 24px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -329,7 +329,7 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         position: 'absolute',
         bottom: '16px',
         left: '16px',
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         color: controlsColor,
         padding: '8px 16px',
         borderRadius: '4px',
@@ -359,7 +359,7 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         position: 'absolute',
         bottom: '16px',
         left: '16px',
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         color: controlsColor,
         padding: '8px 16px',
         borderRadius: '4px',
@@ -389,7 +389,7 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         position: 'absolute',
         bottom: '16px',
         left: '16px',
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         color: controlsColor,
         padding: '8px 16px',
         borderRadius: '4px',
@@ -419,7 +419,7 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         position: 'absolute',
         bottom: '16px',
         left: '16px',
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         color: controlsColor,
         padding: '8px 16px',
         borderRadius: '4px',
@@ -449,7 +449,7 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         position: 'absolute',
         bottom: '16px',
         left: '16px',
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         color: controlsColor,
         padding: '8px 16px',
         borderRadius: '4px',
@@ -479,7 +479,7 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         position: 'absolute',
         bottom: '16px',
         left: '16px',
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         color: controlsColor,
         padding: '8px 16px',
         borderRadius: '4px',
@@ -513,18 +513,18 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         fontSize: '20px',
         cursor: 'pointer',
         transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out, box-shadow 200ms ease-out',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
         outline: 'none'
       },
       onMouseEnter: e => {
         if (!prefersReducedMotion) {
           e.currentTarget.style.transform = 'scale(1.05)';
-          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
         }
       },
       onMouseLeave: e => {
         e.currentTarget.style.transform = 'scale(1)';
-        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
       },
       onFocus: e => {
         e.currentTarget.style.outline = `2px solid ${accentColor}`;
@@ -551,18 +551,18 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         fontSize: '20px',
         cursor: 'pointer',
         transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out, box-shadow 200ms ease-out',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
         outline: 'none'
       },
       onMouseEnter: e => {
         if (!prefersReducedMotion) {
           e.currentTarget.style.transform = 'scale(1.05)';
-          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
         }
       },
       onMouseLeave: e => {
         e.currentTarget.style.transform = 'scale(1)';
-        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
       },
       onFocus: e => {
         e.currentTarget.style.outline = `2px solid ${accentColor}`;
@@ -584,18 +584,18 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         fontSize: '20px',
         cursor: 'pointer',
         transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out, box-shadow 200ms ease-out',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
         outline: 'none'
       },
       onMouseEnter: e => {
         if (!prefersReducedMotion) {
           e.currentTarget.style.transform = 'scale(1.05)';
-          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
         }
       },
       onMouseLeave: e => {
         e.currentTarget.style.transform = 'scale(1)';
-        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
       },
       onFocus: e => {
         e.currentTarget.style.outline = `2px solid ${accentColor}`;
@@ -617,18 +617,18 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         fontSize: '20px',
         cursor: 'pointer',
         transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out, box-shadow 200ms ease-out',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
         outline: 'none'
       },
       onMouseEnter: e => {
         if (!prefersReducedMotion) {
           e.currentTarget.style.transform = 'scale(1.05)';
-          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
         }
       },
       onMouseLeave: e => {
         e.currentTarget.style.transform = 'scale(1)';
-        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
       },
       onFocus: e => {
         e.currentTarget.style.outline = `2px solid ${accentColor}`;
@@ -658,7 +658,7 @@ window.__GALLERY_MODULES__["gallery-cubegallery3d"] = function (React) {
         fontWeight: '500',
         cursor: 'pointer',
         transition: prefersReducedMotion ? 'none' : 'all 200ms ease-out',
-        boxShadow: currentFace === index ? '0 4px 12px rgba(59, 130, 246, 0.4)' : '0 2px 8px rgba(0,0,0,0.2)',
+        boxShadow: currentFace === index ? '0 4px 12px rgba(119, 119, 119, 0.4)' : '0 2px 8px rgba(0, 0, 0, 0.2)',
         outline: 'none'
       },
       onMouseEnter: e => {

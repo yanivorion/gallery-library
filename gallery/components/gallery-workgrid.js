@@ -64,19 +64,19 @@ window.__GALLERY_MODULES__["gallery-workgrid"] = function (React) {
           "defaultValue": JSON.stringify([{
             "title": "Brand Identity",
             "description": "Visual identity for digital agency",
-            "image": "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80"
+            "image": "assets/07.webp"
           }, {
             "title": "Web Experience",
             "description": "E-commerce platform redesign",
-            "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+            "image": "assets/08.webp"
           }, {
             "title": "Product Design",
             "description": "Mobile app for content creators",
-            "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80"
+            "image": "assets/01.webp"
           }, {
             "title": "Art Direction",
             "description": "Campaign for lifestyle brand",
-            "image": "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=800&q=80"
+            "image": "assets/02.webp"
           }]),
           "group": "Content",
           "description": "Array of project objects with title, description, and image URL"
@@ -84,19 +84,19 @@ window.__GALLERY_MODULES__["gallery-workgrid"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#171717",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "descriptionColor": {
           "dataType": "color",
           "displayName": "Description Color",
-          "defaultValue": "#737373",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "titleFontSize": {
@@ -158,9 +158,9 @@ window.__GALLERY_MODULES__["gallery-workgrid"] = function (React) {
   }) {
     const sectionTitle = config?.sectionTitle || "Work";
     const sectionDescription = config?.sectionDescription || "Highlights of cases that we passionately built with forward-thinking clients.";
-    const backgroundColor = config?.backgroundColor || "#FAFAFA";
-    const titleColor = config?.titleColor || "#171717";
-    const descriptionColor = config?.descriptionColor || "#737373";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const titleColor = config?.titleColor || "#111111";
+    const descriptionColor = config?.descriptionColor || "#777777";
     const titleFontSize = parseInt(config?.titleFontSize || "72");
     const titleFontWeight = config?.titleFontWeight || "600";
     const columns = config?.columns || "2";
@@ -175,26 +175,26 @@ window.__GALLERY_MODULES__["gallery-workgrid"] = function (React) {
         projects = [{
           title: "Brand Identity",
           description: "Visual identity for digital agency",
-          image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80"
+          image: "assets/03.webp"
         }, {
           title: "Web Experience",
           description: "E-commerce platform redesign",
-          image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+          image: "assets/04.webp"
         }, {
           title: "Product Design",
           description: "Mobile app for content creators",
-          image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80"
+          image: "assets/05.webp"
         }, {
           title: "Art Direction",
           description: "Campaign for lifestyle brand",
-          image: "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=800&q=80"
+          image: "assets/06.webp"
         }];
       }
     } catch (e) {
       projects = [{
         title: "Brand Identity",
         description: "Visual identity for digital agency",
-        image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80"
+        image: "assets/07.webp"
       }];
     }
     const [visibleItems, setVisibleItems] = React.useState([]);
@@ -244,7 +244,7 @@ window.__GALLERY_MODULES__["gallery-workgrid"] = function (React) {
         color: titleColor,
         margin: '0 0 24px 0',
         lineHeight: '1.1',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, sectionTitle), /*#__PURE__*/React.createElement("p", {
       style: {
@@ -254,7 +254,7 @@ window.__GALLERY_MODULES__["gallery-workgrid"] = function (React) {
         margin: 0,
         maxWidth: '600px',
         lineHeight: '1.6',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, sectionDescription)), /*#__PURE__*/React.createElement("div", {
       style: {
@@ -309,7 +309,7 @@ window.__GALLERY_MODULES__["gallery-workgrid"] = function (React) {
           color: titleColor,
           margin: '0 0 8px 0',
           lineHeight: '1.3',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, project.title), /*#__PURE__*/React.createElement("p", {
         style: {
@@ -318,7 +318,7 @@ window.__GALLERY_MODULES__["gallery-workgrid"] = function (React) {
           color: descriptionColor,
           margin: 0,
           lineHeight: '1.5',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, project.description)));
     })));

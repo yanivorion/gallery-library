@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-perspectivetunnel"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&h=300&fit=crop,https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=400&h=300&fit=crop,https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&h=300&fit=crop,https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=400&h=300&fit=crop,https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=400&h=300&fit=crop,https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=400&h=300&fit=crop",
+          "defaultValue": "assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp",
           "group": "Content",
           "description": "Comma-separated image URLs (5-8 recommended)"
         },
@@ -98,19 +98,19 @@ window.__GALLERY_MODULES__["gallery-perspectivetunnel"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0A0A0B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "frameBorderColor": {
           "dataType": "color",
           "displayName": "Frame Border Color",
-          "defaultValue": "#27272A",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "glowColor": {
           "dataType": "color",
           "displayName": "Center Glow Color",
-          "defaultValue": "#6366F1",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "borderRadius": {
@@ -166,9 +166,9 @@ window.__GALLERY_MODULES__["gallery-perspectivetunnel"] = function (React) {
     const frameSpacing = parseInt(config?.frameSpacing || '60');
     const animationMode = config?.animationMode || 'continuous';
     const animationSpeed = parseInt(config?.animationSpeed || '8');
-    const backgroundColor = config?.backgroundColor || '#0A0A0B';
-    const frameBorderColor = config?.frameBorderColor || '#27272A';
-    const glowColor = config?.glowColor || '#6366F1';
+    const backgroundColor = config?.backgroundColor || '#111111';
+    const frameBorderColor = config?.frameBorderColor || '#222222';
+    const glowColor = config?.glowColor || '#777777';
     const borderRadius = parseInt(config?.borderRadius || '8');
     const showVignette = config?.showVignette !== false;
     const enableParallax = config?.enableParallax !== false;
@@ -280,12 +280,12 @@ window.__GALLERY_MODULES__["gallery-perspectivetunnel"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '400px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: 'center',
-          color: '#71717A'
+          color: '#777777'
         }
       }, /*#__PURE__*/React.createElement("p", {
         style: {
@@ -305,7 +305,7 @@ window.__GALLERY_MODULES__["gallery-perspectivetunnel"] = function (React) {
         overflow: 'hidden',
         perspective: '1000px',
         perspectiveOrigin: '50% 50%',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, frames.map(frame => {
       const parallax = getParallaxOffset(frame.depthProgress);
@@ -325,7 +325,7 @@ window.__GALLERY_MODULES__["gallery-perspectivetunnel"] = function (React) {
           opacity: prefersReducedMotion ? frame.opacity : isInView ? frame.opacity : 0,
           transform: `translate(-50%, -50%) translate(${parallax.x}px, ${parallax.y}px) scale(${finalScale})`,
           zIndex: frame.zIndex,
-          boxShadow: `0 0 ${20 + frame.depthProgress * 40}px rgba(0,0,0,0.5)`,
+          boxShadow: `0 0 ${20 + frame.depthProgress * 40}px rgba(0, 0, 0, 0.5)`,
           transition: prefersReducedMotion ? 'none' : `opacity 600ms ease-out ${frame.index * 100}ms, transform 150ms ease-out`,
           willChange: 'transform, opacity'
         }
@@ -382,8 +382,8 @@ window.__GALLERY_MODULES__["gallery-perspectivetunnel"] = function (React) {
         right: 0,
         bottom: 0,
         background: `
-              linear-gradient(to right, transparent 49.5%, rgba(255,255,255,0.02) 50%, transparent 50.5%),
-              linear-gradient(to bottom, transparent 49.5%, rgba(255,255,255,0.02) 50%, transparent 50.5%)
+              linear-gradient(to right, transparent 49.5%, rgba(255, 255, 255, 0.02) 50%, transparent 50.5%),
+              linear-gradient(to bottom, transparent 49.5%, rgba(255, 255, 255, 0.02) 50%, transparent 50.5%)
             `,
         pointerEvents: 'none'
       }

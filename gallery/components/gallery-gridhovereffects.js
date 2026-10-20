@@ -50,51 +50,51 @@ window.__GALLERY_MODULES__["gallery-gridhovereffects"] = function (React) {
           "dataType": "text",
           "displayName": "Images (JSON Array)",
           "defaultValue": JSON.stringify([{
-            url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+            url: "assets/01.webp",
             caption: "Mountain Vista",
             subcaption: "Nature Photography"
           }, {
-            url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+            url: "assets/02.webp",
             caption: "Forest Path",
             subcaption: "Landscape"
           }, {
-            url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
+            url: "assets/03.webp",
             caption: "Desert Sunset",
             subcaption: "Travel"
           }, {
-            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800",
+            url: "assets/04.webp",
             caption: "Misty Valley",
             subcaption: "Atmospheric"
           }, {
-            url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+            url: "assets/05.webp",
             caption: "Wild Trail",
             subcaption: "Adventure"
           }, {
-            url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800",
+            url: "assets/06.webp",
             caption: "Alpine Lake",
             subcaption: "Scenic"
           }, {
-            url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
+            url: "assets/07.webp",
             caption: "Ocean Waves",
             subcaption: "Coastal"
           }, {
-            url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800",
+            url: "assets/08.webp",
             caption: "Starry Night",
             subcaption: "Astrophotography"
           }, {
-            url: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=800",
+            url: "assets/01.webp",
             caption: "Sunset Beach",
             subcaption: "Tropical"
           }, {
-            url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800",
+            url: "assets/02.webp",
             caption: "Mountain Peak",
             subcaption: "Alpine"
           }, {
-            url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800",
+            url: "assets/03.webp",
             caption: "Lake Reflection",
             subcaption: "Serene"
           }, {
-            url: "https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?w=800",
+            url: "assets/04.webp",
             caption: "Canyon View",
             subcaption: "Geological"
           }]),
@@ -104,25 +104,25 @@ window.__GALLERY_MODULES__["gallery-gridhovereffects"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FAFBFC",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "overlayColor": {
           "dataType": "color",
           "displayName": "Overlay Background",
-          "defaultValue": "#1F2937",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "gridGap": {
@@ -189,59 +189,59 @@ window.__GALLERY_MODULES__["gallery-gridhovereffects"] = function (React) {
     config = {}
   }) {
     const imagesData = config?.images || JSON.stringify([{
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+      url: "assets/05.webp",
       caption: "Mountain Vista",
       subcaption: "Nature Photography"
     }, {
-      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+      url: "assets/06.webp",
       caption: "Forest Path",
       subcaption: "Landscape"
     }, {
-      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
+      url: "assets/07.webp",
       caption: "Desert Sunset",
       subcaption: "Travel"
     }, {
-      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800",
+      url: "assets/08.webp",
       caption: "Misty Valley",
       subcaption: "Atmospheric"
     }, {
-      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+      url: "assets/01.webp",
       caption: "Wild Trail",
       subcaption: "Adventure"
     }, {
-      url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800",
+      url: "assets/02.webp",
       caption: "Alpine Lake",
       subcaption: "Scenic"
     }, {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
+      url: "assets/03.webp",
       caption: "Ocean Waves",
       subcaption: "Coastal"
     }, {
-      url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800",
+      url: "assets/04.webp",
       caption: "Starry Night",
       subcaption: "Astrophotography"
     }, {
-      url: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=800",
+      url: "assets/05.webp",
       caption: "Sunset Beach",
       subcaption: "Tropical"
     }, {
-      url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800",
+      url: "assets/06.webp",
       caption: "Mountain Peak",
       subcaption: "Alpine"
     }, {
-      url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800",
+      url: "assets/07.webp",
       caption: "Lake Reflection",
       subcaption: "Serene"
     }, {
-      url: "https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?w=800",
+      url: "assets/08.webp",
       caption: "Canyon View",
       subcaption: "Geological"
     }]);
     const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
-    const backgroundColor = config?.backgroundColor || "#FAFBFC";
-    const overlayColor = config?.overlayColor || "#1F2937";
-    const textColor = config?.textColor || "#FFFFFF";
-    const accentColor = config?.accentColor || "#3B82F6";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const overlayColor = config?.overlayColor || "#222222";
+    const textColor = config?.textColor || "#ffffff";
+    const accentColor = config?.accentColor || "#777777";
     const gridGap = parseInt(config?.gridGap || "16");
     const columnMinWidth = parseInt(config?.columnMinWidth || "280");
     const imageAspectRatio = config?.imageAspectRatio || "4/3";
@@ -270,7 +270,7 @@ window.__GALLERY_MODULES__["gallery-gridhovereffects"] = function (React) {
           return {
             ...baseStyles,
             transform: isHovered ? 'translateY(-8px)' : 'translateY(0)',
-            boxShadow: isHovered ? '0 12px 24px rgba(0,0,0,0.15), 0 24px 48px rgba(0,0,0,0.12)' : '0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)'
+            boxShadow: isHovered ? '0 12px 24px rgba(0, 0, 0, 0.15), 0 24px 48px rgba(0, 0, 0, 0.12)' : '0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06)'
           };
         case 'overlay-zoom':
           return {
@@ -288,7 +288,7 @@ window.__GALLERY_MODULES__["gallery-gridhovereffects"] = function (React) {
         backgroundColor: backgroundColor,
         padding: '48px 24px',
         minHeight: '100vh',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -315,7 +315,7 @@ window.__GALLERY_MODULES__["gallery-gridhovereffects"] = function (React) {
           borderRadius: `${borderRadius}px`,
           overflow: 'hidden',
           cursor: 'pointer',
-          boxShadow: hoverEffect === 'lift' ? isHovered ? '0 12px 24px rgba(0,0,0,0.15), 0 24px 48px rgba(0,0,0,0.12)' : '0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)' : '0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)',
+          boxShadow: hoverEffect === 'lift' ? isHovered ? '0 12px 24px rgba(0, 0, 0, 0.15), 0 24px 48px rgba(0, 0, 0, 0.12)' : '0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06)' : '0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06)',
           outline: 'none',
           ...getHoverStyles(isHovered)
         },

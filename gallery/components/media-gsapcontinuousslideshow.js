@@ -55,7 +55,7 @@ window.__GALLERY_MODULES__["media-gsapcontinuousslideshow"] = function (React) {
         "backgroundImages": {
           "dataType": "text",
           "displayName": "Background Images (comma-separated URLs)",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200,https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=1200,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200,https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1200,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1200",
+          "defaultValue": "assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp",
           "group": "Content"
         },
         "animationDuration": {
@@ -97,7 +97,7 @@ window.__GALLERY_MODULES__["media-gsapcontinuousslideshow"] = function (React) {
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "overlayOpacity": {
@@ -126,13 +126,13 @@ window.__GALLERY_MODULES__["media-gsapcontinuousslideshow"] = function (React) {
 
     // Safe config access
     const headings = (config?.sections || 'Scroll down,Animated with GSAP,GreenSock,Animation platform,Keep scrolling').split(',');
-    const bgImages = (config?.backgroundImages || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200,https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=1200,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200,https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1200,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1200').split(',');
+    const bgImages = (config?.backgroundImages || 'assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp').split(',');
     const duration = parseFloat(config?.animationDuration) || 1.25;
     const charStagger = parseFloat(config?.charStagger) || 0.02;
     const parallaxAmount = parseInt(config?.parallaxAmount) || 15;
     const fontSize = config?.fontSize || 64;
     const fontWeight = config?.fontWeight || '700';
-    const textColor = config?.textColor || '#FFFFFF';
+    const textColor = config?.textColor || '#ffffff';
     const overlayOpacity = parseFloat(config?.overlayOpacity) || 0.3;
     const totalSections = headings.length;
 
@@ -319,7 +319,7 @@ window.__GALLERY_MODULES__["media-gsapcontinuousslideshow"] = function (React) {
         width: '100%',
         height: '100vh',
         overflow: 'hidden',
-        fontFamily: "'Inter', sans-serif",
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         touchAction: 'none'
       }
     }, headings.map((heading, index) => {

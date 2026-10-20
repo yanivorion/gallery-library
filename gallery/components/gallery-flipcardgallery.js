@@ -95,31 +95,31 @@ window.__GALLERY_MODULES__["gallery-flipcardgallery"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "cardFrontColor": {
           "dataType": "color",
           "displayName": "Card Front Background",
-          "defaultValue": "#27272A",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "cardBackColor": {
           "dataType": "color",
           "displayName": "Card Back Background",
-          "defaultValue": "#3F3F46",
+          "defaultValue": "#444444",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#71717A",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "titleFontSize": {
@@ -171,11 +171,11 @@ window.__GALLERY_MODULES__["gallery-flipcardgallery"] = function (React) {
     const enableMagnifier = config?.enableMagnifier !== false;
     const magnifierSize = parseInt(config?.magnifierSize || "120");
     const tiltIntensity = config?.tiltIntensity || "medium";
-    const backgroundColor = config?.backgroundColor || "#18181B";
-    const cardFrontColor = config?.cardFrontColor || "#27272A";
-    const cardBackColor = config?.cardBackColor || "#3F3F46";
-    const textColor = config?.textColor || "#FAFAFA";
-    const accentColor = config?.accentColor || "#71717A";
+    const backgroundColor = config?.backgroundColor || "#111111";
+    const cardFrontColor = config?.cardFrontColor || "#222222";
+    const cardBackColor = config?.cardBackColor || "#444444";
+    const textColor = config?.textColor || "#ffffff";
+    const accentColor = config?.accentColor || "#777777";
     const titleFontSize = config?.titleFontSize || 24;
     const bodyFontSize = config?.bodyFontSize || 14;
     const fontWeight = config?.fontWeight || "400";
@@ -261,7 +261,7 @@ window.__GALLERY_MODULES__["gallery-flipcardgallery"] = function (React) {
         minHeight: '100vh',
         backgroundColor: backgroundColor,
         padding: '80px 40px',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         perspective: '1200px'
       }
     }, /*#__PURE__*/React.createElement("div", {

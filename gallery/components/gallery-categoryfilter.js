@@ -50,51 +50,51 @@ window.__GALLERY_MODULES__["gallery-categoryfilter"] = function (React) {
           "dataType": "text",
           "displayName": "Images (JSON Array)",
           "defaultValue": JSON.stringify([{
-            url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+            url: "assets/03.webp",
             caption: "Mountain Vista",
             category: "Nature"
           }, {
-            url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+            url: "assets/04.webp",
             caption: "Forest Path",
             category: "Nature"
           }, {
-            url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
+            url: "assets/05.webp",
             caption: "Desert Sunset",
             category: "Nature"
           }, {
-            url: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800",
+            url: "assets/06.webp",
             caption: "City Skyline",
             category: "Urban"
           }, {
-            url: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800",
+            url: "assets/07.webp",
             caption: "Street Art",
             category: "Urban"
           }, {
-            url: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800",
+            url: "assets/08.webp",
             caption: "Concert Crowd",
             category: "People"
           }, {
-            url: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800",
+            url: "assets/01.webp",
             caption: "Friends Laughing",
             category: "People"
           }, {
-            url: "https://images.unsplash.com/photo-1502301103665-0b95cc738daf?w=800",
+            url: "assets/02.webp",
             caption: "Abstract Art",
             category: "Abstract"
           }, {
-            url: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800",
+            url: "assets/03.webp",
             caption: "Color Splash",
             category: "Abstract"
           }, {
-            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800",
+            url: "assets/04.webp",
             caption: "Misty Valley",
             category: "Nature"
           }, {
-            url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800",
+            url: "assets/05.webp",
             caption: "Urban Night",
             category: "Urban"
           }, {
-            url: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800",
+            url: "assets/06.webp",
             caption: "Portrait",
             category: "People"
           }]),
@@ -104,31 +104,31 @@ window.__GALLERY_MODULES__["gallery-categoryfilter"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FAFBFC",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "cardBackground": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#1F2937",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "filterInactiveColor": {
           "dataType": "color",
           "displayName": "Filter Inactive Color",
-          "defaultValue": "#E5E7EB",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Active Filter Color",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "gridGap": {
@@ -186,60 +186,60 @@ window.__GALLERY_MODULES__["gallery-categoryfilter"] = function (React) {
     config = {}
   }) {
     const imagesData = config?.images || JSON.stringify([{
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+      url: "assets/07.webp",
       caption: "Mountain Vista",
       category: "Nature"
     }, {
-      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+      url: "assets/08.webp",
       caption: "Forest Path",
       category: "Nature"
     }, {
-      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
+      url: "assets/01.webp",
       caption: "Desert Sunset",
       category: "Nature"
     }, {
-      url: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800",
+      url: "assets/02.webp",
       caption: "City Skyline",
       category: "Urban"
     }, {
-      url: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800",
+      url: "assets/03.webp",
       caption: "Street Art",
       category: "Urban"
     }, {
-      url: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800",
+      url: "assets/04.webp",
       caption: "Concert Crowd",
       category: "People"
     }, {
-      url: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800",
+      url: "assets/05.webp",
       caption: "Friends Laughing",
       category: "People"
     }, {
-      url: "https://images.unsplash.com/photo-1502301103665-0b95cc738daf?w=800",
+      url: "assets/06.webp",
       caption: "Abstract Art",
       category: "Abstract"
     }, {
-      url: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800",
+      url: "assets/07.webp",
       caption: "Color Splash",
       category: "Abstract"
     }, {
-      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800",
+      url: "assets/08.webp",
       caption: "Misty Valley",
       category: "Nature"
     }, {
-      url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800",
+      url: "assets/01.webp",
       caption: "Urban Night",
       category: "Urban"
     }, {
-      url: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800",
+      url: "assets/02.webp",
       caption: "Portrait",
       category: "People"
     }]);
     const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
-    const backgroundColor = config?.backgroundColor || "#FAFBFC";
-    const cardBackground = config?.cardBackground || "#FFFFFF";
-    const textColor = config?.textColor || "#1F2937";
-    const filterInactiveColor = config?.filterInactiveColor || "#E5E7EB";
-    const accentColor = config?.accentColor || "#3B82F6";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const cardBackground = config?.cardBackground || "#ffffff";
+    const textColor = config?.textColor || "#222222";
+    const filterInactiveColor = config?.filterInactiveColor || "#eeeeee";
+    const accentColor = config?.accentColor || "#777777";
     const gridGap = parseInt(config?.gridGap || "16");
     const columnMinWidth = parseInt(config?.columnMinWidth || "250");
     const borderRadius = parseInt(config?.borderRadius || "8");
@@ -292,7 +292,7 @@ window.__GALLERY_MODULES__["gallery-categoryfilter"] = function (React) {
         fontWeight: '500',
         transition: prefersReducedMotion ? 'none' : 'all 300ms ease-out',
         outline: 'none',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       };
       switch (filterButtonStyle) {
         case 'minimal':
@@ -308,7 +308,7 @@ window.__GALLERY_MODULES__["gallery-categoryfilter"] = function (React) {
           return {
             ...baseStyles,
             backgroundColor: isActive ? accentColor : 'transparent',
-            color: isActive ? '#FFFFFF' : textColor,
+            color: isActive ? '#ffffff' : textColor,
             padding: '10px 20px',
             borderRadius: `${borderRadius}px`,
             border: isActive ? 'none' : `1px solid ${filterInactiveColor}`
@@ -318,7 +318,7 @@ window.__GALLERY_MODULES__["gallery-categoryfilter"] = function (React) {
           return {
             ...baseStyles,
             backgroundColor: isActive ? accentColor : filterInactiveColor,
-            color: isActive ? '#FFFFFF' : textColor,
+            color: isActive ? '#ffffff' : textColor,
             padding: '10px 20px',
             borderRadius: '24px'
           };
@@ -330,7 +330,7 @@ window.__GALLERY_MODULES__["gallery-categoryfilter"] = function (React) {
         backgroundColor: backgroundColor,
         padding: '48px 24px',
         minHeight: '100vh',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -353,17 +353,17 @@ window.__GALLERY_MODULES__["gallery-categoryfilter"] = function (React) {
         "aria-pressed": isActive,
         style: {
           ...getFilterButtonStyles(isActive),
-          boxShadow: isActive ? '0 2px 8px rgba(59, 130, 246, 0.3)' : 'none'
+          boxShadow: isActive ? '0 2px 8px rgba(119, 119, 119, 0.3)' : 'none'
         },
         onMouseEnter: e => {
           if (!prefersReducedMotion && !isActive) {
             e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
           }
         },
         onMouseLeave: e => {
           e.currentTarget.style.transform = 'translateY(0)';
-          e.currentTarget.style.boxShadow = isActive ? '0 2px 8px rgba(59, 130, 246, 0.3)' : 'none';
+          e.currentTarget.style.boxShadow = isActive ? '0 2px 8px rgba(119, 119, 119, 0.3)' : 'none';
         },
         onFocus: e => {
           e.currentTarget.style.outline = `2px solid ${accentColor}`;
@@ -393,7 +393,7 @@ window.__GALLERY_MODULES__["gallery-categoryfilter"] = function (React) {
         backgroundColor: cardBackground,
         borderRadius: `${borderRadius}px`,
         overflow: 'hidden',
-        boxShadow: '0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03)',
+        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03)',
         cursor: 'pointer',
         transition: prefersReducedMotion ? 'none' : 'transform 250ms ease-out, box-shadow 250ms ease-out',
         animation: prefersReducedMotion ? 'none' : `fadeInStagger ${transitionDuration}ms ease-out ${index * 50}ms both`
@@ -401,12 +401,12 @@ window.__GALLERY_MODULES__["gallery-categoryfilter"] = function (React) {
       onMouseEnter: e => {
         if (!prefersReducedMotion) {
           e.currentTarget.style.transform = 'scale(1.02)';
-          e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1), 0 12px 24px rgba(0,0,0,0.08)';
+          e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.08)';
         }
       },
       onMouseLeave: e => {
         e.currentTarget.style.transform = 'scale(1)';
-        e.currentTarget.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03)';
+        e.currentTarget.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03)';
       }
     }, /*#__PURE__*/React.createElement("img", {
       src: image.url,

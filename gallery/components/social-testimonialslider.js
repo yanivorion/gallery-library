@@ -99,49 +99,49 @@ window.__GALLERY_MODULES__["social-testimonialslider"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#F8F9FA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "cardBackground": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "quoteColor": {
           "dataType": "color",
           "displayName": "Quote Text Color",
-          "defaultValue": "#212529",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "authorColor": {
           "dataType": "color",
           "displayName": "Author Name Color",
-          "defaultValue": "#212529",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "roleColor": {
           "dataType": "color",
           "displayName": "Role Text Color",
-          "defaultValue": "#6C757D",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "starColor": {
           "dataType": "color",
           "displayName": "Star Rating Color",
-          "defaultValue": "#FFC107",
+          "defaultValue": "#bbbbbb",
           "group": "Colors"
         },
         "dotActiveColor": {
           "dataType": "color",
           "displayName": "Active Dot Color",
-          "defaultValue": "#212529",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "dotInactiveColor": {
           "dataType": "color",
           "displayName": "Inactive Dot Color",
-          "defaultValue": "#CED4DA",
+          "defaultValue": "#cccccc",
           "group": "Colors"
         }
       },
@@ -162,14 +162,14 @@ window.__GALLERY_MODULES__["social-testimonialslider"] = function (React) {
     const quoteSize = parseInt(config?.quoteSize || "24");
     const authorSize = parseInt(config?.authorSize || "18");
     const fontWeight = config?.fontWeight || "400";
-    const backgroundColor = config?.backgroundColor || "#F8F9FA";
-    const cardBackground = config?.cardBackground || "#FFFFFF";
-    const quoteColor = config?.quoteColor || "#212529";
-    const authorColor = config?.authorColor || "#212529";
-    const roleColor = config?.roleColor || "#6C757D";
-    const starColor = config?.starColor || "#FFC107";
-    const dotActiveColor = config?.dotActiveColor || "#212529";
-    const dotInactiveColor = config?.dotInactiveColor || "#CED4DA";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const cardBackground = config?.cardBackground || "#ffffff";
+    const quoteColor = config?.quoteColor || "#222222";
+    const authorColor = config?.authorColor || "#222222";
+    const roleColor = config?.roleColor || "#777777";
+    const starColor = config?.starColor || "#bbbbbb";
+    const dotActiveColor = config?.dotActiveColor || "#222222";
+    const dotInactiveColor = config?.dotInactiveColor || "#cccccc";
     const [currentIndex, setCurrentIndex] = React.useState(0);
     const [isPaused, setIsPaused] = React.useState(false);
     const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
@@ -204,7 +204,7 @@ window.__GALLERY_MODULES__["social-testimonialslider"] = function (React) {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '4rem 2rem',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       onMouseEnter: () => setIsPaused(true),
@@ -233,7 +233,7 @@ window.__GALLERY_MODULES__["social-testimonialslider"] = function (React) {
         backgroundColor: cardBackground,
         borderRadius: '12px',
         padding: '3rem',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08)',
         opacity: index === currentIndex ? 1 : 0,
         transform: prefersReducedMotion ? 'none' : index === currentIndex ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
         transition: prefersReducedMotion ? 'opacity 0ms' : 'all 500ms cubic-bezier(0.22, 1, 0.36, 1)',

@@ -96,19 +96,19 @@ window.__GALLERY_MODULES__["gallery-circularshowcase"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "itemBorderColor": {
           "dataType": "color",
           "displayName": "Item Border Color",
-          "defaultValue": "#E4E4E7",
+          "defaultValue": "#dddddd",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "centerOverlayColor": {
@@ -146,35 +146,35 @@ window.__GALLERY_MODULES__["gallery-circularshowcase"] = function (React) {
     const autoRotate = config?.autoRotate || false;
     const rotationSpeed = parseFloat(config?.rotationSpeed || "30");
     const blurAmount = parseInt(config?.blurAmount || "6");
-    const backgroundColor = config?.backgroundColor || "#FAFAFA";
-    const itemBorderColor = config?.itemBorderColor || "#E4E4E7";
-    const textColor = config?.textColor || "#18181B";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const itemBorderColor = config?.itemBorderColor || "#dddddd";
+    const textColor = config?.textColor || "#111111";
     const centerOverlayColor = config?.centerOverlayColor || "#000000";
     const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
     const projects = [{
       title: "Alpine Retreat",
       category: "Architecture",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=800&fit=crop"
+      image: "assets/07.webp"
     }, {
       title: "Urban Oasis",
       category: "Interior Design",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=800&fit=crop"
+      image: "assets/08.webp"
     }, {
       title: "Coastal Modern",
       category: "Residential",
-      image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=800&fit=crop"
+      image: "assets/01.webp"
     }, {
       title: "Minimal Studio",
       category: "Commercial",
-      image: "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&h=800&fit=crop"
+      image: "assets/02.webp"
     }, {
       title: "Garden Villa",
       category: "Landscape",
-      image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=800&fit=crop"
+      image: "assets/03.webp"
     }, {
       title: "Tech Hub",
       category: "Corporate",
-      image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=800&fit=crop"
+      image: "assets/04.webp"
     }];
 
     // Momentum animation
@@ -245,7 +245,7 @@ window.__GALLERY_MODULES__["gallery-circularshowcase"] = function (React) {
       justifyContent: 'center',
       position: 'relative',
       overflow: 'hidden',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
       cursor: enableDragRotation && selectedIndex === null ? isDragging ? 'grabbing' : 'grab' : 'default',
       userSelect: 'none'
     };
@@ -278,7 +278,7 @@ window.__GALLERY_MODULES__["gallery-circularshowcase"] = function (React) {
         overflow: 'hidden',
         cursor: selectedIndex === null ? 'pointer' : isSelected ? 'default' : 'pointer',
         border: `2px solid ${itemBorderColor}`,
-        boxShadow: isSelected ? '0 20px 60px rgba(0,0,0,0.3)' : '0 4px 12px rgba(0,0,0,0.1)',
+        boxShadow: isSelected ? '0 20px 60px rgba(0, 0, 0, 0.3)' : '0 4px 12px rgba(0, 0, 0, 0.1)',
         transition: prefersReducedMotion ? 'none' : 'transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 300ms ease-out, filter 300ms ease-out, box-shadow 300ms ease-out',
         opacity: isInactive ? 0.3 : 1,
         filter: isInactive ? `blur(${blurAmount}px)` : 'blur(0px)',
@@ -306,7 +306,7 @@ window.__GALLERY_MODULES__["gallery-circularshowcase"] = function (React) {
       pointerEvents: selectedIndex !== null ? 'auto' : 'none',
       transition: prefersReducedMotion ? 'none' : 'opacity 400ms ease-out, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1)',
       transform: selectedIndex !== null ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0.8)',
-      boxShadow: '0 30px 90px rgba(0,0,0,0.4)',
+      boxShadow: '0 30px 90px rgba(0, 0, 0, 0.4)',
       zIndex: 200,
       border: `3px solid ${itemBorderColor}`
     };
@@ -322,7 +322,7 @@ window.__GALLERY_MODULES__["gallery-circularshowcase"] = function (React) {
       right: 0,
       background: `linear-gradient(to top, ${centerOverlayColor}, transparent)`,
       padding: '40px 24px 24px',
-      color: '#FFFFFF'
+      color: '#ffffff'
     };
     const centerTitleStyle = {
       fontSize: '28px',
@@ -343,7 +343,7 @@ window.__GALLERY_MODULES__["gallery-circularshowcase"] = function (React) {
       width: '36px',
       height: '36px',
       borderRadius: '50%',
-      backgroundColor: 'rgba(255,255,255,0.9)',
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
       backdropFilter: 'blur(10px)',
       WebkitBackdropFilter: 'blur(10px)',
       border: 'none',

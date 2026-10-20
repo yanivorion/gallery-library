@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (3 images)",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=400&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600&h=400&fit=crop",
+          "defaultValue": "assets/02.webp,assets/03.webp,assets/04.webp",
           "group": "Content"
         },
         "autoRotate": {
@@ -95,7 +95,7 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0a0a1a",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "navColor": {
@@ -118,7 +118,7 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
     const prismWidth = parseInt(config?.prismWidth || '500');
     const prismHeight = parseInt(config?.prismHeight || '350');
     const showReflection = config?.showReflection !== false;
-    const backgroundColor = config?.backgroundColor || '#0a0a1a';
+    const backgroundColor = config?.backgroundColor || '#111111';
     const navColor = config?.navColor || '#ffffff';
     const images = React.useMemo(() => {
       const imgs = imagesRaw.split(',').map(url => url.trim()).filter(Boolean);
@@ -151,8 +151,8 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor,
-          color: 'rgba(255,255,255,0.5)',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          color: 'rgba(255, 255, 255, 0.5)',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, "Add comma-separated image URLs (3 images)");
     }
@@ -166,7 +166,7 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '40px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -191,7 +191,7 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
         backfaceVisibility: 'hidden',
         overflow: 'hidden',
         borderRadius: '8px',
-        boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
+        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)'
       }
     }, /*#__PURE__*/React.createElement("img", {
       src: images[0],
@@ -210,7 +210,7 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
         backfaceVisibility: 'hidden',
         overflow: 'hidden',
         borderRadius: '8px',
-        boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
+        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)'
       }
     }, /*#__PURE__*/React.createElement("img", {
       src: images[1],
@@ -229,7 +229,7 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
         backfaceVisibility: 'hidden',
         overflow: 'hidden',
         borderRadius: '8px',
-        boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
+        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)'
       }
     }, /*#__PURE__*/React.createElement("img", {
       src: images[2],
@@ -248,8 +248,8 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
         transform: 'scaleY(-1)',
         height: `${prismHeight * 0.3}px`,
         overflow: 'hidden',
-        maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%)',
-        WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%)'
+        maskImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, transparent 100%)'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -319,8 +319,8 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
         width: '48px',
         height: '48px',
         borderRadius: '50%',
-        backgroundColor: 'rgba(255,255,255,0.1)',
-        border: '1px solid rgba(255,255,255,0.2)',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
         color: navColor,
         fontSize: '18px',
         cursor: 'pointer',
@@ -329,8 +329,8 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
         justifyContent: 'center',
         transition: 'all 200ms ease'
       },
-      onMouseEnter: e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)',
-      onMouseLeave: e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'
+      onMouseEnter: e => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)',
+      onMouseLeave: e => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'
     }, "←"), /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'flex',
@@ -357,8 +357,8 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
         width: '48px',
         height: '48px',
         borderRadius: '50%',
-        backgroundColor: 'rgba(255,255,255,0.1)',
-        border: '1px solid rgba(255,255,255,0.2)',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
         color: navColor,
         fontSize: '18px',
         cursor: 'pointer',
@@ -367,8 +367,8 @@ window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
         justifyContent: 'center',
         transition: 'all 200ms ease'
       },
-      onMouseEnter: e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)',
-      onMouseLeave: e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'
+      onMouseEnter: e => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)',
+      onMouseLeave: e => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'
     }, "→")));
   }
   return {

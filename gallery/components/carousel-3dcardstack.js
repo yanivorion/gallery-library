@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["carousel-3dcardstack"] = function (React) {
         "card1Image": {
           "dataType": "text",
           "displayName": "Card 1 Image URL",
-          "defaultValue": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=800&fit=crop",
+          "defaultValue": "assets/01.webp",
           "group": "Content"
         },
         "card1Title": {
@@ -67,7 +67,7 @@ window.__GALLERY_MODULES__["carousel-3dcardstack"] = function (React) {
         "card2Image": {
           "dataType": "text",
           "displayName": "Card 2 Image URL",
-          "defaultValue": "https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=600&h=800&fit=crop",
+          "defaultValue": "assets/02.webp",
           "group": "Content"
         },
         "card2Title": {
@@ -85,7 +85,7 @@ window.__GALLERY_MODULES__["carousel-3dcardstack"] = function (React) {
         "card3Image": {
           "dataType": "text",
           "displayName": "Card 3 Image URL",
-          "defaultValue": "https://images.unsplash.com/photo-1618556450991-2f1af64e8191?w=600&h=800&fit=crop",
+          "defaultValue": "assets/03.webp",
           "group": "Content"
         },
         "card3Title": {
@@ -103,7 +103,7 @@ window.__GALLERY_MODULES__["carousel-3dcardstack"] = function (React) {
         "card4Image": {
           "dataType": "text",
           "displayName": "Card 4 Image URL",
-          "defaultValue": "https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=600&h=800&fit=crop",
+          "defaultValue": "assets/04.webp",
           "group": "Content"
         },
         "card4Title": {
@@ -134,49 +134,49 @@ window.__GALLERY_MODULES__["carousel-3dcardstack"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#F8F9FA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "cardBackgroundColor": {
           "dataType": "color",
           "displayName": "Card Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#212529",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "subtitleColor": {
           "dataType": "color",
           "displayName": "Subtitle Color",
-          "defaultValue": "#6C757D",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "navButtonColor": {
           "dataType": "color",
           "displayName": "Navigation Button Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         },
         "navButtonHoverColor": {
           "dataType": "color",
           "displayName": "Nav Button Hover Color",
-          "defaultValue": "#212529",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "dotColor": {
           "dataType": "color",
           "displayName": "Dot Indicator Color",
-          "defaultValue": "#CED4DA",
+          "defaultValue": "#cccccc",
           "group": "Colors"
         },
         "dotActiveColor": {
           "dataType": "color",
           "displayName": "Active Dot Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         },
         "fontFamily": {
@@ -218,32 +218,32 @@ window.__GALLERY_MODULES__["carousel-3dcardstack"] = function (React) {
     const [currentIndex, setCurrentIndex] = React.useState(0);
     const [isHovering, setIsHovering] = React.useState(false);
     const cards = [{
-      image: config?.card1Image || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=800&fit=crop",
+      image: config?.card1Image || "assets/05.webp",
       title: config?.card1Title || "Urban Architecture",
       subtitle: config?.card1Subtitle || "Modern Design"
     }, {
-      image: config?.card2Image || "https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=600&h=800&fit=crop",
+      image: config?.card2Image || "assets/06.webp",
       title: config?.card2Title || "Natural Landscapes",
       subtitle: config?.card2Subtitle || "Scenic Views"
     }, {
-      image: config?.card3Image || "https://images.unsplash.com/photo-1618556450991-2f1af64e8191?w=600&h=800&fit=crop",
+      image: config?.card3Image || "assets/07.webp",
       title: config?.card3Title || "Abstract Forms",
       subtitle: config?.card3Subtitle || "Digital Art"
     }, {
-      image: config?.card4Image || "https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=600&h=800&fit=crop",
+      image: config?.card4Image || "assets/08.webp",
       title: config?.card4Title || "Minimalist Spaces",
       subtitle: config?.card4Subtitle || "Interior Design"
     }];
     const autoPlay = config?.autoPlay !== false;
     const autoPlaySpeed = parseInt(config?.autoPlaySpeed || "4") * 1000;
-    const backgroundColor = config?.backgroundColor || "#F8F9FA";
-    const cardBackgroundColor = config?.cardBackgroundColor || "#FFFFFF";
-    const titleColor = config?.titleColor || "#212529";
-    const subtitleColor = config?.subtitleColor || "#6C757D";
-    const navButtonColor = config?.navButtonColor || "#495057";
-    const navButtonHoverColor = config?.navButtonHoverColor || "#212529";
-    const dotColor = config?.dotColor || "#CED4DA";
-    const dotActiveColor = config?.dotActiveColor || "#495057";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const cardBackgroundColor = config?.cardBackgroundColor || "#ffffff";
+    const titleColor = config?.titleColor || "#222222";
+    const subtitleColor = config?.subtitleColor || "#777777";
+    const navButtonColor = config?.navButtonColor || "#555555";
+    const navButtonHoverColor = config?.navButtonHoverColor || "#222222";
+    const dotColor = config?.dotColor || "#cccccc";
+    const dotActiveColor = config?.dotActiveColor || "#555555";
     const fontFamily = config?.fontFamily || "system-ui";
     const titleSize = config?.titleSize || 24;
     const subtitleSize = config?.subtitleSize || 14;
@@ -347,7 +347,7 @@ window.__GALLERY_MODULES__["carousel-3dcardstack"] = function (React) {
           backgroundColor: cardBackgroundColor,
           borderRadius: cardBorderRadius,
           overflow: 'hidden',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
           cursor: index !== currentIndex && Math.abs(index - currentIndex) === 1 ? 'pointer' : 'default',
           ...style,
           transition: prefersReducedMotion ? 'none' : 'all 600ms cubic-bezier(0.22, 1, 0.36, 1)',
@@ -407,7 +407,7 @@ window.__GALLERY_MODULES__["carousel-3dcardstack"] = function (React) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
         transition: prefersReducedMotion ? 'none' : 'all 200ms ease-out'
       },
       onMouseEnter: e => {
@@ -444,7 +444,7 @@ window.__GALLERY_MODULES__["carousel-3dcardstack"] = function (React) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
         transition: prefersReducedMotion ? 'none' : 'all 200ms ease-out'
       },
       onMouseEnter: e => {

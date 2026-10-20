@@ -49,14 +49,14 @@ window.__GALLERY_MODULES__["gallery-perspectiveticker"] = function (React) {
         "galleryItems": {
           "dataType": "text",
           "displayName": "Gallery Items",
-          "defaultValue": "https://unsplash.com/photos/_LuLiJc1cdo/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nzl8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NzI2NjF8MA&force=true,https://unsplash.com/photos/_RBcxo9AU-U/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTh8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NTUzODd8MA&force=true,https://unsplash.com/photos/-G3rw6Y02D0/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NjN8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NzI2NjF8MA&force=true,https://unsplash.com/photos/-qrcOR33ErA/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NzB8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NzI2NjF8MA&force=true,https://unsplash.com/photos/-SO3JtE3gZo/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MzF8fG5hdHVyZXxlbnwwfHx8fDE3NjA0MjExMTd8MA&force=true,https://unsplash.com/photos/01_igFr7hd4/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MjB8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NTUzODd8MA&force=true,https://unsplash.com/photos/1h2Pg97SXfA/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mjh8fG5hdHVyZXxlbnwwfHx8fDE3NjA0MjExMTd8MA&force=true,https://unsplash.com/photos/1OtUkD_8svc/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MzR8fG5hdHVyZXxlbnwwfHx8fDE3NjA0MjExMTd8MA&force=true,https://unsplash.com/photos/1Z2niiBPg5A/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8bmF0dXJlfGVufDB8fHx8MTc2MDQ1NTM4N3ww&force=true,https://unsplash.com/photos/2VDa8bnLM8c/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTExfHxuYXR1cmV8ZW58MHx8fHwxNzYwNDY3MTA4fDA&force=true,https://unsplash.com/photos/3B_NrzTjajc/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTAyfHxuYXR1cmV8ZW58MHx8fHwxNzYwNDY3MTA4fDA&force=true,https://unsplash.com/photos/4rDCa5hBlCs/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTZ8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NTUzODd8MA&force=true",
+          "defaultValue": "assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp",
           "group": "Content",
           "description": "Comma-separated list of image URLs for gallery items"
         },
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0A0A0A",
+          "defaultValue": "#111111",
           "group": "Colors",
           "description": "Main background color"
         },
@@ -70,14 +70,14 @@ window.__GALLERY_MODULES__["gallery-perspectiveticker"] = function (React) {
         "itemHoverBorderColor": {
           "dataType": "color",
           "displayName": "Item Hover Border Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors",
           "description": "Border color on hover"
         },
         "navigationColor": {
           "dataType": "color",
           "displayName": "Navigation Text Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors",
           "description": "Color of prev/next navigation text"
         },
@@ -137,11 +137,11 @@ window.__GALLERY_MODULES__["gallery-perspectiveticker"] = function (React) {
   function Component({
     config = {}
   }) {
-    const galleryItemsRaw = config?.galleryItems || "https://unsplash.com/photos/_LuLiJc1cdo/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nzl8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NzI2NjF8MA&force=true,https://unsplash.com/photos/_RBcxo9AU-U/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTh8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NTUzODd8MA&force=true,https://unsplash.com/photos/-G3rw6Y02D0/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NjN8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NzI2NjF8MA&force=true,https://unsplash.com/photos/-qrcOR33ErA/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NzB8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NzI2NjF8MA&force=true,https://unsplash.com/photos/-SO3JtE3gZo/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MzF8fG5hdHVyZXxlbnwwfHx8fDE3NjA0MjExMTd8MA&force=true,https://unsplash.com/photos/01_igFr7hd4/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MjB8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NTUzODd8MA&force=true,https://unsplash.com/photos/1h2Pg97SXfA/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mjh8fG5hdHVyZXxlbnwwfHx8fDE3NjA0MjExMTd8MA&force=true,https://unsplash.com/photos/1OtUkD_8svc/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MzR8fG5hdHVyZXxlbnwwfHx8fDE3NjA0MjExMTd8MA&force=true,https://unsplash.com/photos/1Z2niiBPg5A/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Nnx8bmF0dXJlfGVufDB8fHx8MTc2MDQ1NTM4N3ww&force=true,https://unsplash.com/photos/2VDa8bnLM8c/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTExfHxuYXR1cmV8ZW58MHx8fHwxNzYwNDY3MTA4fDA&force=true,https://unsplash.com/photos/3B_NrzTjajc/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTAyfHxuYXR1cmV8ZW58MHx8fHwxNzYwNDY3MTA4fDA&force=true,https://unsplash.com/photos/4rDCa5hBlCs/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTZ8fG5hdHVyZXxlbnwwfHx8fDE3NjA0NTUzODd8MA&force=true";
-    const backgroundColor = config?.backgroundColor || "#0A0A0A";
+    const galleryItemsRaw = config?.galleryItems || "assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp";
+    const backgroundColor = config?.backgroundColor || "#111111";
     const itemBorderColor = config?.itemBorderColor || "#333333";
-    const itemHoverBorderColor = config?.itemHoverBorderColor || "#FFFFFF";
-    const navigationColor = config?.navigationColor || "#FFFFFF";
+    const itemHoverBorderColor = config?.itemHoverBorderColor || "#ffffff";
+    const navigationColor = config?.navigationColor || "#ffffff";
     const tickerSpeed = parseInt(config?.tickerSpeed || "30");
     const perspectiveAngle = parseInt(config?.perspectiveAngle || "20");
     const itemsPerRow = parseInt(config?.itemsPerRow || "3");
@@ -172,7 +172,7 @@ window.__GALLERY_MODULES__["gallery-perspectiveticker"] = function (React) {
         width: '100%',
         minHeight: '100vh',
         backgroundColor: backgroundColor,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -213,7 +213,7 @@ window.__GALLERY_MODULES__["gallery-perspectiveticker"] = function (React) {
         border: `2px solid ${itemBorderColor}`,
         transition: 'all 0.2s ease-out',
         cursor: 'pointer',
-        backgroundColor: '#1a1a1a',
+        backgroundColor: '#222222',
         position: 'relative'
       },
       onMouseEnter: e => {

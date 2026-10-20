@@ -109,37 +109,37 @@ window.__GALLERY_MODULES__["shop-techcategoryshowcase"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "cardBackground": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#F8F9FA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#212529",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "iconColor": {
           "dataType": "color",
           "displayName": "Icon Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         },
         "borderColor": {
           "dataType": "color",
           "displayName": "Border Color",
-          "defaultValue": "#E9ECEF",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "arrowColor": {
           "dataType": "color",
           "displayName": "Arrow Color",
-          "defaultValue": "#6C757D",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "titleFontSize": {
@@ -236,15 +236,15 @@ window.__GALLERY_MODULES__["shop-techcategoryshowcase"] = function (React) {
     const containerStyle = {
       width: '100%',
       minHeight: '600px',
-      backgroundColor: config?.backgroundColor || '#FFFFFF',
+      backgroundColor: config?.backgroundColor || '#ffffff',
       padding: config?.padding || '60px',
       boxSizing: 'border-box',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
     };
     const titleStyle = {
       fontSize: `${config?.titleFontSize || 36}px`,
       fontWeight: config?.fontWeight || '400',
-      color: config?.textColor || '#212529',
+      color: config?.textColor || '#222222',
       textAlign: 'center',
       marginBottom: '48px'
     };
@@ -258,8 +258,8 @@ window.__GALLERY_MODULES__["shop-techcategoryshowcase"] = function (React) {
     const getCardStyle = index => ({
       position: 'relative',
       height: config?.cardHeight || '200px',
-      backgroundColor: config?.cardBackground || '#F8F9FA',
-      border: `1px solid ${config?.borderColor || '#E9ECEF'}`,
+      backgroundColor: config?.cardBackground || '#ffffff',
+      border: `1px solid ${config?.borderColor || '#eeeeee'}`,
       borderRadius: config?.cornerRadius || '8px',
       display: 'flex',
       flexDirection: 'column',
@@ -278,14 +278,14 @@ window.__GALLERY_MODULES__["shop-techcategoryshowcase"] = function (React) {
     const categoryNameStyle = {
       fontSize: `${config?.categoryFontSize || 18}px`,
       fontWeight: config?.fontWeight || '400',
-      color: config?.textColor || '#212529',
+      color: config?.textColor || '#222222',
       textAlign: 'center'
     };
     const arrowStyle = index => ({
       position: 'absolute',
       bottom: '16px',
       right: '16px',
-      color: config?.arrowColor || '#6C757D',
+      color: config?.arrowColor || '#777777',
       fontSize: '20px',
       opacity: hoveredIndex === index ? 1 : 0,
       transform: hoveredIndex === index ? 'translateX(0)' : 'translateX(-8px)',

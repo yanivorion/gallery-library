@@ -83,19 +83,19 @@ window.__GALLERY_MODULES__["portfolio-animatedbackground"] = function (React) {
         "color1": {
           "dataType": "color",
           "displayName": "Element Color 1",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "color2": {
           "dataType": "color",
           "displayName": "Element Color 2",
-          "defaultValue": "#8B5CF6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "color3": {
           "dataType": "color",
           "displayName": "Element Color 3",
-          "defaultValue": "#10B981",
+          "defaultValue": "#999999",
           "group": "Colors"
         },
         "useRandomColors": {
@@ -143,9 +143,9 @@ window.__GALLERY_MODULES__["portfolio-animatedbackground"] = function (React) {
     const ballSize = parseInt(config?.ballSize || "90");
     const radius = parseInt(config?.radius || "3000");
     const baseSpeed = parseInt(config?.baseSpeed || "500");
-    const color1 = config?.color1 || "#3B82F6";
-    const color2 = config?.color2 || "#8B5CF6";
-    const color3 = config?.color3 || "#10B981";
+    const color1 = config?.color1 || "#777777";
+    const color2 = config?.color2 || "#777777";
+    const color3 = config?.color3 || "#999999";
     const useRandomColors = config?.useRandomColors === true;
     const opacity = parseInt(config?.opacity || "30");
     const blur = parseInt(config?.blur || "60");

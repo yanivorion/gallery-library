@@ -49,13 +49,13 @@ window.__GALLERY_MODULES__["media-imagecomparisonslider"] = function (React) {
         "beforeImage": {
           "dataType": "text",
           "displayName": "Before Image URL",
-          "defaultValue": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=600&fit=crop&sat=-100",
+          "defaultValue": "assets/06.webp",
           "group": "Content"
         },
         "afterImage": {
           "dataType": "text",
           "displayName": "After Image URL",
-          "defaultValue": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=600&fit=crop",
+          "defaultValue": "assets/07.webp",
           "group": "Content"
         },
         "beforeLabel": {
@@ -92,37 +92,37 @@ window.__GALLERY_MODULES__["media-imagecomparisonslider"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#F8F9FA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "sliderColor": {
           "dataType": "color",
           "displayName": "Slider Line Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "handleColor": {
           "dataType": "color",
           "displayName": "Handle Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "handleIconColor": {
           "dataType": "color",
           "displayName": "Handle Icon Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         },
         "labelBackgroundColor": {
           "dataType": "color",
           "displayName": "Label Background Color",
-          "defaultValue": "#212529",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "labelTextColor": {
           "dataType": "color",
           "displayName": "Label Text Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "fontFamily": {
@@ -151,18 +151,18 @@ window.__GALLERY_MODULES__["media-imagecomparisonslider"] = function (React) {
     const [sliderPosition, setSliderPosition] = React.useState(parseFloat(config?.initialPosition || "50"));
     const [isDragging, setIsDragging] = React.useState(false);
     const containerRef = React.useRef(null);
-    const beforeImage = config?.beforeImage || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=600&fit=crop&sat=-100";
-    const afterImage = config?.afterImage || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=600&fit=crop";
+    const beforeImage = config?.beforeImage || "assets/08.webp";
+    const afterImage = config?.afterImage || "assets/01.webp";
     const beforeLabel = config?.beforeLabel || "BEFORE";
     const afterLabel = config?.afterLabel || "AFTER";
     const showLabels = config?.showLabels !== false;
     const snapToCenter = config?.snapToCenter === true;
-    const backgroundColor = config?.backgroundColor || "#F8F9FA";
-    const sliderColor = config?.sliderColor || "#FFFFFF";
-    const handleColor = config?.handleColor || "#FFFFFF";
-    const handleIconColor = config?.handleIconColor || "#495057";
-    const labelBackgroundColor = config?.labelBackgroundColor || "#212529";
-    const labelTextColor = config?.labelTextColor || "#FFFFFF";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const sliderColor = config?.sliderColor || "#ffffff";
+    const handleColor = config?.handleColor || "#ffffff";
+    const handleIconColor = config?.handleIconColor || "#555555";
+    const labelBackgroundColor = config?.labelBackgroundColor || "#222222";
+    const labelTextColor = config?.labelTextColor || "#ffffff";
     const fontFamily = config?.fontFamily || "system-ui";
     const labelSize = config?.labelSize || 12;
     const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
@@ -259,7 +259,7 @@ window.__GALLERY_MODULES__["media-imagecomparisonslider"] = function (React) {
         outline: 'none',
         borderRadius: '12px',
         overflow: 'hidden',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.12)'
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -332,7 +332,7 @@ window.__GALLERY_MODULES__["media-imagecomparisonslider"] = function (React) {
         width: '4px',
         backgroundColor: sliderColor,
         transform: 'translateX(-50%)',
-        boxShadow: '0 0 16px rgba(0,0,0,0.3)',
+        boxShadow: '0 0 16px rgba(0, 0, 0, 0.3)',
         transition: prefersReducedMotion || isDragging ? 'none' : 'left 100ms ease-out',
         pointerEvents: 'none'
       }
@@ -348,7 +348,7 @@ window.__GALLERY_MODULES__["media-imagecomparisonslider"] = function (React) {
         backgroundColor: handleColor,
         borderRadius: '50%',
         transform: 'translate(-50%, -50%)',
-        boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

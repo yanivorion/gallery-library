@@ -95,25 +95,25 @@ window.__GALLERY_MODULES__["interactive-comparisonslider"] = function (React) {
         "handleColor": {
           "dataType": "color",
           "displayName": "Handle Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "dividerColor": {
           "dataType": "color",
           "displayName": "Divider Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "labelBackgroundColor": {
           "dataType": "color",
           "displayName": "Label Background",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "labelTextColor": {
           "dataType": "color",
           "displayName": "Label Text Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "fontSize": {
@@ -151,10 +151,10 @@ window.__GALLERY_MODULES__["interactive-comparisonslider"] = function (React) {
     const sliderWidth = parseInt(config?.sliderWidth || "600");
     const sliderHeight = parseInt(config?.sliderHeight || "400");
     const borderRadius = parseInt(config?.borderRadius || "12");
-    const handleColor = config?.handleColor || "#FFFFFF";
-    const dividerColor = config?.dividerColor || "#FFFFFF";
-    const labelBackgroundColor = config?.labelBackgroundColor || "#18181B";
-    const labelTextColor = config?.labelTextColor || "#FFFFFF";
+    const handleColor = config?.handleColor || "#ffffff";
+    const dividerColor = config?.dividerColor || "#ffffff";
+    const labelBackgroundColor = config?.labelBackgroundColor || "#111111";
+    const labelTextColor = config?.labelTextColor || "#ffffff";
     const fontSize = config?.fontSize || 14;
     const fontWeight = config?.fontWeight || "500";
     const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
@@ -285,8 +285,8 @@ window.__GALLERY_MODULES__["interactive-comparisonslider"] = function (React) {
     });
 
     // Placeholder images (gradient backgrounds)
-    const beforeGradient = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-    const afterGradient = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+    const beforeGradient = 'linear-gradient(135deg, #888888 0%, #555555 100%)';
+    const afterGradient = 'linear-gradient(135deg, #aaaaaa 0%, #777777 100%)';
     return /*#__PURE__*/React.createElement("div", {
       ref: containerRef,
       className: "comparison-slider",
@@ -326,7 +326,7 @@ window.__GALLERY_MODULES__["interactive-comparisonslider"] = function (React) {
       stroke: "currentColor",
       strokeWidth: "2",
       style: {
-        color: '#18181B'
+        color: '#111111'
       }
     }, /*#__PURE__*/React.createElement("path", {
       d: "M15 18l-6-6 6-6"

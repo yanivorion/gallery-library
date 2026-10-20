@@ -128,55 +128,55 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
         "primaryColor": {
           "dataType": "color",
           "displayName": "Primary/Accent Color",
-          "defaultValue": "#4285F4",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#F8F9FA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "cardBackground": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textPrimary": {
           "dataType": "color",
           "displayName": "Primary Text",
-          "defaultValue": "#1A1A1A",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "textSecondary": {
           "dataType": "color",
           "displayName": "Secondary Text",
-          "defaultValue": "#6B7280",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "borderColor": {
           "dataType": "color",
           "displayName": "Border Color",
-          "defaultValue": "#E5E7EB",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "successColor": {
           "dataType": "color",
           "displayName": "Success/Active Color",
-          "defaultValue": "#22C55E",
+          "defaultValue": "#999999",
           "group": "Colors"
         },
         "warningColor": {
           "dataType": "color",
           "displayName": "Warning/Draft Color",
-          "defaultValue": "#F59E0B",
+          "defaultValue": "#aaaaaa",
           "group": "Colors"
         },
         "errorColor": {
           "dataType": "color",
           "displayName": "Error/Inactive Color",
-          "defaultValue": "#EF4444",
+          "defaultValue": "#666666",
           "group": "Colors"
         },
         "fontFamily": {
@@ -245,15 +245,15 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
     const showAllSteps = config?.showAllSteps !== false;
 
     // Colors
-    const primaryColor = config?.primaryColor || '#4285F4';
-    const backgroundColor = config?.backgroundColor || '#F8F9FA';
-    const cardBackground = config?.cardBackground || '#FFFFFF';
-    const textPrimary = config?.textPrimary || '#1A1A1A';
-    const textSecondary = config?.textSecondary || '#6B7280';
-    const borderColor = config?.borderColor || '#E5E7EB';
-    const successColor = config?.successColor || '#22C55E';
-    const warningColor = config?.warningColor || '#F59E0B';
-    const errorColor = config?.errorColor || '#EF4444';
+    const primaryColor = config?.primaryColor || '#777777';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
+    const cardBackground = config?.cardBackground || '#ffffff';
+    const textPrimary = config?.textPrimary || '#222222';
+    const textSecondary = config?.textSecondary || '#777777';
+    const borderColor = config?.borderColor || '#eeeeee';
+    const successColor = config?.successColor || '#999999';
+    const warningColor = config?.warningColor || '#aaaaaa';
+    const errorColor = config?.errorColor || '#666666';
 
     // Typography
     const fontFamily = config?.fontFamily || 'system-ui, -apple-system, sans-serif';
@@ -321,7 +321,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             background: cardBackground,
             borderRadius: borderRadius,
             padding: padding,
-            boxShadow: isHovered ? '0 8px 24px rgba(0,0,0,0.12)' : '0 2px 8px rgba(0,0,0,0.06)',
+            boxShadow: isHovered ? '0 8px 24px rgba(0, 0, 0, 0.12)' : '0 2px 8px rgba(0, 0, 0, 0.06)',
             border: `1px solid ${borderColor}`,
             transition,
             transform: isHovered ? 'translateY(-2px)' : 'translateY(0)'
@@ -335,7 +335,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             borderBottom: `1px solid ${borderColor}`
           },
           idBadge: {
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontSize: fontSize,
             fontWeight: '500',
             color: primaryColor,
@@ -406,7 +406,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             fontSize: fontSize + 4,
             color: primaryColor,
             fontWeight: '500',
-            fontFamily: 'monospace'
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
           }
         },
         // ─────────────────────────────────────────────────────────────
@@ -423,7 +423,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             marginBottom: padding
           },
           idBadge: {
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontSize: fontSize + 2,
             color: textPrimary,
             fontWeight: '400'
@@ -478,7 +478,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           outputValue: {
             fontSize: fontSize,
             color: primaryColor,
-            fontFamily: 'monospace'
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
           }
         },
         // ─────────────────────────────────────────────────────────────
@@ -508,7 +508,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           },
           idBadge: {
             padding: padding * 0.75,
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontSize: fontSize,
             color: primaryColor,
             borderRight: `1px solid ${borderColor}`
@@ -561,7 +561,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             padding: padding * 0.75,
             fontSize: fontSize,
             color: primaryColor,
-            fontFamily: 'monospace'
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
           }
         },
         // ─────────────────────────────────────────────────────────────
@@ -572,7 +572,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             background: cardBackground,
             borderRadius: borderRadius,
             padding: padding,
-            boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
             border: isHovered ? `1px solid ${primaryColor}40` : `1px solid transparent`,
             transition
           },
@@ -589,7 +589,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             opacity: 0.4
           },
           idBadge: {
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontSize: fontSize,
             fontWeight: '500',
             color: textPrimary,
@@ -651,7 +651,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             fontSize: fontSize + 6,
             color: primaryColor,
             fontWeight: '500',
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             marginTop: 4
           }
         },
@@ -673,7 +673,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             marginBottom: padding
           },
           idBadge: {
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontSize: fontSize + 12,
             fontWeight: '300',
             color: primaryColor
@@ -757,7 +757,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           outputValue: {
             fontSize: fontSize + 2,
             color: primaryColor,
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontWeight: '500'
           }
         },
@@ -784,7 +784,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             gap: 8
           },
           idBadge: {
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontSize: fontSize + 6,
             fontWeight: '500',
             color: cardBackground
@@ -846,7 +846,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           outputValue: {
             fontSize: fontSize + 2,
             color: primaryColor,
-            fontFamily: 'monospace'
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
           }
         },
         // ─────────────────────────────────────────────────────────────
@@ -857,7 +857,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             background: cardBackground,
             borderRadius: borderRadius + 4,
             padding: padding * 1.25,
-            boxShadow: isHovered ? '0 20px 40px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.08)' : '0 10px 30px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05)',
+            boxShadow: isHovered ? '0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.08)' : '0 10px 30px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05)',
             transition,
             transform: isHovered ? 'translateY(-4px)' : 'translateY(0)'
           },
@@ -870,7 +870,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             borderBottom: `1px solid ${borderColor}`
           },
           idBadge: {
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontSize: fontSize + 8,
             fontWeight: '300',
             color: primaryColor
@@ -942,7 +942,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             fontSize: fontSize + 8,
             color: primaryColor,
             fontWeight: '500',
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             marginTop: 4
           }
         },
@@ -964,7 +964,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             marginBottom: gap
           },
           idBadge: {
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontSize: fontSize - 1,
             color: primaryColor
           },
@@ -1004,7 +1004,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           value: {
             fontSize: fontSize - 1,
             color: textPrimary,
-            fontFamily: 'monospace'
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
           },
           outputSection: {
             display: 'flex',
@@ -1025,7 +1025,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           outputValue: {
             fontSize: fontSize - 1,
             color: primaryColor,
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontWeight: '500'
           }
         },
@@ -1035,7 +1035,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
         'material-sheets': {
           card: {
             background: cardBackground,
-            boxShadow: isHovered ? '0 2px 4px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.05)' : '0 1px 2px rgba(0,0,0,0.05)',
+            boxShadow: isHovered ? '0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05)' : '0 1px 2px rgba(0, 0, 0, 0.05)',
             transition
           },
           header: {
@@ -1046,7 +1046,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             borderBottom: `1px solid ${borderColor}`
           },
           idBadge: {
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontSize: fontSize + 2,
             fontWeight: '500',
             color: primaryColor
@@ -1110,7 +1110,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           outputValue: {
             fontSize: fontSize + 2,
             color: cardBackground,
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontWeight: '500'
           }
         },
@@ -1131,7 +1131,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             marginBottom: padding
           },
           idBadge: {
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontSize: fontSize,
             color: primaryColor,
             padding: '2px 6px',
@@ -1200,7 +1200,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           outputValue: {
             fontSize: fontSize,
             color: primaryColor,
-            fontFamily: 'monospace'
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
           }
         },
         // ─────────────────────────────────────────────────────────────
@@ -1208,10 +1208,10 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
         // ─────────────────────────────────────────────────────────────
         'terminal-cli': {
           card: {
-            background: '#1E1E1E',
+            background: '#222222',
             borderRadius: borderRadius,
             overflow: 'hidden',
-            fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             transition
           },
           titleBar: {
@@ -1219,8 +1219,8 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             alignItems: 'center',
             gap: 8,
             padding: `${padding * 0.75}px ${padding}px`,
-            background: '#2D2D2D',
-            borderBottom: '1px solid #3D3D3D'
+            background: '#333333',
+            borderBottom: '1px solid #444444'
           },
           trafficLights: {
             display: 'flex',
@@ -1235,11 +1235,11 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             padding: padding
           },
           prompt: {
-            color: '#22C55E',
+            color: '#999999',
             fontSize: fontSize
           },
           idBadge: {
-            color: '#60A5FA',
+            color: '#999999',
             fontSize: fontSize
           },
           status: {
@@ -1247,7 +1247,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             fontSize: fontSize
           },
           title: {
-            color: '#F9FAFB',
+            color: '#ffffff',
             fontSize: fontSize,
             marginTop: 8
           },
@@ -1260,24 +1260,24 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             padding: `${padding * 0.5}px 0`
           },
           label: {
-            color: '#9CA3AF',
+            color: '#aaaaaa',
             fontSize: fontSize,
             minWidth: 140
           },
           value: {
-            color: '#F9FAFB',
+            color: '#ffffff',
             fontSize: fontSize
           },
           outputSection: {
-            background: '#2D2D2D',
+            background: '#333333',
             margin: padding,
             marginTop: padding,
             padding: padding,
             borderRadius: borderRadius - 4,
-            border: '1px solid #3D3D3D'
+            border: '1px solid #444444'
           },
           outputHeader: {
-            color: '#22C55E',
+            color: '#999999',
             fontSize: fontSize,
             marginBottom: 8
           },
@@ -1286,11 +1286,11 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             gap: gap
           },
           outputLabel: {
-            color: '#6B7280',
+            color: '#777777',
             fontSize: fontSize
           },
           outputValue: {
-            color: '#60A5FA',
+            color: '#999999',
             fontSize: fontSize
           }
         },
@@ -1303,7 +1303,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             borderRadius: borderRadius,
             padding: padding * 1.5,
             color: cardBackground,
-            boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
             transition
           },
           header: {
@@ -1318,7 +1318,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             gap: 4
           },
           idBadge: {
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontSize: fontSize + 24,
             fontWeight: '300',
             color: cardBackground,
@@ -1386,7 +1386,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           outputValue: {
             fontSize: fontSize + 10,
             color: primaryColor,
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontWeight: '500'
           }
         },
@@ -1395,7 +1395,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
         // ─────────────────────────────────────────────────────────────
         'academic-grid': {
           card: {
-            background: '#EBEBEB',
+            background: '#eeeeee',
             padding: `${padding * 1.25}px ${padding}px`,
             borderBottom: `1px solid ${borderColor}`,
             transition
@@ -1474,7 +1474,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           outputValue: {
             fontSize: fontSize + 4,
             color: primaryColor,
-            fontFamily: 'monospace'
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
           }
         },
         // ─────────────────────────────────────────────────────────────
@@ -1667,7 +1667,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           outputValue: {
             fontSize: fontSize,
             color: primaryColor,
-            fontFamily: 'monospace'
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
           }
         },
         // ─────────────────────────────────────────────────────────────
@@ -1762,7 +1762,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           outputValue: {
             fontSize: fontSize + 14,
             color: textPrimary,
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             letterSpacing: '-0.02em'
           }
         },
@@ -1805,13 +1805,13 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           },
           idBadge: {
             fontSize: fontSize + 16,
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             letterSpacing: '-0.02em',
             color: textPrimary
           },
           statusValue: {
             fontSize: fontSize + 16,
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             color: getStatusColor(ruleStatus)
           },
           metricIcon: {
@@ -1865,7 +1865,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           metricValueSmall: {
             fontSize: fontSize + 8,
             color: textPrimary,
-            fontFamily: 'monospace'
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
           },
           stepsRow: {
             display: 'grid',
@@ -1929,7 +1929,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           outputValue: {
             fontSize: fontSize + 4,
             color: primaryColor,
-            fontFamily: 'monospace',
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
             fontWeight: '500'
           }
         }
@@ -2406,21 +2406,21 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
           }, /*#__PURE__*/React.createElement("div", {
             style: {
               ...s.trafficLight,
-              background: '#FF5F56'
+              background: '#888888'
             }
           }), /*#__PURE__*/React.createElement("div", {
             style: {
               ...s.trafficLight,
-              background: '#FFBD2E'
+              background: '#bbbbbb'
             }
           }), /*#__PURE__*/React.createElement("div", {
             style: {
               ...s.trafficLight,
-              background: '#27C93F'
+              background: '#999999'
             }
           })), /*#__PURE__*/React.createElement("span", {
             style: {
-              color: '#6B7280',
+              color: '#777777',
               fontSize: fontSize - 2
             }
           }, "rule-viewer")), /*#__PURE__*/React.createElement("div", {
@@ -2431,7 +2431,7 @@ window.__GALLERY_MODULES__["content-rulegridshowcase"] = function (React) {
             style: s.idBadge
           }, ruleId), /*#__PURE__*/React.createElement("span", {
             style: {
-              color: '#9CA3AF'
+              color: '#aaaaaa'
             }
           }, " | "), /*#__PURE__*/React.createElement("span", {
             style: s.status

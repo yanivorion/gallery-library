@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-stackeddeck"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=500&fit=crop",
+          "defaultValue": "assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp",
           "group": "Content",
           "description": "Comma-separated image URLs (5-7 recommended)"
         },
@@ -98,19 +98,19 @@ window.__GALLERY_MODULES__["gallery-stackeddeck"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#F5F5F4",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "cardBorderColor": {
           "dataType": "color",
           "displayName": "Card Border Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "shadowColor": {
           "dataType": "color",
           "displayName": "Shadow Color",
-          "defaultValue": "#1C1917",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "borderRadius": {
@@ -177,9 +177,9 @@ window.__GALLERY_MODULES__["gallery-stackeddeck"] = function (React) {
     const rotationRange = parseFloat(config?.rotationRange || '3');
     const fanSpread = parseInt(config?.fanSpread || '60');
     const transitionDuration = parseInt(config?.transitionDuration || '400');
-    const backgroundColor = config?.backgroundColor || '#F5F5F4';
-    const cardBorderColor = config?.cardBorderColor || '#FFFFFF';
-    const shadowColor = config?.shadowColor || '#1C1917';
+    const backgroundColor = config?.backgroundColor || '#eeeeee';
+    const cardBorderColor = config?.cardBorderColor || '#ffffff';
+    const shadowColor = config?.shadowColor || '#111111';
     const borderRadius = parseInt(config?.borderRadius || '16');
     const cardBorderWidth = parseInt(config?.cardBorderWidth || '4');
     const showShuffleButton = config?.showShuffleButton !== false;
@@ -263,12 +263,12 @@ window.__GALLERY_MODULES__["gallery-stackeddeck"] = function (React) {
           justifyContent: 'center',
           minHeight: '400px',
           padding: '40px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: 'center',
-          color: '#71717A'
+          color: '#777777'
         }
       }, /*#__PURE__*/React.createElement("p", {
         style: {
@@ -294,7 +294,7 @@ window.__GALLERY_MODULES__["gallery-stackeddeck"] = function (React) {
         alignItems: 'center',
         justifyContent: 'center',
         gap: '40px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       onMouseEnter: () => enableHoverFan && setIsHovered(true),
@@ -372,7 +372,7 @@ window.__GALLERY_MODULES__["gallery-stackeddeck"] = function (React) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(0,0,0,0.05) 100%)',
+          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(0, 0, 0, 0.05) 100%)',
           pointerEvents: 'none'
         }
       }), !isTop && /*#__PURE__*/React.createElement("div", {
@@ -394,8 +394,8 @@ window.__GALLERY_MODULES__["gallery-stackeddeck"] = function (React) {
         fontFamily: 'inherit',
         fontSize: '14px',
         fontWeight: '500',
-        color: '#FFFFFF',
-        backgroundColor: isShuffling ? '#A1A1AA' : '#18181B',
+        color: '#ffffff',
+        backgroundColor: isShuffling ? '#aaaaaa' : '#111111',
         border: 'none',
         borderRadius: '8px',
         padding: '12px 24px',
@@ -404,10 +404,10 @@ window.__GALLERY_MODULES__["gallery-stackeddeck"] = function (React) {
         transform: isShuffling ? 'scale(0.95)' : 'scale(1)'
       },
       onMouseEnter: e => {
-        if (!isShuffling) e.target.style.backgroundColor = '#27272A';
+        if (!isShuffling) e.target.style.backgroundColor = '#222222';
       },
       onMouseLeave: e => {
-        if (!isShuffling) e.target.style.backgroundColor = '#18181B';
+        if (!isShuffling) e.target.style.backgroundColor = '#111111';
       }
     }, isShuffling ? 'Shuffling...' : 'Shuffle Stack'));
   }

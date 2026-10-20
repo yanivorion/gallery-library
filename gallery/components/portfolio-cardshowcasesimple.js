@@ -58,19 +58,19 @@ window.__GALLERY_MODULES__["portfolio-cardshowcasesimple"] = function (React) {
           "dataType": "text",
           "displayName": "Cards (JSON)",
           "defaultValue": JSON.stringify([{
-            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800",
+            image: "assets/07.webp",
             title: "Project Alpha"
           }, {
-            image: "https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=800",
+            image: "assets/08.webp",
             title: "Project Beta"
           }, {
-            image: "https://images.unsplash.com/photo-1618172193622-ae2d025f4032?w=800",
+            image: "assets/01.webp",
             title: "Project Gamma"
           }, {
-            image: "https://images.unsplash.com/photo-1617791160505-6f00504e3519?w=800",
+            image: "assets/02.webp",
             title: "Project Delta"
           }, {
-            image: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=800",
+            image: "assets/03.webp",
             title: "Project Epsilon"
           }]),
           "group": "Content"
@@ -105,31 +105,31 @@ window.__GALLERY_MODULES__["portfolio-cardshowcasesimple"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#EEEDED",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "uiBackgroundColor": {
           "dataType": "color",
           "displayName": "UI Background",
-          "defaultValue": "#D9D9D9",
+          "defaultValue": "#dddddd",
           "group": "Colors"
         },
         "uiBorderColor": {
           "dataType": "color",
           "displayName": "UI Border",
-          "defaultValue": "#A7A7A7",
+          "defaultValue": "#aaaaaa",
           "group": "Colors"
         },
         "stageBorderColor": {
           "dataType": "color",
           "displayName": "Stage Border",
-          "defaultValue": "#C3C3C3",
+          "defaultValue": "#bbbbbb",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#1B1B1B",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         // Animation
@@ -168,11 +168,11 @@ window.__GALLERY_MODULES__["portfolio-cardshowcasesimple"] = function (React) {
     const showCharacterIcon = config?.showCharacterIcon !== false;
     const stageWidth = parseInt(config?.stageWidth || "400");
     const stageHeight = parseInt(config?.stageHeight || "500");
-    const backgroundColor = config?.backgroundColor || "#EEEDED";
-    const uiBackgroundColor = config?.uiBackgroundColor || "#D9D9D9";
-    const uiBorderColor = config?.uiBorderColor || "#A7A7A7";
-    const stageBorderColor = config?.stageBorderColor || "#C3C3C3";
-    const textColor = config?.textColor || "#1B1B1B";
+    const backgroundColor = config?.backgroundColor || "#eeeeee";
+    const uiBackgroundColor = config?.uiBackgroundColor || "#dddddd";
+    const uiBorderColor = config?.uiBorderColor || "#aaaaaa";
+    const stageBorderColor = config?.stageBorderColor || "#bbbbbb";
+    const textColor = config?.textColor || "#222222";
     const transitionDuration = parseInt(config?.transitionDuration || "400");
     const autoPlay = config?.autoPlay === true;
     const autoPlayInterval = parseInt(config?.autoPlayInterval || "3") * 1000;
@@ -225,7 +225,7 @@ window.__GALLERY_MODULES__["portfolio-cardshowcasesimple"] = function (React) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, showCharacterIcon && /*#__PURE__*/React.createElement("div", {
       style: {
@@ -350,7 +350,7 @@ window.__GALLERY_MODULES__["portfolio-cardshowcasesimple"] = function (React) {
         fontSize: '20px'
       },
       onMouseEnter: e => {
-        e.currentTarget.style.backgroundColor = '#FFFFFF';
+        e.currentTarget.style.backgroundColor = '#ffffff';
       },
       onMouseLeave: e => {
         e.currentTarget.style.backgroundColor = uiBackgroundColor;
@@ -375,7 +375,7 @@ window.__GALLERY_MODULES__["portfolio-cardshowcasesimple"] = function (React) {
         fontSize: '20px'
       },
       onMouseEnter: e => {
-        e.currentTarget.style.backgroundColor = '#FFFFFF';
+        e.currentTarget.style.backgroundColor = '#ffffff';
       },
       onMouseLeave: e => {
         e.currentTarget.style.backgroundColor = uiBackgroundColor;

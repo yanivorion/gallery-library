@@ -90,19 +90,19 @@ window.__GALLERY_MODULES__["portfolio-simpleshowcase"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background",
-          "defaultValue": "#0a0a0a",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "metaColor": {
           "dataType": "color",
           "displayName": "Meta Color",
-          "defaultValue": "#71717A",
+          "defaultValue": "#777777",
           "group": "Colors"
         }
       },
@@ -119,9 +119,9 @@ window.__GALLERY_MODULES__["portfolio-simpleshowcase"] = function (React) {
     const cardHeight = parseInt(config?.cardHeight || "85");
     const cardGap = parseInt(config?.cardGap || "60");
     const titleSize = parseInt(config?.titleSize || "64");
-    const backgroundColor = config?.backgroundColor || "#0a0a0a";
-    const titleColor = config?.titleColor || "#FFFFFF";
-    const metaColor = config?.metaColor || "#71717A";
+    const backgroundColor = config?.backgroundColor || "#111111";
+    const titleColor = config?.titleColor || "#ffffff";
+    const metaColor = config?.metaColor || "#777777";
     let projects = [];
     try {
       projects = JSON.parse(projectsData);
@@ -197,7 +197,7 @@ window.__GALLERY_MODULES__["portfolio-simpleshowcase"] = function (React) {
         style: {
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%)'
+          background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%)'
         }
       }), /*#__PURE__*/React.createElement("div", {
         style: {
@@ -217,7 +217,7 @@ window.__GALLERY_MODULES__["portfolio-simpleshowcase"] = function (React) {
           fontWeight: '500',
           color: titleColor,
           margin: 0,
-          fontFamily: 'system-ui, -apple-system, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           letterSpacing: '-0.02em',
           lineHeight: 1.1
         }
@@ -232,7 +232,7 @@ window.__GALLERY_MODULES__["portfolio-simpleshowcase"] = function (React) {
           fontSize: '14px',
           fontWeight: '400',
           color: metaColor,
-          fontFamily: 'system-ui, -apple-system, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           letterSpacing: '0.1em',
           textTransform: 'uppercase'
         }
@@ -241,7 +241,7 @@ window.__GALLERY_MODULES__["portfolio-simpleshowcase"] = function (React) {
           fontSize: '14px',
           fontWeight: '400',
           color: metaColor,
-          fontFamily: 'system-ui, -apple-system, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           letterSpacing: '0.05em'
         }
       }, project.year))));

@@ -153,37 +153,37 @@ window.__GALLERY_MODULES__["product-stackedgallery"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "cardBackground": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#F8FAFC",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#0F172A",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#64748B",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent/Button Color",
-          "defaultValue": "#2563EB",
+          "defaultValue": "#666666",
           "group": "Colors"
         },
         "borderColor": {
           "dataType": "color",
           "displayName": "Border Color",
-          "defaultValue": "#E2E8F0",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         }
       },
@@ -216,12 +216,12 @@ window.__GALLERY_MODULES__["product-stackedgallery"] = function (React) {
     const pickupTime = config?.pickupTime || 'Usually ready in 24 hours';
     const sku = config?.sku || 'woodstock-watch-premium-deep-sea';
     const collections = (config?.collections || 'Budget-friendly, Mid-range').split(',').map(c => c.trim());
-    const backgroundColor = config?.backgroundColor || '#FFFFFF';
-    const cardBackground = config?.cardBackground || '#F8FAFC';
-    const titleColor = config?.titleColor || '#0F172A';
-    const textColor = config?.textColor || '#64748B';
-    const accentColor = config?.accentColor || '#2563EB';
-    const borderColor = config?.borderColor || '#E2E8F0';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
+    const cardBackground = config?.cardBackground || '#ffffff';
+    const titleColor = config?.titleColor || '#111111';
+    const textColor = config?.textColor || '#777777';
+    const accentColor = config?.accentColor || '#666666';
+    const borderColor = config?.borderColor || '#eeeeee';
     const thumbnails = [0, 1];
     const renderStars = rating => {
       const stars = [];
@@ -229,7 +229,7 @@ window.__GALLERY_MODULES__["product-stackedgallery"] = function (React) {
         stars.push(/*#__PURE__*/React.createElement("span", {
           key: i,
           style: {
-            color: i <= rating ? '#FBBF24' : '#E2E8F0',
+            color: i <= rating ? '#bbbbbb' : '#eeeeee',
             fontSize: '14px'
           }
         }, "★"));
@@ -241,22 +241,22 @@ window.__GALLERY_MODULES__["product-stackedgallery"] = function (React) {
         case 'inStock':
           return {
             text: `${stockCount} in stock`,
-            color: '#22C55E'
+            color: '#999999'
           };
         case 'lowStock':
           return {
             text: `Only ${stockCount} left`,
-            color: '#F59E0B'
+            color: '#aaaaaa'
           };
         case 'outOfStock':
           return {
             text: 'Out of stock',
-            color: '#EF4444'
+            color: '#666666'
           };
         default:
           return {
             text: 'In stock',
-            color: '#22C55E'
+            color: '#999999'
           };
       }
     };
@@ -314,9 +314,9 @@ window.__GALLERY_MODULES__["product-stackedgallery"] = function (React) {
         width: '80%',
         height: '80%',
         borderRadius: '50%',
-        background: `linear-gradient(135deg, #374151 0%, #1F2937 50%, #111827 100%)`,
+        background: `linear-gradient(135deg, #444444 0%, #222222 50%, #111111 100%)`,
         position: 'relative',
-        boxShadow: '0 20px 50px rgba(0,0,0,0.2)'
+        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.2)'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -326,8 +326,8 @@ window.__GALLERY_MODULES__["product-stackedgallery"] = function (React) {
         right: '15%',
         bottom: '15%',
         borderRadius: '50%',
-        background: 'linear-gradient(180deg, #1F2937 0%, #374151 100%)',
-        border: '3px solid #6B7280'
+        background: 'linear-gradient(180deg, #222222 0%, #444444 100%)',
+        border: '3px solid #777777'
       }
     })), /*#__PURE__*/React.createElement("button", {
       style: {
@@ -372,7 +372,7 @@ window.__GALLERY_MODULES__["product-stackedgallery"] = function (React) {
         width: '100%',
         height: '100%',
         borderRadius: '4px',
-        backgroundColor: '#374151',
+        backgroundColor: '#444444',
         opacity: 0.5 + index * 0.2
       }
     }))))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
@@ -409,7 +409,7 @@ window.__GALLERY_MODULES__["product-stackedgallery"] = function (React) {
         backgroundColor: accentColor,
         border: 'none',
         cursor: 'pointer',
-        color: '#FFFFFF',
+        color: '#ffffff',
         fontSize: '16px',
         flexShrink: 0,
         marginLeft: '16px'
@@ -574,7 +574,7 @@ window.__GALLERY_MODULES__["product-stackedgallery"] = function (React) {
       style: {
         width: '0%',
         height: '100%',
-        backgroundColor: '#22C55E'
+        backgroundColor: '#999999'
       }
     }))), /*#__PURE__*/React.createElement("div", {
       style: {
@@ -646,7 +646,7 @@ window.__GALLERY_MODULES__["product-stackedgallery"] = function (React) {
         padding: '16px 24px',
         borderRadius: '8px',
         backgroundColor: accentColor,
-        color: '#FFFFFF',
+        color: '#ffffff',
         border: 'none',
         fontSize: '15px',
         fontWeight: '500',
@@ -675,7 +675,7 @@ window.__GALLERY_MODULES__["product-stackedgallery"] = function (React) {
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
-        color: '#22C55E',
+        color: '#999999',
         fontSize: '16px'
       }
     }, "✓"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {

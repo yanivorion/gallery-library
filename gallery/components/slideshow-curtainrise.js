@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["slideshow-curtainrise"] = function (React) {
         "slidesData": {
           "dataType": "text",
           "displayName": "Slides JSON",
-          "defaultValue": "[{\"title\":\"NOCTURNE\",\"subtitle\":\"Evening Wear 2024\",\"image\":\"https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1887\"},{\"title\":\"SOLSTICE\",\"subtitle\":\"Summer Edit\",\"image\":\"https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1888\"},{\"title\":\"ECLIPSE\",\"subtitle\":\"Monochrome Series\",\"image\":\"https://images.unsplash.com/photo-1505932794465-147d1f1b2c97?q=80&w=1887\"}]",
+          "defaultValue": "[{\"title\":\"NOCTURNE\",\"subtitle\":\"Evening Wear 2024\",\"image\":\"assets/03.webp\"},{\"title\":\"SOLSTICE\",\"subtitle\":\"Summer Edit\",\"image\":\"assets/04.webp\"},{\"title\":\"ECLIPSE\",\"subtitle\":\"Monochrome Series\",\"image\":\"assets/05.webp\"}]",
           "group": "Content"
         },
         "autoPlay": {
@@ -114,7 +114,7 @@ window.__GALLERY_MODULES__["slideshow-curtainrise"] = function (React) {
         width: '100%',
         height: '100%',
         minHeight: '600px',
-        backgroundColor: '#000',
+        backgroundColor: '#000000',
         position: 'relative',
         overflow: 'hidden',
         cursor: 'pointer',
@@ -181,7 +181,7 @@ window.__GALLERY_MODULES__["slideshow-curtainrise"] = function (React) {
         pointerEvents: 'none',
         mixBlendMode: 'difference',
         // THE MAGIC SAUCE
-        color: '#FFFFFF'
+        color: '#ffffff'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -195,13 +195,13 @@ window.__GALLERY_MODULES__["slideshow-curtainrise"] = function (React) {
         marginBottom: '16px',
         opacity: isAnimating ? 0 : 1,
         transition: 'opacity 0.4s ease',
-        fontFamily: 'Helvetica, Arial, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, slides[currentIndex].subtitle), /*#__PURE__*/React.createElement("h2", {
       style: {
         fontSize: 'clamp(40px, 8vw, 120px)',
         fontWeight: '400',
-        fontFamily: '"Times New Roman", Times, serif',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         margin: 0,
         lineHeight: 1,
         opacity: isAnimating ? 0 : 1,
@@ -215,8 +215,8 @@ window.__GALLERY_MODULES__["slideshow-curtainrise"] = function (React) {
         right: '40px',
         zIndex: 11,
         mixBlendMode: 'difference',
-        color: '#fff',
-        fontFamily: 'monospace',
+        color: '#ffffff',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         fontSize: '16px'
       }
     }, currentIndex + 1, " / ", slides.length), /*#__PURE__*/React.createElement("div", {
@@ -227,7 +227,7 @@ window.__GALLERY_MODULES__["slideshow-curtainrise"] = function (React) {
         transform: 'translateX(-50%)',
         zIndex: 11,
         mixBlendMode: 'difference',
-        color: '#fff',
+        color: '#ffffff',
         fontSize: '12px',
         textTransform: 'uppercase',
         letterSpacing: '0.1em'

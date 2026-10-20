@@ -159,37 +159,37 @@ window.__GALLERY_MODULES__["product-sliderhighlights"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "cardBackground": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#F8FAFC",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#0F172A",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#64748B",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#EA580C",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "borderColor": {
           "dataType": "color",
           "displayName": "Border Color",
-          "defaultValue": "#E2E8F0",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         }
       },
@@ -237,12 +237,12 @@ window.__GALLERY_MODULES__["product-sliderhighlights"] = function (React) {
       title: config?.accordion3Title || 'Returning an item',
       icon: '↩️'
     }];
-    const backgroundColor = config?.backgroundColor || '#FFFFFF';
-    const cardBackground = config?.cardBackground || '#F8FAFC';
-    const titleColor = config?.titleColor || '#0F172A';
-    const textColor = config?.textColor || '#64748B';
-    const accentColor = config?.accentColor || '#EA580C';
-    const borderColor = config?.borderColor || '#E2E8F0';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
+    const cardBackground = config?.cardBackground || '#ffffff';
+    const titleColor = config?.titleColor || '#111111';
+    const textColor = config?.textColor || '#777777';
+    const accentColor = config?.accentColor || '#777777';
+    const borderColor = config?.borderColor || '#eeeeee';
     const totalSlides = 13;
     const thumbnails = Array.from({
       length: 8
@@ -253,7 +253,7 @@ window.__GALLERY_MODULES__["product-sliderhighlights"] = function (React) {
       }, (_, i) => /*#__PURE__*/React.createElement("span", {
         key: i,
         style: {
-          color: i < rating ? accentColor : '#E2E8F0',
+          color: i < rating ? accentColor : '#eeeeee',
           fontSize: '14px'
         }
       }, "★"));
@@ -312,10 +312,10 @@ window.__GALLERY_MODULES__["product-sliderhighlights"] = function (React) {
       style: {
         width: '40%',
         height: '80%',
-        background: 'linear-gradient(180deg, #F5F5F4 0%, #E7E5E4 100%)',
+        background: 'linear-gradient(180deg, #eeeeee 0%, #dddddd 100%)',
         borderRadius: '8px',
         position: 'relative',
-        boxShadow: '0 20px 40px rgba(0,0,0,0.15)'
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -326,7 +326,7 @@ window.__GALLERY_MODULES__["product-sliderhighlights"] = function (React) {
         width: '60%',
         height: '20%',
         borderRadius: '50%',
-        backgroundColor: '#1C1917'
+        backgroundColor: '#111111'
       }
     }), /*#__PURE__*/React.createElement("div", {
       style: {
@@ -337,7 +337,7 @@ window.__GALLERY_MODULES__["product-sliderhighlights"] = function (React) {
         width: '50%',
         height: '15%',
         borderRadius: '50%',
-        backgroundColor: '#1C1917'
+        backgroundColor: '#111111'
       }
     }), /*#__PURE__*/React.createElement("div", {
       style: {
@@ -348,7 +348,7 @@ window.__GALLERY_MODULES__["product-sliderhighlights"] = function (React) {
         width: '40%',
         height: '12%',
         borderRadius: '50%',
-        backgroundColor: '#1C1917'
+        backgroundColor: '#111111'
       }
     })), /*#__PURE__*/React.createElement("button", {
       onClick: prevSlide,
@@ -428,7 +428,7 @@ window.__GALLERY_MODULES__["product-sliderhighlights"] = function (React) {
         width: '100%',
         height: '100%',
         borderRadius: '4px',
-        backgroundColor: '#E7E5E4',
+        backgroundColor: '#dddddd',
         opacity: 0.4 + index * 0.08
       }
     })))), /*#__PURE__*/React.createElement("p", {
@@ -584,7 +584,7 @@ window.__GALLERY_MODULES__["product-sliderhighlights"] = function (React) {
         padding: '16px',
         borderRadius: '8px',
         backgroundColor: accentColor,
-        color: '#FFFFFF',
+        color: '#ffffff',
         border: 'none',
         fontSize: '15px',
         fontWeight: '500',
@@ -603,18 +603,18 @@ window.__GALLERY_MODULES__["product-sliderhighlights"] = function (React) {
         width: '8px',
         height: '8px',
         borderRadius: '50%',
-        backgroundColor: '#22C55E'
+        backgroundColor: '#999999'
       }
     }), /*#__PURE__*/React.createElement("span", {
       style: {
         fontSize: '14px',
-        color: '#22C55E',
+        color: '#999999',
         fontWeight: '500'
       }
     }, stockCount, " in stock - Get yours today!")), /*#__PURE__*/React.createElement("div", {
       style: {
         height: '4px',
-        backgroundColor: '#22C55E',
+        backgroundColor: '#999999',
         borderRadius: '2px',
         marginBottom: '32px'
       }

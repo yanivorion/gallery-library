@@ -138,63 +138,63 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
         "primaryColor": {
           "dataType": "color",
           "displayName": "Primary/Accent Color",
-          "defaultValue": "#4285F4",
+          "defaultValue": "#777777",
           "group": "Colors",
           "description": "Accent color for highlights and output cards"
         },
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#F8F9FA",
+          "defaultValue": "#ffffff",
           "group": "Colors",
           "description": "Container background"
         },
         "cardBackground": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors",
           "description": "Card and row surfaces"
         },
         "textPrimary": {
           "dataType": "color",
           "displayName": "Primary Text",
-          "defaultValue": "#1A1A1A",
+          "defaultValue": "#222222",
           "group": "Colors",
           "description": "Main text color"
         },
         "textSecondary": {
           "dataType": "color",
           "displayName": "Secondary Text",
-          "defaultValue": "#6B7280",
+          "defaultValue": "#777777",
           "group": "Colors",
           "description": "Labels and metadata"
         },
         "borderColor": {
           "dataType": "color",
           "displayName": "Border Color",
-          "defaultValue": "#E5E7EB",
+          "defaultValue": "#eeeeee",
           "group": "Colors",
           "description": "Borders and dividers"
         },
         "successColor": {
           "dataType": "color",
           "displayName": "Success/Active Color",
-          "defaultValue": "#22C55E",
+          "defaultValue": "#999999",
           "group": "Colors",
           "description": "Active status indicator"
         },
         "warningColor": {
           "dataType": "color",
           "displayName": "Warning/Draft Color",
-          "defaultValue": "#F59E0B",
+          "defaultValue": "#aaaaaa",
           "group": "Colors",
           "description": "Draft status indicator"
         },
         "errorColor": {
           "dataType": "color",
           "displayName": "Error/Inactive Color",
-          "defaultValue": "#EF4444",
+          "defaultValue": "#666666",
           "group": "Colors",
           "description": "Inactive status indicator"
         },
@@ -278,15 +278,15 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
     const showStepNumbers = config?.showStepNumbers !== false;
 
     // Colors
-    const primaryColor = config?.primaryColor || '#4285F4';
-    const backgroundColor = config?.backgroundColor || '#F8F9FA';
-    const cardBackground = config?.cardBackground || '#FFFFFF';
-    const textPrimary = config?.textPrimary || '#1A1A1A';
-    const textSecondary = config?.textSecondary || '#6B7280';
-    const borderColor = config?.borderColor || '#E5E7EB';
-    const successColor = config?.successColor || '#22C55E';
-    const warningColor = config?.warningColor || '#F59E0B';
-    const errorColor = config?.errorColor || '#EF4444';
+    const primaryColor = config?.primaryColor || '#777777';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
+    const cardBackground = config?.cardBackground || '#ffffff';
+    const textPrimary = config?.textPrimary || '#222222';
+    const textSecondary = config?.textSecondary || '#777777';
+    const borderColor = config?.borderColor || '#eeeeee';
+    const successColor = config?.successColor || '#999999';
+    const warningColor = config?.warningColor || '#aaaaaa';
+    const errorColor = config?.errorColor || '#666666';
 
     // Typography
     const fontFamily = config?.fontFamily || 'system-ui, -apple-system, sans-serif';
@@ -363,7 +363,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               background: cardBackground,
               borderRadius: borderRadius,
               padding: `${padding}px ${padding * 1.25}px`,
-              boxShadow: isHovered ? '0 4px 12px rgba(0,0,0,0.08)' : '0 1px 3px rgba(0,0,0,0.05)',
+              boxShadow: isHovered ? '0 4px 12px rgba(0, 0, 0, 0.08)' : '0 1px 3px rgba(0, 0, 0, 0.05)',
               border: `1px solid ${borderColor}`,
               cursor: 'pointer',
               transition: baseTransition,
@@ -373,7 +373,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               gap: gap
             },
             id: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize,
               fontWeight: '500',
               color: primaryColor
@@ -504,7 +504,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               fontSize: fontSize + 2,
               color: primaryColor,
               fontWeight: '500',
-              fontFamily: 'monospace'
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
             }
           }
         },
@@ -527,7 +527,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               background: isHovered ? backgroundColor : 'transparent'
             },
             id: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize + 2,
               fontWeight: '400',
               color: textPrimary,
@@ -598,7 +598,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             stepNumber: {
               fontSize: fontSize - 2,
               color: textSecondary,
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               minWidth: 24
             },
             stepContent: {
@@ -639,7 +639,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             outputValue: {
               fontSize: fontSize,
               color: primaryColor,
-              fontFamily: 'monospace'
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
             }
           }
         },
@@ -669,7 +669,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               alignItems: 'center'
             },
             id: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize,
               color: primaryColor,
               fontWeight: '500'
@@ -729,7 +729,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               alignItems: 'center'
             },
             stepNumber: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize - 2,
               color: textSecondary
             },
@@ -747,7 +747,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             },
             outputValue: {
               color: primaryColor,
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontWeight: '500'
             }
           }
@@ -766,7 +766,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               background: cardBackground,
               borderRadius: borderRadius,
               padding: padding,
-              boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
               cursor: 'pointer',
               transition: baseTransition,
               display: 'flex',
@@ -784,7 +784,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               opacity: 0.5
             },
             id: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize,
               fontWeight: '500',
               color: textPrimary,
@@ -900,7 +900,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               fontSize: fontSize + 4,
               color: primaryColor,
               fontWeight: '500',
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               marginTop: 4
             }
           }
@@ -932,7 +932,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               justifyContent: 'space-between'
             },
             id: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize + 8,
               fontWeight: '300',
               color: primaryColor
@@ -1059,7 +1059,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               fontSize: fontSize + 4,
               color: primaryColor,
               fontWeight: '500',
-              fontFamily: 'monospace'
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
             }
           }
         },
@@ -1090,7 +1090,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               gap: 4
             },
             id: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize + 4,
               fontWeight: '500',
               color: cardBackground
@@ -1235,7 +1235,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             outputValue: {
               fontSize: fontSize + 2,
               color: primaryColor,
-              fontFamily: 'monospace'
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
             }
           }
         },
@@ -1253,7 +1253,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               background: cardBackground,
               borderRadius: borderRadius + 4,
               padding: padding * 1.25,
-              boxShadow: isHovered ? '0 20px 40px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.08)' : '0 10px 30px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05)',
+              boxShadow: isHovered ? '0 20px 40px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.08)' : '0 10px 30px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05)',
               cursor: 'pointer',
               transition: baseTransition,
               display: 'flex',
@@ -1262,7 +1262,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               transform: isHovered ? 'translateY(-2px)' : 'translateY(0)'
             },
             id: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize + 6,
               fontWeight: '300',
               color: primaryColor,
@@ -1312,7 +1312,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               background: cardBackground,
               borderRadius: borderRadius,
               padding: padding,
-              boxShadow: '0 4px 12px rgba(0,0,0,0.06)'
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)'
             },
             stepHeader: {
               display: 'flex',
@@ -1371,7 +1371,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               fontSize: fontSize + 6,
               color: primaryColor,
               fontWeight: '500',
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               marginTop: 4
             }
           }
@@ -1398,7 +1398,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               borderBottom: `1px solid ${borderColor}`
             },
             id: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize - 1,
               color: primaryColor,
               minWidth: 50
@@ -1453,7 +1453,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             value: {
               fontSize: fontSize - 1,
               color: textPrimary,
-              fontFamily: 'monospace'
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
             },
             outputValue: {
               color: primaryColor,
@@ -1474,14 +1474,14 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               padding: padding,
               cursor: 'pointer',
               transition: baseTransition,
-              boxShadow: isHovered ? '0 2px 4px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.05)' : '0 1px 2px rgba(0,0,0,0.05)',
+              boxShadow: isHovered ? '0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05)' : '0 1px 2px rgba(0, 0, 0, 0.05)',
               display: 'flex',
               alignItems: 'center',
               gap: gap * 1.5,
               marginBottom: 2
             },
             id: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize + 2,
               fontWeight: '500',
               color: primaryColor,
@@ -1600,7 +1600,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             outputValue: {
               fontSize: fontSize + 2,
               color: cardBackground,
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontWeight: '500'
             }
           }
@@ -1637,7 +1637,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               flexShrink: 0
             },
             id: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize,
               color: primaryColor,
               padding: '2px 6px',
@@ -1742,7 +1742,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             outputValue: {
               fontSize: fontSize,
               color: primaryColor,
-              fontFamily: 'monospace'
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
             }
           }
         },
@@ -1751,10 +1751,10 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
         // ─────────────────────────────────────────────────────────────
         'terminal-cli': {
           container: {
-            background: '#1E1E1E',
+            background: '#222222',
             borderRadius: borderRadius,
             overflow: 'hidden',
-            fontFamily: "'JetBrains Mono', 'Fira Code', monospace"
+            fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
           },
           outer: {
             titleBar: {
@@ -1762,8 +1762,8 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               alignItems: 'center',
               gap: 8,
               padding: `${padding * 0.75}px ${padding}px`,
-              background: '#2D2D2D',
-              borderBottom: '1px solid #3D3D3D'
+              background: '#333333',
+              borderBottom: '1px solid #444444'
             },
             trafficLights: {
               display: 'flex',
@@ -1781,27 +1781,27 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               gap: gap,
               cursor: 'pointer',
               transition: baseTransition,
-              background: isHovered ? '#2A2A2A' : 'transparent'
+              background: isHovered ? '#222222' : 'transparent'
             },
             prompt: {
-              color: '#22C55E',
+              color: '#999999',
               fontSize: fontSize
             },
             command: {
-              color: '#9CA3AF',
+              color: '#aaaaaa',
               fontSize: fontSize,
               flex: 1
             },
             id: {
-              color: '#60A5FA',
+              color: '#999999',
               fontSize: fontSize
             },
             category: {
-              color: '#FBBF24',
+              color: '#bbbbbb',
               fontSize: fontSize
             },
             element: {
-              color: '#F9FAFB',
+              color: '#ffffff',
               fontSize: fontSize
             },
             status: {
@@ -1813,7 +1813,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               height: 16,
               transition: baseTransition,
               transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-              color: '#6B7280'
+              color: '#777777'
             }
           },
           inner: {
@@ -1831,28 +1831,28 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               padding: `${padding * 0.5}px 0`
             },
             stepPrompt: {
-              color: '#6B7280',
+              color: '#777777',
               fontSize: fontSize,
               minWidth: 24
             },
             stepLabel: {
-              color: '#9CA3AF',
+              color: '#aaaaaa',
               fontSize: fontSize,
               minWidth: 140
             },
             stepValue: {
-              color: '#F9FAFB',
+              color: '#ffffff',
               fontSize: fontSize
             },
             outputCard: {
-              background: '#2D2D2D',
+              background: '#333333',
               borderRadius: borderRadius - 4,
               padding: padding,
               marginTop: gap,
-              border: '1px solid #3D3D3D'
+              border: '1px solid #444444'
             },
             outputHeader: {
-              color: '#22C55E',
+              color: '#999999',
               fontSize: fontSize,
               marginBottom: 8
             },
@@ -1866,12 +1866,12 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               gap: gap
             },
             outputLabel: {
-              color: '#6B7280',
+              color: '#777777',
               fontSize: fontSize,
               minWidth: 80
             },
             outputValue: {
-              color: '#60A5FA',
+              color: '#999999',
               fontSize: fontSize
             }
           }
@@ -1893,7 +1893,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               cursor: 'pointer',
               transition: baseTransition,
               color: cardBackground,
-              boxShadow: '0 4px 16px rgba(0,0,0,0.15)'
+              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)'
             },
             header: {
               display: 'flex',
@@ -1906,7 +1906,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               gap: 4
             },
             id: {
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontSize: fontSize + 20,
               fontWeight: '300',
               color: cardBackground,
@@ -1975,7 +1975,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               background: cardBackground,
               borderRadius: borderRadius - 2,
               padding: padding,
-              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
             },
             tileNumber: {
               width: 24,
@@ -2050,7 +2050,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             outputValue: {
               fontSize: fontSize + 8,
               color: primaryColor,
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontWeight: '500'
             }
           }
@@ -2060,7 +2060,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
         // ─────────────────────────────────────────────────────────────
         'academic-grid': {
           container: {
-            background: '#EBEBEB'
+            background: '#eeeeee'
           },
           outer: {
             row: {
@@ -2162,7 +2162,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             outputValue: {
               fontSize: fontSize + 4,
               color: primaryColor,
-              fontFamily: 'monospace'
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
             }
           }
         },
@@ -2259,7 +2259,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             stepNumber: {
               fontSize: fontSize,
               color: textSecondary,
-              fontFamily: 'monospace'
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
             },
             stepLabel: {
               fontSize: fontSize - 1,
@@ -2398,7 +2398,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             outputValue: {
               fontSize: fontSize,
               color: primaryColor,
-              fontFamily: 'monospace'
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
             },
             outputValueLabel: {
               fontSize: fontSize - 2,
@@ -2518,7 +2518,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               fontSize: fontSize + 12,
               color: textPrimary,
               fontWeight: '400',
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               letterSpacing: '-0.02em'
             }
           }
@@ -2566,7 +2566,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
               fontSize: fontSize + 16,
               fontWeight: '400',
               color: textPrimary,
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               letterSpacing: '-0.02em'
             },
             metricIcon: {
@@ -2633,7 +2633,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             metricValueSmall: {
               fontSize: fontSize + 8,
               color: textPrimary,
-              fontFamily: 'monospace'
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
             },
             metricUnit: {
               fontSize: fontSize - 1,
@@ -2702,7 +2702,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
             outputValue: {
               fontSize: fontSize + 4,
               color: primaryColor,
-              fontFamily: 'monospace',
+              fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
               fontWeight: '500'
             }
           }
@@ -2898,21 +2898,21 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
           }, /*#__PURE__*/React.createElement("div", {
             style: {
               ...s.trafficLight,
-              background: '#FF5F56'
+              background: '#888888'
             }
           }), /*#__PURE__*/React.createElement("div", {
             style: {
               ...s.trafficLight,
-              background: '#FFBD2E'
+              background: '#bbbbbb'
             }
           }), /*#__PURE__*/React.createElement("div", {
             style: {
               ...s.trafficLight,
-              background: '#27C93F'
+              background: '#999999'
             }
           })), /*#__PURE__*/React.createElement("span", {
             style: {
-              color: '#6B7280',
+              color: '#777777',
               fontSize: fontSize - 2
             }
           }, "rule-viewer")), /*#__PURE__*/React.createElement("div", {
@@ -3428,7 +3428,7 @@ window.__GALLERY_MODULES__["content-ruleaccordionshowcase"] = function (React) {
           }, step.label, ":"), step.isOutput ? /*#__PURE__*/React.createElement("span", {
             style: {
               ...s.stepValue,
-              color: '#60A5FA'
+              color: '#999999'
             }
           }, "width=", step.width, " height=", step.height) : /*#__PURE__*/React.createElement("span", {
             style: s.stepValue

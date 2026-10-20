@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-morphingshapes"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200&h=800&fit=crop",
+          "defaultValue": "assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp",
           "group": "Content"
         },
         "shapeSequence": {
@@ -95,7 +95,7 @@ window.__GALLERY_MODULES__["gallery-morphingshapes"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0f0f1a",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "outlineColor": {
@@ -128,7 +128,7 @@ window.__GALLERY_MODULES__["gallery-morphingshapes"] = function (React) {
     const morphDuration = parseInt(config?.morphDuration || '1200');
     const containerHeight = config?.containerHeight || '600';
     const showShapeOutline = config?.showShapeOutline === true;
-    const backgroundColor = config?.backgroundColor || '#0f0f1a';
+    const backgroundColor = config?.backgroundColor || '#111111';
     const outlineColor = config?.outlineColor || '#ffffff';
     const navColor = config?.navColor || '#ffffff';
     const images = React.useMemo(() => {
@@ -214,8 +214,8 @@ window.__GALLERY_MODULES__["gallery-morphingshapes"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor,
-          color: 'rgba(255,255,255,0.5)',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          color: 'rgba(255, 255, 255, 0.5)',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, "Add comma-separated image URLs");
     }
@@ -233,7 +233,7 @@ window.__GALLERY_MODULES__["gallery-morphingshapes"] = function (React) {
         height: heightStyle,
         backgroundColor,
         overflow: 'hidden',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
@@ -274,7 +274,7 @@ window.__GALLERY_MODULES__["gallery-morphingshapes"] = function (React) {
         display: 'flex',
         gap: '12px',
         padding: '12px 20px',
-        backgroundColor: 'rgba(0,0,0,0.4)',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
         backdropFilter: 'blur(10px)',
         borderRadius: '30px',
         zIndex: 10
@@ -300,7 +300,7 @@ window.__GALLERY_MODULES__["gallery-morphingshapes"] = function (React) {
         width: '50px',
         height: '50px',
         borderRadius: '50%',
-        backgroundColor: 'rgba(0,0,0,0.4)',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
         backdropFilter: 'blur(10px)',
         border: `1px solid ${navColor}30`,
         color: navColor,
@@ -325,7 +325,7 @@ window.__GALLERY_MODULES__["gallery-morphingshapes"] = function (React) {
         width: '50px',
         height: '50px',
         borderRadius: '50%',
-        backgroundColor: 'rgba(0,0,0,0.4)',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
         backdropFilter: 'blur(10px)',
         border: `1px solid ${navColor}30`,
         color: navColor,

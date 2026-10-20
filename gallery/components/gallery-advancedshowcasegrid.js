@@ -100,31 +100,31 @@ window.__GALLERY_MODULES__["gallery-advancedshowcasegrid"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0A0A0A",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "cardBackground": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#1A1A1A",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#E5E5E5",
+          "defaultValue": "#dddddd",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "glowColor": {
           "dataType": "color",
           "displayName": "Glow Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "titleFontSize": {
@@ -164,7 +164,7 @@ window.__GALLERY_MODULES__["gallery-advancedshowcasegrid"] = function (React) {
         category: category?.trim() || '',
         badge: badge?.trim() || '',
         lqip: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cfilter id='b${i}'%3E%3CfeGaussianBlur stdDeviation='20'/%3E%3C/filter%3E%3Crect fill='%23${['2A2A2A', '1F1F1F', '252525', '2E2E2E'][i % 4]}' width='400' height='500' filter='url(%23b${i})'/%3E%3C/svg%3E`,
-        fullImage: `https://source.unsplash.com/random/800x1000?${category?.toLowerCase() || 'product'}&sig=${i}`
+        fullImage: `assets/08.webp) || 'product'}&sig=${i}`
       };
     });
     const enable3DTilt = config?.enable3DTilt !== false;
@@ -174,11 +174,11 @@ window.__GALLERY_MODULES__["gallery-advancedshowcasegrid"] = function (React) {
     const tiltIntensity = config?.tiltIntensity || 'medium';
     const columns = parseInt(config?.columns || '3');
     const gap = config?.gap || '2rem';
-    const backgroundColor = config?.backgroundColor || '#0A0A0A';
-    const cardBackground = config?.cardBackground || '#1A1A1A';
-    const textColor = config?.textColor || '#E5E5E5';
-    const accentColor = config?.accentColor || '#FFFFFF';
-    const glowColor = config?.glowColor || '#FFFFFF';
+    const backgroundColor = config?.backgroundColor || '#111111';
+    const cardBackground = config?.cardBackground || '#222222';
+    const textColor = config?.textColor || '#dddddd';
+    const accentColor = config?.accentColor || '#ffffff';
+    const glowColor = config?.glowColor || '#ffffff';
     const titleFontSize = parseInt(config?.titleFontSize || '18');
     const fontWeight = config?.fontWeight || '400';
     const tiltValues = {
@@ -347,7 +347,7 @@ window.__GALLERY_MODULES__["gallery-advancedshowcasegrid"] = function (React) {
           boxShadow: isHovered ? `
                     0 20px 60px ${hexToRgba(glowColor, 0.15)},
                     0 0 40px ${hexToRgba(glowColor, 0.1)},
-                    inset 0 1px 0 ${hexToRgba('#FFFFFF', 0.1)}
+                    inset 0 1px 0 ${hexToRgba('#ffffff', 0.1)}
                   ` : `0 4px 20px ${hexToRgba('#000000', 0.3)}`,
           willChange: 'transform'
         }
@@ -356,7 +356,7 @@ window.__GALLERY_MODULES__["gallery-advancedshowcasegrid"] = function (React) {
           position: 'relative',
           aspectRatio: '4/5',
           overflow: 'hidden',
-          backgroundColor: '#0F0F0F'
+          backgroundColor: '#111111'
         }
       }, /*#__PURE__*/React.createElement("img", {
         src: product.lqip,
@@ -406,7 +406,7 @@ window.__GALLERY_MODULES__["gallery-advancedshowcasegrid"] = function (React) {
         style: {
           position: 'absolute',
           inset: 0,
-          background: `linear-gradient(${45 + tilt.rotateY}deg, transparent 30%, ${hexToRgba('#FFFFFF', 0.1)} 50%, transparent 70%)`,
+          background: `linear-gradient(${45 + tilt.rotateY}deg, transparent 30%, ${hexToRgba('#ffffff', 0.1)} 50%, transparent 70%)`,
           opacity: isHovered ? 1 : 0,
           transition: prefersReducedMotion ? 'none' : 'opacity 0.4s ease, background 0.2s ease',
           pointerEvents: 'none'

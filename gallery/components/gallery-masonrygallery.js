@@ -50,27 +50,27 @@ window.__GALLERY_MODULES__["gallery-masonrygallery"] = function (React) {
           "dataType": "text",
           "displayName": "Images (JSON Array)",
           "defaultValue": JSON.stringify([{
-            url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4",
+            url: "assets/08.webp",
             caption: "Mountain Vista",
             height: 400
           }, {
-            url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+            url: "assets/01.webp",
             caption: "Forest Path",
             height: 300
           }, {
-            url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+            url: "assets/02.webp",
             caption: "Desert Sunset",
             height: 500
           }, {
-            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+            url: "assets/03.webp",
             caption: "Misty Valley",
             height: 350
           }, {
-            url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
+            url: "assets/04.webp",
             caption: "Wild Trail",
             height: 450
           }, {
-            url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff",
+            url: "assets/05.webp",
             caption: "Alpine Lake",
             height: 380
           }]),
@@ -80,25 +80,25 @@ window.__GALLERY_MODULES__["gallery-masonrygallery"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FAFBFC",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "cardBackground": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#1F2937",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "borderColor": {
           "dataType": "color",
           "displayName": "Border Color",
-          "defaultValue": "#E5E7EB",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "columnGap": {
@@ -168,35 +168,35 @@ window.__GALLERY_MODULES__["gallery-masonrygallery"] = function (React) {
     config = {}
   }) {
     const imagesData = config?.images || JSON.stringify([{
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4",
+      url: "assets/06.webp",
       caption: "Mountain Vista",
       height: 400
     }, {
-      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+      url: "assets/07.webp",
       caption: "Forest Path",
       height: 300
     }, {
-      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+      url: "assets/08.webp",
       caption: "Desert Sunset",
       height: 500
     }, {
-      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+      url: "assets/01.webp",
       caption: "Misty Valley",
       height: 350
     }, {
-      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
+      url: "assets/02.webp",
       caption: "Wild Trail",
       height: 450
     }, {
-      url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff",
+      url: "assets/03.webp",
       caption: "Alpine Lake",
       height: 380
     }]);
     const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
-    const backgroundColor = config?.backgroundColor || "#FAFBFC";
-    const cardBackground = config?.cardBackground || "#FFFFFF";
-    const textColor = config?.textColor || "#1F2937";
-    const borderColor = config?.borderColor || "#E5E7EB";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const cardBackground = config?.cardBackground || "#ffffff";
+    const textColor = config?.textColor || "#222222";
+    const borderColor = config?.borderColor || "#eeeeee";
     const columnGap = parseInt(config?.columnGap || "16");
     const columnsMobile = parseInt(config?.columnsMobile || "1");
     const columnsTablet = parseInt(config?.columnsTablet || "3");
@@ -293,7 +293,7 @@ window.__GALLERY_MODULES__["gallery-masonrygallery"] = function (React) {
         borderRadius: `${borderRadius}px`,
         overflow: 'hidden',
         border: `1px solid ${borderColor}`,
-        boxShadow: '0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03)',
+        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03)',
         cursor: 'pointer',
         transition: prefersReducedMotion ? 'none' : `transform ${duration}ms ease-out, box-shadow ${duration}ms ease-out`,
         transform: 'scale(1)'
@@ -301,17 +301,17 @@ window.__GALLERY_MODULES__["gallery-masonrygallery"] = function (React) {
       onMouseEnter: e => {
         if (enableHoverScale && !prefersReducedMotion) {
           e.currentTarget.style.transform = `scale(${hoverScaleAmount})`;
-          e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.08), 0 12px 24px rgba(0,0,0,0.06)';
+          e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.08), 0 12px 24px rgba(0, 0, 0, 0.06)';
         }
       },
       onMouseLeave: e => {
         if (enableHoverScale && !prefersReducedMotion) {
           e.currentTarget.style.transform = 'scale(1)';
-          e.currentTarget.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03)';
+          e.currentTarget.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03)';
         }
       },
       onFocus: e => {
-        e.currentTarget.style.outline = '2px solid #3B82F6';
+        e.currentTarget.style.outline = '2px solid #777777';
         e.currentTarget.style.outlineOffset = '2px';
       },
       onBlur: e => {
@@ -337,7 +337,7 @@ window.__GALLERY_MODULES__["gallery-masonrygallery"] = function (React) {
         color: textColor,
         fontSize: '14px',
         fontWeight: '400',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, image.caption)))))));
   }

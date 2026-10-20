@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-floatingislands"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=350&h=250&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=350&h=250&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=350&h=250&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=350&h=250&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=350&h=250&fit=crop,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=350&h=250&fit=crop,https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=350&h=250&fit=crop",
+          "defaultValue": "assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp",
           "group": "Content",
           "description": "Comma-separated image URLs (5-8 recommended)"
         },
@@ -91,19 +91,19 @@ window.__GALLERY_MODULES__["gallery-floatingislands"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0F172A",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "cardBorderColor": {
           "dataType": "color",
           "displayName": "Card Border Color",
-          "defaultValue": "#334155",
+          "defaultValue": "#444444",
           "group": "Colors"
         },
         "glowColor": {
           "dataType": "color",
           "displayName": "Glow Color",
-          "defaultValue": "#60A5FA",
+          "defaultValue": "#999999",
           "group": "Colors"
         },
         "borderRadius": {
@@ -160,9 +160,9 @@ window.__GALLERY_MODULES__["gallery-floatingislands"] = function (React) {
     const cardSizeMax = parseInt(config?.cardSizeMax || '280');
     const floatAmplitude = parseInt(config?.floatAmplitude || '15');
     const floatSpeed = parseInt(config?.floatSpeed || '4');
-    const backgroundColor = config?.backgroundColor || '#0F172A';
-    const cardBorderColor = config?.cardBorderColor || '#334155';
-    const glowColor = config?.glowColor || '#60A5FA';
+    const backgroundColor = config?.backgroundColor || '#111111';
+    const cardBorderColor = config?.cardBorderColor || '#444444';
+    const glowColor = config?.glowColor || '#999999';
     const borderRadius = parseInt(config?.borderRadius || '20');
     const enableParallax = config?.enableParallax !== false;
     const showShadows = config?.showShadows !== false;
@@ -244,12 +244,12 @@ window.__GALLERY_MODULES__["gallery-floatingislands"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '400px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: 'center',
-          color: '#64748B'
+          color: '#777777'
         }
       }, /*#__PURE__*/React.createElement("p", {
         style: {
@@ -265,7 +265,7 @@ window.__GALLERY_MODULES__["gallery-floatingislands"] = function (React) {
         height: `${containerHeight}px`,
         position: 'relative',
         overflow: 'hidden',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, showClouds && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -274,7 +274,7 @@ window.__GALLERY_MODULES__["gallery-floatingislands"] = function (React) {
         height: '60px',
         top: '20%',
         left: '10%',
-        background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent)`,
+        background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent)`,
         borderRadius: '50%',
         filter: 'blur(20px)',
         transform: `translateX(${Math.sin(time * 0.3) * 20}px)`,
@@ -287,7 +287,7 @@ window.__GALLERY_MODULES__["gallery-floatingislands"] = function (React) {
         height: '80px',
         top: '50%',
         right: '5%',
-        background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.02), transparent)`,
+        background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.02), transparent)`,
         borderRadius: '50%',
         filter: 'blur(25px)',
         transform: `translateX(${Math.sin(time * 0.25 + 1) * 30}px)`,
@@ -300,7 +300,7 @@ window.__GALLERY_MODULES__["gallery-floatingislands"] = function (React) {
         height: '50px',
         top: '75%',
         left: '30%',
-        background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.025), transparent)`,
+        background: `linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.025), transparent)`,
         borderRadius: '50%',
         filter: 'blur(15px)',
         transform: `translateX(${Math.sin(time * 0.35 + 2) * 25}px)`,
@@ -345,7 +345,7 @@ window.__GALLERY_MODULES__["gallery-floatingislands"] = function (React) {
           opacity: prefersReducedMotion ? opacity : isInView ? opacity : 0,
           transform: prefersReducedMotion ? `rotate(${island.rotation}deg) scale(${scale})` : isInView ? `translateY(${floatOffset}px) rotate(${island.rotation}deg) scale(${scale})` : `translateY(50px) rotate(${island.rotation}deg) scale(0.8)`,
           zIndex: renderOrder + (isHovered ? 100 : 0),
-          boxShadow: isHovered && hoverGlow ? `0 0 30px ${glowColor}40, 0 10px 40px rgba(0,0,0,0.4)` : `0 ${8 + island.heightLevel * 16}px ${20 + island.heightLevel * 20}px rgba(0,0,0,0.3)`,
+          boxShadow: isHovered && hoverGlow ? `0 0 30px ${glowColor}40, 0 10px 40px rgba(0, 0, 0, 0.4)` : `0 ${8 + island.heightLevel * 16}px ${20 + island.heightLevel * 20}px rgba(0, 0, 0, 0.3)`,
           transition: prefersReducedMotion ? 'none' : `opacity 500ms ease-out ${island.index * 80}ms, 
                      box-shadow 300ms ease-out,
                      transform 300ms ease-out`,
@@ -378,7 +378,7 @@ window.__GALLERY_MODULES__["gallery-floatingislands"] = function (React) {
           right: '-2px',
           bottom: '-2px',
           borderRadius: `${borderRadius + 2}px`,
-          border: `1px solid ${isHovered ? glowColor + '40' : 'rgba(255,255,255,0.05)'}`,
+          border: `1px solid ${isHovered ? glowColor + '40' : 'rgba(255, 255, 255, 0.05)'}`,
           pointerEvents: 'none',
           transition: 'border-color 300ms ease-out'
         }

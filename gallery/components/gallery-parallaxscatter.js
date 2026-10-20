@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-parallaxscatter"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (Comma Sep)",
-          "defaultValue": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600,https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600,https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600,https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600,https://images.unsplash.com/photo-1488161628813-99c97485fe11?w=600",
+          "defaultValue": "assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp",
           "group": "Content"
         },
         "intensity": {
@@ -61,7 +61,7 @@ window.__GALLERY_MODULES__["gallery-parallaxscatter"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background",
-          "defaultValue": "#F5F5F4",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         }
       },
@@ -88,7 +88,7 @@ window.__GALLERY_MODULES__["gallery-parallaxscatter"] = function (React) {
     const rawImages = config?.images || '';
     const imageList = React.useMemo(() => rawImages.split(',').map(i => i.trim()).filter(Boolean), [rawImages]);
     const intensity = parseFloat(config?.intensity || '30');
-    const bgColor = config?.backgroundColor || '#F5F5F4';
+    const bgColor = config?.backgroundColor || '#eeeeee';
 
     // Seeded Random Helper (Deterministic)
     const getSeededRandom = seed => {
@@ -169,7 +169,7 @@ window.__GALLERY_MODULES__["gallery-parallaxscatter"] = function (React) {
         top: '50%',
         left: '50%',
         transform: `translate(-50%, -50%) translate(${mousePos.x * -10}px, ${mousePos.y * -10}px)`,
-        color: '#D6D3D1',
+        color: '#cccccc',
         fontSize: '12vw',
         fontWeight: '800',
         lineHeight: 1,

@@ -4,44 +4,41 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gallery Library</title>
-<meta name="description" content="97 React gallery, carousel and slideshow components, each compiled, mounted and photographed headlessly before it was listed.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232f5bff'%3E%3Crect x='3' y='3' width='8' height='8' rx='1.5'/%3E%3Crect x='13' y='3' width='8' height='5' rx='1.5'/%3E%3Crect x='13' y='10' width='8' height='11' rx='1.5'/%3E%3Crect x='3' y='13' width='8' height='8' rx='1.5'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<meta name="description" content="113 React gallery, carousel and slideshow components in black and white, each compiled, mounted and photographed headlessly before it was listed.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000'%3E%3Crect x='3' y='3' width='8' height='8' rx='1.5'/%3E%3Crect x='13' y='3' width='8' height='5' rx='1.5'/%3E%3Crect x='13' y='10' width='8' height='11' rx='1.5'/%3E%3Crect x='3' y='13' width='8' height='8' rx='1.5'/%3E%3C/svg%3E">
 <style>
 :root {
-  --bg: #eef0f3;
+  --bg: #f2f2f2;
   --surface: #ffffff;
-  --ink: #18202b;
-  --muted: #687384;
-  --line: #d9dde4;
-  --accent: #2f5bff;
-  --gl-ink: #0d1116;
-  --gl-green: #2f6b4f;
-  --gl-clay: #9a4a2f;
-  --shadow: 0 30px 60px -28px rgba(24, 32, 43, .35), 0 2px 6px rgba(24, 32, 43, .06);
-  --wire-input: #fbf6e3;
-  --wire-llm: #f1ecfb;
-  --wire-out: #e9f5ec;
-  --wire-ink: #18202b;
-  --wire-line: #a9b1bd;
-  --font-display: "Geist", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "Geist", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --ink: #000000;
+  --muted: #777777;
+  --line: #dddddd;
+  --accent: #000000;
+  --gl-ink: #000000;
+  --gl-green: #555555;
+  --gl-clay: #aaaaaa;
+  --shadow: 0 30px 60px -28px rgba(0, 0, 0, .35), 0 2px 6px rgba(0, 0, 0, .06);
+  --wire-input: #f2f2f2;
+  --wire-llm: #e4e4e4;
+  --wire-out: #d6d6d6;
+  --wire-ink: #000000;
+  --wire-line: #aaaaaa;
+  --font-display: "Neue Haas Grotesk Display Pro", "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "Neue Haas Grotesk Text Pro", "Neue Haas Grotesk Display Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, "Helvetica Neue", monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #12161c; --surface: #1b2129; --ink: #eef1f5; --muted: #98a2b2; --line: #2b333e;
-    --accent: #7d98ff; --shadow: 0 30px 60px -24px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
-    --wire-input: #2b2a22; --wire-llm: #29253a; --wire-out: #1f2d25; --wire-ink: #eef1f5; --wire-line: #4a5462;
+    --bg: #0d0d0d; --surface: #1a1a1a; --ink: #ffffff; --muted: #8c8c8c; --line: #2e2e2e;
+    --accent: #ffffff; --shadow: 0 30px 60px -24px rgba(0,0,0,.8), 0 2px 6px rgba(0,0,0,.4);
+    --wire-input: #1f1f1f; --wire-llm: #262626; --wire-out: #2e2e2e; --wire-ink: #ffffff; --wire-line: #5a5a5a;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #12161c; --surface: #1b2129; --ink: #eef1f5; --muted: #98a2b2; --line: #2b333e;
-  --accent: #7d98ff; --shadow: 0 30px 60px -24px rgba(0,0,0,.7), 0 2px 6px rgba(0,0,0,.3);
-  --wire-input: #2b2a22; --wire-llm: #29253a; --wire-out: #1f2d25; --wire-ink: #eef1f5; --wire-line: #4a5462;
+  --bg: #0d0d0d; --surface: #1a1a1a; --ink: #ffffff; --muted: #8c8c8c; --line: #2e2e2e;
+    --accent: #ffffff; --shadow: 0 30px 60px -24px rgba(0,0,0,.8), 0 2px 6px rgba(0,0,0,.4);
+    --wire-input: #1f1f1f; --wire-llm: #262626; --wire-out: #2e2e2e; --wire-ink: #ffffff; --wire-line: #5a5a5a;
   color-scheme: dark;
 }
 
@@ -61,7 +58,7 @@ h3 { font-size: 21px; letter-spacing: -0.02em; font-weight: 500; }
 p { margin: 0; max-width: 60ch; }
 h1, h2, h3, p, dd, .cap, .chip, figcaption, .count small { overflow-wrap: anywhere; }
 .muted { color: var(--muted); }
-.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
 .eyebrow .num { color: var(--muted); }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
@@ -94,6 +91,8 @@ a { color: inherit; }
 .facts div { padding: 18px 18px 0 0; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .facts dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .facts dd { margin: 0; font-size: 16px; font-variant-numeric: tabular-nums; }
+.facts.rules dd { color: var(--muted); font-size: 15px; }
+.facts.rules div { padding-right: 28px; }
 .swatches { display: inline-flex; gap: 3px; vertical-align: middle; margin-right: 6px; }
 .swatches i { width: 14px; height: 14px; border-radius: 4px; display: block; border: 1px solid var(--line); }
 
@@ -145,9 +144,9 @@ a { color: inherit; }
 .flow-col { display: flex; flex-direction: column; gap: 18px; position: relative; z-index: 1; }
 .flow-col .nodes { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 22px; }
 .photo-grid { padding: 10px; border: 1px dashed var(--wire-line); border-radius: 10px; }
-.flow-col h4 { margin: 0; min-height: 16px; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.flow-col h4 { margin: 0; min-height: 16px; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
 .fnode { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.fnode .scr { width: 112px; height: 74px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 8px 18px -12px rgba(24,32,43,.35); padding: 7px; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
+.fnode .scr { width: 112px; height: 74px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 8px 18px -12px rgba(0,0,0,.35); padding: 7px; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
 .fnode.sm .scr { width: 88px; height: 56px; padding: 5px; }
 .fnode .cap { font-size: 11px; color: var(--muted); text-align: center; line-height: 1.25; max-width: 120px; }
 .fnode.input .scr { background: var(--wire-input); }
@@ -175,11 +174,11 @@ a { color: inherit; }
 .mono { font-family: var(--font-mono); font-size: 13px; }
 
 .mobile { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
-.phone { width: 300px; max-width: 100%; border-radius: 46px; padding: 10px; background: #0d1116; box-shadow: var(--shadow); }
+.phone { width: 300px; max-width: 100%; border-radius: 46px; padding: 10px; background: #000000; box-shadow: var(--shadow); }
 .phone .screen { border-radius: 37px; overflow: hidden; position: relative; }
 .phone .screen .scroller { height: 600px; scrollbar-width: none; }
 .phone .screen .scroller::-webkit-scrollbar { display: none; }
-.phone .notch { position: absolute; top: 9px; left: 50%; transform: translateX(-50%); width: 92px; height: 26px; border-radius: 20px; background: #0d1116; z-index: 2; }
+.phone .notch { position: absolute; top: 9px; left: 50%; transform: translateX(-50%); width: 92px; height: 26px; border-radius: 20px; background: #000000; z-index: 2; }
 .callouts { display: flex; flex-direction: column; gap: 40px; min-width: 0; }
 .callout { display: flex; flex-direction: column; gap: 8px; }
 .callout h3 { display: flex; gap: 10px; align-items: center; }
@@ -195,11 +194,11 @@ a { color: inherit; }
 .count { font-family: var(--font-mono); font-size: clamp(56px, 8vw, 104px); letter-spacing: -0.05em; line-height: .9; font-variant-numeric: tabular-nums; }
 .count small { font-size: 14px; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; display: block; margin-top: 10px; }
 .wall-viewport { position: relative; height: clamp(420px, 56vw, 720px); overflow: hidden; border-radius: 20px; background: var(--gl-ink); margin-inline: calc(-1 * clamp(0px, 3vw, 40px)); perspective: 1600px; }
-.wall-viewport::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(13,17,22,.6) 0%, rgba(13,17,22,0) 18%, rgba(13,17,22,0) 78%, rgba(13,17,22,.85) 100%); }
+.wall-viewport::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 78%, rgba(0,0,0,.85) 100%); }
 .wall { position: absolute; left: 50%; top: 50%; width: 1900px; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 14px; transform: translate(-50%, -50%) rotateX(28deg) rotateZ(-14deg); animation: drift 60s linear infinite alternate; }
-.wall img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 8px; box-shadow: 0 10px 24px rgba(0,0,0,.45); background: #1b2129; }
+.wall img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 8px; box-shadow: 0 10px 24px rgba(0,0,0,.45); background: #1a1a1a; }
 @keyframes drift { from { transform: translate(-50%, -46%) rotateX(28deg) rotateZ(-14deg); } to { transform: translate(-50%, -58%) rotateX(28deg) rotateZ(-14deg); } }
-.wall-label { position: absolute; left: 24px; bottom: 20px; z-index: 2; color: #eef2f5; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.wall-label { position: absolute; left: 24px; bottom: 20px; z-index: 2; color: #ffffff; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
 
 .end { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; padding-top: 24px; }
 .end p { color: var(--muted); }
@@ -245,41 +244,60 @@ a { color: inherit; }
       <span>Gallery Library</span>
     </div>
     <div class="hero-copy">
-      <h1>Ninety-seven React galleries, <em>each one compiled and run before it was listed.</em></h1>
+      <h1>A hundred and thirteen React galleries, <em>one typeface, eight photographs, no colour.</em></h1>
       <div>
-        <p class="muted">Four Wix custom-element packs held 97 gallery, carousel and slideshow components as raw JSX. Every one was compiled with Babel, mounted in its own iframe against React 18.3.1, left to settle for 2.2 seconds and photographed. This page follows one of them, Bento Grid Gallery, from the pack JSON to its 12.1&nbsp;KB of source.</p>
+        <p class="muted">Four Wix custom-element packs held 113 gallery, carousel and slideshow components as raw JSX. Every colour in them was flattened to a 16-step grey ramp, every typeface set in Neue Haas Grotesk and every photograph replaced by one of eight. Each was then compiled with Babel, mounted against React 18.3.1 and captured. This page follows Bento Grid Gallery, from the pack JSON to its 12.1&nbsp;KB of source.</p>
         <a class="cta" href="gallery/"><span>Open the live library</span> <span class="arrow">↗</span></a>
       </div>
     </div>
     <div class="collage" aria-label="Three components from the library">
-      <img class="card c1" src="img/hero-media-polaroidphotogrid.webp" alt="Polaroid Photo Grid, nine tilted photos with handwritten captions" width="1200" height="879">
-      <img class="card c2" src="img/hero-gallery-3dspiralgallery.webp" alt="3D Spiral Gallery, images arranged on a helix against black" width="1200" height="750">
-      <img class="card c3" src="img/hero-gallery-bentogrid.webp" alt="Bento Grid Gallery, a portfolio grid of varied card sizes" width="1200" height="750">
+      <img class="card c1" src="img/hero-media-polaroidphotogrid.webp" alt="Polaroid Photo Grid, six tilted photographs with handwritten captions" width="1200" height="879">
+      <img class="card c2" src="img/hero-gallery-3dspiralgallery.webp" alt="3D Spiral Gallery, the eight photographs arranged on a helix against black" width="1200" height="750">
+      <img class="card c3" src="img/hero-gallery-bentogrid.webp" alt="Bento Grid Gallery, a portfolio grid of varied card sizes in grey" width="1200" height="750">
     </div>
     <dl class="facts">
-      <div><dt>Components</dt><dd>97</dd></div>
-      <div><dt>Families</dt><dd>19 (Gallery 51, Media 13)</dd></div>
-      <div><dt>Editable props</dt><dd>1,344</dd></div>
-      <div><dt>Headless run</dt><dd>92 clean · 5 noisy · 0 failed</dd></div>
-      <div><dt>Source</dt><dd><span class="swatches" aria-hidden="true"><i style="background:var(--gl-ink)"></i><i style="background:var(--gl-green)"></i><i style="background:var(--gl-clay)"></i></span>1.46 MB JSX</dd></div>
+      <div><dt>Components</dt><dd>113</dd></div>
+      <div><dt>Families</dt><dd>21 (Gallery 51, Media 13)</dd></div>
+      <div><dt>Editable props</dt><dd>1,716</dd></div>
+      <div><dt>Headless run</dt><dd>108 clean · 5 noisy · 0 failed</dd></div>
+      <div><dt>Source</dt><dd><span class="swatches" aria-hidden="true"><i style="background:#000000"></i><i style="background:#888888"></i><i style="background:#ffffff"></i></span>1.72 MB JSX</dd></div>
     </dl>
   </section>
 
-  <!-- ══ ACT I ══ -->
+  <!-- ══ THE THREE RULES ══ -->
   <section class="act">
     <span class="roman">Part I</span>
-    <h2>Run</h2>
-    <p>Nothing is listed on trust. Each component is transformed, mounted and watched until it settles, and whatever the console says is recorded next to it.</p>
+    <h2>Flatten</h2>
+    <p>Three rules, applied to every file in the library by one script. Nothing was redesigned by hand.</p>
   </section>
 
   <section class="gen">
     <div class="gen-head">
-      <h2>Seven stages, 97 times</h2>
-      <p>The runner walks the four pack files, pulls each component's JSX, compiles it in the browser and mounts it into a blank iframe holding React 18.3.1 and nothing else. Median render was 905&nbsp;ms; the slowest, Horizontal Scroll Carousel, took 1,382&nbsp;ms.</p>
+      <h2>One typeface, eight pictures, no hue</h2>
+      <p>The packs arrived with their own palettes, their own system font stacks and 61 different stock photographs. All of it was rewritten in place: 226 component files, their prop schemas and the library UI around them.</p>
+    </div>
+    <dl class="facts rules" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <div><dt>Colour</dt><dd>Every hex, rgb and hsl value converted to its luminance and snapped to a 16-step grey ramp. 473 colour props among them.</dd></div>
+      <div><dt>Type</dt><dd>Every font stack replaced with Neue Haas Grotesk Display Pro, falling back to Helvetica Neue and then Arial. Enum values like “mono” left alone.</dd></div>
+      <div><dt>Image</dt><dd>Every remote photograph replaced by one of eight local files, cycling from a per-component offset so no two neighbours open on the same picture.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ══ ACT II ══ -->
+  <section class="act">
+    <span class="roman">Part II</span>
+    <h2>Run</h2>
+    <p>Nothing is listed on trust. Each restyled component is transformed, mounted and watched until it settles, and whatever the console says is recorded next to it.</p>
+  </section>
+
+  <section class="gen">
+    <div class="gen-head">
+      <h2>Seven stages, 113 times</h2>
+      <p>The runner walks the four pack files, pulls each component's restyled JSX, compiles it in the browser and mounts it into a blank iframe holding React 18.3.1 and nothing else. Median render was 907&nbsp;ms; the slowest, Z-Stack Gallery, took 1,020&nbsp;ms.</p>
     </div>
     <ol class="stages">
       <li><span>01</span>Read pack JSON</li>
-      <li><span>02</span>Extract JSX + schema</li>
+      <li><span>02</span>Extract and restyle</li>
       <li><span>03</span>Babel transform</li>
       <li><span>04</span>Mount in iframe</li>
       <li><span>05</span>Settle 2.2 s</li>
@@ -291,7 +309,7 @@ a { color: inherit; }
   <section class="flow-block">
     <div class="gen-head">
       <h2>From pack file to shelf</h2>
-      <p>Four inputs, one compile step, 97 live previews and three artefacts: a measured result per component, a 1440&nbsp;px frame, and the JSX you can read in the panel.</p>
+      <p>Four inputs, one restyle pass, 113 live previews and three artefacts: a measured result per component, a 1440&nbsp;px frame, and the JSX you can read in the panel.</p>
     </div>
     <div class="flow-legend">
       <span><i style="background:var(--wire-input)"></i> Pack input</span>
@@ -305,7 +323,7 @@ a { color: inherit; }
         <div class="flow-col">
           <h4>Packs</h4>
           <div class="nodes">
-            <div class="fnode input sm" data-id="p1" data-to="extract"><div class="scr"><div class="ln acc"></div><div class="ln"></div><div class="ln s"></div></div><div class="cap">pack 1 · 26</div></div>
+            <div class="fnode input sm" data-id="p1" data-to="extract"><div class="scr"><div class="ln acc"></div><div class="ln"></div><div class="ln s"></div></div><div class="cap">pack 1 · 41</div></div>
             <div class="fnode input sm" data-id="p2" data-to="extract"><div class="scr"><div class="ln acc"></div><div class="ln"></div><div class="ln s"></div></div><div class="cap">pack 2 · 25</div></div>
             <div class="fnode input sm" data-id="p3" data-to="extract"><div class="scr"><div class="ln acc"></div><div class="ln"></div><div class="ln s"></div></div><div class="cap">pack 3 · 25</div></div>
             <div class="fnode input sm" data-id="p4" data-to="extract"><div class="scr"><div class="ln acc"></div><div class="ln"></div><div class="ln s"></div></div><div class="cap">pack 4 · 22</div></div>
@@ -315,14 +333,14 @@ a { color: inherit; }
         <div class="flow-col">
           <h4>Extract</h4>
           <div class="nodes">
-            <div class="fnode" data-id="extract" data-to="babel"><div class="scr"><div class="ln acc"></div><div class="row"><div class="img"></div><div class="img"></div></div><div class="ln s"></div></div><div class="cap">JSX + prop schema<br>1,344 props</div></div>
+            <div class="fnode" data-id="extract" data-to="babel"><div class="scr"><div class="ln acc"></div><div class="row"><div class="img"></div><div class="img"></div></div><div class="ln s"></div></div><div class="cap">JSX + prop schema<br>1,716 props</div></div>
           </div>
         </div>
 
         <div class="flow-col">
-          <h4>Compile</h4>
+          <h4>Restyle</h4>
           <div class="nodes">
-            <div class="fnode llm" data-id="babel" data-to="mount"><div class="scr"><div class="ln acc"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div></div><div class="cap">Babel standalone<br>JSX → JS</div></div>
+            <div class="fnode llm" data-id="babel" data-to="mount"><div class="scr"><div class="ln acc"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div></div><div class="cap">Grey ramp · Haas<br>8 photographs</div></div>
           </div>
         </div>
 
@@ -339,7 +357,7 @@ a { color: inherit; }
               <div class="fnode sm"><div class="scr"><div class="img"></div></div></div>
               <div class="fnode sm"><div class="scr"><div class="bar-acc"></div><div class="img"></div></div></div>
             </div>
-            <p class="cap" style="text-align:center;max-width:none">97 iframes, four at a time</p>
+            <p class="cap" style="text-align:center;max-width:none">113 iframes, four at a time</p>
           </div>
         </div>
 
@@ -358,10 +376,10 @@ a { color: inherit; }
   <section class="step">
     <div class="copy">
       <p class="eyebrow"><span class="num">01 / 05</span><span>The shelf</span></p>
-      <h3>97 components, mounted as you scroll</h3>
+      <h3>113 components, mounted as you scroll</h3>
       <p>The library opens on every component at once. Cards mount their real preview when they enter the viewport, so the grid you scroll is running code, not pictures of it.</p>
-      <p>The header counts what survived the run: 92 clean, 5 with console warnings, 0 failed. Family chips below it carry their own counts, from Gallery at 51 down to the single Scroll and Slider entries.</p>
-      <div class="chips"><span class="chip">Live mount on scroll</span><span class="chip">19 family facets</span><span class="chip">Status filter</span><span class="chip">Three grid sizes</span></div>
+      <p>The header counts what survived the run: 108 clean, 5 with console warnings, 0 failed. Family chips below it carry their own counts, from Gallery at 51 down to the single Scroll and Slider entries.</p>
+      <div class="chips"><span class="chip">Live mount on scroll</span><span class="chip">21 family facets</span><span class="chip">Status filter</span><span class="chip">Three grid sizes</span></div>
     </div>
     <div class="frame">
       <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>gallery/index.html</span><span class="live">Live</span></div>
@@ -372,20 +390,20 @@ a { color: inherit; }
   <section class="step flip">
     <div class="copy">
       <p class="eyebrow"><span class="num">02 / 05</span><span>Narrowing</span></p>
-      <h3>Type “3d” and 15 of 97 remain</h3>
+      <h3>Type “3d” and 15 of 113 remain</h3>
       <p>Search runs over name, type and description together, so “3d” reaches 3D Card Carousel, 3D Cube Gallery and the spiral and tunnel variants in one pass. The count line updates with how many are clean, noisy or failed inside the current filter.</p>
       <p>Packs, status and sort sit next to the search field. Families stay as chips so you can go straight to the 13 Media or 9 Portfolio components without typing.</p>
       <div class="chips"><span class="chip">Name · type · description</span><span class="chip">Pack filter</span><span class="chip">Status filter</span><span class="chip">Sort by name or speed</span></div>
     </div>
     <div class="frame">
       <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>gallery/index.html?q=3d</span><span class="live">Live</span></div>
-      <img src="img/03-filter.webp" alt="The library filtered to fifteen components matching 3d" width="1800" height="1125" loading="lazy">
+      <img src="img/03-filter.webp" alt="The library filtered to the components matching 3d" width="1800" height="1125" loading="lazy">
     </div>
   </section>
 
   <!-- ══ ACT II ══ -->
   <section class="act">
-    <span class="roman">Part II</span>
+    <span class="roman">Part III</span>
     <h2>Inspect</h2>
     <p>Open one and the preview takes the stage, with everything the runner measured and the source it was built from beside it.</p>
   </section>
@@ -393,8 +411,8 @@ a { color: inherit; }
   <section class="step">
     <div class="copy">
       <p class="eyebrow"><span class="num">03 / 05</span><span>Detail</span></p>
-      <h3>Bento Grid Gallery, 905 ms, 33 nodes</h3>
-      <p>The detail view mounts the component at full width and lists what the run recorded: status, mount and settle time, DOM nodes, rendered height, visible text. For this one that is 905&nbsp;ms, 33 nodes and 1,239&nbsp;px tall.</p>
+      <h3>Bento Grid Gallery, 904 ms, 33 nodes</h3>
+      <p>The detail view mounts the component at full width and lists what the run recorded: status, mount and settle time, DOM nodes, rendered height, visible text. For this one that is 904&nbsp;ms, 33 nodes and 1,139&nbsp;px tall.</p>
       <p>Below it sits the component's own contract: 12 editable props across Content, Colors, Typography, Layout and Animation, with the defaults the preview is running on.</p>
       <div class="chips"><span class="chip">Gallery.BentoGrid</span><span class="chip">12 props</span><span class="chip">5 groups</span><span class="chip">pack 1</span></div>
     </div>
@@ -408,7 +426,7 @@ a { color: inherit; }
     <div class="copy">
       <p class="eyebrow"><span class="num">04 / 05</span><span>Source</span></p>
       <h3>The JSX that produced the frame</h3>
-      <p>One button swaps the panel for the component's source, the same 12.1&nbsp;KB the runner compiled. Across the library that is 1.46&nbsp;MB of JSX, held as plain text files next to the index.</p>
+      <p>One button swaps the panel for the component's source, the same 12.1&nbsp;KB the runner compiled. Across the library that is 1.72&nbsp;MB of JSX, held as plain text files next to the index.</p>
       <p>Four viewport buttons re-run the preview at 1440, 1024, 768 and 390&nbsp;px, which is how the responsive claims in each description get checked.</p>
       <div class="chips"><span class="chip">Show JSX source</span><span class="chip">Re-run</span><span class="chip">Own tab</span><span class="chip">1440 / 1024 / 768 / 390</span></div>
     </div>
@@ -424,10 +442,10 @@ a { color: inherit; }
       <h3>Every number on this page came out of the run</h3>
       <p>The library ships with its own result file. It is the reason the status chips can be trusted, and the reason five components carry a warning instead of a clean badge.</p>
       <ul class="notes">
-        <li><i class="dot" style="background:var(--gl-green)"></i><div><b>92 clean</b><span>Mounted, settled and finished with an empty console.</span></div></li>
-        <li><i class="dot" style="background:var(--gl-clay)"></i><div><b>5 noisy</b><span class="mono">masonrygallery ×12 · flipcardgallery · imagegallerylightbox · logocarouselinfinite · polaroidphotogrid</span></div></li>
-        <li><i class="dot" style="background:var(--gl-ink)"></i><div><b>0 failed</b><span>No component threw during compile or mount.</span></div></li>
-        <li><i class="dot" style="background:var(--accent)"></i><div><b>88.3 s of render</b><span class="mono">median 905 ms · max 1,382 ms · 3,499 DOM nodes</span></div></li>
+        <li><i class="dot" style="background:#000000"></i><div><b>108 clean</b><span>Mounted, settled and finished with an empty console.</span></div></li>
+        <li><i class="dot" style="background:#888888"></i><div><b>5 noisy</b><span class="mono">masonrygallery ×12 · flipcardgallery · imagegallerylightbox · logocarouselinfinite · polaroidphotogrid</span></div></li>
+        <li><i class="dot" style="background:#cccccc"></i><div><b>0 failed</b><span>No component threw during compile or mount.</span></div></li>
+        <li><i class="dot" style="background:#ffffff;border:1px solid var(--line)"></i><div><b>103.3 s of render</b><span class="mono">median 907 ms · max 1,020 ms · 3,866 DOM nodes</span></div></li>
       </ul>
     </div>
     <div class="frame">
@@ -468,23 +486,23 @@ a { color: inherit; }
   <!-- ══ WALL ══ -->
   <section class="wall-block">
     <div class="wall-head">
-      <div class="count">97<small>Components, photographed at 1440 px</small></div>
+      <div class="count">113<small>Components, photographed at 1440 px</small></div>
       <p>Every frame below came out of the same headless run: mounted in a blank iframe, scrolled once to trigger reveal animations, returned to the top, then captured. No component was listed from its description alone.</p>
     </div>
     <div class="wall-viewport">
       <div class="wall">
 {{WALL}}
       </div>
-      <div class="wall-label">All 97 · captured 20 Oct 2026</div>
+      <div class="wall-label">All 113 · captured 20 Oct 2026</div>
     </div>
   </section>
 
   <!-- ══ CLOSER ══ -->
   <section class="end">
     <h2>The catalogue is the proof.</h2>
-    <p>97 components went in as JSX. 97 came out as running previews with a measurement next to each one. Five of them talk back to the console, and the library says which.</p>
+    <p>113 components went in as JSX, carrying whatever colours and stock photographs their packs shipped with. 113 came out in grey, set in one typeface, showing eight pictures between them. Five still talk back to the console, and the library says which.</p>
     <a class="cta" href="gallery/"><span>Open the live library</span> <span class="arrow">↗</span></a>
-    <div class="tags"><span>React 18.3.1</span><span>Babel standalone</span><span>Headless Chrome</span><span>4 packs</span><span>1,344 props</span><span>Static site</span></div>
+    <div class="tags"><span>React 18.3.1</span><span>Neue Haas Grotesk</span><span>16-step grey ramp</span><span>8 photographs</span><span>1,716 props</span><span>Static site</span></div>
   </section>
 
 </main>

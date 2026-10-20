@@ -197,55 +197,55 @@ window.__GALLERY_MODULES__["cards-horizontalscrollcarousel"] = function (React) 
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "cardBackgroundColor": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#F4F4F5",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "activeCardBg": {
           "dataType": "color",
           "displayName": "Active Card Background",
-          "defaultValue": "#E0E7FF",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "numberColor": {
           "dataType": "color",
           "displayName": "Number Color",
-          "defaultValue": "#A1A1AA",
+          "defaultValue": "#aaaaaa",
           "group": "Colors"
         },
         "iconColor": {
           "dataType": "color",
           "displayName": "Icon Color",
-          "defaultValue": "#3F3F46",
+          "defaultValue": "#444444",
           "group": "Colors"
         },
         "arrowColor": {
           "dataType": "color",
           "displayName": "Arrow Color",
-          "defaultValue": "#71717A",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "labelColor": {
           "dataType": "color",
           "displayName": "Section Label Color",
-          "defaultValue": "#71717A",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "dividerColor": {
           "dataType": "color",
           "displayName": "Divider Color",
-          "defaultValue": "#E4E4E7",
+          "defaultValue": "#dddddd",
           "group": "Colors"
         }
       },
@@ -297,15 +297,15 @@ window.__GALLERY_MODULES__["cards-horizontalscrollcarousel"] = function (React) 
     const showNavArrows = config?.showNavArrows !== false;
     const enableDrag = config?.enableDrag !== false;
     const activeCardIndex = parseInt(config?.activeCardIndex || '3');
-    const backgroundColor = config?.backgroundColor || '#FFFFFF';
-    const cardBackgroundColor = config?.cardBackgroundColor || '#F4F4F5';
-    const activeCardBg = config?.activeCardBg || '#E0E7FF';
-    const titleColor = config?.titleColor || '#18181B';
-    const numberColor = config?.numberColor || '#A1A1AA';
-    const iconColor = config?.iconColor || '#3F3F46';
-    const arrowColor = config?.arrowColor || '#71717A';
-    const labelColor = config?.labelColor || '#71717A';
-    const dividerColor = config?.dividerColor || '#E4E4E7';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
+    const cardBackgroundColor = config?.cardBackgroundColor || '#eeeeee';
+    const activeCardBg = config?.activeCardBg || '#eeeeee';
+    const titleColor = config?.titleColor || '#111111';
+    const numberColor = config?.numberColor || '#aaaaaa';
+    const iconColor = config?.iconColor || '#444444';
+    const arrowColor = config?.arrowColor || '#777777';
+    const labelColor = config?.labelColor || '#777777';
+    const dividerColor = config?.dividerColor || '#dddddd';
 
     // useId must be called at the top level, never inside a useMemo callback
     const reactId = React.useId();
@@ -540,7 +540,7 @@ window.__GALLERY_MODULES__["cards-horizontalscrollcarousel"] = function (React) 
         borderRadius: '50%',
         backgroundColor: backgroundColor,
         border: `1px solid ${dividerColor}`,
-        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
@@ -571,7 +571,7 @@ window.__GALLERY_MODULES__["cards-horizontalscrollcarousel"] = function (React) 
         borderRadius: '50%',
         backgroundColor: backgroundColor,
         border: `1px solid ${dividerColor}`,
-        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',

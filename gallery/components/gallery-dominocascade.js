@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-dominocascade"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=300&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=200&h=300&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=200&h=300&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=200&h=300&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=200&h=300&fit=crop,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=200&h=300&fit=crop,https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=200&h=300&fit=crop,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=200&h=300&fit=crop",
+          "defaultValue": "assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp",
           "group": "Content",
           "description": "Comma-separated image URLs (6-10 recommended)"
         },
@@ -98,19 +98,19 @@ window.__GALLERY_MODULES__["gallery-dominocascade"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#1C1917",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "cardBorderColor": {
           "dataType": "color",
           "displayName": "Card Border Color",
-          "defaultValue": "#D6D3D1",
+          "defaultValue": "#cccccc",
           "group": "Colors"
         },
         "impactColor": {
           "dataType": "color",
           "displayName": "Impact Highlight Color",
-          "defaultValue": "#FEF3C7",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "borderRadius": {
@@ -169,9 +169,9 @@ window.__GALLERY_MODULES__["gallery-dominocascade"] = function (React) {
     const spacing = parseInt(config?.spacing || '40');
     const cascadeDelay = parseInt(config?.cascadeDelay || '80');
     const transitionDuration = parseInt(config?.transitionDuration || '400');
-    const backgroundColor = config?.backgroundColor || '#1C1917';
-    const cardBorderColor = config?.cardBorderColor || '#D6D3D1';
-    const impactColor = config?.impactColor || '#FEF3C7';
+    const backgroundColor = config?.backgroundColor || '#111111';
+    const cardBorderColor = config?.cardBorderColor || '#cccccc';
+    const impactColor = config?.impactColor || '#eeeeee';
     const borderRadius = parseInt(config?.borderRadius || '8');
     const showResetButton = config?.showResetButton !== false;
     const autoTrigger = config?.autoTrigger !== false;
@@ -270,12 +270,12 @@ window.__GALLERY_MODULES__["gallery-dominocascade"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '400px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: 'center',
-          color: '#71717A'
+          color: '#777777'
         }
       }, /*#__PURE__*/React.createElement("p", {
         style: {
@@ -296,7 +296,7 @@ window.__GALLERY_MODULES__["gallery-dominocascade"] = function (React) {
         alignItems: 'center',
         justifyContent: 'center',
         gap: '40px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -312,9 +312,9 @@ window.__GALLERY_MODULES__["gallery-dominocascade"] = function (React) {
         left: 0,
         right: 0,
         height: '4px',
-        backgroundColor: '#44403C',
+        backgroundColor: '#444444',
         borderRadius: '2px',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'
       }
     }), images.map((image, index) => {
       const tilt = getDominoTilt(index);
@@ -350,8 +350,8 @@ window.__GALLERY_MODULES__["gallery-dominocascade"] = function (React) {
           borderRadius: `${borderRadius}px`,
           overflow: 'hidden',
           border: `3px solid ${cardBorderColor}`,
-          backgroundColor: '#FAFAFA',
-          boxShadow: isFalling ? `${-5 - tilt * 0.1}px ${5 + tilt * 0.2}px ${15 + tilt * 0.3}px rgba(0,0,0,0.4)` : isHovered ? `0 8px 30px rgba(0,0,0,0.3), 0 0 0 2px ${impactColor}` : '0 4px 12px rgba(0,0,0,0.2)',
+          backgroundColor: '#ffffff',
+          boxShadow: isFalling ? `${-5 - tilt * 0.1}px ${5 + tilt * 0.2}px ${15 + tilt * 0.3}px rgba(0, 0, 0, 0.4)` : isHovered ? `0 8px 30px rgba(0, 0, 0, 0.3), 0 0 0 2px ${impactColor}` : '0 4px 12px rgba(0, 0, 0, 0.2)',
           transition: 'box-shadow 200ms ease-out'
         }
       }, /*#__PURE__*/React.createElement("img", {
@@ -371,10 +371,10 @@ window.__GALLERY_MODULES__["gallery-dominocascade"] = function (React) {
           right: 0,
           bottom: 0,
           background: `linear-gradient(135deg, 
-                      rgba(255,255,255,0.15) 0%, 
+                      rgba(255, 255, 255, 0.15) 0%, 
                       transparent 40%, 
                       transparent 60%, 
-                      rgba(0,0,0,0.1) 100%
+                      rgba(0, 0, 0, 0.1) 100%
                     )`,
           pointerEvents: 'none'
         }
@@ -399,7 +399,7 @@ window.__GALLERY_MODULES__["gallery-dominocascade"] = function (React) {
           transform: 'translateX(-50%)',
           width: '6px',
           height: '6px',
-          backgroundColor: '#44403C',
+          backgroundColor: '#444444',
           borderRadius: '50%',
           opacity: 0.5
         }
@@ -417,7 +417,7 @@ window.__GALLERY_MODULES__["gallery-dominocascade"] = function (React) {
         fontFamily: 'inherit',
         fontSize: '14px',
         fontWeight: '500',
-        color: '#1C1917',
+        color: '#111111',
         backgroundColor: impactColor,
         border: 'none',
         borderRadius: '8px',
@@ -434,16 +434,16 @@ window.__GALLERY_MODULES__["gallery-dominocascade"] = function (React) {
         fontFamily: 'inherit',
         fontSize: '14px',
         fontWeight: '500',
-        color: '#FAFAFA',
-        backgroundColor: '#44403C',
+        color: '#ffffff',
+        backgroundColor: '#444444',
         border: 'none',
         borderRadius: '8px',
         padding: '12px 24px',
         cursor: 'pointer',
         transition: 'background-color 200ms ease-out'
       },
-      onMouseEnter: e => e.target.style.backgroundColor = '#57534E',
-      onMouseLeave: e => e.target.style.backgroundColor = '#44403C'
+      onMouseEnter: e => e.target.style.backgroundColor = '#555555',
+      onMouseLeave: e => e.target.style.backgroundColor = '#444444'
     }, "Reset Dominoes")), /*#__PURE__*/React.createElement("style", null, `
         @keyframes impactPulse {
           0% { transform: translateX(-50%) scale(0.5); opacity: 1; }

@@ -66,7 +66,7 @@ const MANIFEST = {
       "textColor": {
         "dataType": "color",
         "displayName": "Text Color",
-        "defaultValue": "#FFFFFF",
+        "defaultValue": "#ffffff",
         "group": "Colors"
       }
     },
@@ -91,7 +91,7 @@ function Component({ config = {} }) {
   const borderRadius = parseInt(config?.borderRadius || "12");
   const backgroundColor = config?.backgroundColor || "#000000";
   const overlayColor = config?.overlayColor || "#000000";
-  const textColor = config?.textColor || "#FFFFFF";
+  const textColor = config?.textColor || "#ffffff";
 
   const prefersReducedMotion = typeof window !== 'undefined' 
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
@@ -99,21 +99,21 @@ function Component({ config = {} }) {
 
   // Gradients for demo
   const gradients = [
-    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-    'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
-    'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-    'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
-    'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
-    'linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)',
-    'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)',
-    'linear-gradient(135deg, #f8b500 0%, #fceabb 100%)',
-    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+    'linear-gradient(135deg, #888888 0%, #555555 100%)',
+    'linear-gradient(135deg, #aaaaaa 0%, #777777 100%)',
+    'linear-gradient(135deg, #999999 0%, #bbbbbb 100%)',
+    'linear-gradient(135deg, #bbbbbb 0%, #cccccc 100%)',
+    'linear-gradient(135deg, #888888 0%, #dddddd 100%)',
+    'linear-gradient(135deg, #aaaaaa 0%, #111111 100%)',
+    'linear-gradient(135deg, #dddddd 0%, #dddddd 100%)',
+    'linear-gradient(135deg, #aaaaaa 0%, #dddddd 100%)',
+    'linear-gradient(135deg, #eeeeee 0%, #bbbbbb 100%)',
+    'linear-gradient(135deg, #888888 0%, #dddddd 100%)',
+    'linear-gradient(135deg, #cccccc 0%, #bbbbbb 100%)',
+    'linear-gradient(135deg, #bbbbbb 0%, #eeeeee 100%)',
+    'linear-gradient(135deg, #888888 0%, #555555 100%)',
+    'linear-gradient(135deg, #aaaaaa 0%, #777777 100%)',
+    'linear-gradient(135deg, #999999 0%, #bbbbbb 100%)'
   ];
 
   // FLIP animation

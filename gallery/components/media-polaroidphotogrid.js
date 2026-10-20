@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["media-polaroidphotogrid"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (comma-separated)",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400,https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400",
+          "defaultValue": "assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp",
           "group": "Content"
         },
         "captions": {
@@ -81,25 +81,25 @@ window.__GALLERY_MODULES__["media-polaroidphotogrid"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#F5F5F4",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "polaroidColor": {
           "dataType": "color",
           "displayName": "Polaroid Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         }
       },
@@ -112,15 +112,15 @@ window.__GALLERY_MODULES__["media-polaroidphotogrid"] = function (React) {
   function Component({
     config = {}
   }) {
-    const images = (config?.images || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400,https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400').split(',').map(url => url.trim());
+    const images = (config?.images || 'assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp').split(',').map(url => url.trim());
     const captions = (config?.captions || 'Mountain Vista,Forest Trail,Ocean Waves,Desert Sunset,Winter Woods,Autumn Colors').split(',').map(c => c.trim());
     const columns = parseInt(config?.columns || '3');
     const maxRotation = parseInt(config?.maxRotation || '8');
     const enableHoverEffect = config?.enableHoverEffect !== false;
-    const backgroundColor = config?.backgroundColor || '#F5F5F4';
-    const polaroidColor = config?.polaroidColor || '#FFFFFF';
-    const textColor = config?.textColor || '#18181B';
-    const accentColor = config?.accentColor || '#495057';
+    const backgroundColor = config?.backgroundColor || '#eeeeee';
+    const polaroidColor = config?.polaroidColor || '#ffffff';
+    const textColor = config?.textColor || '#111111';
+    const accentColor = config?.accentColor || '#555555';
     const [hoveredIndex, setHoveredIndex] = React.useState(null);
     const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
     const getRandomRotation = index => {
@@ -141,7 +141,7 @@ window.__GALLERY_MODULES__["media-polaroidphotogrid"] = function (React) {
         minHeight: '100vh',
         backgroundColor: backgroundColor,
         padding: '60px 20px',
-        fontFamily: '"Caveat", cursive, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -205,7 +205,7 @@ window.__GALLERY_MODULES__["media-polaroidphotogrid"] = function (React) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(135deg, rgba(255,255,255,0.2), transparent)',
+          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent)',
           opacity: prefersReducedMotion ? 0 : 1,
           animation: prefersReducedMotion ? 'none' : 'shimmer 1s ease-out',
           pointerEvents: 'none'
@@ -219,7 +219,7 @@ window.__GALLERY_MODULES__["media-polaroidphotogrid"] = function (React) {
           textAlign: 'center',
           fontSize: '20px',
           color: textColor,
-          fontFamily: '"Caveat", cursive',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           fontWeight: '500',
           letterSpacing: '0.5px',
           lineHeight: '1.2',
@@ -233,7 +233,7 @@ window.__GALLERY_MODULES__["media-polaroidphotogrid"] = function (React) {
           transform: 'translateX(-50%)',
           width: '60px',
           height: '20px',
-          background: 'linear-gradient(135deg, rgba(0,0,0,0.1), rgba(0,0,0,0.05))',
+          background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05))',
           borderRadius: '2px',
           opacity: 0.6
         }

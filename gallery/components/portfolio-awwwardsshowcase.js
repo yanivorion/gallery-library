@@ -56,7 +56,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
             "year": "2025",
             "description": "Reimagining sustainable energy through immersive digital experiences",
             "image": "data:image/svg+xml,%3Csvg width='1920' height='1080' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%2318181b'/%3E%3Cstop offset='100%25' style='stop-color:%233f3f46'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1920' height='1080' fill='url(%23g1)'/%3E%3Ctext x='50%25' y='50%25' font-family='system-ui' font-size='120' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3EKINETIC%3C/text%3E%3C/svg%3E",
-            "accentColor": "#18181b"
+            "accentColor": "#111111"
           }, {
             "title": "NEURAL FLUX",
             "subtitle": "Product Design",
@@ -64,7 +64,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
             "year": "2025",
             "description": "Next-generation AI interaction paradigms for creative professionals",
             "image": "data:image/svg+xml,%3Csvg width='1920' height='1080' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%233f3f46'/%3E%3Cstop offset='100%25' style='stop-color:%2371717a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1920' height='1080' fill='url(%23g2)'/%3E%3Ctext x='50%25' y='50%25' font-family='system-ui' font-size='120' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3ENEURAL%3C/text%3E%3C/svg%3E",
-            "accentColor": "#3f3f46"
+            "accentColor": "#444444"
           }, {
             "title": "QUANTUM SPACE",
             "subtitle": "Digital Architecture",
@@ -72,7 +72,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
             "year": "2024",
             "description": "Exploring dimensional interfaces through spatial computing",
             "image": "data:image/svg+xml,%3Csvg width='1920' height='1080' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%2352525b'/%3E%3Cstop offset='100%25' style='stop-color:%2318181b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1920' height='1080' fill='url(%23g3)'/%3E%3Ctext x='50%25' y='50%25' font-family='system-ui' font-size='120' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3EQUANTUM%3C/text%3E%3C/svg%3E",
-            "accentColor": "#52525b"
+            "accentColor": "#555555"
           }], null, 2),
           "group": "Content",
           "description": "Array of project objects with title, subtitle, category, year, description, image, accentColor"
@@ -172,32 +172,32 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0a0a0a",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "subtitleColor": {
           "dataType": "color",
           "displayName": "Subtitle Color",
-          "defaultValue": "#71717A",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "overlayBackground": {
           "dataType": "color",
           "displayName": "Overlay Background",
-          "defaultValue": "rgba(250, 250, 250, 0.1)",
+          "defaultValue": "rgba(255, 255, 255, 0.1)",
           "group": "Colors",
           "description": "Background for hover overlay (supports transparency)"
         },
         "overlayTextColor": {
           "dataType": "color",
           "displayName": "Overlay Text Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "borderRadius": {
@@ -225,7 +225,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
       year: "2025",
       description: "Reimagining sustainable energy through immersive digital experiences",
       image: "data:image/svg+xml,%3Csvg width='1920' height='1080' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1920' height='1080' fill='%2318181b'/%3E%3C/svg%3E",
-      accentColor: "#18181b"
+      accentColor: "#111111"
     }], null, 2);
     const cardHeight = parseInt(config?.cardHeight || "90");
     const cardGap = parseInt(config?.cardGap || "80");
@@ -239,11 +239,11 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
     const titleWeight = config?.titleWeight || "500";
     const subtitleSize = parseInt(config?.subtitleSize || "20");
     const labelLetterSpacing = config?.labelLetterSpacing || "0.15em";
-    const backgroundColor = config?.backgroundColor || "#0a0a0a";
-    const titleColor = config?.titleColor || "#FFFFFF";
-    const subtitleColor = config?.subtitleColor || "#71717A";
-    const overlayBackground = config?.overlayBackground || "rgba(250, 250, 250, 0.1)";
-    const overlayTextColor = config?.overlayTextColor || "#FFFFFF";
+    const backgroundColor = config?.backgroundColor || "#111111";
+    const titleColor = config?.titleColor || "#ffffff";
+    const subtitleColor = config?.subtitleColor || "#777777";
+    const overlayBackground = config?.overlayBackground || "rgba(255, 255, 255, 0.1)";
+    const overlayTextColor = config?.overlayTextColor || "#ffffff";
     const borderRadius = config?.borderRadius || "24";
 
     // Parse projects
@@ -258,7 +258,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
         year: "2025",
         description: "Reimagining sustainable energy",
         image: "data:image/svg+xml,%3Csvg width='1920' height='1080' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1920' height='1080' fill='%2318181b'/%3E%3C/svg%3E",
-        accentColor: "#18181b"
+        accentColor: "#111111"
       }];
     }
 
@@ -426,7 +426,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
         style: {
           position: 'absolute',
           inset: 0,
-          background: `linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)`,
+          background: `linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.7) 100%)`,
           zIndex: 1
         }
       }), /*#__PURE__*/React.createElement("div", {
@@ -455,7 +455,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
           fontSize: `${subtitleSize}px`,
           fontWeight: '400',
           color: subtitleColor,
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           letterSpacing: labelLetterSpacing,
           textTransform: 'uppercase'
         }
@@ -464,7 +464,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
           fontSize: `${subtitleSize}px`,
           fontWeight: '400',
           color: subtitleColor,
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           letterSpacing: labelLetterSpacing
         }
       }, project.year)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
@@ -473,7 +473,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
           fontWeight: titleWeight,
           color: titleColor,
           margin: '0 0 16px 0',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           letterSpacing: '-0.03em',
           lineHeight: 0.95,
           textTransform: 'uppercase'
@@ -484,7 +484,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
           fontWeight: '300',
           color: subtitleColor,
           margin: 0,
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           letterSpacing: '0.01em'
         }
       }, project.subtitle))), /*#__PURE__*/React.createElement("div", {
@@ -519,7 +519,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
           fontWeight: '300',
           color: overlayTextColor,
           margin: '0 0 32px 0',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           lineHeight: 1.6,
           letterSpacing: '0.01em'
         }
@@ -531,7 +531,7 @@ window.__GALLERY_MODULES__["portfolio-awwwardsshowcase"] = function (React) {
           fontSize: '14px',
           fontWeight: '500',
           color: overlayTextColor,
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           letterSpacing: labelLetterSpacing,
           textTransform: 'uppercase',
           padding: '12px 24px',

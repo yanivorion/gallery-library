@@ -50,22 +50,22 @@ window.__GALLERY_MODULES__["gallery-fullscreenslider"] = function (React) {
           "dataType": "text",
           "displayName": "Images (JSON Array)",
           "defaultValue": JSON.stringify([{
-            url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920",
+            url: "assets/07.webp",
             caption: "Mountain Vista"
           }, {
-            url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920",
+            url: "assets/08.webp",
             caption: "Forest Path"
           }, {
-            url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920",
+            url: "assets/01.webp",
             caption: "Desert Sunset"
           }, {
-            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920",
+            url: "assets/02.webp",
             caption: "Misty Valley"
           }, {
-            url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920",
+            url: "assets/03.webp",
             caption: "Wild Trail"
           }, {
-            url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1920",
+            url: "assets/04.webp",
             caption: "Alpine Lake"
           }]),
           "group": "Content",
@@ -74,31 +74,31 @@ window.__GALLERY_MODULES__["gallery-fullscreenslider"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0A0A0A",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "thumbnailStripBackground": {
           "dataType": "color",
           "displayName": "Thumbnail Strip Background",
-          "defaultValue": "#1A1A1A",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "controlsColor": {
           "dataType": "color",
           "displayName": "Controls Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "thumbnailBorderColor": {
           "dataType": "color",
           "displayName": "Thumbnail Border Color",
-          "defaultValue": "#737373",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "showCaptions": {
@@ -156,30 +156,30 @@ window.__GALLERY_MODULES__["gallery-fullscreenslider"] = function (React) {
     config = {}
   }) {
     const imagesData = config?.images || JSON.stringify([{
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920",
+      url: "assets/05.webp",
       caption: "Mountain Vista"
     }, {
-      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920",
+      url: "assets/06.webp",
       caption: "Forest Path"
     }, {
-      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920",
+      url: "assets/07.webp",
       caption: "Desert Sunset"
     }, {
-      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920",
+      url: "assets/08.webp",
       caption: "Misty Valley"
     }, {
-      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920",
+      url: "assets/01.webp",
       caption: "Wild Trail"
     }, {
-      url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1920",
+      url: "assets/02.webp",
       caption: "Alpine Lake"
     }]);
     const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
-    const backgroundColor = config?.backgroundColor || "#0A0A0A";
-    const thumbnailStripBackground = config?.thumbnailStripBackground || "#1A1A1A";
-    const controlsColor = config?.controlsColor || "#FAFAFA";
-    const accentColor = config?.accentColor || "#3B82F6";
-    const thumbnailBorderColor = config?.thumbnailBorderColor || "#737373";
+    const backgroundColor = config?.backgroundColor || "#111111";
+    const thumbnailStripBackground = config?.thumbnailStripBackground || "#222222";
+    const controlsColor = config?.controlsColor || "#ffffff";
+    const accentColor = config?.accentColor || "#777777";
+    const thumbnailBorderColor = config?.thumbnailBorderColor || "#777777";
     const showCaptions = config?.showCaptions !== false;
     const showCounter = config?.showCounter !== false;
     const thumbnailSize = parseInt(config?.thumbnailSize || "80");
@@ -262,7 +262,7 @@ window.__GALLERY_MODULES__["gallery-fullscreenslider"] = function (React) {
         backgroundColor: backgroundColor,
         display: 'flex',
         flexDirection: 'column',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {

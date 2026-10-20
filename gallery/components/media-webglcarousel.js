@@ -49,14 +49,14 @@ window.__GALLERY_MODULES__["media-webglcarousel"] = function (React) {
         "slides": {
           "dataType": "text",
           "displayName": "Slide Images (comma-separated URLs)",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&h=900,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1600&h=900,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1600&h=900",
+          "defaultValue": "assets/07.webp,assets/08.webp,assets/01.webp",
           "group": "Content",
           "description": "Enter image URLs separated by commas"
         },
         "fallbackColors": {
           "dataType": "text",
           "displayName": "Fallback Colors (if images fail)",
-          "defaultValue": "#FF6B6B,#4ECDC4,#45B7D1",
+          "defaultValue": "#888888,#aaaaaa,#999999",
           "group": "Content",
           "description": "Hex color codes as fallback"
         },
@@ -110,7 +110,7 @@ window.__GALLERY_MODULES__["media-webglcarousel"] = function (React) {
         "counterTextColor": {
           "dataType": "color",
           "displayName": "Counter Text Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "counterBackgroundColor": {
@@ -122,7 +122,7 @@ window.__GALLERY_MODULES__["media-webglcarousel"] = function (React) {
         "navButtonColor": {
           "dataType": "color",
           "displayName": "Navigation Button Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "borderRadius": {
@@ -555,7 +555,7 @@ window.__GALLERY_MODULES__["media-webglcarousel"] = function (React) {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        color: '#FFFFFF',
+        color: '#ffffff',
         fontSize: '14px',
         textAlign: 'center'
       }
@@ -578,11 +578,11 @@ window.__GALLERY_MODULES__["media-webglcarousel"] = function (React) {
         backgroundColor: config?.counterBackgroundColor || 'rgba(0, 0, 0, 0.6)',
         backdropFilter: 'blur(10px)',
         borderRadius: '6px',
-        fontFamily: 'monospace',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         fontSize: '14px',
         fontWeight: '400',
         letterSpacing: '0.05em',
-        color: config?.counterTextColor || '#FFFFFF',
+        color: config?.counterTextColor || '#ffffff',
         userSelect: 'none',
         zIndex: 10,
         lineHeight: '1'
@@ -616,7 +616,7 @@ window.__GALLERY_MODULES__["media-webglcarousel"] = function (React) {
         border: 'none',
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
         backdropFilter: 'blur(10px)',
-        color: config?.navButtonColor || '#FFFFFF',
+        color: config?.navButtonColor || '#ffffff',
         fontSize: '20px',
         cursor: isTransitioning ? 'not-allowed' : 'pointer',
         display: 'flex',
@@ -648,7 +648,7 @@ window.__GALLERY_MODULES__["media-webglcarousel"] = function (React) {
         border: 'none',
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
         backdropFilter: 'blur(10px)',
-        color: config?.navButtonColor || '#FFFFFF',
+        color: config?.navButtonColor || '#ffffff',
         fontSize: '20px',
         cursor: isTransitioning ? 'not-allowed' : 'pointer',
         display: 'flex',

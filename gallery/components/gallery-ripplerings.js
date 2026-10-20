@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-ripplerings"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300&h=300&fit=crop",
+          "defaultValue": "assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp",
           "group": "Content",
           "description": "Comma-separated image URLs (first image is center)"
         },
@@ -110,25 +110,25 @@ window.__GALLERY_MODULES__["gallery-ripplerings"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0C0A09",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "ringColor": {
           "dataType": "color",
           "displayName": "Ring Color",
-          "defaultValue": "#44403C",
+          "defaultValue": "#444444",
           "group": "Colors"
         },
         "cardBorderColor": {
           "dataType": "color",
           "displayName": "Card Border Color",
-          "defaultValue": "#57534E",
+          "defaultValue": "#555555",
           "group": "Colors"
         },
         "glowColor": {
           "dataType": "color",
           "displayName": "Glow Color",
-          "defaultValue": "#78716C",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "showRingLines": {
@@ -170,10 +170,10 @@ window.__GALLERY_MODULES__["gallery-ripplerings"] = function (React) {
     const pulseSpeed = parseInt(config?.pulseSpeed || '3');
     const rotateRings = config?.rotateRings === true;
     const rotationSpeed = parseInt(config?.rotationSpeed || '30');
-    const backgroundColor = config?.backgroundColor || '#0C0A09';
-    const ringColor = config?.ringColor || '#44403C';
-    const cardBorderColor = config?.cardBorderColor || '#57534E';
-    const glowColor = config?.glowColor || '#78716C';
+    const backgroundColor = config?.backgroundColor || '#111111';
+    const ringColor = config?.ringColor || '#444444';
+    const cardBorderColor = config?.cardBorderColor || '#555555';
+    const glowColor = config?.glowColor || '#777777';
     const showRingLines = config?.showRingLines !== false;
     const glassEffect = config?.glassEffect !== false;
     const prefersReducedMotion = React.useMemo(() => {
@@ -254,12 +254,12 @@ window.__GALLERY_MODULES__["gallery-ripplerings"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '400px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: 'center',
-          color: '#71717A'
+          color: '#777777'
         }
       }, /*#__PURE__*/React.createElement("p", {
         style: {
@@ -276,7 +276,7 @@ window.__GALLERY_MODULES__["gallery-ripplerings"] = function (React) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -341,7 +341,7 @@ window.__GALLERY_MODULES__["gallery-ripplerings"] = function (React) {
           cursor: 'pointer',
           opacity: prefersReducedMotion ? 1 : isInView ? 1 : 0,
           transform: prefersReducedMotion ? `scale(${isImageHovered ? 1.15 : 1}) rotate(${-getRotation(ring.ring)}deg)` : isInView ? `scale(${isImageHovered ? 1.15 : getPulseScale(ring.ring)}) rotate(${-getRotation(ring.ring)}deg)` : `scale(0.5) rotate(0deg)`,
-          boxShadow: isImageHovered ? `0 0 20px ${glowColor}60, 0 8px 30px rgba(0,0,0,0.5)` : isCenter ? `0 0 30px ${glowColor}30, 0 8px 30px rgba(0,0,0,0.4)` : `0 4px 15px rgba(0,0,0,0.4)`,
+          boxShadow: isImageHovered ? `0 0 20px ${glowColor}60, 0 8px 30px rgba(0, 0, 0, 0.5)` : isCenter ? `0 0 30px ${glowColor}30, 0 8px 30px rgba(0, 0, 0, 0.4)` : `0 4px 15px rgba(0, 0, 0, 0.4)`,
           transition: prefersReducedMotion ? 'none' : `transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
                          opacity 500ms ease-out ${ring.ring * 100 + imageIndex * 50}ms,
                          border-color 200ms ease-out,

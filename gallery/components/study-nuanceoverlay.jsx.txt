@@ -1,0 +1,355 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Studies after tomoyaokada.com (batch 1)
+ * Source study: S-001 "Light and Shadow - Nuance"
+ * Component Type: Study.NuanceOverlay
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Study.NuanceOverlay",
+  "description": "Cinematic full-bleed image with vertical difference-blended caption copy that reveals word by word behind a lifting shadow sheet",
+  "editorElement": {
+    "selector": ".study-nuance-overlay",
+    "displayName": "Nuance Overlay",
+    "archetype": "container",
+    "data": {
+      "imageUrl": {
+        "dataType": "text",
+        "displayName": "Background Image URL",
+        "defaultValue": "assets/01.webp",
+        "group": "Content"
+      },
+      "imageAlt": {
+        "dataType": "text",
+        "displayName": "Image Alt Text",
+        "defaultValue": "A wall-mounted lamp lighting a textured wall in the dark",
+        "group": "Content"
+      },
+      "label": {
+        "dataType": "text",
+        "displayName": "Label",
+        "defaultValue": "(overview)",
+        "group": "Content"
+      },
+      "paragraphOne": {
+        "dataType": "textarea",
+        "displayName": "Paragraph One",
+        "defaultValue": "A wall-mounted light illuminates a dark interior with a warm, soft glow. Its light spreads across the textured wall, emphasizing the subtle woven surface and creating a gentle gradient of light and shadow.",
+        "group": "Content"
+      },
+      "paragraphTwo": {
+        "dataType": "textarea",
+        "displayName": "Paragraph Two",
+        "defaultValue": "A slender pull switch hangs beside the lamp, adding a small vertical accent to the composition. Much of the frame remains in darkness, allowing the illuminated wall and the contrast between warm light and deep shadow to define the atmosphere.",
+        "group": "Content"
+      },
+      "markText": {
+        "dataType": "text",
+        "displayName": "Corner Mark",
+        "defaultValue": "◆",
+        "group": "Content"
+      },
+      "showMark": {
+        "dataType": "booleanValue",
+        "displayName": "Show Corner Mark",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "height": {
+        "dataType": "number",
+        "displayName": "Stage Height (px)",
+        "defaultValue": "680",
+        "group": "Layout"
+      },
+      "fullHeight": {
+        "dataType": "booleanValue",
+        "displayName": "Full Viewport Height",
+        "defaultValue": false,
+        "group": "Layout"
+      },
+      "textPosition": {
+        "dataType": "select",
+        "displayName": "Caption Position",
+        "defaultValue": "top-right",
+        "options": ["top-right", "bottom-right", "top-left", "bottom-left"],
+        "group": "Layout"
+      },
+      "textAlign": {
+        "dataType": "select",
+        "displayName": "Caption Alignment",
+        "defaultValue": "end",
+        "options": ["end", "start", "justify", "center"],
+        "group": "Layout"
+      },
+      "vertical": {
+        "dataType": "booleanValue",
+        "displayName": "Vertical Writing Mode",
+        "defaultValue": true,
+        "group": "Layout"
+      },
+      "columnLength": {
+        "dataType": "number",
+        "displayName": "Column Length (px)",
+        "defaultValue": "400",
+        "group": "Layout"
+      },
+      "margin": {
+        "dataType": "number",
+        "displayName": "Edge Margin (px)",
+        "defaultValue": "45",
+        "group": "Layout"
+      },
+      "revealDuration": {
+        "dataType": "number",
+        "displayName": "Sheet Reveal (ms)",
+        "defaultValue": "2400",
+        "group": "Animation"
+      },
+      "wordStagger": {
+        "dataType": "number",
+        "displayName": "Word Stagger (ms)",
+        "defaultValue": "18",
+        "group": "Animation"
+      },
+      "animateWords": {
+        "dataType": "booleanValue",
+        "displayName": "Animate Words In",
+        "defaultValue": true,
+        "group": "Animation"
+      },
+      "kenBurns": {
+        "dataType": "booleanValue",
+        "displayName": "Slow Image Drift",
+        "defaultValue": true,
+        "group": "Animation"
+      },
+      "differenceBlend": {
+        "dataType": "booleanValue",
+        "displayName": "Difference Blend Caption",
+        "defaultValue": true,
+        "group": "Colors"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Stage Background",
+        "defaultValue": "#000000",
+        "group": "Colors"
+      },
+      "sheetColor": {
+        "dataType": "color",
+        "displayName": "Reveal Sheet",
+        "defaultValue": "#000000",
+        "group": "Colors"
+      },
+      "textColor": {
+        "dataType": "color",
+        "displayName": "Caption",
+        "defaultValue": "#eeeeee",
+        "group": "Colors"
+      },
+      "labelColor": {
+        "dataType": "color",
+        "displayName": "Label",
+        "defaultValue": "#888888",
+        "group": "Colors"
+      }
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const [revealed, setRevealed] = React.useState(false);
+
+  const prefersReducedMotion = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : false;
+
+  const imageUrl = config?.imageUrl
+    || 'assets/02.webp';
+  const imageAlt = config?.imageAlt || 'A wall-mounted lamp lighting a textured wall in the dark';
+  const label = config?.label || '(overview)';
+  const paragraphOne = config?.paragraphOne
+    || 'A wall-mounted light illuminates a dark interior with a warm, soft glow.';
+  const paragraphTwo = config?.paragraphTwo || '';
+  const markText = config?.markText || '◆';
+  const showMark = config?.showMark !== false;
+
+  const height = Math.max(240, parseInt(config?.height || '680', 10));
+  const fullHeight = config?.fullHeight === true;
+  const textPosition = config?.textPosition || 'top-right';
+  const textAlign = config?.textAlign || 'end';
+  const vertical = config?.vertical !== false;
+  const columnLength = Math.max(120, parseInt(config?.columnLength || '400', 10));
+  const margin = Math.max(0, parseInt(config?.margin || '45', 10));
+
+  const revealDuration = Math.max(0, parseInt(config?.revealDuration || '2400', 10));
+  const wordStagger = Math.max(0, parseInt(config?.wordStagger || '18', 10));
+  const animateWords = config?.animateWords !== false && !prefersReducedMotion;
+  const kenBurns = config?.kenBurns !== false && !prefersReducedMotion;
+
+  const differenceBlend = config?.differenceBlend !== false;
+  const backgroundColor = config?.backgroundColor || '#000000';
+  const sheetColor = config?.sheetColor || '#000000';
+  const textColor = config?.textColor || '#eeeeee';
+  const labelColor = config?.labelColor || '#888888';
+
+  const sans = '"PP Neue Montreal", "Helvetica Neue", Inter, system-ui, -apple-system, sans-serif';
+  const reactId = React.useId();
+  const uniqueId = React.useMemo(() => 'nuance' + reactId.replace(/:/g, ''), [reactId]);
+
+  React.useEffect(() => {
+    const delay = prefersReducedMotion ? 0 : 200;
+    const id = setTimeout(() => setRevealed(true), delay);
+    return () => clearTimeout(id);
+  }, [prefersReducedMotion]);
+
+  // Split each paragraph into words so they can be staggered independently,
+  // the way the study wraps every word in its own inline-block span.
+  const paragraphs = React.useMemo(() => (
+    [paragraphOne, paragraphTwo]
+      .filter((p) => p && String(p).trim().length)
+      .map((p) => String(p).trim().split(/\s+/))
+  ), [paragraphOne, paragraphTwo]);
+
+  let wordIndex = 0;
+
+  const captionStyle = {
+    position: 'absolute',
+    zIndex: 2,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: vertical ? '35px' : '22px',
+    color: textColor,
+    fontFamily: sans,
+    fontSize: '12px',
+    lineHeight: 1.32,
+    letterSpacing: '-0.01em',
+    textAlign: textAlign,
+    pointerEvents: 'none',
+    maxWidth: vertical ? 'none' : 'min(420px, 60%)',
+    maxHeight: vertical ? 'calc(100% - ' + margin * 2 + 'px)' : 'none'
+  };
+  if (vertical) {
+    captionStyle.writingMode = 'vertical-rl';
+    captionStyle.transform = 'rotate(180deg)';
+  }
+  if (differenceBlend) captionStyle.mixBlendMode = 'difference';
+  if (textPosition.indexOf('top') === 0) captionStyle.top = margin + 'px';
+  else captionStyle.bottom = margin + 'px';
+  if (textPosition.indexOf('right') > -1) captionStyle.right = margin + 'px';
+  else captionStyle.left = margin + 'px';
+
+  return (
+    <div
+      className="study-nuance-overlay"
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: fullHeight ? '100svh' : height + 'px',
+        overflow: 'hidden',
+        backgroundColor,
+        boxSizing: 'border-box'
+      }}
+    >
+      <style>{`
+        @keyframes ${uniqueId}-sheet { to { opacity: 0; } }
+        @keyframes ${uniqueId}-word {
+          from { opacity: 0; transform: translateY(0.6em); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes ${uniqueId}-drift {
+          0%   { transform: scale(1.06) translate3d(0, 0, 0); }
+          50%  { transform: scale(1.12) translate3d(-1.2%, -0.8%, 0); }
+          100% { transform: scale(1.06) translate3d(0, 0, 0); }
+        }
+        .${uniqueId}-w { display: inline-block; will-change: transform, opacity; }
+      `}</style>
+
+      <img
+        src={imageUrl}
+        alt={imageAlt}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          animation: kenBurns ? uniqueId + '-drift 26s ease-in-out infinite' : 'none',
+          transform: kenBurns ? 'none' : 'scale(1.02)'
+        }}
+      />
+
+      {/* The study covers the frame with a near-black sheet and fades it off. */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: sheetColor,
+          pointerEvents: 'none',
+          zIndex: 3,
+          opacity: prefersReducedMotion ? 0 : 1,
+          animation: prefersReducedMotion
+            ? 'none'
+            : uniqueId + '-sheet ' + revealDuration + 'ms ease-in-out 200ms both'
+        }}
+      />
+
+      {showMark && (
+        <span
+          style={{
+            position: 'absolute',
+            top: margin + 'px',
+            left: margin + 'px',
+            zIndex: 2,
+            color: textColor,
+            fontFamily: sans,
+            fontSize: '18px',
+            lineHeight: 1,
+            mixBlendMode: differenceBlend ? 'difference' : 'normal',
+            pointerEvents: 'none'
+          }}
+        >
+          {markText}
+        </span>
+      )}
+
+      <section style={captionStyle}>
+        <p style={{ margin: 0, fontSize: '14px', color: labelColor }}>{label}</p>
+        {paragraphs.map((words, pi) => (
+          <p
+            key={pi}
+            style={{
+              margin: 0,
+              inlineSize: vertical ? columnLength + 'px' : 'auto'
+            }}
+          >
+            {words.map((word, wi) => {
+              const delay = 400 + wordIndex * wordStagger;
+              wordIndex += 1;
+              return (
+                <span key={wi}>
+                  <span
+                    className={uniqueId + '-w'}
+                    style={{
+                      opacity: animateWords ? (revealed ? 1 : 0) : 1,
+                      animation: animateWords && revealed
+                        ? uniqueId + '-word 760ms cubic-bezier(.22,1,.36,1) ' + delay + 'ms both'
+                        : 'none'
+                    }}
+                  >
+                    {word}
+                  </span>
+                  {wi < words.length - 1 ? ' ' : ''}
+                </span>
+              );
+            })}
+          </p>
+        ))}
+      </section>
+    </div>
+  );
+}

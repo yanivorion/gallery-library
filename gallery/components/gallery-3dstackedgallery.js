@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-3dstackedgallery"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (comma-separated)",
-          "defaultValue": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800,https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=800,https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=800,https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800,https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=800",
+          "defaultValue": "assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp",
           "group": "Content"
         },
         "autoRotate": {
@@ -97,19 +97,19 @@ window.__GALLERY_MODULES__["gallery-3dstackedgallery"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#F4F4F5",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "controlColor": {
           "dataType": "color",
           "displayName": "Control Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "controlHoverColor": {
           "dataType": "color",
           "displayName": "Control Hover Color",
-          "defaultValue": "#3F3F46",
+          "defaultValue": "#444444",
           "group": "Colors"
         }
       },
@@ -141,9 +141,9 @@ window.__GALLERY_MODULES__["gallery-3dstackedgallery"] = function (React) {
     const depth = parseFloat(config?.depth || '200');
     const perspective = parseFloat(config?.perspective || '1200');
     const showControls = config?.showControls !== false;
-    const backgroundColor = config?.backgroundColor || '#F4F4F5';
-    const controlColor = config?.controlColor || '#18181B';
-    const controlHoverColor = config?.controlHoverColor || '#3F3F46';
+    const backgroundColor = config?.backgroundColor || '#eeeeee';
+    const controlColor = config?.controlColor || '#111111';
+    const controlHoverColor = config?.controlHoverColor || '#444444';
 
     // Mouse move handler
     const handleMouseMove = React.useCallback(e => {
@@ -269,7 +269,7 @@ window.__GALLERY_MODULES__["gallery-3dstackedgallery"] = function (React) {
         transformStyle: 'preserve-3d',
         transition: prefersReducedMotion ? 'none' : 'filter 300ms ease-out',
         willChange: 'transform, opacity',
-        boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
         borderRadius: '8px',
         overflow: 'hidden'
       }

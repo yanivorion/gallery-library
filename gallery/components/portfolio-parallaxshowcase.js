@@ -54,19 +54,19 @@ window.__GALLERY_MODULES__["portfolio-parallaxshowcase"] = function (React) {
             "subtitle": "Product Design",
             "image": "data:image/svg+xml,%3Csvg width='400' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect width='400' height='100' fill='%23ffffff'/%3E%3Cpath d='M50,20 L80,80 L20,80 Z' fill='%23000000'/%3E%3C/g%3E%3C/svg%3E",
             "peekImage": "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%2366b3ff'/%3E%3Cstop offset='100%25' style='stop-color:%234a90e2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g1)'/%3E%3C/svg%3E",
-            "backgroundColor": "#1a1a1a"
+            "backgroundColor": "#222222"
           }, {
             "title": "Meta AI",
             "subtitle": "Brand Design",
             "image": "data:image/svg+xml,%3Csvg width='200' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,40 Q60,10 100,40 T180,40' stroke='%23ffffff' fill='none' stroke-width='4'/%3E%3C/svg%3E",
             "peekImage": "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%239b6dff'/%3E%3Cstop offset='100%25' style='stop-color:%236a4cbf'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g2)'/%3E%3C/svg%3E",
-            "backgroundColor": "#1a1a1a"
+            "backgroundColor": "#222222"
           }, {
             "title": "Quantum Labs",
             "subtitle": "Technology Strategy",
             "image": "data:image/svg+xml,%3Csvg width='150' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='75' cy='40' r='30' stroke='%23ffffff' fill='none' stroke-width='2'/%3E%3Ccircle cx='75' cy='40' r='5' fill='%23ffffff'/%3E%3C/svg%3E",
             "peekImage": "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%23ff6b9d'/%3E%3Cstop offset='100%25' style='stop-color:%23c44569'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g3)'/%3E%3C/svg%3E",
-            "backgroundColor": "#1a1a1a"
+            "backgroundColor": "#222222"
           }], null, 2),
           "group": "Content",
           "description": "Array of card objects with title, subtitle, image, peekImage, backgroundColor"
@@ -135,19 +135,19 @@ window.__GALLERY_MODULES__["portfolio-parallaxshowcase"] = function (React) {
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "subtitleColor": {
           "dataType": "color",
           "displayName": "Subtitle Color",
-          "defaultValue": "#A1A1AA",
+          "defaultValue": "#aaaaaa",
           "group": "Colors"
         },
         "pageBackground": {
           "dataType": "color",
           "displayName": "Page Background",
-          "defaultValue": "#0a0a0a",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "cardGap": {
@@ -174,13 +174,13 @@ window.__GALLERY_MODULES__["portfolio-parallaxshowcase"] = function (React) {
       "subtitle": "Product Design",
       "image": "data:image/svg+xml,%3Csvg width='400' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect width='400' height='100' fill='%23ffffff'/%3E%3Cpath d='M50,20 L80,80 L20,80 Z' fill='%23000000'/%3E%3C/g%3E%3C/svg%3E",
       "peekImage": "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%2366b3ff'/%3E%3Cstop offset='100%25' style='stop-color:%234a90e2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g1)'/%3E%3C/svg%3E",
-      "backgroundColor": "#1a1a1a"
+      "backgroundColor": "#222222"
     }, {
       "title": "Meta AI",
       "subtitle": "Brand Design",
       "image": "data:image/svg+xml,%3Csvg width='200' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,40 Q60,10 100,40 T180,40' stroke='%23ffffff' fill='none' stroke-width='4'/%3E%3C/svg%3E",
       "peekImage": "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%239b6dff'/%3E%3Cstop offset='100%25' style='stop-color:%236a4cbf'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g2)'/%3E%3C/svg%3E",
-      "backgroundColor": "#1a1a1a"
+      "backgroundColor": "#222222"
     }], null, 2);
     const staggerDelay = parseInt(config?.staggerDelay || "150");
     const cardHeight = parseInt(config?.cardHeight || "50");
@@ -190,9 +190,9 @@ window.__GALLERY_MODULES__["portfolio-parallaxshowcase"] = function (React) {
     const titleSize = parseInt(config?.titleSize || "56");
     const subtitleSize = parseInt(config?.subtitleSize || "18");
     const fontWeight = config?.fontWeight || "500";
-    const titleColor = config?.titleColor || "#FFFFFF";
-    const subtitleColor = config?.subtitleColor || "#A1A1AA";
-    const pageBackground = config?.pageBackground || "#0a0a0a";
+    const titleColor = config?.titleColor || "#ffffff";
+    const subtitleColor = config?.subtitleColor || "#aaaaaa";
+    const pageBackground = config?.pageBackground || "#111111";
     const cardGap = config?.cardGap || "2";
 
     // Parse cards data
@@ -205,7 +205,7 @@ window.__GALLERY_MODULES__["portfolio-parallaxshowcase"] = function (React) {
         subtitle: "Product Design",
         image: "data:image/svg+xml,%3Csvg width='400' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='100' fill='%23ffffff'/%3E%3C/svg%3E",
         peekImage: "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1200' height='400' fill='%234a90e2'/%3E%3C/svg%3E",
-        backgroundColor: "#1a1a1a"
+        backgroundColor: "#222222"
       }];
     }
 
@@ -283,7 +283,7 @@ window.__GALLERY_MODULES__["portfolio-parallaxshowcase"] = function (React) {
           height: `${cardHeight}vh`,
           minHeight: '400px',
           position: 'relative',
-          backgroundColor: card.backgroundColor || '#1a1a1a',
+          backgroundColor: card.backgroundColor || '#222222',
           marginBottom: `${cardGap}px`,
           overflow: 'hidden',
           cursor: 'pointer',
@@ -332,7 +332,7 @@ window.__GALLERY_MODULES__["portfolio-parallaxshowcase"] = function (React) {
           fontWeight,
           color: titleColor,
           margin: 0,
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           letterSpacing: '-0.02em',
           lineHeight: 1.1
         }
@@ -348,7 +348,7 @@ window.__GALLERY_MODULES__["portfolio-parallaxshowcase"] = function (React) {
           fontWeight: '400',
           color: subtitleColor,
           margin: 0,
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           letterSpacing: '0.05em',
           textTransform: 'uppercase'
         }

@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["hero-editorialslider"] = function (React) {
         "slidesData": {
           "dataType": "text",
           "displayName": "Slides JSON",
-          "defaultValue": "[{\"title\":\"Aesthetic Minimal\",\"subtitle\":\"Collection 01\",\"description\":\"Redefining the boundaries of modern living through conscious design and sustainable materials.\",\"image\":\"https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2070&auto=format&fit=crop\"},{\"title\":\"Silent Forms\",\"subtitle\":\"Autumn/Winter\",\"description\":\"Embracing the beauty of silence and the elegance of pure form in our latest architectural series.\",\"image\":\"https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=2076&auto=format&fit=crop\"},{\"title\":\"Natural State\",\"subtitle\":\"Essential Living\",\"description\":\"Returning to the roots of craftsmanship with raw textures and unrefined beauty.\",\"image\":\"https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop\"}]",
+          "defaultValue": "[{\"title\":\"Aesthetic Minimal\",\"subtitle\":\"Collection 01\",\"description\":\"Redefining the boundaries of modern living through conscious design and sustainable materials.\",\"image\":\"assets/06.webp\"},{\"title\":\"Silent Forms\",\"subtitle\":\"Autumn/Winter\",\"description\":\"Embracing the beauty of silence and the elegance of pure form in our latest architectural series.\",\"image\":\"assets/07.webp\"},{\"title\":\"Natural State\",\"subtitle\":\"Essential Living\",\"description\":\"Returning to the roots of craftsmanship with raw textures and unrefined beauty.\",\"image\":\"assets/08.webp\"}]",
           "group": "Content",
           "description": "JSON array of slide objects"
         },
@@ -74,19 +74,19 @@ window.__GALLERY_MODULES__["hero-editorialslider"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FAFAF9",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#1C1917",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#44403C",
+          "defaultValue": "#444444",
           "group": "Colors"
         },
         "titleFontSize": {
@@ -112,9 +112,9 @@ window.__GALLERY_MODULES__["hero-editorialslider"] = function (React) {
     const autoPlayRef = React.useRef(null);
 
     // Configuration - Safe Access
-    const backgroundColor = config?.backgroundColor || '#FAFAF9';
-    const textColor = config?.textColor || '#1C1917';
-    const accentColor = config?.accentColor || '#44403C';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
+    const textColor = config?.textColor || '#111111';
+    const accentColor = config?.accentColor || '#444444';
     const duration = parseInt(config?.slideDuration || '6000');
     const autoPlay = config?.autoPlay !== false;
     const layoutReverse = config?.layoutReverse === true;
@@ -128,7 +128,7 @@ window.__GALLERY_MODULES__["hero-editorialslider"] = function (React) {
           title: "Aesthetic Minimal",
           subtitle: "Collection 01",
           description: "Redefining the boundaries of modern living through conscious design.",
-          image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=2070&auto=format&fit=crop"
+          image: "assets/01.webp"
         }];
       } catch (e) {
         return [{
@@ -190,7 +190,7 @@ window.__GALLERY_MODULES__["hero-editorialslider"] = function (React) {
         flexDirection: isMobile ? 'column-reverse' : layoutReverse ? 'row-reverse' : 'row',
         position: 'relative',
         overflow: 'hidden',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       },
       onMouseEnter: () => setIsHovered(true),
       onMouseLeave: () => setIsHovered(false)
@@ -226,7 +226,7 @@ window.__GALLERY_MODULES__["hero-editorialslider"] = function (React) {
       style: {
         margin: '0 0 32px 0',
         fontSize: isMobile ? '42px' : `${titleFontSize}px`,
-        fontFamily: '"Times New Roman", Times, serif',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         // Editorial feel
         fontWeight: 400,
         lineHeight: 1.1,
@@ -348,7 +348,7 @@ window.__GALLERY_MODULES__["hero-editorialslider"] = function (React) {
         height: isMobile ? '50vh' : '100%',
         position: 'relative',
         overflow: 'hidden',
-        backgroundColor: '#E7E5E4' // Placeholder color
+        backgroundColor: '#dddddd' // Placeholder color
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -381,7 +381,7 @@ window.__GALLERY_MODULES__["hero-editorialslider"] = function (React) {
         left: 0,
         width: '100%',
         height: '100%',
-        background: 'linear-gradient(to right, rgba(0,0,0,0.1), transparent)',
+        background: 'linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent)',
         zIndex: 2,
         pointerEvents: 'none'
       }

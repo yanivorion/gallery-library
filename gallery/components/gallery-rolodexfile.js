@@ -69,13 +69,13 @@ window.__GALLERY_MODULES__["gallery-rolodexfile"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#EAEAEA",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "cardColor": {
           "dataType": "color",
           "displayName": "Card Fill Color",
-          "defaultValue": "#D6D6D6",
+          "defaultValue": "#dddddd",
           "group": "Colors"
         },
         "lineColor": {
@@ -87,7 +87,7 @@ window.__GALLERY_MODULES__["gallery-rolodexfile"] = function (React) {
         "accentColor": {
           "dataType": "color",
           "displayName": "Label Accent Color",
-          "defaultValue": "#FDFDBE",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         }
       }
@@ -105,10 +105,10 @@ window.__GALLERY_MODULES__["gallery-rolodexfile"] = function (React) {
       }
     }, [config?.fileData]);
     const bottomLabel = config?.bottomLabel || "sam's secret files";
-    const bgColor = config?.backgroundColor || '#EAEAEA';
-    const cardColor = config?.cardColor || '#D6D6D6';
+    const bgColor = config?.backgroundColor || '#eeeeee';
+    const cardColor = config?.cardColor || '#dddddd';
     const lineColor = config?.lineColor || '#000000';
-    const accentColor = config?.accentColor || '#FDFDBE';
+    const accentColor = config?.accentColor || '#ffffff';
     const transition = React.useMemo(() => {
       const speeds = {
         fast: '200ms',
@@ -129,7 +129,7 @@ window.__GALLERY_MODULES__["gallery-rolodexfile"] = function (React) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontFamily: "'Courier New', monospace"
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, "Invalid or empty data.");
     }
@@ -144,7 +144,7 @@ window.__GALLERY_MODULES__["gallery-rolodexfile"] = function (React) {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '500px',
-        fontFamily: "'Courier New', monospace",
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         overflow: 'hidden'
       }
     }, /*#__PURE__*/React.createElement("div", {

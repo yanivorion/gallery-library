@@ -58,27 +58,27 @@ window.__GALLERY_MODULES__["gallery-bentogrid"] = function (React) {
           "defaultValue": JSON.stringify([{
             "title": "Brand System",
             "category": "Identity",
-            "image": "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
+            "image": "assets/07.webp",
             "size": "large"
           }, {
             "title": "Mobile App",
             "category": "Product Design",
-            "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80",
+            "image": "assets/08.webp",
             "size": "medium"
           }, {
             "title": "Web Platform",
             "category": "Development",
-            "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
+            "image": "assets/01.webp",
             "size": "medium"
           }, {
             "title": "Editorial",
             "category": "Art Direction",
-            "image": "https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&q=80",
+            "image": "assets/02.webp",
             "size": "small"
           }, {
             "title": "E-commerce",
             "category": "Web Design",
-            "image": "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=500&q=80",
+            "image": "assets/03.webp",
             "size": "small"
           }]),
           "group": "Content",
@@ -87,25 +87,25 @@ window.__GALLERY_MODULES__["gallery-bentogrid"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#F5F5F5",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "cardBackgroundColor": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#171717",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "categoryColor": {
           "dataType": "color",
           "displayName": "Category Color",
-          "defaultValue": "#737373",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "sectionTitleFontSize": {
@@ -156,10 +156,10 @@ window.__GALLERY_MODULES__["gallery-bentogrid"] = function (React) {
     config = {}
   }) {
     const sectionTitle = config?.sectionTitle || "Featured Work";
-    const backgroundColor = config?.backgroundColor || "#F5F5F5";
-    const cardBackgroundColor = config?.cardBackgroundColor || "#FFFFFF";
-    const titleColor = config?.titleColor || "#171717";
-    const categoryColor = config?.categoryColor || "#737373";
+    const backgroundColor = config?.backgroundColor || "#eeeeee";
+    const cardBackgroundColor = config?.cardBackgroundColor || "#ffffff";
+    const titleColor = config?.titleColor || "#111111";
+    const categoryColor = config?.categoryColor || "#777777";
     const sectionTitleFontSize = parseInt(config?.sectionTitleFontSize || "56");
     const gap = parseInt(config?.gap || "24");
     const cardBorderRadius = parseInt(config?.cardBorderRadius || "12");
@@ -173,27 +173,27 @@ window.__GALLERY_MODULES__["gallery-bentogrid"] = function (React) {
         projects = [{
           title: "Brand System",
           category: "Identity",
-          image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
+          image: "assets/04.webp",
           size: "large"
         }, {
           title: "Mobile App",
           category: "Product Design",
-          image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80",
+          image: "assets/05.webp",
           size: "medium"
         }, {
           title: "Web Platform",
           category: "Development",
-          image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
+          image: "assets/06.webp",
           size: "medium"
         }, {
           title: "Editorial",
           category: "Art Direction",
-          image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&q=80",
+          image: "assets/07.webp",
           size: "small"
         }, {
           title: "E-commerce",
           category: "Web Design",
-          image: "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=500&q=80",
+          image: "assets/08.webp",
           size: "small"
         }];
       }
@@ -201,7 +201,7 @@ window.__GALLERY_MODULES__["gallery-bentogrid"] = function (React) {
       projects = [{
         title: "Brand System",
         category: "Identity",
-        image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
+        image: "assets/01.webp",
         size: "large"
       }];
     }
@@ -271,7 +271,7 @@ window.__GALLERY_MODULES__["gallery-bentogrid"] = function (React) {
         color: titleColor,
         margin: '0 0 48px 0',
         lineHeight: '1.2',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         maxWidth: '1400px',
         marginLeft: 'auto',
         marginRight: 'auto'
@@ -300,15 +300,15 @@ window.__GALLERY_MODULES__["gallery-bentogrid"] = function (React) {
           opacity: shouldAnimate ? isVisible ? 1 : 0 : 1,
           transform: shouldAnimate ? isVisible ? 'scale(1)' : 'scale(0.95)' : 'scale(1)',
           transition: shouldAnimate ? `opacity ${animationDuration}ms ease-out, transform ${animationDuration}ms ease-out, box-shadow 300ms ease-out` : 'box-shadow 300ms ease-out',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
         },
         onMouseEnter: e => {
           e.currentTarget.style.transform = 'scale(1.02) translateY(-4px)';
-          e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.1)';
+          e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.1)';
         },
         onMouseLeave: e => {
           e.currentTarget.style.transform = shouldAnimate && isVisible ? 'scale(1)' : 'scale(0.95)';
-          e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.05)';
+          e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
@@ -340,7 +340,7 @@ window.__GALLERY_MODULES__["gallery-bentogrid"] = function (React) {
           textTransform: 'uppercase',
           letterSpacing: '0.1em',
           marginBottom: '8px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, project.category), /*#__PURE__*/React.createElement("h3", {
         style: {
@@ -349,7 +349,7 @@ window.__GALLERY_MODULES__["gallery-bentogrid"] = function (React) {
           color: titleColor,
           margin: 0,
           lineHeight: '1.3',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, project.title)));
     })));

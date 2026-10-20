@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-accordionfan"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=400&fit=crop",
+          "defaultValue": "assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp",
           "group": "Content",
           "description": "Comma-separated image URLs (5-9 recommended)"
         },
@@ -111,13 +111,13 @@ window.__GALLERY_MODULES__["gallery-accordionfan"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#1C1917",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "cardBorderColor": {
           "dataType": "color",
           "displayName": "Card Border Color",
-          "defaultValue": "#FAFAF9",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "borderRadius": {
@@ -164,8 +164,8 @@ window.__GALLERY_MODULES__["gallery-accordionfan"] = function (React) {
     const hingePosition = config?.hingePosition || 'bottom';
     const transitionDuration = parseInt(config?.transitionDuration || '500');
     const springEffect = config?.springEffect !== false;
-    const backgroundColor = config?.backgroundColor || '#1C1917';
-    const cardBorderColor = config?.cardBorderColor || '#FAFAF9';
+    const backgroundColor = config?.backgroundColor || '#111111';
+    const cardBorderColor = config?.cardBorderColor || '#ffffff';
     const borderRadius = parseInt(config?.borderRadius || '12');
     const expandOnHover = config?.expandOnHover !== false;
     const showLabels = config?.showLabels === true;
@@ -238,12 +238,12 @@ window.__GALLERY_MODULES__["gallery-accordionfan"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '400px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: 'center',
-          color: '#71717A'
+          color: '#777777'
         }
       }, /*#__PURE__*/React.createElement("p", {
         style: {
@@ -264,7 +264,7 @@ window.__GALLERY_MODULES__["gallery-accordionfan"] = function (React) {
         alignItems: 'center',
         justifyContent: 'center',
         gap: '40px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       onMouseEnter: () => expandOnHover && setIsExpanded(true),
@@ -298,7 +298,7 @@ window.__GALLERY_MODULES__["gallery-accordionfan"] = function (React) {
           opacity: prefersReducedMotion ? 1 : isInView ? 1 : 0,
           transform: prefersReducedMotion ? `translateX(${transform.translateX}px) translateY(${transform.translateY}px) rotate(${transform.rotation}deg) scale(${transform.scale})` : isInView ? `translateX(${transform.translateX}px) translateY(${transform.translateY}px) rotate(${transform.rotation}deg) scale(${transform.scale})` : `translateY(100px) rotate(0deg) scale(0.8)`,
           zIndex: transform.zIndex,
-          boxShadow: isSelected ? `0 20px 40px rgba(0,0,0,0.4), 0 0 0 2px rgba(255,255,255,0.2)` : `0 ${4 + Math.abs(transform.rotation) * 0.5}px ${10 + Math.abs(transform.rotation)}px rgba(0,0,0,0.3)`,
+          boxShadow: isSelected ? `0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.2)` : `0 ${4 + Math.abs(transform.rotation) * 0.5}px ${10 + Math.abs(transform.rotation)}px rgba(0, 0, 0, 0.3)`,
           transition: prefersReducedMotion ? 'none' : `transform ${transitionDuration}ms ${transitionTiming},
                      box-shadow ${transitionDuration}ms ease-out,
                      opacity 400ms ease-out ${index * 50}ms`,
@@ -320,7 +320,7 @@ window.__GALLERY_MODULES__["gallery-accordionfan"] = function (React) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: `linear-gradient(135deg, rgba(255,255,255,${isSelected ? 0.15 : 0.08}) 0%, transparent 50%, rgba(0,0,0,0.1) 100%)`,
+          background: `linear-gradient(135deg, rgba(255,255,255,${isSelected ? 0.15 : 0.08}) 0%, transparent 50%, rgba(0, 0, 0, 0.1) 100%)`,
           pointerEvents: 'none'
         }
       }), showLabels && /*#__PURE__*/React.createElement("div", {
@@ -329,8 +329,8 @@ window.__GALLERY_MODULES__["gallery-accordionfan"] = function (React) {
           bottom: '12px',
           left: '50%',
           transform: 'translateX(-50%)',
-          backgroundColor: 'rgba(0,0,0,0.6)',
-          color: '#FFFFFF',
+          backgroundColor: 'rgba(0, 0, 0, 0.6)',
+          color: '#ffffff',
           padding: '4px 12px',
           borderRadius: '12px',
           fontSize: '12px',

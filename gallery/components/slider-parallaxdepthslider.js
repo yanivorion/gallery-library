@@ -81,31 +81,31 @@ window.__GALLERY_MODULES__["slider-parallaxdepthslider"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "cardColor": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#27272A",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#71717A",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "progressColor": {
           "dataType": "color",
           "displayName": "Progress Indicator Color",
-          "defaultValue": "#3F3F46",
+          "defaultValue": "#444444",
           "group": "Colors"
         },
         "titleFontSize": {
@@ -157,11 +157,11 @@ window.__GALLERY_MODULES__["slider-parallaxdepthslider"] = function (React) {
     const autoRotate = config?.autoRotate || false;
     const rotateSpeed = parseInt(config?.rotateSpeed || "4") * 1000;
     const parallaxIntensity = config?.parallaxIntensity || "medium";
-    const backgroundColor = config?.backgroundColor || "#18181B";
-    const cardColor = config?.cardColor || "#27272A";
-    const textColor = config?.textColor || "#FAFAFA";
-    const accentColor = config?.accentColor || "#71717A";
-    const progressColor = config?.progressColor || "#3F3F46";
+    const backgroundColor = config?.backgroundColor || "#111111";
+    const cardColor = config?.cardColor || "#222222";
+    const textColor = config?.textColor || "#ffffff";
+    const accentColor = config?.accentColor || "#777777";
+    const progressColor = config?.progressColor || "#444444";
     const titleFontSize = config?.titleFontSize || 32;
     const bodyFontSize = config?.bodyFontSize || 14;
     const fontWeight = config?.fontWeight || "400";
@@ -267,7 +267,7 @@ window.__GALLERY_MODULES__["slider-parallaxdepthslider"] = function (React) {
         backgroundColor: backgroundColor,
         padding: '80px 0',
         overflow: 'hidden',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         perspective: '1200px',
         position: 'relative'
       }

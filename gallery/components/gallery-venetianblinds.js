@@ -49,13 +49,13 @@ window.__GALLERY_MODULES__["gallery-venetianblinds"] = function (React) {
         "frontImage": {
           "dataType": "text",
           "displayName": "Front Image URL",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+          "defaultValue": "assets/04.webp",
           "group": "Content"
         },
         "backImage": {
           "dataType": "text",
           "displayName": "Back Image URL",
-          "defaultValue": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop",
+          "defaultValue": "assets/05.webp",
           "group": "Content"
         },
         "blindCount": {
@@ -116,19 +116,19 @@ window.__GALLERY_MODULES__["gallery-venetianblinds"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "blindEdgeColor": {
           "dataType": "color",
           "displayName": "Blind Edge Color",
-          "defaultValue": "#3F3F46",
+          "defaultValue": "#444444",
           "group": "Colors"
         },
         "lightRayColor": {
           "dataType": "color",
           "displayName": "Light Ray Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "perspective": {
@@ -181,9 +181,9 @@ window.__GALLERY_MODULES__["gallery-venetianblinds"] = function (React) {
     const waveEffect = config?.waveEffect !== false;
     const waveDelay = parseInt(config?.waveDelay || '50');
     const transitionDuration = parseInt(config?.transitionDuration || '400');
-    const backgroundColor = config?.backgroundColor || '#18181B';
-    const blindEdgeColor = config?.blindEdgeColor || '#3F3F46';
-    const lightRayColor = config?.lightRayColor || '#FAFAFA';
+    const backgroundColor = config?.backgroundColor || '#111111';
+    const blindEdgeColor = config?.blindEdgeColor || '#444444';
+    const lightRayColor = config?.lightRayColor || '#ffffff';
     const perspective = parseInt(config?.perspective || '800');
     const openOnHover = config?.openOnHover !== false;
     const clickToToggle = config?.clickToToggle !== false;
@@ -262,7 +262,7 @@ window.__GALLERY_MODULES__["gallery-venetianblinds"] = function (React) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       onClick: handleClick,
@@ -338,7 +338,7 @@ window.__GALLERY_MODULES__["gallery-venetianblinds"] = function (React) {
           height: '100%',
           backfaceVisibility: 'hidden',
           overflow: 'hidden',
-          boxShadow: isBlindOpen ? `0 ${4 + index}px ${8 + index * 2}px rgba(0,0,0,0.3)` : `0 2px 4px rgba(0,0,0,0.2)`,
+          boxShadow: isBlindOpen ? `0 ${4 + index}px ${8 + index * 2}px rgba(0, 0, 0, 0.3)` : `0 2px 4px rgba(0, 0, 0, 0.2)`,
           borderBottom: `1px solid ${blindEdgeColor}`
         }
       }, /*#__PURE__*/React.createElement("div", {
@@ -358,10 +358,10 @@ window.__GALLERY_MODULES__["gallery-venetianblinds"] = function (React) {
           right: 0,
           bottom: 0,
           background: `linear-gradient(180deg, 
-                      rgba(255,255,255,0.05) 0%, 
+                      rgba(255, 255, 255, 0.05) 0%, 
                       transparent 30%, 
                       transparent 70%, 
-                      rgba(0,0,0,0.1) 100%
+                      rgba(0, 0, 0, 0.1) 100%
                     )`,
           pointerEvents: 'none'
         }
@@ -373,7 +373,7 @@ window.__GALLERY_MODULES__["gallery-venetianblinds"] = function (React) {
           backfaceVisibility: 'hidden',
           transform: 'rotateX(180deg)',
           backgroundColor: blindEdgeColor,
-          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)'
+          boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.3)'
         }
       }), /*#__PURE__*/React.createElement("div", {
         style: {
@@ -398,7 +398,7 @@ window.__GALLERY_MODULES__["gallery-venetianblinds"] = function (React) {
         left: 0,
         right: 0,
         bottom: 0,
-        boxShadow: 'inset 0 0 30px rgba(0,0,0,0.3)',
+        boxShadow: 'inset 0 0 30px rgba(0, 0, 0, 0.3)',
         borderRadius: '8px',
         pointerEvents: 'none',
         zIndex: 100
@@ -410,7 +410,7 @@ window.__GALLERY_MODULES__["gallery-venetianblinds"] = function (React) {
         left: '50%',
         transform: 'translateX(-50%)',
         fontSize: '12px',
-        color: '#71717A',
+        color: '#777777',
         opacity: 0.7
       }
     }, clickToToggle && openOnHover ? 'Hover or click to open blinds' : clickToToggle ? 'Click to toggle blinds' : 'Hover to open blinds'));

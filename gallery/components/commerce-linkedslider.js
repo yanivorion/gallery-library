@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["commerce-linkedslider"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (Comma Sep)",
-          "defaultValue": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1000,https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1000,https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1000,https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=1000",
+          "defaultValue": "assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp",
           "group": "Content"
         },
         "slideDuration": {
@@ -131,7 +131,7 @@ window.__GALLERY_MODULES__["commerce-linkedslider"] = function (React) {
         display: 'flex',
         flexDirection: 'column',
         gap: '20px',
-        fontFamily: 'sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       },
       onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave
@@ -140,7 +140,7 @@ window.__GALLERY_MODULES__["commerce-linkedslider"] = function (React) {
         position: 'relative',
         width: '100%',
         aspectRatio: '16/9',
-        backgroundColor: '#F3F4F6',
+        backgroundColor: '#eeeeee',
         borderRadius: '8px',
         overflow: 'hidden'
       }
@@ -201,7 +201,7 @@ window.__GALLERY_MODULES__["commerce-linkedslider"] = function (React) {
       style: {
         width: '100%',
         height: '2px',
-        backgroundColor: '#E5E7EB',
+        backgroundColor: '#eeeeee',
         position: 'relative',
         borderRadius: '2px',
         overflow: 'hidden'

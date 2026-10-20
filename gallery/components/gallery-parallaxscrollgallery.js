@@ -50,32 +50,32 @@ window.__GALLERY_MODULES__["gallery-parallaxscrollgallery"] = function (React) {
           "dataType": "text",
           "displayName": "Images (JSON Array)",
           "defaultValue": JSON.stringify([{
-            url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200",
+            url: "assets/01.webp",
             caption: "Mountain Vista",
             speed: 0.5,
             align: "left"
           }, {
-            url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200",
+            url: "assets/02.webp",
             caption: "Forest Path",
             speed: 0.8,
             align: "right"
           }, {
-            url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200",
+            url: "assets/03.webp",
             caption: "Desert Sunset",
             speed: 0.3,
             align: "center"
           }, {
-            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200",
+            url: "assets/04.webp",
             caption: "Misty Valley",
             speed: 0.7,
             align: "left"
           }, {
-            url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200",
+            url: "assets/05.webp",
             caption: "Wild Trail",
             speed: 0.4,
             align: "right"
           }, {
-            url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1200",
+            url: "assets/06.webp",
             caption: "Alpine Lake",
             speed: 0.6,
             align: "center"
@@ -86,19 +86,19 @@ window.__GALLERY_MODULES__["gallery-parallaxscrollgallery"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FAFBFC",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#1F2937",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "overlayColor": {
           "dataType": "color",
           "displayName": "Caption Overlay Color",
-          "defaultValue": "#F3F4F6",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "showCaptions": {
@@ -153,40 +153,40 @@ window.__GALLERY_MODULES__["gallery-parallaxscrollgallery"] = function (React) {
     config = {}
   }) {
     const imagesData = config?.images || JSON.stringify([{
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200",
+      url: "assets/07.webp",
       caption: "Mountain Vista",
       speed: 0.5,
       align: "left"
     }, {
-      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200",
+      url: "assets/08.webp",
       caption: "Forest Path",
       speed: 0.8,
       align: "right"
     }, {
-      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200",
+      url: "assets/01.webp",
       caption: "Desert Sunset",
       speed: 0.3,
       align: "center"
     }, {
-      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200",
+      url: "assets/02.webp",
       caption: "Misty Valley",
       speed: 0.7,
       align: "left"
     }, {
-      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200",
+      url: "assets/03.webp",
       caption: "Wild Trail",
       speed: 0.4,
       align: "right"
     }, {
-      url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1200",
+      url: "assets/04.webp",
       caption: "Alpine Lake",
       speed: 0.6,
       align: "center"
     }]);
     const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
-    const backgroundColor = config?.backgroundColor || "#FAFBFC";
-    const textColor = config?.textColor || "#1F2937";
-    const overlayColor = config?.overlayColor || "#F3F4F6";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const textColor = config?.textColor || "#222222";
+    const overlayColor = config?.overlayColor || "#eeeeee";
     const showCaptions = config?.showCaptions !== false;
     const imageMaxWidth = parseInt(config?.imageMaxWidth || "800");
     const sectionHeight = config?.sectionHeight || "100vh";
@@ -281,7 +281,7 @@ window.__GALLERY_MODULES__["gallery-parallaxscrollgallery"] = function (React) {
       style: {
         backgroundColor: backgroundColor,
         minHeight: '100vh',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, images.map((image, index) => {
       const parallaxOffset = getParallaxOffset(index, image.speed || 0.5);
@@ -313,7 +313,7 @@ window.__GALLERY_MODULES__["gallery-parallaxscrollgallery"] = function (React) {
           position: 'relative',
           borderRadius: `${borderRadius}px`,
           overflow: 'hidden',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.06)'
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08), 0 8px 32px rgba(0, 0, 0, 0.06)'
         }
       }, /*#__PURE__*/React.createElement("img", {
         src: image.url,

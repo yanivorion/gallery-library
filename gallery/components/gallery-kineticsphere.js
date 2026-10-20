@@ -68,7 +68,7 @@ window.__GALLERY_MODULES__["gallery-kineticsphere"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1594149221886-eb520f85ad25?w=600,https://images.unsplash.com/photo-1589156191108-c762ff4b96ab?w=600,https://images.unsplash.com/photo-1488197047962-b48492212cda?w=600,https://images.unsplash.com/photo-1469565686301-a0cf06bacf92?w=600,https://images.unsplash.com/photo-1559827291-72ee739d0d9a?w=600,https://images.unsplash.com/photo-1459213599465-03ab6a4d5931?w=600,https://images.unsplash.com/photo-1679540375857-dd5a85bfd3d6?w=600,https://images.unsplash.com/photo-1444044205806-38f3ed106c10?w=600,https://images.unsplash.com/photo-1580996554587-5d5cfc78b004?w=600,https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600,https://images.unsplash.com/photo-1548783307-f63adc3f200b?w=600,https://images.unsplash.com/photo-1587653263995-422546a7a569?w=600",
+          "defaultValue": "assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp",
           "group": "Content",
           "description": "Comma separated URLs"
         },
@@ -289,8 +289,8 @@ window.__GALLERY_MODULES__["gallery-kineticsphere"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: bgColor,
-          color: '#666',
-          fontFamily: 'sans-serif'
+          color: '#666666',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, "Add images to see the 3D gallery");
     }
@@ -343,23 +343,23 @@ window.__GALLERY_MODULES__["gallery-kineticsphere"] = function (React) {
       style: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#111',
+        backgroundColor: '#111111',
         borderRadius: '8px',
         overflow: 'hidden',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-        border: '1px solid #333',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)',
+        border: '1px solid #333333',
         transform: 'scale(1)',
         transition: 'transform 0.3s ease, border-color 0.3s ease'
       },
       onMouseEnter: e => {
         if (!activeItem) {
-          e.currentTarget.style.borderColor = '#FFF';
+          e.currentTarget.style.borderColor = '#ffffff';
           e.currentTarget.style.transform = 'scale(1.05)';
         }
       },
       onMouseLeave: e => {
         if (!activeItem) {
-          e.currentTarget.style.borderColor = '#333';
+          e.currentTarget.style.borderColor = '#333333';
           e.currentTarget.style.transform = 'scale(1)';
         }
       }
@@ -386,7 +386,7 @@ window.__GALLERY_MODULES__["gallery-kineticsphere"] = function (React) {
       style: {
         position: 'absolute',
         inset: 0,
-        backgroundColor: 'rgba(0,0,0,0.9)',
+        backgroundColor: 'rgba(0, 0, 0, 0.9)',
         backdropFilter: 'blur(10px)',
         display: 'flex',
         alignItems: 'center',
@@ -404,7 +404,7 @@ window.__GALLERY_MODULES__["gallery-kineticsphere"] = function (React) {
         maxHeight: '90%',
         transform: activeItem !== null ? 'scale(1)' : 'scale(0.8)',
         transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-        boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
+        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
       }
     }, /*#__PURE__*/React.createElement("img", {
       src: items[activeItem],
@@ -419,8 +419,8 @@ window.__GALLERY_MODULES__["gallery-kineticsphere"] = function (React) {
       style: {
         marginTop: '16px',
         textAlign: 'center',
-        color: '#fff',
-        fontFamily: 'system-ui, sans-serif',
+        color: '#ffffff',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         fontWeight: 300,
         fontSize: '14px',
         letterSpacing: '0.05em',
@@ -432,8 +432,8 @@ window.__GALLERY_MODULES__["gallery-kineticsphere"] = function (React) {
         bottom: '30px',
         left: '50%',
         transform: 'translateX(-50%)',
-        color: 'rgba(255,255,255,0.4)',
-        fontFamily: 'system-ui, sans-serif',
+        color: 'rgba(255, 255, 255, 0.4)',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         fontSize: '12px',
         letterSpacing: '0.1em',
         pointerEvents: 'none',

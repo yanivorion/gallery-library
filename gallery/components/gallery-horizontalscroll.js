@@ -84,19 +84,19 @@ window.__GALLERY_MODULES__["gallery-horizontalscroll"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "borderColor": {
           "dataType": "color",
           "displayName": "Item Border Color",
-          "defaultValue": "#3F3F46",
+          "defaultValue": "#444444",
           "group": "Colors"
         }
       },
@@ -124,42 +124,42 @@ window.__GALLERY_MODULES__["gallery-horizontalscroll"] = function (React) {
     const gap = parseInt(config?.gap || "32");
     const maxBlur = parseInt(config?.maxBlur || "8");
     const minScale = parseFloat(config?.minScale || "0.75");
-    const backgroundColor = config?.backgroundColor || "#18181B";
-    const textColor = config?.textColor || "#FAFAFA";
-    const borderColor = config?.borderColor || "#3F3F46";
+    const backgroundColor = config?.backgroundColor || "#111111";
+    const textColor = config?.textColor || "#ffffff";
+    const borderColor = config?.borderColor || "#444444";
     const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
     const items = [{
       title: "Mountain Vista",
       location: "Swiss Alps",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=1000&fit=crop"
+      image: "assets/06.webp"
     }, {
       title: "Ocean Serenity",
       location: "Maldives",
-      image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=1000&fit=crop"
+      image: "assets/07.webp"
     }, {
       title: "Desert Dreams",
       location: "Sahara",
-      image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&h=1000&fit=crop"
+      image: "assets/08.webp"
     }, {
       title: "Urban Lights",
       location: "Tokyo",
-      image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&h=1000&fit=crop"
+      image: "assets/01.webp"
     }, {
       title: "Forest Path",
       location: "Redwood",
-      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=1000&fit=crop"
+      image: "assets/02.webp"
     }, {
       title: "Arctic Aurora",
       location: "Iceland",
-      image: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&h=1000&fit=crop"
+      image: "assets/03.webp"
     }, {
       title: "Coastal Cliffs",
       location: "Ireland",
-      image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&h=1000&fit=crop"
+      image: "assets/04.webp"
     }, {
       title: "Canyon Depths",
       location: "Arizona",
-      image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=1000&fit=crop"
+      image: "assets/05.webp"
     }];
 
     // Momentum scrolling
@@ -231,7 +231,7 @@ window.__GALLERY_MODULES__["gallery-horizontalscroll"] = function (React) {
       alignItems: 'center',
       justifyContent: 'center',
       overflow: 'hidden',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
       padding: '60px 0'
     };
     const scrollContainerStyle = {
@@ -300,7 +300,7 @@ window.__GALLERY_MODULES__["gallery-horizontalscroll"] = function (React) {
       bottom: 0,
       left: 0,
       right: 0,
-      background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)',
+      background: 'linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent)',
       padding: '32px 20px 20px',
       color: textColor
     };

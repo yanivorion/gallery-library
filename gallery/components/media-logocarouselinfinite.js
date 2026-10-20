@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["media-logocarouselinfinite"] = function (React) {
         "logos": {
           "dataType": "text",
           "displayName": "Logo URLs (comma-separated)",
-          "defaultValue": "https://via.placeholder.com/150x60/495057/FFFFFF?text=Logo+1,https://via.placeholder.com/150x60/6C757D/FFFFFF?text=Logo+2,https://via.placeholder.com/150x60/495057/FFFFFF?text=Logo+3,https://via.placeholder.com/150x60/6C757D/FFFFFF?text=Logo+4,https://via.placeholder.com/150x60/495057/FFFFFF?text=Logo+5,https://via.placeholder.com/150x60/6C757D/FFFFFF?text=Logo+6",
+          "defaultValue": "assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp",
           "group": "Content"
         },
         "speed": {
@@ -89,19 +89,19 @@ window.__GALLERY_MODULES__["media-logocarouselinfinite"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "logoBackground": {
           "dataType": "color",
           "displayName": "Logo Background",
-          "defaultValue": "#F8F9FA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         }
       },
@@ -114,15 +114,15 @@ window.__GALLERY_MODULES__["media-logocarouselinfinite"] = function (React) {
   function Component({
     config = {}
   }) {
-    const logos = (config?.logos || 'https://via.placeholder.com/150x60/495057/FFFFFF?text=Logo+1,https://via.placeholder.com/150x60/6C757D/FFFFFF?text=Logo+2,https://via.placeholder.com/150x60/495057/FFFFFF?text=Logo+3,https://via.placeholder.com/150x60/6C757D/FFFFFF?text=Logo+4,https://via.placeholder.com/150x60/495057/FFFFFF?text=Logo+5,https://via.placeholder.com/150x60/6C757D/FFFFFF?text=Logo+6').split(',').map(url => url.trim());
+    const logos = (config?.logos || 'assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp').split(',').map(url => url.trim());
     const speed = config?.speed || 'medium';
     const direction = config?.direction || 'left';
     const pauseOnHover = config?.pauseOnHover !== false;
     const logoHeight = parseInt(config?.logoHeight || '60');
     const gap = parseInt(config?.gap || '60');
-    const backgroundColor = config?.backgroundColor || '#FFFFFF';
-    const logoBackground = config?.logoBackground || '#F8F9FA';
-    const accentColor = config?.accentColor || '#495057';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
+    const logoBackground = config?.logoBackground || '#ffffff';
+    const accentColor = config?.accentColor || '#555555';
     const [isPaused, setIsPaused] = React.useState(false);
     const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
     const speedDurations = {
@@ -143,7 +143,7 @@ window.__GALLERY_MODULES__["media-logocarouselinfinite"] = function (React) {
         flexDirection: 'column',
         gap: '40px',
         padding: '40px 20px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {

@@ -57,19 +57,19 @@ window.__GALLERY_MODULES__["portfolio-cardshowcasescroll"] = function (React) {
           "dataType": "text",
           "displayName": "Cards (JSON)",
           "defaultValue": JSON.stringify([{
-            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800",
+            image: "assets/06.webp",
             title: "Project Alpha"
           }, {
-            image: "https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=800",
+            image: "assets/07.webp",
             title: "Project Beta"
           }, {
-            image: "https://images.unsplash.com/photo-1618172193622-ae2d025f4032?w=800",
+            image: "assets/08.webp",
             title: "Project Gamma"
           }, {
-            image: "https://images.unsplash.com/photo-1617791160505-6f00504e3519?w=800",
+            image: "assets/01.webp",
             title: "Project Delta"
           }, {
-            image: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=800",
+            image: "assets/02.webp",
             title: "Project Epsilon"
           }]),
           "group": "Content"
@@ -102,31 +102,31 @@ window.__GALLERY_MODULES__["portfolio-cardshowcasescroll"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#EEEDED",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "uiBackgroundColor": {
           "dataType": "color",
           "displayName": "UI Background",
-          "defaultValue": "#D9D9D9",
+          "defaultValue": "#dddddd",
           "group": "Colors"
         },
         "uiBorderColor": {
           "dataType": "color",
           "displayName": "UI Border",
-          "defaultValue": "#A7A7A7",
+          "defaultValue": "#aaaaaa",
           "group": "Colors"
         },
         "stageBorderColor": {
           "dataType": "color",
           "displayName": "Stage Border",
-          "defaultValue": "#C3C3C3",
+          "defaultValue": "#bbbbbb",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#1B1B1B",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "transitionDuration": {
@@ -157,11 +157,11 @@ window.__GALLERY_MODULES__["portfolio-cardshowcasescroll"] = function (React) {
     const stageWidth = parseInt(config?.stageWidth || "400");
     const stageHeight = parseInt(config?.stageHeight || "500");
     const scrollSections = parseInt(config?.scrollSections || "800");
-    const backgroundColor = config?.backgroundColor || "#EEEDED";
-    const uiBackgroundColor = config?.uiBackgroundColor || "#D9D9D9";
-    const uiBorderColor = config?.uiBorderColor || "#A7A7A7";
-    const stageBorderColor = config?.stageBorderColor || "#C3C3C3";
-    const textColor = config?.textColor || "#1B1B1B";
+    const backgroundColor = config?.backgroundColor || "#eeeeee";
+    const uiBackgroundColor = config?.uiBackgroundColor || "#dddddd";
+    const uiBorderColor = config?.uiBorderColor || "#aaaaaa";
+    const stageBorderColor = config?.stageBorderColor || "#bbbbbb";
+    const textColor = config?.textColor || "#222222";
     const transitionDuration = parseInt(config?.transitionDuration || "400");
     const showDebug = config?.showDebug === true;
     const [cards, setCards] = React.useState([]);
@@ -251,33 +251,33 @@ window.__GALLERY_MODULES__["portfolio-cardshowcasescroll"] = function (React) {
         position: 'relative',
         height: `${totalHeight}px`,
         backgroundColor: backgroundColor,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, showDebug && /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'fixed',
         top: '80px',
         left: '20px',
-        backgroundColor: 'rgba(0,0,0,0.9)',
-        color: '#0f0',
+        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+        color: '#bbbbbb',
         padding: '12px',
         borderRadius: '4px',
         fontSize: '11px',
-        fontFamily: 'monospace',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         zIndex: 1000,
         lineHeight: '1.8',
         minWidth: '200px'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        color: '#fff',
+        color: '#ffffff',
         marginBottom: '8px',
         fontWeight: 'bold'
       }
     }, "📊 SCROLL DEBUG"), /*#__PURE__*/React.createElement("div", null, "Active Card: ", activeCardIndex + 1, " / ", cards.length), /*#__PURE__*/React.createElement("div", null, "Stage Y: ", scrollInfo.y, "px"), /*#__PURE__*/React.createElement("div", null, "In View: ", scrollInfo.inView ? '✅ YES' : '❌ NO'), /*#__PURE__*/React.createElement("div", null, "Stage Top: ", scrollInfo.rectTop, "px"), /*#__PURE__*/React.createElement("div", null, "Stage Bottom: ", scrollInfo.rectBottom, "px"), /*#__PURE__*/React.createElement("div", null, "Window H: ", scrollInfo.windowHeight, "px"), /*#__PURE__*/React.createElement("div", null, "Total H: ", totalHeight, "px"), /*#__PURE__*/React.createElement("div", {
       style: {
         marginTop: '8px',
-        color: '#ff0'
+        color: '#eeeeee'
       }
     }, scrollInfo.inView ? '↕️ SCROLL TO CHANGE CARDS' : '⬇️ SCROLL TO STAGE')), /*#__PURE__*/React.createElement("div", {
       style: {
@@ -394,7 +394,7 @@ window.__GALLERY_MODULES__["portfolio-cardshowcasescroll"] = function (React) {
         top: '0',
         width: '3px',
         height: '100vh',
-        backgroundColor: 'rgba(0,0,0,0.1)',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
         zIndex: 99
       }
     }, /*#__PURE__*/React.createElement("div", {

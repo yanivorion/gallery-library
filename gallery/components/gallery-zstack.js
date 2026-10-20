@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-zstack"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (Comma Sep)",
-          "defaultValue": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600,https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600,https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600,https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600",
+          "defaultValue": "assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp",
           "group": "Content"
         },
         "cardWidth": {
@@ -114,7 +114,7 @@ window.__GALLERY_MODULES__["gallery-zstack"] = function (React) {
         height: `${scrollHeight + window.innerHeight}px`,
         // Make space to scroll
         position: 'relative',
-        backgroundColor: '#F3F4F6'
+        backgroundColor: '#eeeeee'
       }
     }, /*#__PURE__*/React.createElement("div", {
       className: "sticky-stage",
@@ -163,9 +163,9 @@ window.__GALLERY_MODULES__["gallery-zstack"] = function (React) {
           position: 'absolute',
           width: `${cardWidth}px`,
           height: `${cardWidth * 1.4}px`,
-          backgroundColor: '#FFF',
+          backgroundColor: '#ffffff',
           borderRadius: '16px',
-          boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
           zIndex: zIndex,
           backgroundImage: `url(${img})`,
           backgroundSize: 'cover',
@@ -180,8 +180,8 @@ window.__GALLERY_MODULES__["gallery-zstack"] = function (React) {
           position: 'absolute',
           bottom: '20px',
           left: '20px',
-          color: '#FFF',
-          textShadow: '0 2px 4px rgba(0,0,0,0.5)',
+          color: '#ffffff',
+          textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
           opacity: opacity > 0.8 ? 1 : 0 // Hide text when flying
         }
       }, /*#__PURE__*/React.createElement("h3", {

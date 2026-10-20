@@ -9,44 +9,44 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 :root{
-  --paper:#EDEFE8; --surface:#F7F8F3; --surface-2:#E4E7DC;
-  --ink:#1B1F19; --ink-2:#414739; --muted:#6E7566; --line:#D2D7C7;
-  --accent:#2F6B4F; --accent-soft:#D9E7DD; --accent-ink:#1E4936;
-  --clay:#9A4A2F; --clay-soft:#F0DED6;
-  --slate:#3C5A72; --slate-soft:#DAE3EA;
-  --amber:#8A6512; --amber-soft:#F2E7C8;
-  --shadow:0 1px 2px rgba(27,31,25,.07);
-  --shadow-lg:0 10px 30px -12px rgba(27,31,25,.28);
+  --paper:#eeeeee; --surface:#ffffff; --surface-2:#eeeeee;
+  --ink:#222222; --ink-2:#444444; --muted:#777777; --line:#dddddd;
+  --accent:#555555; --accent-soft:#dddddd; --accent-ink:#444444;
+  --clay:#555555; --clay-soft:#dddddd;
+  --slate:#555555; --slate-soft:#dddddd;
+  --amber:#666666; --amber-soft:#eeeeee;
+  --shadow:0 1px 2px rgba(34, 34, 34, .07);
+  --shadow-lg:0 10px 30px -12px rgba(34, 34, 34, .28);
   --radius:10px;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --paper:#14170F; --surface:#1C2018; --surface-2:#262B20;
-    --ink:#E9ECE0; --ink-2:#BFC5B2; --muted:#8B937E; --line:#333A2A;
-    --accent:#7FB894; --accent-soft:#233A2D; --accent-ink:#A8D4B8;
-    --clay:#D9906E; --clay-soft:#3A271E;
-    --slate:#8FB2CC; --slate-soft:#1F2C36;
-    --amber:#D9BA6B; --amber-soft:#332B14;
-    --shadow:0 1px 2px rgba(0,0,0,.45);
-    --shadow-lg:0 10px 30px -12px rgba(0,0,0,.7);
+    --paper:#111111; --surface:#222222; --surface-2:#222222;
+    --ink:#eeeeee; --ink-2:#bbbbbb; --muted:#888888; --line:#333333;
+    --accent:#aaaaaa; --accent-soft:#333333; --accent-ink:#cccccc;
+    --clay:#999999; --clay-soft:#222222;
+    --slate:#aaaaaa; --slate-soft:#222222;
+    --amber:#bbbbbb; --amber-soft:#333333;
+    --shadow:0 1px 2px rgba(0, 0, 0, .45);
+    --shadow-lg:0 10px 30px -12px rgba(0, 0, 0, .7);
   }
 }
 :root[data-theme="dark"]{
-  --paper:#14170F; --surface:#1C2018; --surface-2:#262B20;
-  --ink:#E9ECE0; --ink-2:#BFC5B2; --muted:#8B937E; --line:#333A2A;
-  --accent:#7FB894; --accent-soft:#233A2D; --accent-ink:#A8D4B8;
-  --clay:#D9906E; --clay-soft:#3A271E;
-  --slate:#8FB2CC; --slate-soft:#1F2C36;
-  --amber:#D9BA6B; --amber-soft:#332B14;
-  --shadow:0 1px 2px rgba(0,0,0,.45);
-  --shadow-lg:0 10px 30px -12px rgba(0,0,0,.7);
+  --paper:#111111; --surface:#222222; --surface-2:#222222;
+  --ink:#eeeeee; --ink-2:#bbbbbb; --muted:#888888; --line:#333333;
+  --accent:#aaaaaa; --accent-soft:#333333; --accent-ink:#cccccc;
+  --clay:#999999; --clay-soft:#222222;
+  --slate:#aaaaaa; --slate-soft:#222222;
+  --amber:#bbbbbb; --amber-soft:#333333;
+  --shadow:0 1px 2px rgba(0, 0, 0, .45);
+  --shadow-lg:0 10px 30px -12px rgba(0, 0, 0, .7);
 }
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
   background:var(--paper); color:var(--ink);
-  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size:14px; line-height:1.5;
   -webkit-font-smoothing:antialiased;
 }
@@ -63,10 +63,10 @@ header{
 .bar{max-width:1760px;margin:0 auto;padding:14px 22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .brand{display:flex;align-items:baseline;gap:10px;margin-right:auto}
 .brand h1{
-  font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;
+  font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight:700; font-size:19px; margin:0; letter-spacing:-.015em;
 }
-.brand .sub{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.04em}
+.brand .sub{font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:11px;color:var(--muted);letter-spacing:.04em}
 
 .field{position:relative;display:flex;align-items:center}
 .field input[type=search]{
@@ -94,7 +94,7 @@ select:focus{border-color:var(--accent)}
 /* ---------- facet rail ---------- */
 .facets{max-width:1760px;margin:0 auto;padding:0 22px 12px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .chip{
-  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.02em;
+  font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:11px;letter-spacing:.02em;
   padding:4px 9px;border:1px solid var(--line);border-radius:999px;
   background:var(--surface);cursor:pointer;
 }
@@ -104,7 +104,7 @@ select:focus{border-color:var(--accent)}
 /* ---------- grid ---------- */
 main{max-width:1760px;margin:0 auto;padding:18px 22px 80px}
 .meta-line{
-  font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);
+  font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:11px;color:var(--muted);
   margin:0 0 14px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;
 }
 .grid{display:grid;gap:18px}
@@ -120,15 +120,15 @@ main{max-width:1760px;margin:0 auto;padding:18px 22px 80px}
 .card:hover{box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
 
 .stage{
-  position:relative;background:#fff;border-bottom:1px solid var(--line);
+  position:relative;background:#ffffff;border-bottom:1px solid var(--line);
   overflow:hidden;cursor:zoom-in;
 }
 .stage .holder{position:absolute;inset:0;overflow:hidden}
-.stage iframe{border:0;display:block;transform-origin:0 0;background:#fff}
+.stage iframe{border:0;display:block;transform-origin:0 0;background:#ffffff}
 .stage .ph{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:"IBM Plex Mono",monospace;font-size:11px;color:#9aa192;
-  background:repeating-linear-gradient(45deg,#fafbf7,#fafbf7 9px,#f2f4ee 9px,#f2f4ee 18px);
+  font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:11px;color:#999999;
+  background:repeating-linear-gradient(45deg,#ffffff,#ffffff 9px,#eeeeee 9px,#eeeeee 18px);
 }
 .stage .veil{position:absolute;inset:0;background:transparent}
 .stage.live .veil{display:none}
@@ -136,12 +136,12 @@ main{max-width:1760px;margin:0 auto;padding:18px 22px 80px}
 .card .body{padding:11px 13px 13px;display:flex;flex-direction:column;gap:7px;flex:1}
 .ttl{display:flex;align-items:flex-start;gap:8px}
 .ttl h3{margin:0;font-size:14.5px;font-weight:600;line-height:1.25;letter-spacing:-.008em;flex:1}
-.type{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);word-break:break-all}
+.type{font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:10.5px;color:var(--muted);word-break:break-all}
 .desc{font-size:12.5px;color:var(--ink-2);margin:0;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:auto;padding-top:4px;align-items:center}
 .tag{
-  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.03em;
+  font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:10px;letter-spacing:.03em;
   padding:2px 6px;border-radius:4px;background:var(--surface-2);color:var(--ink-2);
 }
 .tag.fam{background:var(--slate-soft);color:var(--slate)}
@@ -149,14 +149,14 @@ main{max-width:1760px;margin:0 auto;padding:18px 22px 80px}
 .dot.pass{background:var(--accent)} .dot.warn{background:var(--amber)} .dot.fail{background:var(--clay)}
 .card .acts{display:flex;gap:5px;margin-left:auto}
 .mini{
-  font-family:"IBM Plex Mono",monospace;font-size:10px;padding:3px 7px;
+  font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:10px;padding:3px 7px;
   border:1px solid var(--line);border-radius:5px;background:var(--surface);cursor:pointer;
 }
 .mini:hover{background:var(--surface-2)}
 
 /* ---------- detail ---------- */
 .scrim{
-  position:fixed;inset:0;z-index:100;background:rgba(10,13,8,.62);
+  position:fixed;inset:0;z-index:100;background:rgba(17, 17, 17, .62);
   backdrop-filter:blur(3px);display:none;
 }
 .scrim.open{display:block}
@@ -169,33 +169,33 @@ main{max-width:1760px;margin:0 auto;padding:18px 22px 80px}
   display:flex;gap:12px;align-items:center;padding:12px 16px;
   border-bottom:1px solid var(--line);background:var(--surface);flex-wrap:wrap;
 }
-.sheet .head h2{margin:0;font-family:"Bricolage Grotesque",sans-serif;font-size:17px;font-weight:700}
+.sheet .head h2{margin:0;font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:17px;font-weight:700}
 .sheet .head .type{font-size:11px}
 .sheet .head .spacer{margin-left:auto}
 .sheet .wrapb{flex:1;display:flex;min-height:0}
-.sheet .view{flex:1;min-width:0;background:#9a9f92;display:flex;justify-content:center;overflow:auto;padding:18px}
-.sheet .view iframe{border:0;background:#fff;box-shadow:0 8px 28px -10px rgba(0,0,0,.5);border-radius:6px}
+.sheet .view{flex:1;min-width:0;background:#999999;display:flex;justify-content:center;overflow:auto;padding:18px}
+.sheet .view iframe{border:0;background:#ffffff;box-shadow:0 8px 28px -10px rgba(0, 0, 0, .5);border-radius:6px}
 .side{
   width:360px;flex:0 0 360px;border-left:1px solid var(--line);background:var(--surface);
   overflow:auto;padding:14px 16px 40px;
 }
 .side h4{
-  margin:18px 0 8px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  margin:18px 0 8px;font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:10.5px;
   text-transform:uppercase;letter-spacing:.1em;color:var(--muted);
 }
 .side h4:first-child{margin-top:0}
 .kv{width:100%;border-collapse:collapse;font-size:12px}
 .kv td{padding:4px 6px;border-bottom:1px solid var(--line);vertical-align:top}
-.kv td:first-child{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);white-space:nowrap;width:42%}
+.kv td:first-child{font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:10.5px;color:var(--muted);white-space:nowrap;width:42%}
 .kv td:last-child{word-break:break-word}
 pre.code{
   margin:0;background:var(--surface-2);border:1px solid var(--line);border-radius:7px;
-  padding:11px;font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.45;
+  padding:11px;font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:11px;line-height:1.45;
   max-height:none;overflow:auto;white-space:pre;
 }
 .banner{
   padding:8px 10px;border-radius:7px;font-size:12px;margin-bottom:10px;
-  font-family:"IBM Plex Mono",monospace;line-height:1.45;word-break:break-word;
+  font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;line-height:1.45;word-break:break-word;
 }
 .banner.warn{background:var(--amber-soft);color:var(--amber)}
 .banner.fail{background:var(--clay-soft);color:var(--clay)}

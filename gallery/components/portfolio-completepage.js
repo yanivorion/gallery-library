@@ -140,31 +140,31 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Page Background",
-          "defaultValue": "#0A0A0A",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "webglColor": {
           "dataType": "color",
           "displayName": "WebGL Badge Color",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "javascriptColor": {
           "dataType": "color",
           "displayName": "JavaScript Badge Color",
-          "defaultValue": "#10B981",
+          "defaultValue": "#999999",
           "group": "Colors"
         },
         "cssColor": {
           "dataType": "color",
           "displayName": "CSS Badge Color",
-          "defaultValue": "#8B5CF6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         // Settings
@@ -207,11 +207,11 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
     const nextSectionTitle = config?.nextSectionTitle || "Growth";
     const nextSectionLink = config?.nextSectionLink || "/growth/";
     const nextSectionImage = config?.nextSectionImage || "";
-    const backgroundColor = config?.backgroundColor || "#0A0A0A";
-    const accentColor = config?.accentColor || "#3B82F6";
-    const webglColor = config?.webglColor || "#3B82F6";
-    const javascriptColor = config?.javascriptColor || "#10B981";
-    const cssColor = config?.cssColor || "#8B5CF6";
+    const backgroundColor = config?.backgroundColor || "#111111";
+    const accentColor = config?.accentColor || "#777777";
+    const webglColor = config?.webglColor || "#777777";
+    const javascriptColor = config?.javascriptColor || "#999999";
+    const cssColor = config?.cssColor || "#777777";
     const showJapanese = config?.showJapanese !== false;
     const enableFiltering = config?.enableFiltering !== false;
     const gridColumns = parseInt(config?.gridColumns || "4");
@@ -281,7 +281,7 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
         case 'css':
           return cssColor;
         default:
-          return '#737373';
+          return '#777777';
       }
     };
     const getAnimationStyle = (delay = 0, isVisible = true) => ({
@@ -293,7 +293,7 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
       className: "portfolio-complete-page",
       style: {
         backgroundColor: backgroundColor,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("section", {
       style: {
@@ -358,7 +358,7 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
         ...getAnimationStyle(200, heroVisible),
         fontSize: 'clamp(40px, 8vw, 80px)',
         fontWeight: '300',
-        color: '#FFFFFF',
+        color: '#ffffff',
         margin: '0 0 16px 0',
         letterSpacing: '0.02em',
         textTransform: 'uppercase'
@@ -368,7 +368,7 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
         ...getAnimationStyle(400, heroVisible),
         fontSize: 'clamp(20px, 4vw, 40px)',
         fontWeight: '300',
-        color: '#FFFFFF',
+        color: '#ffffff',
         margin: '0 0 40px 0',
         opacity: 0.8
       }
@@ -376,7 +376,7 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
       style: {
         ...getAnimationStyle(600, heroVisible),
         fontSize: 'clamp(16px, 2.5vw, 20px)',
-        color: '#A3A3A3',
+        color: '#aaaaaa',
         lineHeight: '1.7',
         margin: '0 0 12px 0'
       }
@@ -384,7 +384,7 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
       style: {
         ...getAnimationStyle(800, heroVisible),
         fontSize: 'clamp(14px, 2vw, 16px)',
-        color: '#A3A3A3',
+        color: '#aaaaaa',
         lineHeight: '1.7',
         opacity: 0.7
       }
@@ -412,8 +412,8 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
       style: {
         padding: '10px 24px',
         backgroundColor: selectedCategory === category ? getCategoryColor(category) : 'transparent',
-        color: selectedCategory === category ? '#FFFFFF' : '#A3A3A3',
-        border: `1px solid ${selectedCategory === category ? getCategoryColor(category) : '#404040'}`,
+        color: selectedCategory === category ? '#ffffff' : '#aaaaaa',
+        border: `1px solid ${selectedCategory === category ? getCategoryColor(category) : '#444444'}`,
         borderRadius: '12px',
         fontSize: '14px',
         fontWeight: '500',
@@ -433,22 +433,22 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
       key: index,
       onClick: () => window.open(project.url, '_blank'),
       style: {
-        backgroundColor: '#1A1A1A',
+        backgroundColor: '#222222',
         borderRadius: '12px',
         padding: '32px 24px',
         cursor: 'pointer',
         transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
         opacity: visibleCards.includes(index) ? 1 : 0,
         transform: visibleCards.includes(index) ? 'translateY(0)' : 'translateY(20px)'
       },
       onMouseEnter: e => {
         e.currentTarget.style.transform = 'scale(1.05)';
-        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.4)';
+        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.4)';
       },
       onMouseLeave: e => {
         e.currentTarget.style.transform = 'scale(1)';
-        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
       }
     }, project.category && /*#__PURE__*/React.createElement("div", {
       style: {
@@ -467,14 +467,14 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
       style: {
         fontSize: 'clamp(18px, 3vw, 22px)',
         fontWeight: '500',
-        color: '#FFFFFF',
+        color: '#ffffff',
         lineHeight: '1.3',
         margin: '0 0 8px 0'
       }
     }, project.title), /*#__PURE__*/React.createElement("p", {
       style: {
         fontSize: '14px',
-        color: '#737373',
+        color: '#777777',
         margin: 0
       }
     }, project.date)))))), /*#__PURE__*/React.createElement("section", {
@@ -491,7 +491,7 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
       style: {
         position: 'relative',
         height: '500px',
-        backgroundColor: '#1A1A1A',
+        backgroundColor: '#222222',
         borderRadius: '16px',
         overflow: 'hidden',
         cursor: 'pointer',
@@ -528,7 +528,7 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
     }, /*#__PURE__*/React.createElement("p", {
       style: {
         fontSize: '18px',
-        color: '#A3A3A3',
+        color: '#aaaaaa',
         textTransform: 'uppercase',
         letterSpacing: '0.15em',
         margin: '0 0 16px 0'
@@ -537,7 +537,7 @@ window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
       style: {
         fontSize: 'clamp(32px, 6vw, 64px)',
         fontWeight: '600',
-        color: '#FFFFFF',
+        color: '#ffffff',
         margin: 0
       }
     }, nextSectionTitle))))));

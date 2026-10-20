@@ -20,12 +20,12 @@ const MANIFEST = {
         "dataType": "text",
         "displayName": "Images (JSON Array - 6 images)",
         "defaultValue": JSON.stringify([
-          { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800", label: "Front" },
-          { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800", label: "Back" },
-          { url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800", label: "Right" },
-          { url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800", label: "Left" },
-          { url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800", label: "Top" },
-          { url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800", label: "Bottom" }
+          { url: "assets/04.webp", label: "Front" },
+          { url: "assets/05.webp", label: "Back" },
+          { url: "assets/06.webp", label: "Right" },
+          { url: "assets/07.webp", label: "Left" },
+          { url: "assets/08.webp", label: "Top" },
+          { url: "assets/01.webp", label: "Bottom" }
         ]),
         "group": "Content",
         "description": "Array of 6 image objects for cube faces (front, back, right, left, top, bottom)"
@@ -33,25 +33,25 @@ const MANIFEST = {
       "backgroundColor": {
         "dataType": "color",
         "displayName": "Background Color",
-        "defaultValue": "#0F0F0F",
+        "defaultValue": "#111111",
         "group": "Colors"
       },
       "controlsColor": {
         "dataType": "color",
         "displayName": "Controls Color",
-        "defaultValue": "#FAFAFA",
+        "defaultValue": "#ffffff",
         "group": "Colors"
       },
       "controlsBackground": {
         "dataType": "color",
         "displayName": "Controls Background",
-        "defaultValue": "#1F1F1F",
+        "defaultValue": "#222222",
         "group": "Colors"
       },
       "accentColor": {
         "dataType": "color",
         "displayName": "Accent Color",
-        "defaultValue": "#3B82F6",
+        "defaultValue": "#777777",
         "group": "Colors"
       },
       "cubeSize": {
@@ -104,19 +104,19 @@ const MANIFEST = {
 
 function Component({ config = {} }) {
   const imagesData = config?.images || JSON.stringify([
-    { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800", label: "Front" },
-    { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800", label: "Back" },
-    { url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800", label: "Right" },
-    { url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800", label: "Left" },
-    { url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800", label: "Top" },
-    { url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800", label: "Bottom" }
+    { url: "assets/02.webp", label: "Front" },
+    { url: "assets/03.webp", label: "Back" },
+    { url: "assets/04.webp", label: "Right" },
+    { url: "assets/05.webp", label: "Left" },
+    { url: "assets/06.webp", label: "Top" },
+    { url: "assets/07.webp", label: "Bottom" }
   ]);
   
   const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
-  const backgroundColor = config?.backgroundColor || "#0F0F0F";
-  const controlsColor = config?.controlsColor || "#FAFAFA";
-  const controlsBackground = config?.controlsBackground || "#1F1F1F";
-  const accentColor = config?.accentColor || "#3B82F6";
+  const backgroundColor = config?.backgroundColor || "#111111";
+  const controlsColor = config?.controlsColor || "#ffffff";
+  const controlsBackground = config?.controlsBackground || "#222222";
+  const accentColor = config?.accentColor || "#777777";
   const cubeSize = parseInt(config?.cubeSize || "400");
   const perspective = parseInt(config?.perspective || "1000");
   const showLabels = config?.showLabels !== false;
@@ -222,7 +222,7 @@ function Component({ config = {} }) {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '48px 24px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }}
     >
       {/* 3D Cube Container */}
@@ -256,7 +256,7 @@ function Component({ config = {} }) {
           >
             <img src={images[0]?.url} alt={images[0]?.label || 'Front'} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             {showLabels && images[0]?.label && (
-              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0,0,0,0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
+              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0, 0, 0, 0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
                 {images[0].label}
               </div>
             )}
@@ -275,7 +275,7 @@ function Component({ config = {} }) {
           >
             <img src={images[1]?.url} alt={images[1]?.label || 'Back'} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             {showLabels && images[1]?.label && (
-              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0,0,0,0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
+              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0, 0, 0, 0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
                 {images[1].label}
               </div>
             )}
@@ -294,7 +294,7 @@ function Component({ config = {} }) {
           >
             <img src={images[2]?.url} alt={images[2]?.label || 'Right'} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             {showLabels && images[2]?.label && (
-              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0,0,0,0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
+              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0, 0, 0, 0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
                 {images[2].label}
               </div>
             )}
@@ -313,7 +313,7 @@ function Component({ config = {} }) {
           >
             <img src={images[3]?.url} alt={images[3]?.label || 'Left'} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             {showLabels && images[3]?.label && (
-              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0,0,0,0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
+              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0, 0, 0, 0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
                 {images[3].label}
               </div>
             )}
@@ -332,7 +332,7 @@ function Component({ config = {} }) {
           >
             <img src={images[4]?.url} alt={images[4]?.label || 'Top'} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             {showLabels && images[4]?.label && (
-              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0,0,0,0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
+              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0, 0, 0, 0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
                 {images[4].label}
               </div>
             )}
@@ -351,7 +351,7 @@ function Component({ config = {} }) {
           >
             <img src={images[5]?.url} alt={images[5]?.label || 'Bottom'} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             {showLabels && images[5]?.label && (
-              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0,0,0,0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
+              <div style={{ position: 'absolute', bottom: '16px', left: '16px', backgroundColor: 'rgba(0, 0, 0, 0.7)', color: controlsColor, padding: '8px 16px', borderRadius: '4px', fontSize: '14px', fontWeight: '500' }}>
                 {images[5].label}
               </div>
             )}
@@ -376,18 +376,18 @@ function Component({ config = {} }) {
               fontSize: '20px',
               cursor: 'pointer',
               transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out, box-shadow 200ms ease-out',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
               outline: 'none'
             }}
             onMouseEnter={(e) => {
               if (!prefersReducedMotion) {
                 e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
               }
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
             }}
             onFocus={(e) => {
               e.currentTarget.style.outline = `2px solid ${accentColor}`;
@@ -414,18 +414,18 @@ function Component({ config = {} }) {
                 fontSize: '20px',
                 cursor: 'pointer',
                 transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out, box-shadow 200ms ease-out',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
                 outline: 'none'
               }}
               onMouseEnter={(e) => {
                 if (!prefersReducedMotion) {
                   e.currentTarget.style.transform = 'scale(1.05)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
                 }
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
               }}
               onFocus={(e) => {
                 e.currentTarget.style.outline = `2px solid ${accentColor}`;
@@ -451,18 +451,18 @@ function Component({ config = {} }) {
                 fontSize: '20px',
                 cursor: 'pointer',
                 transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out, box-shadow 200ms ease-out',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
                 outline: 'none'
               }}
               onMouseEnter={(e) => {
                 if (!prefersReducedMotion) {
                   e.currentTarget.style.transform = 'scale(1.05)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
                 }
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
               }}
               onFocus={(e) => {
                 e.currentTarget.style.outline = `2px solid ${accentColor}`;
@@ -489,18 +489,18 @@ function Component({ config = {} }) {
               fontSize: '20px',
               cursor: 'pointer',
               transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out, box-shadow 200ms ease-out',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
               outline: 'none'
             }}
             onMouseEnter={(e) => {
               if (!prefersReducedMotion) {
                 e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
               }
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
             }}
             onFocus={(e) => {
               e.currentTarget.style.outline = `2px solid ${accentColor}`;
@@ -531,7 +531,7 @@ function Component({ config = {} }) {
                 fontWeight: '500',
                 cursor: 'pointer',
                 transition: prefersReducedMotion ? 'none' : 'all 200ms ease-out',
-                boxShadow: currentFace === index ? '0 4px 12px rgba(59, 130, 246, 0.4)' : '0 2px 8px rgba(0,0,0,0.2)',
+                boxShadow: currentFace === index ? '0 4px 12px rgba(119, 119, 119, 0.4)' : '0 2px 8px rgba(0, 0, 0, 0.2)',
                 outline: 'none'
               }}
               onMouseEnter={(e) => {

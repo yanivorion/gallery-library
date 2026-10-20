@@ -100,7 +100,7 @@ window.__GALLERY_MODULES__["portfolio-categoryhero"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0A0A0A",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "overlayColor": {
@@ -118,19 +118,19 @@ window.__GALLERY_MODULES__["portfolio-categoryhero"] = function (React) {
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#A3A3A3",
+          "defaultValue": "#aaaaaa",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "titleFontSize": {
@@ -188,12 +188,12 @@ window.__GALLERY_MODULES__["portfolio-categoryhero"] = function (React) {
     const videoUrl = config?.videoUrl || "https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-heights-in-a-sunset-26070-large.mp4";
     const imagePc = config?.imagePc || "";
     const imageSp = config?.imageSp || "";
-    const backgroundColor = config?.backgroundColor || "#0A0A0A";
+    const backgroundColor = config?.backgroundColor || "#111111";
     const overlayColor = config?.overlayColor || "#000000";
     const overlayOpacity = parseInt(config?.overlayOpacity || "60");
-    const titleColor = config?.titleColor || "#FFFFFF";
-    const textColor = config?.textColor || "#A3A3A3";
-    const accentColor = config?.accentColor || "#3B82F6";
+    const titleColor = config?.titleColor || "#ffffff";
+    const textColor = config?.textColor || "#aaaaaa";
+    const accentColor = config?.accentColor || "#777777";
     const titleFontSize = parseInt(config?.titleFontSize || "80");
     const showJapanese = config?.showJapanese !== false;
     const videoPlaybackSpeed = parseFloat(config?.videoPlaybackSpeed || "1");
@@ -256,7 +256,7 @@ window.__GALLERY_MODULES__["portfolio-categoryhero"] = function (React) {
         justifyContent: 'center',
         backgroundColor: backgroundColor,
         overflow: 'hidden',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, videoUrl && !isMobile && /*#__PURE__*/React.createElement("video", {
       ref: videoRef,

@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-cylindricalpanorama"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (Comma Sep)",
-          "defaultValue": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600,https://images.unsplash.com/photo-1501854140884-074cf2b2c3af?w=600",
+          "defaultValue": "assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp",
           "group": "Content"
         },
         "itemWidth": {
@@ -132,7 +132,7 @@ window.__GALLERY_MODULES__["gallery-cylindricalpanorama"] = function (React) {
         width: '100%',
         height: '100%',
         minHeight: '600px',
-        backgroundColor: '#111',
+        backgroundColor: '#111111',
         overflow: 'hidden',
         perspective: '2000px',
         display: 'flex',
@@ -167,8 +167,8 @@ window.__GALLERY_MODULES__["gallery-cylindricalpanorama"] = function (React) {
           transform: `rotateY(${theta}deg) translateZ(${radius}px)`,
           backfaceVisibility: 'hidden',
           // Hide items when they rotate behind
-          backgroundColor: '#222',
-          border: '4px solid #fff',
+          backgroundColor: '#222222',
+          border: '4px solid #ffffff',
           boxSizing: 'border-box'
         }
       }, /*#__PURE__*/React.createElement("div", {
@@ -192,8 +192,8 @@ window.__GALLERY_MODULES__["gallery-cylindricalpanorama"] = function (React) {
           backgroundPosition: 'center',
           transform: 'scaleY(-1)',
           opacity: 0.1,
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
+          maskImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))',
           pointerEvents: 'none'
         }
       }));

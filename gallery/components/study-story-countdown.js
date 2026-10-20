@@ -1,0 +1,508 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["study-story-countdown"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Studies after tomoyaokada.com (batch 1) — storytelling sequences
+   * Structure: staged timeline, after S-004 "Eight Animation"
+   * Component Type: Story.CountdownIgnition
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Story.CountdownIgnition",
+    "description": "Six-act countdown: three numbers slam in with shockwave rings, the last one detonates into shards, the word lands, then everything settles out",
+    "editorElement": {
+      "selector": ".story-countdown-ignition",
+      "displayName": "Story — Countdown Ignition",
+      "archetype": "container",
+      "data": {
+        "text": {
+          "dataType": "text",
+          "displayName": "Payoff Text",
+          "defaultValue": "LAUNCH",
+          "group": "Content"
+        },
+        "showTextInput": {
+          "dataType": "booleanValue",
+          "displayName": "Show Live Text Input",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "inputLabel": {
+          "dataType": "text",
+          "displayName": "Input Label",
+          "defaultValue": "PAYOFF",
+          "group": "Content"
+        },
+        "maxLength": {
+          "dataType": "number",
+          "displayName": "Max Characters",
+          "defaultValue": "12",
+          "group": "Content"
+        },
+        "countFrom": {
+          "dataType": "select",
+          "displayName": "Count From",
+          "defaultValue": "3",
+          "options": ["2", "3", "4", "5"],
+          "group": "Content"
+        },
+        "title": {
+          "dataType": "text",
+          "displayName": "Title",
+          "defaultValue": "Countdown Ignition",
+          "group": "Content"
+        },
+        "subtitle": {
+          "dataType": "text",
+          "displayName": "Subtitle",
+          "defaultValue": "six acts",
+          "group": "Content"
+        },
+        "showTitle": {
+          "dataType": "booleanValue",
+          "displayName": "Show Title",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "showActReadout": {
+          "dataType": "booleanValue",
+          "displayName": "Show Act Readout",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "height": {
+          "dataType": "number",
+          "displayName": "Stage Height (px)",
+          "defaultValue": "620",
+          "group": "Layout"
+        },
+        "fullHeight": {
+          "dataType": "booleanValue",
+          "displayName": "Full Viewport Height",
+          "defaultValue": false,
+          "group": "Layout"
+        },
+        "numberScale": {
+          "dataType": "select",
+          "displayName": "Number Size",
+          "defaultValue": "0.46",
+          "options": ["0.3", "0.38", "0.46", "0.58"],
+          "group": "Layout"
+        },
+        "textScale": {
+          "dataType": "select",
+          "displayName": "Payoff Size",
+          "defaultValue": "0.74",
+          "options": ["0.5", "0.62", "0.74", "0.88"],
+          "group": "Layout"
+        },
+        "speed": {
+          "dataType": "select",
+          "displayName": "Playback Speed",
+          "defaultValue": "1",
+          "options": ["0.5", "0.75", "1", "1.5", "2"],
+          "group": "Animation"
+        },
+        "shockwave": {
+          "dataType": "booleanValue",
+          "displayName": "Shockwave Rings",
+          "defaultValue": true,
+          "group": "Animation"
+        },
+        "shardCount": {
+          "dataType": "select",
+          "displayName": "Shard Count",
+          "defaultValue": "70",
+          "options": ["0", "35", "70", "140"],
+          "group": "Animation"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background",
+          "defaultValue": "#000000",
+          "group": "Colors"
+        },
+        "numberColor": {
+          "dataType": "color",
+          "displayName": "Number",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "ringColor": {
+          "dataType": "color",
+          "displayName": "Shockwave Ring",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "payoffColor": {
+          "dataType": "color",
+          "displayName": "Payoff Text",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "shardColor": {
+          "dataType": "color",
+          "displayName": "Shard",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "titleColor": {
+          "dataType": "color",
+          "displayName": "Title",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "fontFamily": {
+          "dataType": "select",
+          "displayName": "Font",
+          "defaultValue": "grotesk",
+          "options": ["grotesk", "mono", "serif"],
+          "group": "Colors"
+        }
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const hostRef = React.useRef(null);
+    const canvasRef = React.useRef(null);
+    const rafRef = React.useRef(0);
+    const [act, setAct] = React.useState({
+      index: 0,
+      total: 6,
+      name: 'COUNT'
+    });
+    const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    const maxLength = Math.max(1, parseInt(config?.maxLength || '12', 10));
+    const initialText = (config?.text || 'LAUNCH').slice(0, maxLength) || 'LAUNCH';
+    const [textInput, setTextInput] = React.useState(initialText);
+    React.useEffect(() => {
+      setTextInput(initialText);
+    }, [initialText]);
+    const text = textInput.trim().length ? textInput : initialText;
+    const showTextInput = config?.showTextInput !== false;
+    const inputLabel = config?.inputLabel || 'PAYOFF';
+    const countFrom = Math.max(2, parseInt(config?.countFrom || '3', 10));
+    const title = config?.title || 'Countdown Ignition';
+    const subtitle = config?.subtitle || 'six acts';
+    const showTitle = config?.showTitle !== false;
+    const showActReadout = config?.showActReadout !== false;
+    const height = Math.max(240, parseInt(config?.height || '620', 10));
+    const fullHeight = config?.fullHeight === true;
+    const numberScale = parseFloat(config?.numberScale || '0.46') || 0.46;
+    const textScale = parseFloat(config?.textScale || '0.74') || 0.74;
+    const speed = parseFloat(config?.speed || '1') || 1;
+    const shockwave = config?.shockwave !== false;
+    const shardCount = Math.max(0, parseInt(config?.shardCount || '70', 10));
+    const backgroundColor = config?.backgroundColor || '#000000';
+    const numberColor = config?.numberColor || '#eeeeee';
+    const ringColor = config?.ringColor || '#eeeeee';
+    const payoffColor = config?.payoffColor || '#eeeeee';
+    const shardColor = config?.shardColor || '#eeeeee';
+    const titleColor = config?.titleColor || '#eeeeee';
+    const fontKey = config?.fontFamily || 'grotesk';
+    const fontStack = React.useMemo(() => {
+      if (fontKey === 'mono') return '"SF Mono", ui-monospace, "Roboto Mono", Menlo, monospace';
+      if (fontKey === 'serif') return '"Times New Roman", Georgia, serif';
+      return '"PP Neue Montreal", "Helvetica Neue", Inter, system-ui, -apple-system, sans-serif';
+    }, [fontKey]);
+    const sans = '"PP Neue Montreal", "Helvetica Neue", Inter, system-ui, -apple-system, sans-serif';
+    React.useEffect(() => {
+      const host = hostRef.current;
+      const canvas = canvasRef.current;
+      if (!host || !canvas) return undefined;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return undefined;
+      let w = 0;
+      let h = 0;
+      let shards = [];
+      const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+      const easeOut = v => 1 - Math.pow(1 - v, 3);
+      const easeOutBack = v => 1 + 2.4 * Math.pow(v - 1, 3) + 1.5 * Math.pow(v - 1, 2);
+      const measure = () => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = host.clientWidth || 1;
+        h = host.clientHeight || 1;
+        canvas.width = Math.max(1, Math.round(w * dpr));
+        canvas.height = Math.max(1, Math.round(h * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        shards = [];
+        for (let i = 0; i < shardCount; i++) {
+          const a = Math.random() * Math.PI * 2;
+          shards.push({
+            a,
+            v: 0.3 + Math.random() * 1,
+            len: 6 + Math.random() * 26,
+            wobble: (Math.random() - 0.5) * 2
+          });
+        }
+      };
+      measure();
+      let ro = null;
+      if (typeof ResizeObserver !== 'undefined') {
+        ro = new ResizeObserver(measure);
+        ro.observe(host);
+      } else {
+        window.addEventListener('resize', measure);
+      }
+      const fitFont = (str, targetWidth, maxPx, weight) => {
+        ctx.font = (weight || '700') + ' 100px ' + fontStack;
+        const run = ctx.measureText(str).width || 1;
+        return Math.max(10, Math.min(targetWidth / run * 100, maxPx));
+      };
+      const centreText = (str, px, color, alpha, scale) => {
+        if (alpha <= 0.01) return;
+        ctx.save();
+        ctx.globalAlpha = clamp01(alpha);
+        ctx.translate(w / 2, h / 2);
+        if (scale && scale !== 1) ctx.scale(scale, scale);
+        ctx.font = '700 ' + px + 'px ' + fontStack;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = color;
+        ctx.fillText(str, 0, 0);
+        ctx.restore();
+      };
+      const ring = (radius, alpha, lineWidth) => {
+        if (!shockwave || alpha <= 0.01) return;
+        ctx.globalAlpha = clamp01(alpha);
+        ctx.strokeStyle = ringColor;
+        ctx.lineWidth = lineWidth;
+        ctx.beginPath();
+        ctx.arc(w / 2, h / 2, radius, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      };
+
+      // One tick of the countdown: the number slams in, a ring expands past it.
+      const tick = (p, value) => {
+        const px = fitFont(value, w * numberScale, h * 0.62);
+        const pop = easeOutBack(clamp01(p / 0.26));
+        const fade = p > 0.78 ? 1 - (p - 0.78) / 0.22 : 1;
+        centreText(value, px, numberColor, fade, 0.7 + pop * 0.3);
+        const r = easeOut(clamp01(p / 0.6)) * Math.min(w, h) * 0.46;
+        ring(r, (1 - clamp01(p / 0.6)) * 0.55, 1.5);
+      };
+      const acts = [];
+      for (let n = countFrom; n >= 1; n--) {
+        acts.push({
+          name: 'COUNT ' + n,
+          d: 820,
+          draw: p => tick(p, String(n))
+        });
+      }
+      acts.push({
+        name: 'IGNITE',
+        d: 900,
+        draw: p => {
+          const reach = Math.max(w, h) * 0.6;
+          ctx.strokeStyle = shardColor;
+          ctx.lineWidth = 1.5;
+          const e = easeOut(p);
+          for (const s of shards) {
+            const d = e * reach * s.v;
+            const x = w / 2 + Math.cos(s.a) * d;
+            const y = h / 2 + Math.sin(s.a) * d;
+            const len = s.len * (1 - e * 0.5);
+            ctx.globalAlpha = (1 - e) * 0.9;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x - Math.cos(s.a) * len, y - Math.sin(s.a) * len);
+            ctx.stroke();
+          }
+          ctx.globalAlpha = 1;
+          ring(easeOut(p) * Math.min(w, h) * 0.75, (1 - p) * 0.8, 2.5);
+          ring(easeOut(clamp01(p * 1.6)) * Math.min(w, h) * 0.5, (1 - p) * 0.4, 1);
+        }
+      });
+      acts.push({
+        name: 'PAYOFF',
+        d: 1400,
+        draw: p => {
+          const px = fitFont(text, w * textScale, h * 0.5);
+          const pop = easeOutBack(clamp01(p / 0.3));
+          centreText(text, px, payoffColor, 1, 0.86 + pop * 0.14);
+          ring(easeOut(clamp01(p / 0.5)) * Math.min(w, h) * 0.6, (1 - clamp01(p / 0.5)) * 0.35, 1);
+        }
+      });
+      acts.push({
+        name: 'FADE',
+        d: 1000,
+        draw: p => {
+          const px = fitFont(text, w * textScale, h * 0.5);
+          centreText(text, px, payoffColor, 1 - easeOut(p), 1 + easeOut(p) * 0.06);
+        }
+      });
+      const total = acts.reduce((s, a) => s + a.d, 0);
+      let origin = 0;
+      let lastAct = -1;
+      const frame = ts => {
+        if (!origin) origin = ts;
+        ctx.fillStyle = backgroundColor;
+        ctx.fillRect(0, 0, w, h);
+        let local = prefersReducedMotion ? total - 2000 : (ts - origin) * speed % total;
+        for (let i = 0; i < acts.length; i++) {
+          if (local < acts[i].d) {
+            if (i !== lastAct) {
+              lastAct = i;
+              setAct({
+                index: i,
+                total: acts.length,
+                name: acts[i].name
+              });
+            }
+            acts[i].draw(local / acts[i].d, ts);
+            break;
+          }
+          local -= acts[i].d;
+        }
+        ctx.globalAlpha = 1;
+        rafRef.current = requestAnimationFrame(frame);
+      };
+      const start = () => {
+        rafRef.current = requestAnimationFrame(frame);
+      };
+      if (document.fonts && document.fonts.load) {
+        document.fonts.load('700 100px ' + fontStack, text).then(start, start);
+      } else {
+        start();
+      }
+      return () => {
+        cancelAnimationFrame(rafRef.current);
+        if (ro) ro.disconnect();else window.removeEventListener('resize', measure);
+      };
+    }, [text, fontStack, countFrom, numberScale, textScale, speed, shockwave, shardCount, backgroundColor, numberColor, ringColor, payoffColor, shardColor, prefersReducedMotion]);
+    return /*#__PURE__*/React.createElement("div", {
+      className: "story-countdown-ignition",
+      ref: hostRef,
+      style: {
+        position: 'relative',
+        width: '100%',
+        height: fullHeight ? '100svh' : height + 'px',
+        overflow: 'hidden',
+        backgroundColor,
+        boxSizing: 'border-box'
+      }
+    }, /*#__PURE__*/React.createElement("canvas", {
+      ref: canvasRef,
+      role: "img",
+      "aria-label": text,
+      style: {
+        display: 'block',
+        width: '100%',
+        height: '100%'
+      }
+    }), showTitle && /*#__PURE__*/React.createElement("h2", {
+      style: {
+        position: 'absolute',
+        top: '20px',
+        left: '20px',
+        zIndex: 2,
+        margin: 0,
+        color: titleColor,
+        fontFamily: sans,
+        fontSize: '13px',
+        fontWeight: 500,
+        lineHeight: 1.35,
+        pointerEvents: 'none'
+      }
+    }, title, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: '10px',
+        opacity: 0.72
+      }
+    }, subtitle)), showActReadout && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        top: '20px',
+        right: '20px',
+        zIndex: 2,
+        color: titleColor,
+        fontFamily: sans,
+        fontSize: '10px',
+        letterSpacing: '0.08em',
+        opacity: 0.55,
+        fontVariantNumeric: 'tabular-nums',
+        pointerEvents: 'none'
+      }
+    }, 'ACT ' + (act.index + 1) + ' / ' + act.total + ' — ' + act.name), showTextInput && /*#__PURE__*/React.createElement("label", {
+      style: {
+        position: 'absolute',
+        left: '50%',
+        bottom: '24px',
+        transform: 'translateX(-50%)',
+        zIndex: 2,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        padding: '8px 14px',
+        borderRadius: '999px',
+        border: '1px solid ' + titleColor + '33',
+        background: backgroundColor + 'cc',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        fontFamily: sans
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: '10px',
+        letterSpacing: '0.08em',
+        color: titleColor,
+        opacity: 0.55
+      }
+    }, inputLabel), /*#__PURE__*/React.createElement("input", {
+      type: "text",
+      value: textInput,
+      maxLength: maxLength,
+      placeholder: "type a word",
+      onChange: e => setTextInput(e.target.value),
+      "aria-label": inputLabel,
+      style: {
+        width: Math.min(240, Math.max(90, maxLength * 13)) + 'px',
+        border: 'none',
+        outline: 'none',
+        background: 'transparent',
+        color: titleColor,
+        fontFamily: sans,
+        fontSize: '13px',
+        padding: 0
+      }
+    })));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

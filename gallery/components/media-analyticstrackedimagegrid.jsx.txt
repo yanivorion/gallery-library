@@ -52,37 +52,37 @@ const MANIFEST = {
       "backgroundColor": {
         "dataType": "color",
         "displayName": "Background Color",
-        "defaultValue": "#FFFFFF",
+        "defaultValue": "#ffffff",
         "group": "Colors"
       },
       "textColor": {
         "dataType": "color",
         "displayName": "Text Color",
-        "defaultValue": "#212529",
+        "defaultValue": "#222222",
         "group": "Colors"
       },
       "secondaryTextColor": {
         "dataType": "color",
         "displayName": "Secondary Text Color",
-        "defaultValue": "#495057",
+        "defaultValue": "#555555",
         "group": "Colors"
       },
       "imagePlaceholderColor": {
         "dataType": "color",
         "displayName": "Image Placeholder Color",
-        "defaultValue": "#F1F3F5",
+        "defaultValue": "#eeeeee",
         "group": "Colors"
       },
       "overlayColor": {
         "dataType": "color",
         "displayName": "Hover Overlay Color",
-        "defaultValue": "#212529",
+        "defaultValue": "#222222",
         "group": "Colors"
       },
       "borderColor": {
         "dataType": "color",
         "displayName": "Border Color",
-        "defaultValue": "#DEE2E6",
+        "defaultValue": "#dddddd",
         "group": "Colors"
       },
       "titleFontSize": {
@@ -219,12 +219,12 @@ function Component({ config = {} }) {
   const gap = parseFloat(config?.gap) || 1.5;
   const aspectRatio = config?.aspectRatio || "4/3";
   
-  const backgroundColor = config?.backgroundColor || "#FFFFFF";
-  const textColor = config?.textColor || "#212529";
-  const secondaryTextColor = config?.secondaryTextColor || "#495057";
-  const imagePlaceholderColor = config?.imagePlaceholderColor || "#F1F3F5";
-  const overlayColor = config?.overlayColor || "#212529";
-  const borderColor = config?.borderColor || "#DEE2E6";
+  const backgroundColor = config?.backgroundColor || "#ffffff";
+  const textColor = config?.textColor || "#222222";
+  const secondaryTextColor = config?.secondaryTextColor || "#555555";
+  const imagePlaceholderColor = config?.imagePlaceholderColor || "#eeeeee";
+  const overlayColor = config?.overlayColor || "#222222";
+  const borderColor = config?.borderColor || "#dddddd";
   
   const titleFontSize = parseInt(config?.titleFontSize) || 48;
   const subtitleFontSize = parseInt(config?.subtitleFontSize) || 16;
@@ -529,8 +529,8 @@ function Component({ config = {} }) {
     left: 0,
     right: 0,
     padding: '1rem',
-    background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
-    color: '#FFFFFF',
+    background: 'linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent)',
+    color: '#ffffff',
     fontSize: `${captionFontSize}px`,
     fontWeight,
     opacity: prefersReducedMotion ? 1 : (isHovered ? 1 : 0),
@@ -542,10 +542,10 @@ function Component({ config = {} }) {
     position: 'fixed',
     bottom: '1rem',
     right: '1rem',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#ffffff',
     padding: '1.5rem',
     borderRadius: '4px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
     border: `1px solid ${borderColor}`,
     minWidth: '250px',
     zIndex: 1000

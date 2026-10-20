@@ -1,0 +1,582 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["study-glyphchoreography"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Studies after tomoyaokada.com (batch 1)
+   * Source study: S-004 "Eight Animation"
+   * Component Type: Study.GlyphChoreography
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Study.GlyphChoreography",
+    "description": "Looping canvas title sequence built from a single typographic glyph: a centre mark, an orbiting ring and a radial grid bloom",
+    "editorElement": {
+      "selector": ".study-glyph-choreography",
+      "displayName": "Glyph Choreography",
+      "archetype": "container",
+      "data": {
+        "glyph": {
+          "dataType": "text",
+          "displayName": "Glyph / Word",
+          "defaultValue": "8",
+          "group": "Content"
+        },
+        "showTextInput": {
+          "dataType": "booleanValue",
+          "displayName": "Show Live Text Input",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "inputLabel": {
+          "dataType": "text",
+          "displayName": "Input Label",
+          "defaultValue": "GLYPH",
+          "group": "Content"
+        },
+        "inputPlaceholder": {
+          "dataType": "text",
+          "displayName": "Input Placeholder",
+          "defaultValue": "type here",
+          "group": "Content"
+        },
+        "maxLength": {
+          "dataType": "number",
+          "displayName": "Max Characters",
+          "defaultValue": "12",
+          "group": "Content"
+        },
+        "choreography": {
+          "dataType": "select",
+          "displayName": "Choreography",
+          "defaultValue": "sequence",
+          "options": ["sequence", "ring-only", "grid-only", "pulse-only"],
+          "group": "Animation"
+        },
+        "title": {
+          "dataType": "text",
+          "displayName": "Title",
+          "defaultValue": "Eight Animation",
+          "group": "Content"
+        },
+        "subtitle": {
+          "dataType": "text",
+          "displayName": "Subtitle",
+          "defaultValue": "looping glyph sequence",
+          "group": "Content"
+        },
+        "showTitle": {
+          "dataType": "booleanValue",
+          "displayName": "Show Title",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "titlePosition": {
+          "dataType": "select",
+          "displayName": "Title Position",
+          "defaultValue": "top-left",
+          "options": ["top-left", "top-right", "bottom-left", "bottom-right"],
+          "group": "Content"
+        },
+        "height": {
+          "dataType": "number",
+          "displayName": "Stage Height (px)",
+          "defaultValue": "640",
+          "group": "Layout"
+        },
+        "fullHeight": {
+          "dataType": "booleanValue",
+          "displayName": "Full Viewport Height",
+          "defaultValue": false,
+          "group": "Layout"
+        },
+        "ringCount": {
+          "dataType": "select",
+          "displayName": "Glyphs In Ring",
+          "defaultValue": "26",
+          "options": ["12", "18", "26", "34", "44"],
+          "group": "Layout"
+        },
+        "gridRows": {
+          "dataType": "select",
+          "displayName": "Grid Rows",
+          "defaultValue": "11",
+          "options": ["7", "9", "11", "14", "18"],
+          "group": "Layout"
+        },
+        "ringRadius": {
+          "dataType": "select",
+          "displayName": "Ring Radius",
+          "defaultValue": "0.36",
+          "options": ["0.26", "0.31", "0.36", "0.42", "0.48"],
+          "group": "Layout"
+        },
+        "centreScale": {
+          "dataType": "select",
+          "displayName": "Centre Glyph Scale",
+          "defaultValue": "0.15",
+          "options": ["0.1", "0.12", "0.15", "0.2", "0.26"],
+          "group": "Layout"
+        },
+        "speed": {
+          "dataType": "select",
+          "displayName": "Playback Speed",
+          "defaultValue": "1",
+          "options": ["0.5", "0.75", "1", "1.5", "2"],
+          "group": "Animation"
+        },
+        "paused": {
+          "dataType": "booleanValue",
+          "displayName": "Hold On First Frame",
+          "defaultValue": false,
+          "group": "Animation"
+        },
+        "ringSpin": {
+          "dataType": "select",
+          "displayName": "Ring Spin",
+          "defaultValue": "0.12",
+          "options": ["0", "0.06", "0.12", "0.24", "0.4"],
+          "group": "Animation"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background",
+          "defaultValue": "#000000",
+          "group": "Colors"
+        },
+        "glyphColor": {
+          "dataType": "color",
+          "displayName": "Glyph",
+          "defaultValue": "#ffffff",
+          "group": "Colors"
+        },
+        "gridGlyphColor": {
+          "dataType": "color",
+          "displayName": "Grid Glyph",
+          "defaultValue": "#111111",
+          "group": "Colors"
+        },
+        "titleColor": {
+          "dataType": "color",
+          "displayName": "Title",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "fontFamily": {
+          "dataType": "select",
+          "displayName": "Glyph Font",
+          "defaultValue": "grotesk",
+          "options": ["grotesk", "mono", "serif"],
+          "group": "Colors"
+        }
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const hostRef = React.useRef(null);
+    const canvasRef = React.useRef(null);
+    const rafRef = React.useRef(0);
+    const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    const maxLength = Math.max(1, parseInt(config?.maxLength || '12', 10));
+    const initialGlyph = (config?.glyph || '8').slice(0, maxLength) || '8';
+    const [glyphInput, setGlyphInput] = React.useState(initialGlyph);
+    React.useEffect(() => {
+      setGlyphInput(initialGlyph);
+    }, [initialGlyph]);
+    const glyph = glyphInput.trim().length ? glyphInput : initialGlyph;
+    const showTextInput = config?.showTextInput !== false;
+    const inputLabel = config?.inputLabel || 'GLYPH';
+    const inputPlaceholder = config?.inputPlaceholder || 'type here';
+    const choreography = config?.choreography || 'sequence';
+    const title = config?.title || 'Eight Animation';
+    const subtitle = config?.subtitle || 'looping glyph sequence';
+    const showTitle = config?.showTitle !== false;
+    const titlePosition = config?.titlePosition || 'top-left';
+    const height = Math.max(240, parseInt(config?.height || '640', 10));
+    const fullHeight = config?.fullHeight === true;
+    const ringCount = Math.max(6, parseInt(config?.ringCount || '26', 10));
+    const gridRows = Math.max(4, parseInt(config?.gridRows || '11', 10));
+    const ringRadius = parseFloat(config?.ringRadius || '0.36') || 0.36;
+    const centreScale = parseFloat(config?.centreScale || '0.15') || 0.15;
+    const speed = parseFloat(config?.speed || '1') || 1;
+    const paused = config?.paused === true || prefersReducedMotion;
+    const ringSpin = parseFloat(config?.ringSpin || '0.12') || 0;
+    const backgroundColor = config?.backgroundColor || '#000000';
+    const glyphColor = config?.glyphColor || '#ffffff';
+    const gridGlyphColor = config?.gridGlyphColor || '#111111';
+    const titleColor = config?.titleColor || '#eeeeee';
+    const fontKey = config?.fontFamily || 'grotesk';
+    const glyphFont = React.useMemo(() => {
+      if (fontKey === 'mono') return '"SF Mono", ui-monospace, "Roboto Mono", Menlo, monospace';
+      if (fontKey === 'serif') return '"Times New Roman", Georgia, serif';
+      return '"PP Neue Montreal", "Helvetica Neue", Inter, system-ui, -apple-system, sans-serif';
+    }, [fontKey]);
+    const sans = '"PP Neue Montreal", "Helvetica Neue", Inter, system-ui, -apple-system, sans-serif';
+    React.useEffect(() => {
+      const host = hostRef.current;
+      const canvas = canvasRef.current;
+      if (!host || !canvas) return undefined;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return undefined;
+      let w = 0;
+      let h = 0;
+      let unit = 0;
+      let rows = gridRows;
+      let metrics = null;
+      const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+      const easeOut = v => 1 - Math.pow(1 - v, 3);
+      const easeIn = v => v * v;
+      const easeBack = v => 1 + 2.2 * Math.pow(v - 1, 3) + 1.2 * Math.pow(v - 1, 2);
+      const hash = n => {
+        const s = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+        return s - Math.floor(s);
+      };
+      const measure = () => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = host.clientWidth || 1;
+        h = host.clientHeight || 1;
+        canvas.width = Math.max(1, Math.round(w * dpr));
+        canvas.height = Math.max(1, Math.round(h * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const narrow = w <= 768;
+        rows = narrow ? Math.max(4, gridRows - 2) : gridRows;
+        unit = narrow ? w : Math.min(w / 1.6, h);
+        metrics = null;
+      };
+      const ensureMetrics = () => {
+        if (metrics) return;
+        ctx.font = '100px ' + glyphFont;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        const m = ctx.measureText(glyph);
+        const asc = m.actualBoundingBoxAscent || 72;
+        const desc = m.actualBoundingBoxDescent || 0;
+        // `w` is the glyph run's width per 1px of cap height, so a typed word can
+        // be scaled down to fit the stage instead of running off the edges.
+        metrics = {
+          h: (asc + desc) / 100,
+          cy: (asc - desc) / 200,
+          w: (m.width || 60) / 100
+        };
+      };
+
+      // Draw the glyph centred at (x, y) at a target cap height.
+      const mark = (x, y, size, rot, alpha, color) => {
+        if (alpha <= 0.004 || size <= 0.6) return;
+        ensureMetrics();
+        let px = size / (metrics.h || 1);
+        // Keep a multi-character run inside the stage.
+        const runWidth = px * metrics.w;
+        const maxWidth = w * 0.86;
+        if (runWidth > maxWidth) px *= maxWidth / runWidth;
+        ctx.save();
+        ctx.globalAlpha = clamp01(alpha);
+        ctx.translate(x, y);
+        if (rot) ctx.rotate(rot);
+        ctx.font = px + 'px ' + glyphFont;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillStyle = color || glyphColor;
+        ctx.fillText(glyph, 0, px * metrics.cy);
+        ctx.restore();
+      };
+      const TAU = Math.PI * 2;
+      const angleAt = i => i / ringCount * TAU - Math.PI / 2;
+      const ringR = () => unit * ringRadius;
+      const smallSize = () => unit * (centreScale * 0.63);
+      const bigSize = () => unit * centreScale;
+
+      // Stage 1 — the centre mark pops in.
+      const stageCentre = p => {
+        const s = easeBack(clamp01(p / 0.5));
+        mark(w / 2, h / 2, bigSize() * s, 0, clamp01(p / 0.08));
+      };
+
+      // Stage 2 — glyphs fly out onto the ring, the first one leading.
+      const stageAssemble = (p, spin) => {
+        for (let i = 0; i < ringCount; i++) {
+          const lead = i === 0;
+          const fold = Math.min(i, ringCount - i) / (ringCount / 2);
+          const delay = lead ? 0 : 0.05 + fold * 0.3 + hash(i) * 0.08;
+          const t = clamp01((p - delay) / (0.66 - delay * 0.5));
+          if (t <= 0) continue;
+          const e = easeOut(t);
+          const a = angleAt(i) + (lead ? 0 : (1 - e) * 1.1) + spin;
+          const r = ringR() * e;
+          const size = lead ? bigSize() + (smallSize() - bigSize()) * e : bigSize() * 0.4 + (smallSize() - bigSize() * 0.4) * e;
+          mark(w / 2 + Math.cos(a) * r, h / 2 + Math.sin(a) * r, size, a + Math.PI / 2 + (lead ? 0 : (1 - e) * 2.4), lead ? 1 : clamp01(t * 4));
+        }
+      };
+
+      // Stage 3 — the ring turns and sheds its glyphs one by one.
+      const stageShed = (p, spin) => {
+        const start = -Math.PI / 2 - 0.5;
+        for (let i = 0; i < ringCount; i++) {
+          const base = angleAt(i);
+          const order = ((start - base) % TAU + TAU) / TAU % 1;
+          const t = clamp01((p - order * (1 - 0.24)) / 0.24);
+          if (t >= 1) continue;
+          const e = easeIn(t);
+          const a = base + spin;
+          const r = ringR() * (1 + 0.22 * e);
+          mark(w / 2 + Math.cos(a) * r, h / 2 + Math.sin(a) * r, smallSize() * (1 - e), a + Math.PI / 2 + e * 1.6, 1 - t * t);
+        }
+      };
+
+      // Grid helper — walks a centred lattice and reports radial distance.
+      const eachCell = fn => {
+        const step = unit / rows;
+        if (step <= 0) return;
+        const cols = Math.ceil(w / step) + 1;
+        const lines = Math.ceil(h / step) + 1;
+        const ox = (w - (cols - 1) * step) / 2;
+        const oy = (h - (lines - 1) * step) / 2;
+        const maxR = Math.hypot(w, h) / 2;
+        for (let r = 0; r < lines; r++) {
+          for (let c = 0; c < cols; c++) {
+            const x = ox + c * step;
+            const y = oy + r * step;
+            fn(x, y, step, clamp01(Math.hypot(x - w / 2, y - h / 2) / maxR), hash(r * 97 + c));
+          }
+        }
+      };
+
+      // Stage 4 — the grid blooms outward behind a returning centre mark.
+      const stageBloom = p => {
+        eachCell((x, y, step, dist, rnd) => {
+          const delay = 0.1 + dist * 0.6 + rnd * 0.08;
+          const t = clamp01((p - delay) / 0.3);
+          if (t <= 0) return;
+          mark(x, y, step * 0.95 * easeBack(t), 0, clamp01(t * 2.5), gridGlyphColor);
+        });
+        const c = clamp01(p / 0.2);
+        mark(w / 2, h / 2, bigSize() * easeBack(c), 0, clamp01(c * 3));
+      };
+
+      // Stage 5 — everything collapses back to black.
+      const stageCollapse = p => {
+        eachCell((x, y, step, dist, rnd) => {
+          const delay = (1 - dist) * 0.45 + rnd * 0.06;
+          const t = clamp01((p - delay) / 0.35);
+          mark(x, y, step * 0.95 * (1 - easeIn(t)), 0, 1 - t, gridGlyphColor);
+        });
+        const c = clamp01((p - 0.55) / 0.4);
+        mark(w / 2, h / 2, bigSize() * (1 - easeIn(c)), 0, 1 - c);
+      };
+      const timelines = {
+        sequence: [{
+          d: 450,
+          f: () => {}
+        }, {
+          d: 1700,
+          f: p => stageCentre(p)
+        }, {
+          d: 1400,
+          f: (p, ms) => stageAssemble(p, ms * ringSpin * 0.0001)
+        }, {
+          d: 2000,
+          f: (p, ms) => stageShed(p, 0.17 + ms * ringSpin * 0.0001)
+        }, {
+          d: 450,
+          f: () => {}
+        }, {
+          d: 2200,
+          f: p => stageBloom(p)
+        }, {
+          d: 1000,
+          f: p => stageCollapse(p)
+        }],
+        'ring-only': [{
+          d: 300,
+          f: () => {}
+        }, {
+          d: 1400,
+          f: (p, ms) => stageAssemble(p, ms * ringSpin * 0.0001)
+        }, {
+          d: 2200,
+          f: (p, ms) => stageShed(p, 0.17 + ms * ringSpin * 0.0001)
+        }],
+        'grid-only': [{
+          d: 300,
+          f: () => {}
+        }, {
+          d: 2200,
+          f: p => stageBloom(p)
+        }, {
+          d: 1000,
+          f: p => stageCollapse(p)
+        }],
+        'pulse-only': [{
+          d: 300,
+          f: () => {}
+        }, {
+          d: 1700,
+          f: p => stageCentre(p)
+        }, {
+          d: 900,
+          f: p => stageCentre(1 - p)
+        }]
+      };
+      const timeline = timelines[choreography] || timelines.sequence;
+      const total = timeline.reduce((sum, s) => sum + s.d, 0);
+      measure();
+      let ro = null;
+      if (typeof ResizeObserver !== 'undefined') {
+        ro = new ResizeObserver(measure);
+        ro.observe(host);
+      } else {
+        window.addEventListener('resize', measure);
+      }
+      let origin = 0;
+      const frame = ts => {
+        if (!origin) origin = ts;
+        let local = paused ? 1700 : (ts - origin) * speed % total;
+        ctx.fillStyle = backgroundColor;
+        ctx.fillRect(0, 0, w, h);
+        for (const stage of timeline) {
+          if (local < stage.d) {
+            stage.f(local / stage.d, local);
+            break;
+          }
+          local -= stage.d;
+        }
+        rafRef.current = requestAnimationFrame(frame);
+      };
+      const start = () => {
+        rafRef.current = requestAnimationFrame(frame);
+      };
+      if (document.fonts && document.fonts.load) {
+        document.fonts.load('100px ' + glyphFont, glyph).then(start, start);
+      } else {
+        start();
+      }
+      return () => {
+        cancelAnimationFrame(rafRef.current);
+        if (ro) ro.disconnect();else window.removeEventListener('resize', measure);
+      };
+    }, [glyph, glyphFont, ringCount, gridRows, ringRadius, centreScale, speed, paused, ringSpin, choreography, backgroundColor, glyphColor, gridGlyphColor]);
+    const titleStyle = {
+      position: 'absolute',
+      zIndex: 1,
+      color: titleColor,
+      fontFamily: sans,
+      fontSize: '13px',
+      fontWeight: 500,
+      lineHeight: 1.35,
+      pointerEvents: 'none'
+    };
+    if (titlePosition.indexOf('top') === 0) titleStyle.top = '20px';else titleStyle.bottom = '20px';
+    if (titlePosition.indexOf('left') > -1) titleStyle.left = '20px';else {
+      titleStyle.right = '20px';
+      titleStyle.textAlign = 'right';
+    }
+    return /*#__PURE__*/React.createElement("div", {
+      className: "study-glyph-choreography",
+      ref: hostRef,
+      style: {
+        position: 'relative',
+        width: '100%',
+        height: fullHeight ? '100svh' : height + 'px',
+        overflow: 'hidden',
+        backgroundColor,
+        boxSizing: 'border-box'
+      }
+    }, /*#__PURE__*/React.createElement("canvas", {
+      ref: canvasRef,
+      role: "img",
+      "aria-label": title,
+      style: {
+        display: 'block',
+        width: '100%',
+        height: '100%'
+      }
+    }), showTitle && /*#__PURE__*/React.createElement("h2", {
+      style: titleStyle
+    }, title, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: '10px',
+        opacity: 0.72
+      }
+    }, subtitle)), showTextInput && /*#__PURE__*/React.createElement("label", {
+      style: {
+        position: 'absolute',
+        left: '50%',
+        bottom: '24px',
+        transform: 'translateX(-50%)',
+        zIndex: 2,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        padding: '8px 14px',
+        borderRadius: '999px',
+        border: '1px solid ' + titleColor + '33',
+        background: backgroundColor + 'cc',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        fontFamily: sans
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: '10px',
+        letterSpacing: '0.08em',
+        color: titleColor,
+        opacity: 0.55,
+        whiteSpace: 'nowrap'
+      }
+    }, inputLabel), /*#__PURE__*/React.createElement("input", {
+      type: "text",
+      value: glyphInput,
+      maxLength: maxLength,
+      placeholder: inputPlaceholder,
+      onChange: e => setGlyphInput(e.target.value),
+      "aria-label": inputLabel,
+      style: {
+        width: Math.min(220, Math.max(72, maxLength * 13)) + 'px',
+        border: 'none',
+        outline: 'none',
+        background: 'transparent',
+        color: titleColor,
+        fontFamily: sans,
+        fontSize: '13px',
+        letterSpacing: '0.02em',
+        padding: 0
+      }
+    })));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

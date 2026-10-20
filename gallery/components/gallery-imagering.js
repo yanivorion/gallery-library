@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-imagering"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=600,https://images.unsplash.com/photo-1682686581776-b6ebf16e326c?w=600,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600,https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=600,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600,https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600,https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=600,https://images.unsplash.com/photo-1682695798522-6e208131916d?w=600,https://images.unsplash.com/photo-1682695794947-17061dc284dd?w=600",
+          "defaultValue": "assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp",
           "group": "Content",
           "description": "Comma-separated image URLs"
         },
@@ -155,13 +155,13 @@ window.__GALLERY_MODULES__["gallery-imagering"] = function (React) {
         "lineColor": {
           "dataType": "color",
           "displayName": "Line Color",
-          "defaultValue": "rgba(255,255,255,0.15)",
+          "defaultValue": "rgba(255, 255, 255, 0.15)",
           "group": "Colors"
         },
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0a0a0a",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "imageBorderRadius": {
@@ -234,8 +234,8 @@ window.__GALLERY_MODULES__["gallery-imagering"] = function (React) {
     const showVignette = config?.showVignette !== false;
     const vignetteIntensity = parseFloat(config?.vignetteIntensity || '0.6');
     const showLines = config?.showLines !== false;
-    const lineColor = config?.lineColor || 'rgba(255,255,255,0.15)';
-    const backgroundColor = config?.backgroundColor || '#0a0a0a';
+    const lineColor = config?.lineColor || 'rgba(255, 255, 255, 0.15)';
+    const backgroundColor = config?.backgroundColor || '#111111';
     const imageBorderRadius = parseInt(config?.imageBorderRadius || '8');
     const perspective = parseInt(config?.perspective || '1200');
     const tiltAngle = parseInt(config?.tiltAngle || '5');
@@ -391,8 +391,8 @@ window.__GALLERY_MODULES__["gallery-imagering"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           height: '600px',
-          color: '#666',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
+          color: '#666666',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
@@ -499,7 +499,7 @@ window.__GALLERY_MODULES__["gallery-imagering"] = function (React) {
           height: '100%',
           borderRadius: imageBorderRadius + 'px',
           overflow: 'hidden',
-          boxShadow: isHovered ? '0 0 40px rgba(255,255,255,0.2), 0 10px 40px rgba(0,0,0,0.5)' : '0 10px 40px rgba(0,0,0,0.5)',
+          boxShadow: isHovered ? '0 0 40px rgba(255, 255, 255, 0.2), 0 10px 40px rgba(0, 0, 0, 0.5)' : '0 10px 40px rgba(0, 0, 0, 0.5)',
           transform: `scale(${isHovered ? 1.05 : 1})`,
           transition: 'transform 0.3s ease, box-shadow 0.3s ease'
         }
@@ -584,7 +584,7 @@ window.__GALLERY_MODULES__["gallery-imagering"] = function (React) {
         inset: 0,
         pointerEvents: 'none',
         zIndex: 45,
-        background: 'repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)',
+        background: 'repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px)',
         opacity: 0.5
       }
     }), /*#__PURE__*/React.createElement("div", {
@@ -608,17 +608,17 @@ window.__GALLERY_MODULES__["gallery-imagering"] = function (React) {
         letterSpacing: '0.2em',
         textTransform: 'uppercase',
         margin: 0,
-        textShadow: '0 0 40px rgba(0,0,0,0.8)',
-        fontFamily: 'system-ui, -apple-system, sans-serif'
+        textShadow: '0 0 40px rgba(0, 0, 0, 0.8)',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, "Image Ring"), /*#__PURE__*/React.createElement("p", {
       style: {
         fontSize: 'clamp(12px, 1.5vw, 16px)',
-        color: 'rgba(255,255,255,0.6)',
+        color: 'rgba(255, 255, 255, 0.6)',
         letterSpacing: '0.3em',
         textTransform: 'uppercase',
         marginTop: '16px',
-        fontFamily: 'system-ui, -apple-system, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, "Scroll or drag to explore")), /*#__PURE__*/React.createElement("div", {
       style: {
@@ -632,11 +632,11 @@ window.__GALLERY_MODULES__["gallery-imagering"] = function (React) {
     }, /*#__PURE__*/React.createElement("div", {
       style: {
         padding: '8px 12px',
-        backgroundColor: 'rgba(255,255,255,0.1)',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
         borderRadius: '6px',
         fontSize: '11px',
-        color: 'rgba(255,255,255,0.6)',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
+        color: 'rgba(255, 255, 255, 0.6)',
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
         backdropFilter: 'blur(4px)'
       }
     }, images.length, " images")), /*#__PURE__*/React.createElement("style", null, `

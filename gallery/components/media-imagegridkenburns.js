@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["media-imagegridkenburns"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (comma-separated)",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600,https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600",
+          "defaultValue": "assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp",
           "group": "Content"
         },
         "captions": {
@@ -94,13 +94,13 @@ window.__GALLERY_MODULES__["media-imagegridkenburns"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "overlayColor": {
@@ -112,7 +112,7 @@ window.__GALLERY_MODULES__["media-imagegridkenburns"] = function (React) {
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         }
       },
@@ -125,17 +125,17 @@ window.__GALLERY_MODULES__["media-imagegridkenburns"] = function (React) {
   function Component({
     config = {}
   }) {
-    const images = (config?.images || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600,https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600').split(',').map(url => url.trim());
+    const images = (config?.images || 'assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp').split(',').map(url => url.trim());
     const captions = (config?.captions || 'Mountain Vista,Forest Trail,Ocean Waves,Desert Sunset,Winter Woods,Autumn Colors').split(',').map(c => c.trim());
     const columns = parseInt(config?.columns || '3');
     const gap = parseInt(config?.gap || '16');
     const zoomLevel = parseFloat(config?.zoomLevel || '1.15');
     const showCaptions = config?.showCaptions !== false;
     const showOverlay = config?.showOverlay !== false;
-    const backgroundColor = config?.backgroundColor || '#FFFFFF';
-    const textColor = config?.textColor || '#FFFFFF';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
+    const textColor = config?.textColor || '#ffffff';
     const overlayColor = config?.overlayColor || '#000000';
-    const accentColor = config?.accentColor || '#495057';
+    const accentColor = config?.accentColor || '#555555';
     const [hoveredIndex, setHoveredIndex] = React.useState(null);
     const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
     const getRandomZoomDirection = index => {
@@ -172,7 +172,7 @@ window.__GALLERY_MODULES__["media-imagegridkenburns"] = function (React) {
         minHeight: '100vh',
         backgroundColor: backgroundColor,
         padding: '40px 20px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {

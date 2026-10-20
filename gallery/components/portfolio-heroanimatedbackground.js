@@ -122,7 +122,7 @@ window.__GALLERY_MODULES__["portfolio-heroanimatedbackground"] = function (React
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0A0A0A",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "overlayColor": {
@@ -140,37 +140,37 @@ window.__GALLERY_MODULES__["portfolio-heroanimatedbackground"] = function (React
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#A3A3A3",
+          "defaultValue": "#aaaaaa",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "ball1Color": {
           "dataType": "color",
           "displayName": "Ball Color 1",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "ball2Color": {
           "dataType": "color",
           "displayName": "Ball Color 2",
-          "defaultValue": "#8B5CF6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "ball3Color": {
           "dataType": "color",
           "displayName": "Ball Color 3",
-          "defaultValue": "#10B981",
+          "defaultValue": "#999999",
           "group": "Colors"
         },
         // Effects
@@ -223,15 +223,15 @@ window.__GALLERY_MODULES__["portfolio-heroanimatedbackground"] = function (React
     const orbitRadius = parseInt(config?.orbitRadius || "3000");
 
     // Color config
-    const backgroundColor = config?.backgroundColor || "#0A0A0A";
+    const backgroundColor = config?.backgroundColor || "#111111";
     const overlayColor = config?.overlayColor || "#000000";
     const overlayOpacity = parseInt(config?.overlayOpacity || "70");
-    const titleColor = config?.titleColor || "#FFFFFF";
-    const textColor = config?.textColor || "#A3A3A3";
-    const accentColor = config?.accentColor || "#3B82F6";
-    const ball1Color = config?.ball1Color || "#3B82F6";
-    const ball2Color = config?.ball2Color || "#8B5CF6";
-    const ball3Color = config?.ball3Color || "#10B981";
+    const titleColor = config?.titleColor || "#ffffff";
+    const textColor = config?.textColor || "#aaaaaa";
+    const accentColor = config?.accentColor || "#777777";
+    const ball1Color = config?.ball1Color || "#777777";
+    const ball2Color = config?.ball2Color || "#777777";
+    const ball3Color = config?.ball3Color || "#999999";
 
     // Effects config
     const ballOpacity = parseInt(config?.ballOpacity || "25");
@@ -351,7 +351,7 @@ window.__GALLERY_MODULES__["portfolio-heroanimatedbackground"] = function (React
         justifyContent: 'center',
         backgroundColor: backgroundColor,
         overflow: 'hidden',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -542,10 +542,10 @@ window.__GALLERY_MODULES__["portfolio-heroanimatedbackground"] = function (React
   // - Smaller balls on mobile for better performance
   //
   // COLOR COMBINATIONS:
-  // Blue Theme: #3B82F6, #8B5CF6, #10B981
-  // Purple Theme: #8B5CF6, #EC4899, #F59E0B
-  // Green Theme: #10B981, #3B82F6, #14B8A6
-  // Warm Theme: #F59E0B, #EF4444, #EC4899
+  // Blue Theme: #777777, #777777, #999999
+  // Purple Theme: #777777, #777777, #aaaaaa
+  // Green Theme: #999999, #777777, #999999
+  // Warm Theme: #aaaaaa, #666666, #777777
   // ============================================================================
 
   return {

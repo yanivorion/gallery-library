@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=280&h=400&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=280&h=400&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=280&h=400&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=280&h=400&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=280&h=400&fit=crop,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=280&h=400&fit=crop",
+          "defaultValue": "assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp",
           "group": "Content",
           "description": "Comma-separated image URLs (even number, 4-8 recommended)"
         },
@@ -91,25 +91,25 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#292524",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "spineColor": {
           "dataType": "color",
           "displayName": "Spine Color",
-          "defaultValue": "#78716C",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "pageBorderColor": {
           "dataType": "color",
           "displayName": "Page Border Color",
-          "defaultValue": "#D6D3D1",
+          "defaultValue": "#cccccc",
           "group": "Colors"
         },
         "pageBackColor": {
           "dataType": "color",
           "displayName": "Page Back Color",
-          "defaultValue": "#F5F5F4",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "borderRadius": {
@@ -159,10 +159,10 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
     const spreadAngle = parseInt(config?.spreadAngle || '35');
     const perspective = parseInt(config?.perspective || '1200');
     const transitionDuration = parseInt(config?.transitionDuration || '600');
-    const backgroundColor = config?.backgroundColor || '#292524';
-    const spineColor = config?.spineColor || '#78716C';
-    const pageBorderColor = config?.pageBorderColor || '#D6D3D1';
-    const pageBackColor = config?.pageBackColor || '#F5F5F4';
+    const backgroundColor = config?.backgroundColor || '#222222';
+    const spineColor = config?.spineColor || '#777777';
+    const pageBorderColor = config?.pageBorderColor || '#cccccc';
+    const pageBackColor = config?.pageBackColor || '#eeeeee';
     const borderRadius = parseInt(config?.borderRadius || '4');
     const showPageTexture = config?.showPageTexture !== false;
     const showSpineShadow = config?.showSpineShadow !== false;
@@ -224,12 +224,12 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '400px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: 'center',
-          color: '#71717A'
+          color: '#777777'
         }
       }, /*#__PURE__*/React.createElement("p", {
         style: {
@@ -248,7 +248,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
         alignItems: 'center',
         justifyContent: 'center',
         perspective: `${perspective}px`,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -268,7 +268,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
         backgroundColor: spineColor,
         borderRadius: '4px',
         zIndex: 50,
-        boxShadow: showSpineShadow ? `0 0 20px rgba(0,0,0,0.5), inset 2px 0 4px rgba(0,0,0,0.2), inset -2px 0 4px rgba(255,255,255,0.1)` : 'none'
+        boxShadow: showSpineShadow ? `0 0 20px rgba(0, 0, 0, 0.5), inset 2px 0 4px rgba(0, 0, 0, 0.2), inset -2px 0 4px rgba(255, 255, 255, 0.1)` : 'none'
       }
     }), /*#__PURE__*/React.createElement("div", {
       style: {
@@ -313,7 +313,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
           borderRadius: `${borderRadius}px ${borderRadius}px ${borderRadius}px ${borderRadius + 2}px`,
           overflow: 'hidden',
           border: `1px solid ${pageBorderColor}`,
-          boxShadow: isSelected ? '0 10px 40px rgba(0,0,0,0.4), -5px 5px 20px rgba(0,0,0,0.2)' : '-3px 3px 10px rgba(0,0,0,0.2)',
+          boxShadow: isSelected ? '0 10px 40px rgba(0, 0, 0, 0.4), -5px 5px 20px rgba(0, 0, 0, 0.2)' : '-3px 3px 10px rgba(0, 0, 0, 0.2)',
           backfaceVisibility: 'hidden'
         }
       }, /*#__PURE__*/React.createElement("img", {
@@ -332,7 +332,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(90deg, rgba(0,0,0,0.05) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.03) 100%)',
+          background: 'linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, transparent 20%, transparent 80%, rgba(0, 0, 0, 0.03) 100%)',
           pointerEvents: 'none'
         }
       })), /*#__PURE__*/React.createElement("div", {
@@ -344,7 +344,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
           backgroundColor: pageBackColor,
           transform: 'rotateY(180deg)',
           backfaceVisibility: 'hidden',
-          boxShadow: '3px 3px 10px rgba(0,0,0,0.1)'
+          boxShadow: '3px 3px 10px rgba(0, 0, 0, 0.1)'
         }
       }, showPageTexture && /*#__PURE__*/React.createElement("div", {
         style: {
@@ -353,7 +353,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: `repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(0,0,0,0.02) 20px, rgba(0,0,0,0.02) 21px)`,
+          background: `repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(0, 0, 0, 0.02) 20px, rgba(0, 0, 0, 0.02) 21px)`,
           pointerEvents: 'none'
         }
       })), /*#__PURE__*/React.createElement("div", {
@@ -363,7 +363,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
           left: 0,
           width: '30px',
           height: '30px',
-          background: `linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.05) 50%)`,
+          background: `linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.05) 50%)`,
           borderRadius: `0 0 0 ${borderRadius}px`,
           pointerEvents: 'none'
         }
@@ -411,7 +411,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
           borderRadius: `${borderRadius}px ${borderRadius}px ${borderRadius + 2}px ${borderRadius}px`,
           overflow: 'hidden',
           border: `1px solid ${pageBorderColor}`,
-          boxShadow: isSelected ? '0 10px 40px rgba(0,0,0,0.4), 5px 5px 20px rgba(0,0,0,0.2)' : '3px 3px 10px rgba(0,0,0,0.2)',
+          boxShadow: isSelected ? '0 10px 40px rgba(0, 0, 0, 0.4), 5px 5px 20px rgba(0, 0, 0, 0.2)' : '3px 3px 10px rgba(0, 0, 0, 0.2)',
           backfaceVisibility: 'hidden'
         }
       }, /*#__PURE__*/React.createElement("img", {
@@ -430,7 +430,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(90deg, rgba(0,0,0,0.03) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.05) 100%)',
+          background: 'linear-gradient(90deg, rgba(0, 0, 0, 0.03) 0%, transparent 20%, transparent 80%, rgba(0, 0, 0, 0.05) 100%)',
           pointerEvents: 'none'
         }
       })), /*#__PURE__*/React.createElement("div", {
@@ -442,7 +442,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
           backgroundColor: pageBackColor,
           transform: 'rotateY(180deg)',
           backfaceVisibility: 'hidden',
-          boxShadow: '-3px 3px 10px rgba(0,0,0,0.1)'
+          boxShadow: '-3px 3px 10px rgba(0, 0, 0, 0.1)'
         }
       }), /*#__PURE__*/React.createElement("div", {
         style: {
@@ -451,7 +451,7 @@ window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
           right: 0,
           width: '30px',
           height: '30px',
-          background: `linear-gradient(-135deg, transparent 50%, rgba(0,0,0,0.05) 50%)`,
+          background: `linear-gradient(-135deg, transparent 50%, rgba(0, 0, 0, 0.05) 50%)`,
           borderRadius: `0 0 ${borderRadius}px 0`,
           pointerEvents: 'none'
         }

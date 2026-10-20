@@ -1,0 +1,511 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["study-patternshell"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Studies after tomoyaokada.com (batch 1)
+   * Source study: S-006 "Pattern Shell"
+   * Component Type: Study.PatternShell
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Study.PatternShell",
+    "description": "A shell of ten animated tiling patterns — Truchet arcs, hex grids, pie slices — swapped behind a blocky dissolve mask",
+    "editorElement": {
+      "selector": ".study-pattern-shell",
+      "displayName": "Pattern Shell",
+      "archetype": "container",
+      "data": {
+        "title": {
+          "dataType": "text",
+          "displayName": "Title",
+          "defaultValue": "Pattern Shell",
+          "group": "Content"
+        },
+        "subtitle": {
+          "dataType": "text",
+          "displayName": "Subtitle",
+          "defaultValue": "ten tiling studies",
+          "group": "Content"
+        },
+        "showTitle": {
+          "dataType": "booleanValue",
+          "displayName": "Show Title",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "showPatternName": {
+          "dataType": "booleanValue",
+          "displayName": "Show Pattern Readout",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "clickToAdvance": {
+          "dataType": "booleanValue",
+          "displayName": "Click To Advance",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "height": {
+          "dataType": "number",
+          "displayName": "Stage Height (px)",
+          "defaultValue": "620",
+          "group": "Layout"
+        },
+        "fullHeight": {
+          "dataType": "booleanValue",
+          "displayName": "Full Viewport Height",
+          "defaultValue": false,
+          "group": "Layout"
+        },
+        "renderScale": {
+          "dataType": "select",
+          "displayName": "Render Resolution",
+          "defaultValue": "640",
+          "options": ["360", "480", "640", "860"],
+          "group": "Layout"
+        },
+        "startPattern": {
+          "dataType": "select",
+          "displayName": "Starting Pattern",
+          "defaultValue": "truchet",
+          "options": ["truchet", "nested-squares", "dot-grid", "diamond-rings", "hex-grid", "sine-stripes", "cross-tiles", "pie-slices", "four-rings", "triangles"],
+          "group": "Pattern"
+        },
+        "lockPattern": {
+          "dataType": "booleanValue",
+          "displayName": "Lock To One Pattern",
+          "defaultValue": false,
+          "group": "Pattern"
+        },
+        "patternScale": {
+          "dataType": "select",
+          "displayName": "Tile Density",
+          "defaultValue": "1",
+          "options": ["0.6", "0.8", "1", "1.4", "2"],
+          "group": "Pattern"
+        },
+        "holdTime": {
+          "dataType": "number",
+          "displayName": "Hold Per Pattern (ms)",
+          "defaultValue": "3600",
+          "group": "Animation"
+        },
+        "dissolveTime": {
+          "dataType": "number",
+          "displayName": "Dissolve Duration (ms)",
+          "defaultValue": "900",
+          "group": "Animation"
+        },
+        "blocks": {
+          "dataType": "select",
+          "displayName": "Dissolve Block Count",
+          "defaultValue": "4",
+          "options": ["2", "4", "8", "16", "32"],
+          "group": "Animation"
+        },
+        "speed": {
+          "dataType": "select",
+          "displayName": "Pattern Speed",
+          "defaultValue": "1",
+          "options": ["0.3", "0.6", "1", "1.6", "2.4"],
+          "group": "Animation"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "inkColor": {
+          "dataType": "color",
+          "displayName": "Pattern Ink",
+          "defaultValue": "#333333",
+          "group": "Colors"
+        },
+        "titleColor": {
+          "dataType": "color",
+          "displayName": "Title",
+          "defaultValue": "#111111",
+          "group": "Colors"
+        }
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const hostRef = React.useRef(null);
+    const canvasRef = React.useRef(null);
+    const rafRef = React.useRef(0);
+    const advanceRef = React.useRef(null);
+    const [patternName, setPatternName] = React.useState('');
+    const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    const title = config?.title || 'Pattern Shell';
+    const subtitle = config?.subtitle || 'ten tiling studies';
+    const showTitle = config?.showTitle !== false;
+    const showPatternName = config?.showPatternName !== false;
+    const clickToAdvance = config?.clickToAdvance !== false;
+    const height = Math.max(240, parseInt(config?.height || '620', 10));
+    const fullHeight = config?.fullHeight === true;
+    const renderScale = Math.max(240, parseInt(config?.renderScale || '640', 10));
+    const names = React.useMemo(() => ['truchet', 'nested-squares', 'dot-grid', 'diamond-rings', 'hex-grid', 'sine-stripes', 'cross-tiles', 'pie-slices', 'four-rings', 'triangles'], []);
+    const startIndex = Math.max(0, names.indexOf(config?.startPattern || 'truchet'));
+    const lockPattern = config?.lockPattern === true;
+    const patternScale = parseFloat(config?.patternScale || '1') || 1;
+    const holdTime = Math.max(400, parseInt(config?.holdTime || '3600', 10));
+    const dissolveTime = Math.max(120, parseInt(config?.dissolveTime || '900', 10));
+    const blocks = Math.max(1, parseInt(config?.blocks || '4', 10));
+    const speed = parseFloat(config?.speed || '1') || 1;
+    const backgroundColor = config?.backgroundColor || '#eeeeee';
+    const inkColor = config?.inkColor || '#333333';
+    const titleColor = config?.titleColor || '#111111';
+    const sans = '"PP Neue Montreal", "Helvetica Neue", Inter, system-ui, -apple-system, sans-serif';
+    React.useEffect(() => {
+      setPatternName(names[startIndex]);
+    }, [names, startIndex]);
+    React.useEffect(() => {
+      const host = hostRef.current;
+      const canvas = canvasRef.current;
+      if (!host || !canvas) return undefined;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return undefined;
+      const TAU = Math.PI * 2;
+      const hash2 = (x, y) => {
+        const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+        return s - Math.floor(s);
+      };
+      const fract = v => v - Math.floor(v);
+      const step = (edge, v) => v < edge ? 0 : 1;
+      const circleFill = (x, y, r) => Math.sqrt(x * x + y * y) <= r ? 1 : 0;
+      const circleRing = (x, y, r, wdt) => Math.abs(Math.sqrt(x * x + y * y) - r) <= wdt ? 1 : 0;
+      const boxFill = (x, y, sx, sy) => Math.max(Math.abs(x) - sx, Math.abs(y) - sy) <= 0 ? 1 : 0;
+      const boxRing = (x, y, s, wdt) => boxFill(x, y, s, s) - boxFill(x, y, s - wdt, s - wdt);
+
+      // The ten pattern functions, each returning 0/1 for a uv in aspect space.
+      const patterns = [
+      // 0 — Truchet arcs
+      (ux, uy, t) => {
+        const n = 5 * patternScale;
+        const idx = Math.floor(ux * n);
+        const idy = Math.floor(uy * n);
+        let sx = fract(ux * n) - 0.5;
+        const sy = fract(uy * n) - 0.5;
+        sx *= step(0.5, hash2(idx, idy)) * 2 - 1;
+        const r = 0.5 + 0.06 * Math.sin(t * 1.2 + hash2(idx, idy) * TAU);
+        const v = circleRing(sx - 0.5, sy - 0.5, r, 0.035) + circleRing(sx + 0.5, sy + 0.5, r, 0.035);
+        return v > 0 ? 1 : 0;
+      },
+      // 1 — Nested squares
+      (ux, uy, t) => {
+        const n = 3 * patternScale;
+        const sx = fract(ux * n) - 0.5;
+        const sy = fract(uy * n) - 0.5;
+        const offset = t * 0.06 % 0.09;
+        let v = 0;
+        for (let i = 1; i <= 4; i++) v += boxRing(sx, sy, i * 0.09 + 0.03 + offset, 0.025);
+        return v > 0 ? 1 : 0;
+      },
+      // 2 — Dot grid
+      (ux, uy, t) => {
+        const n = 6 * patternScale;
+        const idx = Math.floor(ux * n);
+        const idy = Math.floor(uy * n);
+        const sx = fract(ux * n) - 0.5;
+        const sy = fract(uy * n) - 0.5;
+        const hv = hash2(idx, idy);
+        const r = 0.12 + 0.15 * hv + 0.08 * Math.sin(t * 2 + hv * TAU);
+        return circleFill(sx, sy, r);
+      },
+      // 3 — Rotating diamond rings
+      (ux, uy, t) => {
+        const n = 4 * patternScale;
+        const px = fract(ux * n) - 0.5;
+        const py = fract(uy * n) - 0.5;
+        const a = Math.PI * 0.25 + t * 0.4;
+        const c = Math.cos(a);
+        const s = Math.sin(a);
+        const sx = c * px - s * py;
+        const sy = s * px + c * py;
+        let v = 0;
+        for (let i = 1; i <= 3; i++) v += boxRing(sx, sy, i * 0.11, 0.025);
+        return v > 0 ? 1 : 0;
+      },
+      // 4 — Hex grid
+      (ux, uy, t) => {
+        const n = 5 * patternScale;
+        let stx = ux * n + t * 0.25;
+        const sty = uy * n + t * 0.12;
+        stx += step(1, (Math.floor(sty) % 2 + 2) % 2) * 0.5;
+        const px = Math.abs(fract(stx) - 0.5);
+        const py = Math.abs(fract(sty) - 0.5);
+        const k = 1 / Math.sqrt(1 + 1.7320508 * 1.7320508);
+        const hexDist = Math.max(px * k + py * 1.7320508 * k, px);
+        return step(0.05, Math.abs(hexDist - 0.38)) === 0 ? 1 : 0;
+      },
+      // 5 — Sinusoidal stripes
+      (ux, uy, t) => Math.sin(ux * TAU * 7 * patternScale + Math.sin(uy * TAU * 3.5 * patternScale) * 1.5 + t * 2.5) >= 0 ? 1 : 0,
+      // 6 — Cross tiles
+      (ux, uy, t) => {
+        const n = 5 * patternScale;
+        const idx = Math.floor(ux * n);
+        const idy = Math.floor(uy * n);
+        const sx = fract(ux * n) - 0.5;
+        const sy = fract(uy * n) - 0.5;
+        const hv = hash2(idx, idy);
+        const arm = 0.07 + 0.05 * Math.sin(t * 2 + hv * TAU);
+        const size = 0.22 + 0.12 * hv;
+        return boxFill(sx, sy, size, arm) + boxFill(sx, sy, arm, size) > 0 ? 1 : 0;
+      },
+      // 7 — Pie slices
+      (ux, uy, t) => {
+        const n = 4 * patternScale;
+        const idx = Math.floor(ux * n);
+        const idy = Math.floor(uy * n);
+        const sx = fract(ux * n) - 0.5;
+        const sy = fract(uy * n) - 0.5;
+        const slices = 2 + Math.floor(hash2(idx, idy) * 4);
+        const sp = (hash2(idx + 3.7, idy + 3.7) - 0.5) * 0.4;
+        const seg = step(0.5, fract((Math.atan2(sy, sx) / TAU + 0.5 + t * sp) * slices));
+        return seg * circleFill(sx, sy, 0.45);
+      },
+      // 8 — Four rings
+      (ux, uy, t) => {
+        const n = 4 * patternScale;
+        const sx = fract(ux * n) - 0.5;
+        const sy = fract(uy * n) - 0.5;
+        const r = 0.18 + 0.1 * Math.sin(t * 1.8);
+        const v = circleRing(sx - 0.18, sy - 0.18, r, 0.03) + circleRing(sx + 0.18, sy - 0.18, r, 0.03) + circleRing(sx - 0.18, sy + 0.18, r, 0.03) + circleRing(sx + 0.18, sy + 0.18, r, 0.03);
+        return v > 0 ? 1 : 0;
+      },
+      // 9 — Triangle outlines
+      (ux, uy, t) => {
+        const n = 5 * patternScale;
+        const idx = Math.floor(ux * n);
+        const idy = Math.floor(uy * n);
+        const sx = fract(ux * n) - 0.5;
+        let sy = fract(uy * n) - 0.5;
+        const hv = hash2(idx, idy);
+        sy *= step(0.5, hv) * 2 - 1;
+        const r = 0.2 + 0.07 * Math.sin(t * 1.5 + hv * TAU);
+        const k = 1.7320508;
+        let px = Math.abs(sx) - r;
+        let py = sy + r / k;
+        if (px + k * py > 0) {
+          const nx = (px - k * py) * 0.5;
+          const ny = (-k * px - py) * 0.5;
+          px = nx;
+          py = ny;
+        }
+        px -= Math.min(Math.max(px, -2 * r), 0);
+        const d = -Math.sqrt(px * px + py * py) * Math.sign(py || 1);
+        return Math.abs(d) <= 0.028 ? 1 : 0;
+      }];
+      const parseHex = hex => {
+        const h = String(hex || '#333333').replace('#', '');
+        const full = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+        return [parseInt(full.slice(0, 2), 16) || 0, parseInt(full.slice(2, 4), 16) || 0, parseInt(full.slice(4, 6), 16) || 0];
+      };
+      const ink = parseHex(inkColor);
+      const bg = parseHex(backgroundColor);
+      let cw = 0;
+      let ch = 0;
+      let image = null;
+      let aspect = 1;
+      const measure = () => {
+        const w = host.clientWidth || 1;
+        const h = host.clientHeight || 1;
+        aspect = w / Math.max(h, 1);
+        const scale = Math.min(1, renderScale / Math.max(w, 1));
+        cw = Math.max(2, Math.round(w * scale));
+        ch = Math.max(2, Math.round(h * scale));
+        canvas.width = cw;
+        canvas.height = ch;
+        image = ctx.createImageData(cw, ch);
+      };
+      measure();
+      let ro = null;
+      if (typeof ResizeObserver !== 'undefined') {
+        ro = new ResizeObserver(measure);
+        ro.observe(host);
+      } else {
+        window.addEventListener('resize', measure);
+      }
+
+      // Cycle state: hold the current pattern, dissolve out, swap, dissolve in.
+      let current = startIndex;
+      let phase = 'hold';
+      let phaseStart = 0;
+      let pendingAdvance = false;
+      advanceRef.current = () => {
+        pendingAdvance = true;
+      };
+      const render = ts => {
+        if (!image) {
+          rafRef.current = requestAnimationFrame(render);
+          return;
+        }
+        if (!phaseStart) phaseStart = ts;
+        const elapsed = ts - phaseStart;
+
+        // progress 1 = fully drawn, 0 = fully hidden
+        let progress = 1;
+        if (!lockPattern || pendingAdvance) {
+          if (phase === 'hold') {
+            if (pendingAdvance || !lockPattern && elapsed >= holdTime) {
+              phase = 'out';
+              phaseStart = ts;
+              pendingAdvance = false;
+            }
+          } else if (phase === 'out') {
+            progress = 1 - Math.min(1, elapsed / dissolveTime);
+            if (elapsed >= dissolveTime) {
+              current = lockPattern ? current : (current + 1) % patterns.length;
+              phase = 'in';
+              phaseStart = ts;
+              progress = 0;
+              setPatternName(names[current]);
+            }
+          } else if (phase === 'in') {
+            progress = Math.min(1, elapsed / dissolveTime);
+            if (elapsed >= dissolveTime) {
+              phase = 'hold';
+              phaseStart = ts;
+              progress = 1;
+            }
+          }
+        }
+        const t = prefersReducedMotion ? 0 : ts / 1000 * speed;
+        const fn = patterns[current] || patterns[0];
+        const data = image.data;
+        const edge = 0.02;
+        for (let y = 0; y < ch; y++) {
+          const vy = y / ch;
+          const by = Math.floor(vy * blocks);
+          for (let x = 0; x < cw; x++) {
+            const vx = x / cw;
+            const ux = vx * aspect;
+            const pat = fn(ux, vy, t);
+
+            // Blocky dissolve: each block flips once progress passes its hash.
+            const bx = Math.floor(ux * blocks);
+            const noise = hash2(bx, by);
+            let mask;
+            if (progress >= 1) mask = 1;else if (progress <= 0) mask = 0;else {
+              const d = (progress - noise) / edge;
+              mask = d <= -0.5 ? 0 : d >= 0.5 ? 1 : d + 0.5;
+            }
+            const a = pat * mask;
+            const i = (y * cw + x) * 4;
+            data[i] = bg[0] + (ink[0] - bg[0]) * a;
+            data[i + 1] = bg[1] + (ink[1] - bg[1]) * a;
+            data[i + 2] = bg[2] + (ink[2] - bg[2]) * a;
+            data[i + 3] = 255;
+          }
+        }
+        ctx.putImageData(image, 0, 0);
+        rafRef.current = requestAnimationFrame(render);
+      };
+      rafRef.current = requestAnimationFrame(render);
+      return () => {
+        cancelAnimationFrame(rafRef.current);
+        advanceRef.current = null;
+        if (ro) ro.disconnect();else window.removeEventListener('resize', measure);
+      };
+    }, [names, startIndex, lockPattern, patternScale, holdTime, dissolveTime, blocks, speed, renderScale, backgroundColor, inkColor, prefersReducedMotion]);
+    const handleAdvance = () => {
+      if (!clickToAdvance || lockPattern) return;
+      if (advanceRef.current) advanceRef.current();
+    };
+    return /*#__PURE__*/React.createElement("div", {
+      className: "study-pattern-shell",
+      ref: hostRef,
+      onClick: handleAdvance,
+      style: {
+        position: 'relative',
+        width: '100%',
+        height: fullHeight ? '100svh' : height + 'px',
+        overflow: 'hidden',
+        backgroundColor,
+        cursor: clickToAdvance && !lockPattern ? 'pointer' : 'default',
+        boxSizing: 'border-box'
+      }
+    }, /*#__PURE__*/React.createElement("canvas", {
+      ref: canvasRef,
+      role: "img",
+      "aria-label": title,
+      style: {
+        display: 'block',
+        width: '100%',
+        height: '100%'
+      }
+    }), showTitle && /*#__PURE__*/React.createElement("h2", {
+      style: {
+        position: 'absolute',
+        top: '20px',
+        left: '20px',
+        zIndex: 1,
+        margin: 0,
+        color: titleColor,
+        fontFamily: sans,
+        fontSize: '13px',
+        fontWeight: 500,
+        lineHeight: 1.35,
+        pointerEvents: 'none'
+      }
+    }, title, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: '10px',
+        opacity: 0.7
+      }
+    }, subtitle)), showPatternName && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: 'absolute',
+        bottom: '20px',
+        left: '20px',
+        zIndex: 1,
+        color: titleColor,
+        fontFamily: sans,
+        fontSize: '10px',
+        letterSpacing: '0.08em',
+        textTransform: 'uppercase',
+        opacity: 0.55,
+        pointerEvents: 'none'
+      }
+    }, patternName));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

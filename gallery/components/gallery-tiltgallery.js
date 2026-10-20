@@ -76,25 +76,25 @@ window.__GALLERY_MODULES__["gallery-tiltgallery"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "cardColor": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#27272A",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "glareColor": {
           "dataType": "color",
           "displayName": "Glare Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "fontSize": {
@@ -129,10 +129,10 @@ window.__GALLERY_MODULES__["gallery-tiltgallery"] = function (React) {
     const columns = parseInt(config?.columns || "3");
     const tiltIntensity = config?.tiltIntensity || "medium";
     const glareIntensity = config?.glareIntensity || "medium";
-    const backgroundColor = config?.backgroundColor || "#18181B";
-    const cardColor = config?.cardColor || "#27272A";
-    const textColor = config?.textColor || "#FAFAFA";
-    const glareColor = config?.glareColor || "#FFFFFF";
+    const backgroundColor = config?.backgroundColor || "#111111";
+    const cardColor = config?.cardColor || "#222222";
+    const textColor = config?.textColor || "#ffffff";
+    const glareColor = config?.glareColor || "#ffffff";
     const fontSize = config?.fontSize || 20;
     const fontWeight = config?.fontWeight || "400";
     const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
@@ -204,7 +204,7 @@ window.__GALLERY_MODULES__["gallery-tiltgallery"] = function (React) {
         minHeight: '100vh',
         backgroundColor: backgroundColor,
         padding: '80px 40px',
-        fontFamily: 'system-ui, -apple-system, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {

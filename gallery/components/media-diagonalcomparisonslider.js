@@ -49,13 +49,13 @@ window.__GALLERY_MODULES__["media-diagonalcomparisonslider"] = function (React) 
         "beforeImage": {
           "dataType": "text",
           "displayName": "Before Image URL",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200",
+          "defaultValue": "assets/08.webp",
           "group": "Content"
         },
         "afterImage": {
           "dataType": "text",
           "displayName": "After Image URL",
-          "defaultValue": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200",
+          "defaultValue": "assets/01.webp",
           "group": "Content"
         },
         "diagonalDirection": {
@@ -81,25 +81,25 @@ window.__GALLERY_MODULES__["media-diagonalcomparisonslider"] = function (React) 
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "dividerColor": {
           "dataType": "color",
           "displayName": "Divider Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "handleColor": {
           "dataType": "color",
           "displayName": "Handle Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         }
       },
@@ -112,15 +112,15 @@ window.__GALLERY_MODULES__["media-diagonalcomparisonslider"] = function (React) 
   function Component({
     config = {}
   }) {
-    const beforeImage = config?.beforeImage || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200';
-    const afterImage = config?.afterImage || 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200';
+    const beforeImage = config?.beforeImage || 'assets/02.webp';
+    const afterImage = config?.afterImage || 'assets/03.webp';
     const diagonalDirection = config?.diagonalDirection || 'top-left';
     const defaultPosition = parseInt(config?.defaultPosition || '50');
     const showLabels = config?.showLabels !== false;
-    const backgroundColor = config?.backgroundColor || '#FFFFFF';
-    const dividerColor = config?.dividerColor || '#FFFFFF';
-    const handleColor = config?.handleColor || '#495057';
-    const accentColor = config?.accentColor || '#495057';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
+    const dividerColor = config?.dividerColor || '#ffffff';
+    const handleColor = config?.handleColor || '#555555';
+    const accentColor = config?.accentColor || '#555555';
     const [position, setPosition] = React.useState(defaultPosition);
     const [isDragging, setIsDragging] = React.useState(false);
     const containerRef = React.useRef(null);
@@ -245,7 +245,7 @@ window.__GALLERY_MODULES__["media-diagonalcomparisonslider"] = function (React) 
         alignItems: 'center',
         justifyContent: 'center',
         padding: '40px 20px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -379,7 +379,7 @@ window.__GALLERY_MODULES__["media-diagonalcomparisonslider"] = function (React) 
         right: diagonalDirection.includes('right') ? '20px' : 'auto',
         padding: '8px 16px',
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
-        color: '#FFFFFF',
+        color: '#ffffff',
         fontSize: '14px',
         fontWeight: '500',
         borderRadius: '6px',
@@ -394,7 +394,7 @@ window.__GALLERY_MODULES__["media-diagonalcomparisonslider"] = function (React) 
         left: diagonalDirection.includes('right') ? '20px' : 'auto',
         padding: '8px 16px',
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
-        color: '#FFFFFF',
+        color: '#ffffff',
         fontSize: '14px',
         fontWeight: '500',
         borderRadius: '6px',

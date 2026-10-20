@@ -50,36 +50,36 @@ window.__GALLERY_MODULES__["gallery-lightboxzoom"] = function (React) {
           "dataType": "text",
           "displayName": "Images (JSON Array)",
           "defaultValue": JSON.stringify([{
-            url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920",
-            thumb: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400",
+            url: "assets/07.webp",
+            thumb: "assets/08.webp",
             caption: "Mountain Vista"
           }, {
-            url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920",
-            thumb: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400",
+            url: "assets/01.webp",
+            thumb: "assets/02.webp",
             caption: "Forest Path"
           }, {
-            url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920",
-            thumb: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400",
+            url: "assets/03.webp",
+            thumb: "assets/04.webp",
             caption: "Desert Sunset"
           }, {
-            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920",
-            thumb: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400",
+            url: "assets/05.webp",
+            thumb: "assets/06.webp",
             caption: "Misty Valley"
           }, {
-            url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920",
-            thumb: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400",
+            url: "assets/07.webp",
+            thumb: "assets/08.webp",
             caption: "Wild Trail"
           }, {
-            url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1920",
-            thumb: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=400",
+            url: "assets/01.webp",
+            thumb: "assets/02.webp",
             caption: "Alpine Lake"
           }, {
-            url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920",
-            thumb: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",
+            url: "assets/03.webp",
+            thumb: "assets/04.webp",
             caption: "Ocean Waves"
           }, {
-            url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1920",
-            thumb: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400",
+            url: "assets/05.webp",
+            thumb: "assets/06.webp",
             caption: "Starry Night"
           }]),
           "group": "Content",
@@ -88,7 +88,7 @@ window.__GALLERY_MODULES__["gallery-lightboxzoom"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FAFBFC",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "lightboxBackdrop": {
@@ -100,19 +100,19 @@ window.__GALLERY_MODULES__["gallery-lightboxzoom"] = function (React) {
         "controlsColor": {
           "dataType": "color",
           "displayName": "Controls Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#3B82F6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "thumbnailBorder": {
           "dataType": "color",
           "displayName": "Thumbnail Border",
-          "defaultValue": "#E5E7EB",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "gridGap": {
@@ -170,44 +170,44 @@ window.__GALLERY_MODULES__["gallery-lightboxzoom"] = function (React) {
     config = {}
   }) {
     const imagesData = config?.images || JSON.stringify([{
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920",
-      thumb: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400",
+      url: "assets/07.webp",
+      thumb: "assets/08.webp",
       caption: "Mountain Vista"
     }, {
-      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920",
-      thumb: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400",
+      url: "assets/01.webp",
+      thumb: "assets/02.webp",
       caption: "Forest Path"
     }, {
-      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920",
-      thumb: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400",
+      url: "assets/03.webp",
+      thumb: "assets/04.webp",
       caption: "Desert Sunset"
     }, {
-      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920",
-      thumb: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400",
+      url: "assets/05.webp",
+      thumb: "assets/06.webp",
       caption: "Misty Valley"
     }, {
-      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920",
-      thumb: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400",
+      url: "assets/07.webp",
+      thumb: "assets/08.webp",
       caption: "Wild Trail"
     }, {
-      url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1920",
-      thumb: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=400",
+      url: "assets/01.webp",
+      thumb: "assets/02.webp",
       caption: "Alpine Lake"
     }, {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920",
-      thumb: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",
+      url: "assets/03.webp",
+      thumb: "assets/04.webp",
       caption: "Ocean Waves"
     }, {
-      url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1920",
-      thumb: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400",
+      url: "assets/05.webp",
+      thumb: "assets/06.webp",
       caption: "Starry Night"
     }]);
     const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
-    const backgroundColor = config?.backgroundColor || "#FAFBFC";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
     const lightboxBackdrop = config?.lightboxBackdrop || "#000000";
-    const controlsColor = config?.controlsColor || "#FFFFFF";
-    const accentColor = config?.accentColor || "#3B82F6";
-    const thumbnailBorder = config?.thumbnailBorder || "#E5E7EB";
+    const controlsColor = config?.controlsColor || "#ffffff";
+    const accentColor = config?.accentColor || "#777777";
+    const thumbnailBorder = config?.thumbnailBorder || "#eeeeee";
     const gridGap = parseInt(config?.gridGap || "16");
     const thumbnailMinWidth = parseInt(config?.thumbnailMinWidth || "250");
     const borderRadius = parseInt(config?.borderRadius || "8");
@@ -363,7 +363,7 @@ window.__GALLERY_MODULES__["gallery-lightboxzoom"] = function (React) {
         backgroundColor: backgroundColor,
         padding: '48px 24px',
         minHeight: '100vh',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -386,18 +386,18 @@ window.__GALLERY_MODULES__["gallery-lightboxzoom"] = function (React) {
         padding: 0,
         backgroundColor: 'transparent',
         transition: prefersReducedMotion ? 'none' : 'transform 250ms ease-out, box-shadow 250ms ease-out',
-        boxShadow: '0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03)',
+        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03)',
         outline: 'none'
       },
       onMouseEnter: e => {
         if (!prefersReducedMotion) {
           e.currentTarget.style.transform = 'scale(1.03)';
-          e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1), 0 12px 24px rgba(0,0,0,0.08)';
+          e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.08)';
         }
       },
       onMouseLeave: e => {
         e.currentTarget.style.transform = 'scale(1)';
-        e.currentTarget.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03)';
+        e.currentTarget.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03)';
       },
       onFocus: e => {
         e.currentTarget.style.outline = `2px solid ${accentColor}`;

@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-orbitalcarousel"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=500&fit=crop",
+          "defaultValue": "assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp",
           "group": "Content",
           "description": "Comma-separated image URLs"
         },
@@ -165,7 +165,7 @@ window.__GALLERY_MODULES__["gallery-orbitalcarousel"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0a0a0f",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "navButtonColor": {
@@ -177,13 +177,13 @@ window.__GALLERY_MODULES__["gallery-orbitalcarousel"] = function (React) {
         "navButtonBgColor": {
           "dataType": "color",
           "displayName": "Navigation Button Background",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "indicatorColor": {
           "dataType": "color",
           "displayName": "Indicator Color",
-          "defaultValue": "#3F3F46",
+          "defaultValue": "#444444",
           "group": "Colors"
         },
         "indicatorActiveColor": {
@@ -225,10 +225,10 @@ window.__GALLERY_MODULES__["gallery-orbitalcarousel"] = function (React) {
     const imageBorderRadius = parseInt(config?.imageBorderRadius || '8');
     const imageShadow = config?.imageShadow || 'medium';
     const imageHoverScale = parseFloat(config?.imageHoverScale || '1.05');
-    const backgroundColor = config?.backgroundColor || '#0a0a0f';
+    const backgroundColor = config?.backgroundColor || '#111111';
     const navButtonColor = config?.navButtonColor || '#ffffff';
-    const navButtonBgColor = config?.navButtonBgColor || '#18181B';
-    const indicatorColor = config?.indicatorColor || '#3F3F46';
+    const navButtonBgColor = config?.navButtonBgColor || '#111111';
+    const indicatorColor = config?.indicatorColor || '#444444';
     const indicatorActiveColor = config?.indicatorActiveColor || '#ffffff';
 
     // Parse images
@@ -300,7 +300,7 @@ window.__GALLERY_MODULES__["gallery-orbitalcarousel"] = function (React) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
           color: 'rgba(255, 255, 255, 0.6)'
         }
       }, /*#__PURE__*/React.createElement("div", {
@@ -328,7 +328,7 @@ window.__GALLERY_MODULES__["gallery-orbitalcarousel"] = function (React) {
         backgroundColor: backgroundColor,
         overflow: 'hidden',
         position: 'relative',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       },
       onMouseEnter: () => setIsHovered(true),
       onMouseLeave: () => setIsHovered(false)

@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["media-slideshowadvanced"] = function (React) {
         "slides": {
           "dataType": "text",
           "displayName": "Slide Images (comma-separated URLs)",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200,https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=1200,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200,https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1200",
+          "defaultValue": "assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp",
           "group": "Content"
         },
         "slideCaptions": {
@@ -132,25 +132,25 @@ window.__GALLERY_MODULES__["media-slideshowadvanced"] = function (React) {
         "captionBgColor": {
           "dataType": "color",
           "displayName": "Caption Background",
-          "defaultValue": "rgba(0,0,0,0.7)",
+          "defaultValue": "rgba(0, 0, 0, 0.7)",
           "group": "Colors"
         },
         "captionTextColor": {
           "dataType": "color",
           "displayName": "Caption Text Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "navColor": {
           "dataType": "color",
           "displayName": "Navigation Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#A1A1AA",
+          "defaultValue": "#aaaaaa",
           "group": "Colors"
         }
       }
@@ -165,7 +165,7 @@ window.__GALLERY_MODULES__["media-slideshowadvanced"] = function (React) {
     const autoplayTimerRef = React.useRef(null);
 
     // Safe config access
-    const slideUrls = (config?.slides || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200,https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=1200,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200,https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1200').split(',');
+    const slideUrls = (config?.slides || 'assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp').split(',');
     const captions = (config?.slideCaptions || 'Mountain Landscape,Tropical Paradise,Forest Path,Ocean Sunset').split(',');
     const transitionEffect = config?.transitionEffect || 'slide';
     const autoplay = config?.autoplay !== false;
@@ -178,10 +178,10 @@ window.__GALLERY_MODULES__["media-slideshowadvanced"] = function (React) {
     const showCaptions = config?.showCaptions !== false;
     const aspectRatio = config?.aspectRatio || '16:9';
     const bgColor = config?.backgroundColor || '#000000';
-    const captionBg = config?.captionBgColor || 'rgba(0,0,0,0.7)';
-    const captionColor = config?.captionTextColor || '#FFFFFF';
-    const navColor = config?.navColor || '#FFFFFF';
-    const accentColor = config?.accentColor || '#A1A1AA';
+    const captionBg = config?.captionBgColor || 'rgba(0, 0, 0, 0.7)';
+    const captionColor = config?.captionTextColor || '#ffffff';
+    const navColor = config?.navColor || '#ffffff';
+    const accentColor = config?.accentColor || '#aaaaaa';
     const totalSlides = slideUrls.length;
 
     // Navigate to slide
@@ -289,7 +289,7 @@ window.__GALLERY_MODULES__["media-slideshowadvanced"] = function (React) {
         position: 'relative',
         width: '100%',
         backgroundColor: bgColor,
-        fontFamily: "'Inter', sans-serif"
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("style", null, `
           @keyframes kenBurns1 {
@@ -358,7 +358,7 @@ window.__GALLERY_MODULES__["media-slideshowadvanced"] = function (React) {
         top: '50%',
         left: '16px',
         transform: 'translateY(-50%)',
-        background: 'rgba(0,0,0,0.5)',
+        background: 'rgba(0, 0, 0, 0.5)',
         border: 'none',
         color: navColor,
         fontSize: '24px',
@@ -374,12 +374,12 @@ window.__GALLERY_MODULES__["media-slideshowadvanced"] = function (React) {
       },
       onMouseEnter: e => {
         if (!isAnimating) {
-          e.target.style.background = 'rgba(0,0,0,0.8)';
+          e.target.style.background = 'rgba(0, 0, 0, 0.8)';
           e.target.style.transform = 'translateY(-50%) scale(1.1)';
         }
       },
       onMouseLeave: e => {
-        e.target.style.background = 'rgba(0,0,0,0.5)';
+        e.target.style.background = 'rgba(0, 0, 0, 0.5)';
         e.target.style.transform = 'translateY(-50%) scale(1)';
       }
     }, "‹"), /*#__PURE__*/React.createElement("button", {
@@ -390,7 +390,7 @@ window.__GALLERY_MODULES__["media-slideshowadvanced"] = function (React) {
         top: '50%',
         right: '16px',
         transform: 'translateY(-50%)',
-        background: 'rgba(0,0,0,0.5)',
+        background: 'rgba(0, 0, 0, 0.5)',
         border: 'none',
         color: navColor,
         fontSize: '24px',
@@ -406,12 +406,12 @@ window.__GALLERY_MODULES__["media-slideshowadvanced"] = function (React) {
       },
       onMouseEnter: e => {
         if (!isAnimating) {
-          e.target.style.background = 'rgba(0,0,0,0.8)';
+          e.target.style.background = 'rgba(0, 0, 0, 0.8)';
           e.target.style.transform = 'translateY(-50%) scale(1.1)';
         }
       },
       onMouseLeave: e => {
-        e.target.style.background = 'rgba(0,0,0,0.5)';
+        e.target.style.background = 'rgba(0, 0, 0, 0.5)';
         e.target.style.transform = 'translateY(-50%) scale(1)';
       }
     }, "›")), showPag && /*#__PURE__*/React.createElement("div", {
@@ -433,7 +433,7 @@ window.__GALLERY_MODULES__["media-slideshowadvanced"] = function (React) {
         height: '8px',
         borderRadius: '4px',
         border: 'none',
-        background: index === currentIndex ? accentColor : 'rgba(255,255,255,0.5)',
+        background: index === currentIndex ? accentColor : 'rgba(255, 255, 255, 0.5)',
         cursor: isAnimating ? 'not-allowed' : 'pointer',
         transition: 'all 0.3s ease',
         padding: 0
@@ -443,7 +443,7 @@ window.__GALLERY_MODULES__["media-slideshowadvanced"] = function (React) {
         display: 'flex',
         gap: '8px',
         padding: '16px',
-        backgroundColor: 'rgba(0,0,0,0.8)',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
         overflowX: 'auto',
         justifyContent: 'center'
       }

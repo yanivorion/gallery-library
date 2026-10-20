@@ -70,7 +70,7 @@ window.__GALLERY_MODULES__["gallery-masonry"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "overlayColor": {
@@ -96,7 +96,7 @@ window.__GALLERY_MODULES__["gallery-masonry"] = function (React) {
     const stagger = parseInt(config?.stagger || "50");
     const images = Array.from({
       length: 12
-    }, (_, i) => `https://images.unsplash.com/photo-${1600000000000 + i * 10000000}?w=600&h=${400 + Math.random() * 400}&fit=crop`);
+    }, (_, i) => `assets/07.webp + i * 10000000}?w=600&h=${400 + Math.random() * 400}&fit=crop`);
     React.useEffect(() => {
       images.forEach((_, i) => {
         setTimeout(() => {
@@ -108,9 +108,9 @@ window.__GALLERY_MODULES__["gallery-masonry"] = function (React) {
       style: {
         width: '100%',
         minHeight: '1200px',
-        backgroundColor: config?.backgroundColor || '#FAFAFA',
+        backgroundColor: config?.backgroundColor || '#ffffff',
         padding: '60px 20px',
-        fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       },
       className: "masonry-gallery"
     }, /*#__PURE__*/React.createElement("div", {
@@ -166,7 +166,7 @@ window.__GALLERY_MODULES__["gallery-masonry"] = function (React) {
         maxWidth: '90%',
         maxHeight: '90%',
         borderRadius: '8px',
-        boxShadow: '0 30px 90px rgba(0,0,0,0.6)'
+        boxShadow: '0 30px 90px rgba(0, 0, 0, 0.6)'
       }
     }), /*#__PURE__*/React.createElement("button", {
       onClick: () => setLightboxIndex(null),
@@ -177,7 +177,7 @@ window.__GALLERY_MODULES__["gallery-masonry"] = function (React) {
         width: '40px',
         height: '40px',
         borderRadius: '50%',
-        backgroundColor: 'rgba(255,255,255,0.9)',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
         border: 'none',
         fontSize: '24px',
         cursor: 'pointer'

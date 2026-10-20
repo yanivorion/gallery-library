@@ -1,0 +1,495 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["study-glyphorbittrails"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Studies after tomoyaokada.com (batch 1)
+   * Source study: S-004 "Eight Animation" (alternative — orbit stage)
+   * Component Type: Study.GlyphOrbitTrails
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Study.GlyphOrbitTrails",
+    "description": "Nested counter-rotating rings of a typed glyph, each leaving a fading comet trail around a breathing centre mark",
+    "editorElement": {
+      "selector": ".study-glyph-orbit-trails",
+      "displayName": "Glyph Orbit Trails",
+      "archetype": "container",
+      "data": {
+        "glyph": {
+          "dataType": "text",
+          "displayName": "Glyph / Word",
+          "defaultValue": "8",
+          "group": "Content"
+        },
+        "centreText": {
+          "dataType": "text",
+          "displayName": "Centre Text (blank = glyph)",
+          "defaultValue": "",
+          "group": "Content"
+        },
+        "showTextInput": {
+          "dataType": "booleanValue",
+          "displayName": "Show Live Text Input",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "inputLabel": {
+          "dataType": "text",
+          "displayName": "Input Label",
+          "defaultValue": "GLYPH",
+          "group": "Content"
+        },
+        "inputPlaceholder": {
+          "dataType": "text",
+          "displayName": "Input Placeholder",
+          "defaultValue": "type here",
+          "group": "Content"
+        },
+        "maxLength": {
+          "dataType": "number",
+          "displayName": "Max Characters",
+          "defaultValue": "8",
+          "group": "Content"
+        },
+        "title": {
+          "dataType": "text",
+          "displayName": "Title",
+          "defaultValue": "Glyph Orbit Trails",
+          "group": "Content"
+        },
+        "subtitle": {
+          "dataType": "text",
+          "displayName": "Subtitle",
+          "defaultValue": "nested rotation",
+          "group": "Content"
+        },
+        "showTitle": {
+          "dataType": "booleanValue",
+          "displayName": "Show Title",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "height": {
+          "dataType": "number",
+          "displayName": "Stage Height (px)",
+          "defaultValue": "640",
+          "group": "Layout"
+        },
+        "fullHeight": {
+          "dataType": "booleanValue",
+          "displayName": "Full Viewport Height",
+          "defaultValue": false,
+          "group": "Layout"
+        },
+        "ringCount": {
+          "dataType": "select",
+          "displayName": "Ring Count",
+          "defaultValue": "3",
+          "options": ["1", "2", "3", "4", "5"],
+          "group": "Layout"
+        },
+        "perRing": {
+          "dataType": "select",
+          "displayName": "Glyphs Per Ring",
+          "defaultValue": "12",
+          "options": ["6", "9", "12", "18", "26"],
+          "group": "Layout"
+        },
+        "innerRadius": {
+          "dataType": "select",
+          "displayName": "Inner Radius",
+          "defaultValue": "0.16",
+          "options": ["0.1", "0.16", "0.22", "0.3"],
+          "group": "Layout"
+        },
+        "ringGap": {
+          "dataType": "select",
+          "displayName": "Ring Spacing",
+          "defaultValue": "0.11",
+          "options": ["0.06", "0.09", "0.11", "0.15"],
+          "group": "Layout"
+        },
+        "glyphScale": {
+          "dataType": "select",
+          "displayName": "Glyph Size",
+          "defaultValue": "0.075",
+          "options": ["0.045", "0.06", "0.075", "0.1", "0.14"],
+          "group": "Layout"
+        },
+        "centreScale": {
+          "dataType": "select",
+          "displayName": "Centre Size",
+          "defaultValue": "0.18",
+          "options": ["0", "0.12", "0.18", "0.26", "0.34"],
+          "group": "Layout"
+        },
+        "spinSpeed": {
+          "dataType": "select",
+          "displayName": "Spin Speed",
+          "defaultValue": "1",
+          "options": ["0.25", "0.5", "1", "1.8", "3"],
+          "group": "Animation"
+        },
+        "counterRotate": {
+          "dataType": "booleanValue",
+          "displayName": "Counter-Rotate Rings",
+          "defaultValue": true,
+          "group": "Animation"
+        },
+        "trailLength": {
+          "dataType": "select",
+          "displayName": "Trail Length",
+          "defaultValue": "6",
+          "options": ["0", "3", "6", "10", "16"],
+          "group": "Animation"
+        },
+        "faceOutward": {
+          "dataType": "booleanValue",
+          "displayName": "Rotate Glyphs With Orbit",
+          "defaultValue": true,
+          "group": "Animation"
+        },
+        "breathe": {
+          "dataType": "booleanValue",
+          "displayName": "Breathing Centre",
+          "defaultValue": true,
+          "group": "Animation"
+        },
+        "pointerTilt": {
+          "dataType": "booleanValue",
+          "displayName": "Pointer Tilt",
+          "defaultValue": true,
+          "group": "Animation"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background",
+          "defaultValue": "#000000",
+          "group": "Colors"
+        },
+        "glyphColor": {
+          "dataType": "color",
+          "displayName": "Ring Glyph",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "centreColor": {
+          "dataType": "color",
+          "displayName": "Centre Glyph",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "titleColor": {
+          "dataType": "color",
+          "displayName": "Title",
+          "defaultValue": "#eeeeee",
+          "group": "Colors"
+        },
+        "fontFamily": {
+          "dataType": "select",
+          "displayName": "Font",
+          "defaultValue": "grotesk",
+          "options": ["grotesk", "mono", "serif"],
+          "group": "Colors"
+        }
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const hostRef = React.useRef(null);
+    const canvasRef = React.useRef(null);
+    const rafRef = React.useRef(0);
+    const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    const maxLength = Math.max(1, parseInt(config?.maxLength || '8', 10));
+    const initialGlyph = (config?.glyph || '8').slice(0, maxLength) || '8';
+    const [glyphInput, setGlyphInput] = React.useState(initialGlyph);
+    React.useEffect(() => {
+      setGlyphInput(initialGlyph);
+    }, [initialGlyph]);
+    const glyph = glyphInput.trim().length ? glyphInput : initialGlyph;
+    const centreText = (config?.centreText || '').trim() || glyph;
+    const showTextInput = config?.showTextInput !== false;
+    const inputLabel = config?.inputLabel || 'GLYPH';
+    const inputPlaceholder = config?.inputPlaceholder || 'type here';
+    const title = config?.title || 'Glyph Orbit Trails';
+    const subtitle = config?.subtitle || 'nested rotation';
+    const showTitle = config?.showTitle !== false;
+    const height = Math.max(240, parseInt(config?.height || '640', 10));
+    const fullHeight = config?.fullHeight === true;
+    const ringCount = Math.max(1, parseInt(config?.ringCount || '3', 10));
+    const perRing = Math.max(3, parseInt(config?.perRing || '12', 10));
+    const innerRadius = parseFloat(config?.innerRadius || '0.16') || 0.16;
+    const ringGap = parseFloat(config?.ringGap || '0.11') || 0.11;
+    const glyphScale = parseFloat(config?.glyphScale || '0.075') || 0.075;
+    const centreScale = parseFloat(config?.centreScale || '0.18') || 0;
+    const spinSpeed = parseFloat(config?.spinSpeed || '1') || 1;
+    const counterRotate = config?.counterRotate !== false;
+    const trailLength = Math.max(0, parseInt(config?.trailLength || '6', 10));
+    const faceOutward = config?.faceOutward !== false;
+    const breathe = config?.breathe !== false;
+    const pointerTilt = config?.pointerTilt !== false;
+    const backgroundColor = config?.backgroundColor || '#000000';
+    const glyphColor = config?.glyphColor || '#eeeeee';
+    const centreColor = config?.centreColor || '#eeeeee';
+    const titleColor = config?.titleColor || '#eeeeee';
+    const fontKey = config?.fontFamily || 'grotesk';
+    const fontStack = React.useMemo(() => {
+      if (fontKey === 'mono') return '"SF Mono", ui-monospace, "Roboto Mono", Menlo, monospace';
+      if (fontKey === 'serif') return '"Times New Roman", Georgia, serif';
+      return '"PP Neue Montreal", "Helvetica Neue", Inter, system-ui, -apple-system, sans-serif';
+    }, [fontKey]);
+    const sans = '"PP Neue Montreal", "Helvetica Neue", Inter, system-ui, -apple-system, sans-serif';
+    React.useEffect(() => {
+      const host = hostRef.current;
+      const canvas = canvasRef.current;
+      if (!host || !canvas) return undefined;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return undefined;
+      let w = 0;
+      let h = 0;
+      let unit = 0;
+      const cache = {};
+      const tilt = {
+        x: 0,
+        y: 0,
+        tx: 0,
+        ty: 0
+      };
+      const measure = () => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = host.clientWidth || 1;
+        h = host.clientHeight || 1;
+        canvas.width = Math.max(1, Math.round(w * dpr));
+        canvas.height = Math.max(1, Math.round(h * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        unit = Math.min(w / 1.5, h);
+        cache.ring = null;
+        cache.centre = null;
+      };
+      const metricsFor = (str, key) => {
+        if (cache[key]) return cache[key];
+        ctx.font = '100px ' + fontStack;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        const m = ctx.measureText(str);
+        const asc = m.actualBoundingBoxAscent || 72;
+        const desc = m.actualBoundingBoxDescent || 0;
+        cache[key] = {
+          h: (asc + desc) / 100,
+          cy: (asc - desc) / 200,
+          w: (m.width || 60) / 100
+        };
+        return cache[key];
+      };
+      const mark = (str, key, x, y, size, rot, alpha, color, maxW) => {
+        if (alpha <= 0.004 || size <= 0.5) return;
+        const m = metricsFor(str, key);
+        let px = size / (m.h || 1);
+        const run = px * m.w;
+        if (maxW && run > maxW) px *= maxW / run;
+        ctx.save();
+        ctx.globalAlpha = Math.min(1, alpha);
+        ctx.translate(x, y);
+        if (rot) ctx.rotate(rot);
+        ctx.font = px + 'px ' + fontStack;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillStyle = color;
+        ctx.fillText(str, 0, px * m.cy);
+        ctx.restore();
+      };
+      const onPointerMove = e => {
+        if (!pointerTilt) return;
+        const rect = canvas.getBoundingClientRect();
+        tilt.tx = ((e.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2;
+        tilt.ty = ((e.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2;
+      };
+      const onPointerLeave = () => {
+        tilt.tx = 0;
+        tilt.ty = 0;
+      };
+      measure();
+      let ro = null;
+      if (typeof ResizeObserver !== 'undefined') {
+        ro = new ResizeObserver(measure);
+        ro.observe(host);
+      } else {
+        window.addEventListener('resize', measure);
+      }
+      canvas.addEventListener('pointermove', onPointerMove);
+      canvas.addEventListener('pointerleave', onPointerLeave);
+      const TAU = Math.PI * 2;
+      const frame = ts => {
+        ctx.fillStyle = backgroundColor;
+        ctx.fillRect(0, 0, w, h);
+        const t = prefersReducedMotion ? 0 : ts / 1000 * spinSpeed;
+        tilt.x += (tilt.tx - tilt.x) * 0.06;
+        tilt.y += (tilt.ty - tilt.y) * 0.06;
+        const cx = w / 2 + tilt.x * unit * 0.04;
+        const cy = h / 2 + tilt.y * unit * 0.04;
+        const gSize = unit * glyphScale;
+        for (let ring = 0; ring < ringCount; ring++) {
+          const radius = unit * (innerRadius + ring * ringGap);
+          const dir = counterRotate && ring % 2 === 1 ? -1 : 1;
+          const rate = dir * (0.32 - ring * 0.045);
+          // A squashed orbit reads as perspective when the pointer tilts it.
+          const squash = 1 - Math.abs(tilt.y) * 0.3;
+          for (let i = 0; i < perRing; i++) {
+            const baseAngle = i / perRing * TAU + t * rate;
+            for (let trail = trailLength; trail >= 0; trail--) {
+              const a = baseAngle - dir * trail * 0.028;
+              const x = cx + Math.cos(a) * radius;
+              const y = cy + Math.sin(a) * radius * squash;
+              const head = trail === 0;
+              const alpha = head ? 0.92 - ring * 0.08 : (1 - trail / (trailLength + 1)) * 0.3 - ring * 0.02;
+              if (alpha <= 0.01) continue;
+              const size = gSize * (head ? 1 : 1 - trail / (trailLength + 1) * 0.45);
+              mark(glyph, 'ring', x, y, size, faceOutward ? a + Math.PI / 2 : 0, alpha, glyphColor, radius * 0.9);
+            }
+          }
+        }
+        if (centreScale > 0) {
+          const pulse = breathe && !prefersReducedMotion ? 1 + Math.sin(t * 1.6) * 0.06 : 1;
+          mark(centreText, 'centre', cx, cy, unit * centreScale * pulse, 0, 1, centreColor, w * 0.8);
+        }
+        rafRef.current = requestAnimationFrame(frame);
+      };
+      const start = () => {
+        rafRef.current = requestAnimationFrame(frame);
+      };
+      if (document.fonts && document.fonts.load) {
+        document.fonts.load('100px ' + fontStack, glyph).then(start, start);
+      } else {
+        start();
+      }
+      return () => {
+        cancelAnimationFrame(rafRef.current);
+        canvas.removeEventListener('pointermove', onPointerMove);
+        canvas.removeEventListener('pointerleave', onPointerLeave);
+        if (ro) ro.disconnect();else window.removeEventListener('resize', measure);
+      };
+    }, [glyph, centreText, fontStack, ringCount, perRing, innerRadius, ringGap, glyphScale, centreScale, spinSpeed, counterRotate, trailLength, faceOutward, breathe, pointerTilt, backgroundColor, glyphColor, centreColor, prefersReducedMotion]);
+    return /*#__PURE__*/React.createElement("div", {
+      className: "study-glyph-orbit-trails",
+      ref: hostRef,
+      style: {
+        position: 'relative',
+        width: '100%',
+        height: fullHeight ? '100svh' : height + 'px',
+        overflow: 'hidden',
+        backgroundColor,
+        boxSizing: 'border-box'
+      }
+    }, /*#__PURE__*/React.createElement("canvas", {
+      ref: canvasRef,
+      role: "img",
+      "aria-label": title,
+      style: {
+        display: 'block',
+        width: '100%',
+        height: '100%',
+        touchAction: 'none'
+      }
+    }), showTitle && /*#__PURE__*/React.createElement("h2", {
+      style: {
+        position: 'absolute',
+        top: '20px',
+        left: '20px',
+        zIndex: 2,
+        margin: 0,
+        color: titleColor,
+        fontFamily: sans,
+        fontSize: '13px',
+        fontWeight: 500,
+        lineHeight: 1.35,
+        pointerEvents: 'none'
+      }
+    }, title, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: '10px',
+        opacity: 0.72
+      }
+    }, subtitle)), showTextInput && /*#__PURE__*/React.createElement("label", {
+      style: {
+        position: 'absolute',
+        left: '50%',
+        bottom: '24px',
+        transform: 'translateX(-50%)',
+        zIndex: 2,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        padding: '8px 14px',
+        borderRadius: '999px',
+        border: '1px solid ' + titleColor + '33',
+        background: backgroundColor + 'cc',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        fontFamily: sans
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: '10px',
+        letterSpacing: '0.08em',
+        color: titleColor,
+        opacity: 0.55,
+        whiteSpace: 'nowrap'
+      }
+    }, inputLabel), /*#__PURE__*/React.createElement("input", {
+      type: "text",
+      value: glyphInput,
+      maxLength: maxLength,
+      placeholder: inputPlaceholder,
+      onChange: e => setGlyphInput(e.target.value),
+      "aria-label": inputLabel,
+      style: {
+        width: Math.min(220, Math.max(72, maxLength * 15)) + 'px',
+        border: 'none',
+        outline: 'none',
+        background: 'transparent',
+        color: titleColor,
+        fontFamily: sans,
+        fontSize: '13px',
+        letterSpacing: '0.02em',
+        padding: 0
+      }
+    })));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

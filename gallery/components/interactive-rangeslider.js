@@ -105,37 +105,37 @@ window.__GALLERY_MODULES__["interactive-rangeslider"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#18181B",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "trackColor": {
           "dataType": "color",
           "displayName": "Track Color",
-          "defaultValue": "#E4E4E7",
+          "defaultValue": "#dddddd",
           "group": "Colors"
         },
         "rangeColor": {
           "dataType": "color",
           "displayName": "Range Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         },
         "handleColor": {
           "dataType": "color",
           "displayName": "Handle Color",
-          "defaultValue": "#343A40",
+          "defaultValue": "#333333",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         }
       },
@@ -157,12 +157,12 @@ window.__GALLERY_MODULES__["interactive-rangeslider"] = function (React) {
     const showValues = config?.showValues !== false;
     const showRange = config?.showRange !== false;
     const sliderWidth = parseInt(config?.sliderWidth || '400');
-    const backgroundColor = config?.backgroundColor || '#FFFFFF';
-    const textColor = config?.textColor || '#18181B';
-    const trackColor = config?.trackColor || '#E4E4E7';
-    const rangeColor = config?.rangeColor || '#495057';
-    const handleColor = config?.handleColor || '#343A40';
-    const accentColor = config?.accentColor || '#495057';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
+    const textColor = config?.textColor || '#111111';
+    const trackColor = config?.trackColor || '#dddddd';
+    const rangeColor = config?.rangeColor || '#555555';
+    const handleColor = config?.handleColor || '#333333';
+    const accentColor = config?.accentColor || '#555555';
     const [minSelected, setMinSelected] = React.useState(defaultMin);
     const [maxSelected, setMaxSelected] = React.useState(defaultMax);
     const [isDraggingMin, setIsDraggingMin] = React.useState(false);
@@ -282,7 +282,7 @@ window.__GALLERY_MODULES__["interactive-rangeslider"] = function (React) {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '40px 20px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {

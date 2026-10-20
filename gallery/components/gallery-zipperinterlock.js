@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-zipperinterlock"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300&h=400&fit=crop",
+          "defaultValue": "assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp",
           "group": "Content",
           "description": "Comma-separated image URLs (6-10 recommended, even number)"
         },
@@ -98,19 +98,19 @@ window.__GALLERY_MODULES__["gallery-zipperinterlock"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#27272A",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "cardBorderColor": {
           "dataType": "color",
           "displayName": "Card Border Color",
-          "defaultValue": "#52525B",
+          "defaultValue": "#555555",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#A1A1AA",
+          "defaultValue": "#aaaaaa",
           "group": "Colors"
         },
         "borderRadius": {
@@ -162,9 +162,9 @@ window.__GALLERY_MODULES__["gallery-zipperinterlock"] = function (React) {
     const separationDistance = parseInt(config?.separationDistance || '60');
     const cardGap = parseInt(config?.cardGap || '12');
     const transitionDuration = parseInt(config?.transitionDuration || '400');
-    const backgroundColor = config?.backgroundColor || '#27272A';
-    const cardBorderColor = config?.cardBorderColor || '#52525B';
-    const accentColor = config?.accentColor || '#A1A1AA';
+    const backgroundColor = config?.backgroundColor || '#222222';
+    const cardBorderColor = config?.cardBorderColor || '#555555';
+    const accentColor = config?.accentColor || '#aaaaaa';
     const borderRadius = parseInt(config?.borderRadius || '12');
     const hoverToSeparate = config?.hoverToSeparate !== false;
     const showZipperLine = config?.showZipperLine !== false;
@@ -211,12 +211,12 @@ window.__GALLERY_MODULES__["gallery-zipperinterlock"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '400px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: 'center',
-          color: '#71717A'
+          color: '#777777'
         }
       }, /*#__PURE__*/React.createElement("p", {
         style: {
@@ -237,7 +237,7 @@ window.__GALLERY_MODULES__["gallery-zipperinterlock"] = function (React) {
         alignItems: 'center',
         justifyContent: 'center',
         gap: '32px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       onMouseEnter: () => hoverToSeparate && setIsHovered(true),
@@ -290,7 +290,7 @@ window.__GALLERY_MODULES__["gallery-zipperinterlock"] = function (React) {
           opacity: prefersReducedMotion ? 1 : isInView ? 1 : 0,
           transform: prefersReducedMotion ? `scale(${isFocused ? 1.05 : 1})` : isInView ? `translateY(0) scale(${isFocused ? 1.05 : 1})` : 'translateY(-30px) scale(0.9)',
           zIndex: index % 2 === 0 ? 2 : 1 + (isFocused ? 10 : 0),
-          boxShadow: isFocused ? `0 8px 30px rgba(0,0,0,0.4), 0 0 0 1px ${accentColor}40` : '0 4px 12px rgba(0,0,0,0.3)',
+          boxShadow: isFocused ? `0 8px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px ${accentColor}40` : '0 4px 12px rgba(0, 0, 0, 0.3)',
           transition: prefersReducedMotion ? 'none' : `transform ${transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1) ${staggerDelay}ms,
                        opacity ${transitionDuration}ms ease-out ${staggerDelay}ms,
                        border-color 200ms ease-out,
@@ -334,7 +334,7 @@ window.__GALLERY_MODULES__["gallery-zipperinterlock"] = function (React) {
           opacity: prefersReducedMotion ? 1 : isInView ? 1 : 0,
           transform: prefersReducedMotion ? `scale(${isFocused ? 1.05 : 1})` : isInView ? `translateY(0) scale(${isFocused ? 1.05 : 1})` : 'translateY(30px) scale(0.9)',
           zIndex: index % 2 === 0 ? 1 : 2 + (isFocused ? 10 : 0),
-          boxShadow: isFocused ? `0 8px 30px rgba(0,0,0,0.4), 0 0 0 1px ${accentColor}40` : '0 4px 12px rgba(0,0,0,0.3)',
+          boxShadow: isFocused ? `0 8px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px ${accentColor}40` : '0 4px 12px rgba(0, 0, 0, 0.3)',
           transition: prefersReducedMotion ? 'none' : `transform ${transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1) ${staggerDelay}ms,
                        opacity ${transitionDuration}ms ease-out ${staggerDelay}ms,
                        border-color 200ms ease-out,

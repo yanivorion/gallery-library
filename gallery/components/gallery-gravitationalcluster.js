@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-gravitationalcluster"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs",
-          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300&h=300&fit=crop,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300&h=300&fit=crop",
+          "defaultValue": "assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp",
           "group": "Content",
           "description": "Comma-separated image URLs (6-9 recommended)"
         },
@@ -91,19 +91,19 @@ window.__GALLERY_MODULES__["gallery-gravitationalcluster"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#030712",
+          "defaultValue": "#000000",
           "group": "Colors"
         },
         "glowColor": {
           "dataType": "color",
           "displayName": "Center Glow Color",
-          "defaultValue": "#8B5CF6",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "cardBorderColor": {
           "dataType": "color",
           "displayName": "Card Border Color",
-          "defaultValue": "#374151",
+          "defaultValue": "#444444",
           "group": "Colors"
         },
         "borderRadius": {
@@ -165,9 +165,9 @@ window.__GALLERY_MODULES__["gallery-gravitationalcluster"] = function (React) {
     const orbitRadius = parseInt(config?.orbitRadius || '180');
     const gravityStrength = parseFloat(config?.gravityStrength || '0.8');
     const elasticity = parseFloat(config?.elasticity || '0.15');
-    const backgroundColor = config?.backgroundColor || '#030712';
-    const glowColor = config?.glowColor || '#8B5CF6';
-    const cardBorderColor = config?.cardBorderColor || '#374151';
+    const backgroundColor = config?.backgroundColor || '#000000';
+    const glowColor = config?.glowColor || '#777777';
+    const cardBorderColor = config?.cardBorderColor || '#444444';
     const borderRadius = config?.borderRadius || '50';
     const enableDrag = config?.enableDrag !== false;
     const repulsionOnHover = config?.repulsionOnHover !== false;
@@ -309,12 +309,12 @@ window.__GALLERY_MODULES__["gallery-gravitationalcluster"] = function (React) {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '400px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
         }
       }, /*#__PURE__*/React.createElement("div", {
         style: {
           textAlign: 'center',
-          color: '#6B7280'
+          color: '#777777'
         }
       }, /*#__PURE__*/React.createElement("p", {
         style: {
@@ -332,7 +332,7 @@ window.__GALLERY_MODULES__["gallery-gravitationalcluster"] = function (React) {
         height: `${containerHeight}px`,
         position: 'relative',
         overflow: 'hidden',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, cosmicBackground && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -355,7 +355,7 @@ window.__GALLERY_MODULES__["gallery-gravitationalcluster"] = function (React) {
         top: `${(Math.cos(i * 4.7) * 0.5 + 0.5) * 100}%`,
         width: `${1 + i % 3}px`,
         height: `${1 + i % 3}px`,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#ffffff',
         borderRadius: '50%',
         opacity: 0.2 + i % 5 * 0.1,
         pointerEvents: 'none'
@@ -441,7 +441,7 @@ window.__GALLERY_MODULES__["gallery-gravitationalcluster"] = function (React) {
           opacity: isInView ? 0.6 + (1 - distanceToCenter) * 0.4 : 0,
           transform: `scale(${scale})`,
           filter: `blur(${blur}px)`,
-          boxShadow: isHovered ? `0 0 30px ${glowColor}50, 0 8px 30px rgba(0,0,0,0.4)` : `0 4px 20px rgba(0,0,0,${0.3 + distanceToCenter * 0.2})`,
+          boxShadow: isHovered ? `0 0 30px ${glowColor}50, 0 8px 30px rgba(0, 0, 0, 0.4)` : `0 4px 20px rgba(0,0,0,${0.3 + distanceToCenter * 0.2})`,
           transition: prefersReducedMotion ? 'none' : `transform 200ms ease-out, 
                    filter 200ms ease-out, 
                    box-shadow 200ms ease-out, 

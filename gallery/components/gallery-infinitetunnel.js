@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-infinitetunnel"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (Comma Sep)",
-          "defaultValue": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500,https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500,https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500,https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500,https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500,https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500",
+          "defaultValue": "assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp",
           "group": "Content"
         },
         "tunnelLength": {
@@ -112,7 +112,7 @@ window.__GALLERY_MODULES__["gallery-infinitetunnel"] = function (React) {
         const radius = 350; // Distance from center
         return {
           id: i,
-          url: images[imgIndex] || 'https://via.placeholder.com/400',
+          url: images[imgIndex] || 'assets/04.webp',
           x: Math.cos(angle) * radius,
           y: Math.sin(angle) * radius,
           z: -(i * zStep),
@@ -183,14 +183,14 @@ window.__GALLERY_MODULES__["gallery-infinitetunnel"] = function (React) {
         bottom: '40px',
         left: '50%',
         transform: 'translateX(-50%)',
-        color: '#FFFFFF',
+        color: '#ffffff',
         opacity: scrollZ > 200 ? 0 : 1,
         transition: 'opacity 500ms ease',
         textAlign: 'center',
         zIndex: 10,
         pointerEvents: 'none',
-        fontFamily: 'sans-serif',
-        textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+        textShadow: '0 2px 10px rgba(0, 0, 0, 0.5)'
       }
     }, /*#__PURE__*/React.createElement("p", {
       style: {
@@ -245,7 +245,7 @@ window.__GALLERY_MODULES__["gallery-infinitetunnel"] = function (React) {
         style: {
           width: '100%',
           height: '100%',
-          backgroundColor: '#212529',
+          backgroundColor: '#222222',
           backgroundImage: `url(${item.url})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',

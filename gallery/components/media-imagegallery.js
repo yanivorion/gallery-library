@@ -55,7 +55,7 @@ window.__GALLERY_MODULES__["media-imagegallery"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (one per line)",
-          "defaultValue": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80\nhttps://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=800&q=80\nhttps://images.unsplash.com/photo-1618556450991-2f1af64e8191?w=800&q=80\nhttps://images.unsplash.com/photo-1618556450962-e8f6c1fe7715?w=800&q=80\nhttps://images.unsplash.com/photo-1618556450898-784e44127c60?w=800&q=80\nhttps://images.unsplash.com/photo-1618556450994-2f1af64e8191?w=800&q=80",
+          "defaultValue": "assets/01.webp\nassets/02.webp\nassets/03.webp\nassets/04.webp\nassets/05.webp\nassets/06.webp",
           "group": "Content",
           "description": "One image URL per line"
         },
@@ -122,37 +122,37 @@ window.__GALLERY_MODULES__["media-imagegallery"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "headingColor": {
           "dataType": "color",
           "displayName": "Heading Color",
-          "defaultValue": "#6C757D",
+          "defaultValue": "#777777",
           "group": "Colors"
         },
         "captionColor": {
           "dataType": "color",
           "displayName": "Caption Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         },
         "overlayBackground": {
           "dataType": "color",
           "displayName": "Lightbox Overlay",
-          "defaultValue": "rgba(0,0,0,0.9)",
+          "defaultValue": "rgba(0, 0, 0, 0.9)",
           "group": "Colors"
         },
         "thumbnailBorder": {
           "dataType": "color",
           "displayName": "Active Thumbnail Border",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "controlsColor": {
           "dataType": "color",
           "displayName": "Controls Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         }
       },
@@ -166,7 +166,7 @@ window.__GALLERY_MODULES__["media-imagegallery"] = function (React) {
     config = {}
   }) {
     const heading = config?.heading || "PROJECT SHOWCASE";
-    const imagesText = config?.images || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80\nhttps://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=800&q=80\nhttps://images.unsplash.com/photo-1618556450991-2f1af64e8191?w=800&q=80\nhttps://images.unsplash.com/photo-1618556450962-e8f6c1fe7715?w=800&q=80\nhttps://images.unsplash.com/photo-1618556450898-784e44127c60?w=800&q=80\nhttps://images.unsplash.com/photo-1618556450994-2f1af64e8191?w=800&q=80";
+    const imagesText = config?.images || "assets/07.webp\nassets/08.webp\nassets/01.webp\nassets/02.webp\nassets/03.webp\nassets/04.webp";
     const captionsText = config?.captions || "Modern Architecture\nUrban Design\nInterior Space\nContemporary Living\nMinimal Aesthetic\nNatural Light";
     const columns = parseInt(config?.columns || "3");
     const gap = config?.gap || "1rem";
@@ -176,12 +176,12 @@ window.__GALLERY_MODULES__["media-imagegallery"] = function (React) {
     const hoverEffect = config?.hoverEffect || "zoom";
     const headingFontSize = parseInt(config?.headingFontSize || "14");
     const captionFontSize = parseInt(config?.captionFontSize || "14");
-    const backgroundColor = config?.backgroundColor || "#FFFFFF";
-    const headingColor = config?.headingColor || "#6C757D";
-    const captionColor = config?.captionColor || "#495057";
-    const overlayBackground = config?.overlayBackground || "rgba(0,0,0,0.9)";
-    const thumbnailBorder = config?.thumbnailBorder || "#FFFFFF";
-    const controlsColor = config?.controlsColor || "#FFFFFF";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const headingColor = config?.headingColor || "#777777";
+    const captionColor = config?.captionColor || "#555555";
+    const overlayBackground = config?.overlayBackground || "rgba(0, 0, 0, 0.9)";
+    const thumbnailBorder = config?.thumbnailBorder || "#ffffff";
+    const controlsColor = config?.controlsColor || "#ffffff";
     const images = imagesText.split('\n').filter(url => url.trim());
     const captions = captionsText.split('\n').filter(cap => cap.trim());
     const [lightboxIndex, setLightboxIndex] = React.useState(null);
@@ -231,7 +231,7 @@ window.__GALLERY_MODULES__["media-imagegallery"] = function (React) {
         width: '100%',
         backgroundColor,
         padding: '4rem 1.5rem',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -260,7 +260,7 @@ window.__GALLERY_MODULES__["media-imagegallery"] = function (React) {
       style: {
         position: 'relative',
         aspectRatio,
-        backgroundColor: '#F8F9FA',
+        backgroundColor: '#ffffff',
         border: 'none',
         borderRadius: '6px',
         overflow: 'hidden',
@@ -293,8 +293,8 @@ window.__GALLERY_MODULES__["media-imagegallery"] = function (React) {
         left: 0,
         right: 0,
         padding: '1rem',
-        background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)',
-        color: '#FFFFFF',
+        background: 'linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent)',
+        color: '#ffffff',
         fontSize: `${captionFontSize}px`,
         fontWeight: '400',
         opacity: 0,
@@ -383,7 +383,7 @@ window.__GALLERY_MODULES__["media-imagegallery"] = function (React) {
         transform: 'translateY(-50%)',
         width: '48px',
         height: '48px',
-        backgroundColor: 'rgba(255,255,255,0.1)',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
         backdropFilter: 'blur(10px)',
         border: 'none',
         borderRadius: '50%',
@@ -396,11 +396,11 @@ window.__GALLERY_MODULES__["media-imagegallery"] = function (React) {
         transition: 'all 200ms ease-out'
       },
       onMouseEnter: e => {
-        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
+        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
         e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
       },
       onMouseLeave: e => {
-        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
         e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
       }
     }, "‹"), /*#__PURE__*/React.createElement("button", {
@@ -416,7 +416,7 @@ window.__GALLERY_MODULES__["media-imagegallery"] = function (React) {
         transform: 'translateY(-50%)',
         width: '48px',
         height: '48px',
-        backgroundColor: 'rgba(255,255,255,0.1)',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
         backdropFilter: 'blur(10px)',
         border: 'none',
         borderRadius: '50%',
@@ -429,11 +429,11 @@ window.__GALLERY_MODULES__["media-imagegallery"] = function (React) {
         transition: 'all 200ms ease-out'
       },
       onMouseEnter: e => {
-        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
+        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
         e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
       },
       onMouseLeave: e => {
-        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
         e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
       }
     }, "›"), /*#__PURE__*/React.createElement("div", {

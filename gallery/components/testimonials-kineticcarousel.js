@@ -80,7 +80,7 @@ window.__GALLERY_MODULES__["testimonials-kineticcarousel"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FAFAFA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
@@ -147,7 +147,7 @@ window.__GALLERY_MODULES__["testimonials-kineticcarousel"] = function (React) {
     const enableMagneticScroll = config?.enableMagneticScroll !== false;
     const enable3DRotation = config?.enable3DRotation !== false;
     const characterPreset = config?.characterPreset || 'elastic';
-    const backgroundColor = config?.backgroundColor || '#FAFAFA';
+    const backgroundColor = config?.backgroundColor || '#ffffff';
     const textColor = config?.textColor || '#000000';
     const accentColor = config?.accentColor || '#000000';
     const quoteFontSize = parseInt(config?.quoteFontSize || '42');
@@ -311,7 +311,7 @@ window.__GALLERY_MODULES__["testimonials-kineticcarousel"] = function (React) {
         boxShadow: `
             0 20px 60px ${hexToRgba('#000000', 0.1)},
             0 0 1px ${hexToRgba(textColor, 0.1)},
-            inset 0 1px 0 ${hexToRgba('#FFFFFF', 0.2)}
+            inset 0 1px 0 ${hexToRgba('#ffffff', 0.2)}
           `,
         marginBottom: '3rem',
         position: 'relative',

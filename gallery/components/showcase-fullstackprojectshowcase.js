@@ -103,43 +103,43 @@ window.__GALLERY_MODULES__["showcase-fullstackprojectshowcase"] = function (Reac
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "heroBackgroundColor": {
           "dataType": "color",
           "displayName": "Hero Background",
-          "defaultValue": "#F8F9FA",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "textColor": {
           "dataType": "color",
           "displayName": "Text Color",
-          "defaultValue": "#212529",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "secondaryTextColor": {
           "dataType": "color",
           "displayName": "Secondary Text Color",
-          "defaultValue": "#495057",
+          "defaultValue": "#555555",
           "group": "Colors"
         },
         "accentColor": {
           "dataType": "color",
           "displayName": "Accent Color",
-          "defaultValue": "#343A40",
+          "defaultValue": "#333333",
           "group": "Colors"
         },
         "imagePlaceholderColor": {
           "dataType": "color",
           "displayName": "Image Placeholder Color",
-          "defaultValue": "#E9ECEF",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "borderColor": {
           "dataType": "color",
           "displayName": "Border Color",
-          "defaultValue": "#DEE2E6",
+          "defaultValue": "#dddddd",
           "group": "Colors"
         },
         "titleFontSize": {
@@ -301,13 +301,13 @@ window.__GALLERY_MODULES__["showcase-fullstackprojectshowcase"] = function (Reac
     const section2Text = config?.section2Text || "Through iterative refinement and user-centered thinking, we develop interfaces that feel intuitive.";
     const section3Title = config?.section3Title || "Technical Excellence";
     const section3Text = config?.section3Text || "Performance, accessibility, and elegant code architecture form the foundation.";
-    const backgroundColor = config?.backgroundColor || "#FFFFFF";
-    const heroBackgroundColor = config?.heroBackgroundColor || "#F8F9FA";
-    const textColor = config?.textColor || "#212529";
-    const secondaryTextColor = config?.secondaryTextColor || "#495057";
-    const accentColor = config?.accentColor || "#343A40";
-    const imagePlaceholderColor = config?.imagePlaceholderColor || "#E9ECEF";
-    const borderColor = config?.borderColor || "#DEE2E6";
+    const backgroundColor = config?.backgroundColor || "#ffffff";
+    const heroBackgroundColor = config?.heroBackgroundColor || "#ffffff";
+    const textColor = config?.textColor || "#222222";
+    const secondaryTextColor = config?.secondaryTextColor || "#555555";
+    const accentColor = config?.accentColor || "#333333";
+    const imagePlaceholderColor = config?.imagePlaceholderColor || "#eeeeee";
+    const borderColor = config?.borderColor || "#dddddd";
     const titleFontSize = parseInt(config?.titleFontSize) || 64;
     const subtitleFontSize = parseInt(config?.subtitleFontSize) || 20;
     const sectionTitleFontSize = parseInt(config?.sectionTitleFontSize) || 40;
@@ -657,7 +657,7 @@ window.__GALLERY_MODULES__["showcase-fullstackprojectshowcase"] = function (Reac
       maxWidth: '250px',
       zIndex: 100,
       border: `1px solid ${borderColor}`,
-      boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)'
     };
     const analyticsItemStyle = {
       display: 'flex',

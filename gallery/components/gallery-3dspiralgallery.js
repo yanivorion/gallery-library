@@ -49,7 +49,7 @@ window.__GALLERY_MODULES__["gallery-3dspiralgallery"] = function (React) {
         "images": {
           "dataType": "text",
           "displayName": "Image URLs (comma-separated)",
-          "defaultValue": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800,https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800,https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800,https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800,https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?w=800,https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800,https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800,https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?w=800,https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800,https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800,https://images.unsplash.com/photo-1493514789931-586cb221d7a7?w=800,https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?w=800,https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=800,https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=800,https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=800,https://images.unsplash.com/photo-1490598000245-075175152d25?w=800,https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800,https://images.unsplash.com/photo-1494522358652-f30e61a60313?w=800,https://images.unsplash.com/photo-1519501025264-65ba15a82391?w=800,https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800",
+          "defaultValue": "assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp,assets/03.webp,assets/04.webp,assets/05.webp,assets/06.webp,assets/07.webp,assets/08.webp,assets/01.webp,assets/02.webp",
           "group": "Content"
         },
         "showTitle": {
@@ -149,37 +149,37 @@ window.__GALLERY_MODULES__["gallery-3dspiralgallery"] = function (React) {
         "backgroundColor": {
           "dataType": "color",
           "displayName": "Background Color",
-          "defaultValue": "#0A0A0A",
+          "defaultValue": "#111111",
           "group": "Colors"
         },
         "cardBackgroundColor": {
           "dataType": "color",
           "displayName": "Card Background",
-          "defaultValue": "#1A1A1A",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "borderColor": {
           "dataType": "color",
           "displayName": "Border Color",
-          "defaultValue": "#2A2A2A",
+          "defaultValue": "#222222",
           "group": "Colors"
         },
         "titleColor": {
           "dataType": "color",
           "displayName": "Title Color",
-          "defaultValue": "#E9ECEF",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "buttonColor": {
           "dataType": "color",
           "displayName": "Button Color",
-          "defaultValue": "#E9ECEF",
+          "defaultValue": "#eeeeee",
           "group": "Colors"
         },
         "buttonHoverColor": {
           "dataType": "color",
           "displayName": "Button Hover Color",
-          "defaultValue": "#FFFFFF",
+          "defaultValue": "#ffffff",
           "group": "Colors"
         },
         "titleFontSize": {
@@ -226,12 +226,12 @@ window.__GALLERY_MODULES__["gallery-3dspiralgallery"] = function (React) {
     const imageHeight = parseInt(config?.imageHeight || '150');
     const perspective = parseInt(config?.perspective || '1400');
     const rotationSpeed = parseInt(config?.rotationSpeed || '600');
-    const backgroundColor = config?.backgroundColor || '#0A0A0A';
-    const cardBackgroundColor = config?.cardBackgroundColor || '#1A1A1A';
-    const borderColor = config?.borderColor || '#2A2A2A';
-    const titleColor = config?.titleColor || '#E9ECEF';
-    const buttonColor = config?.buttonColor || '#E9ECEF';
-    const buttonHoverColor = config?.buttonHoverColor || '#FFFFFF';
+    const backgroundColor = config?.backgroundColor || '#111111';
+    const cardBackgroundColor = config?.cardBackgroundColor || '#222222';
+    const borderColor = config?.borderColor || '#222222';
+    const titleColor = config?.titleColor || '#eeeeee';
+    const buttonColor = config?.buttonColor || '#eeeeee';
+    const buttonHoverColor = config?.buttonHoverColor || '#ffffff';
     const titleFontSize = config?.titleFontSize || 14;
     const fontWeight = config?.fontWeight || '400';
     const letterSpacing = config?.letterSpacing || '0.1em';
@@ -301,7 +301,7 @@ window.__GALLERY_MODULES__["gallery-3dspiralgallery"] = function (React) {
         minHeight: '600px',
         backgroundColor,
         overflow: 'hidden',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: "'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif"
       },
       title: {
         position: 'absolute',
