@@ -299,7 +299,7 @@ pre.code{
       if (!j) return;
       (j.results || []).forEach(function (r) { RUN[r.slug] = r; });
       document.getElementById('brandSub').textContent =
-        ITEMS.length + ' components · ' + j.pass + ' clean · ' + j.warn + ' warn · ' + j.fail + ' fail';
+        ITEMS.length + ' components · ' + j.pass + ' clean · ' + j.warn + ' flagged · ' + j.fail + ' fail';
       render();
     })
     .catch(function () {
@@ -518,7 +518,7 @@ pre.code{
     list.forEach(function (it) { counts[statusOf(it.slug)]++; });
     metaLine.textContent =
       'showing ' + list.length + ' of ' + ITEMS.length +
-      '   ·   ' + counts.pass + ' clean, ' + counts.warn + ' warn, ' + counts.fail + ' fail' +
+      '   ·   ' + counts.pass + ' clean, ' + counts.warn + ' flagged, ' + counts.fail + ' fail' +
       (counts.unknown ? ', ' + counts.unknown + ' not run' : '') +
       (state.live ? '' : '   ·   captured frames');
   }
