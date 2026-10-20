@@ -1,0 +1,406 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["gallery-liquidmorph"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (2/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Gallery.LiquidMorph
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Gallery.LiquidMorph",
+    "description": "Fluid, blob-like morphing transitions between images with organic motion.",
+    "editorElement": {
+      "selector": ".liquid-morph-gallery",
+      "displayName": "Liquid Morph Gallery",
+      "archetype": "container",
+      "data": {
+        "images": {
+          "dataType": "text",
+          "displayName": "Image URLs",
+          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200&h=800&fit=crop",
+          "group": "Content"
+        },
+        "autoPlay": {
+          "dataType": "booleanValue",
+          "displayName": "Auto Play",
+          "defaultValue": "true",
+          "group": "Animation"
+        },
+        "interval": {
+          "dataType": "select",
+          "displayName": "Interval (ms)",
+          "defaultValue": "5000",
+          "options": ["3000", "4000", "5000", "6000", "8000"],
+          "group": "Animation"
+        },
+        "morphSpeed": {
+          "dataType": "select",
+          "displayName": "Morph Speed",
+          "defaultValue": "medium",
+          "options": ["slow", "medium", "fast"],
+          "group": "Animation"
+        },
+        "blobComplexity": {
+          "dataType": "select",
+          "displayName": "Blob Complexity",
+          "defaultValue": "medium",
+          "options": ["simple", "medium", "complex"],
+          "group": "Animation"
+        },
+        "containerHeight": {
+          "dataType": "select",
+          "displayName": "Container Height",
+          "defaultValue": "600",
+          "options": ["400", "500", "600", "700", "100vh"],
+          "group": "Layout"
+        },
+        "blobSize": {
+          "dataType": "select",
+          "displayName": "Blob Size (%)",
+          "defaultValue": "80",
+          "options": ["60", "70", "80", "90", "100"],
+          "group": "Layout"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background Color",
+          "defaultValue": "#0a0a1a",
+          "group": "Colors"
+        },
+        "accentColor": {
+          "dataType": "color",
+          "displayName": "Accent Glow Color",
+          "defaultValue": "#6366f1",
+          "group": "Colors"
+        },
+        "navColor": {
+          "dataType": "color",
+          "displayName": "Navigation Color",
+          "defaultValue": "#ffffff",
+          "group": "Colors"
+        }
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [isAnimating, setIsAnimating] = React.useState(false);
+    const [blobPath, setBlobPath] = React.useState('');
+    const [morphProgress, setMorphProgress] = React.useState(0);
+    const animationRef = React.useRef(null);
+    const uniqueId = React.useMemo(() => `liquid-${Math.random().toString(36).substr(2, 9)}`, []);
+    const imagesRaw = config?.images || '';
+    const autoPlay = config?.autoPlay !== false;
+    const interval = parseInt(config?.interval || '5000');
+    const morphSpeed = config?.morphSpeed || 'medium';
+    const blobComplexity = config?.blobComplexity || 'medium';
+    const containerHeight = config?.containerHeight || '600';
+    const blobSize = parseInt(config?.blobSize || '80');
+    const backgroundColor = config?.backgroundColor || '#0a0a1a';
+    const accentColor = config?.accentColor || '#6366f1';
+    const navColor = config?.navColor || '#ffffff';
+    const images = React.useMemo(() => {
+      return imagesRaw.split(',').map(url => url.trim()).filter(Boolean);
+    }, [imagesRaw]);
+    const prefersReducedMotion = React.useMemo(() => {
+      return typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    }, []);
+    const speedConfig = React.useMemo(() => {
+      const speeds = {
+        slow: 1500,
+        medium: 1000,
+        fast: 600
+      };
+      return speeds[morphSpeed] || 1000;
+    }, [morphSpeed]);
+    const complexityConfig = React.useMemo(() => {
+      const configs = {
+        simple: 4,
+        medium: 6,
+        complex: 8
+      };
+      return configs[blobComplexity] || 6;
+    }, [blobComplexity]);
+
+    // Generate organic blob path
+    const generateBlobPath = React.useCallback((seed = 0, squeeze = 0) => {
+      const points = complexityConfig;
+      const angleStep = Math.PI * 2 / points;
+      const baseRadius = 45;
+      let path = '';
+      const controlPoints = [];
+      for (let i = 0; i < points; i++) {
+        const angle = i * angleStep - Math.PI / 2;
+        const variation = Math.sin(seed + i * 1.5) * 8 + Math.cos(seed * 0.5 + i) * 5;
+        const radius = baseRadius + variation - squeeze * 10;
+        const x = 50 + Math.cos(angle) * radius;
+        const y = 50 + Math.sin(angle) * radius * (1 - squeeze * 0.3);
+        controlPoints.push({
+          x,
+          y,
+          angle
+        });
+      }
+
+      // Create smooth bezier curve through points
+      path = `M ${controlPoints[0].x} ${controlPoints[0].y}`;
+      for (let i = 0; i < points; i++) {
+        const current = controlPoints[i];
+        const next = controlPoints[(i + 1) % points];
+        const midX = (current.x + next.x) / 2;
+        const midY = (current.y + next.y) / 2;
+        path += ` Q ${current.x} ${current.y}, ${midX} ${midY}`;
+      }
+      path += ' Z';
+      return path;
+    }, [complexityConfig]);
+
+    // Initialize blob
+    React.useEffect(() => {
+      setBlobPath(generateBlobPath(0, 0));
+    }, [generateBlobPath]);
+
+    // Animate blob continuously
+    React.useEffect(() => {
+      if (prefersReducedMotion) return;
+      let frame = 0;
+      const animate = () => {
+        frame += 0.02;
+        if (!isAnimating) {
+          setBlobPath(generateBlobPath(frame, 0));
+        }
+        animationRef.current = requestAnimationFrame(animate);
+      };
+      animationRef.current = requestAnimationFrame(animate);
+      return () => {
+        if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      };
+    }, [isAnimating, generateBlobPath, prefersReducedMotion]);
+    const animateTransition = React.useCallback(nextIndex => {
+      if (isAnimating || images.length <= 1) return;
+      setIsAnimating(true);
+      const startTime = performance.now();
+      const duration = prefersReducedMotion ? 0 : speedConfig;
+      const animate = currentTime => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Squeeze in middle of transition
+        const squeeze = Math.sin(progress * Math.PI);
+        setMorphProgress(squeeze);
+        setBlobPath(generateBlobPath(currentTime * 0.003, squeeze * 0.5));
+        if (progress >= 0.5 && progress < 0.52) {
+          setCurrentIndex(nextIndex);
+        }
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          setMorphProgress(0);
+          setIsAnimating(false);
+        }
+      };
+      requestAnimationFrame(animate);
+    }, [isAnimating, images.length, speedConfig, generateBlobPath, prefersReducedMotion]);
+    React.useEffect(() => {
+      if (!autoPlay || images.length <= 1 || prefersReducedMotion) return;
+      const timer = setInterval(() => {
+        animateTransition((currentIndex + 1) % images.length);
+      }, interval);
+      return () => clearInterval(timer);
+    }, [autoPlay, interval, currentIndex, images.length, animateTransition, prefersReducedMotion]);
+    const handleNav = direction => {
+      const next = direction === 'next' ? (currentIndex + 1) % images.length : (currentIndex - 1 + images.length) % images.length;
+      animateTransition(next);
+    };
+    if (images.length === 0) {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          height: containerHeight === '100vh' ? '100vh' : `${containerHeight}px`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor,
+          color: 'rgba(255,255,255,0.5)',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }
+      }, "Add comma-separated image URLs");
+    }
+    const heightStyle = containerHeight === '100vh' ? '100vh' : `${containerHeight}px`;
+    return /*#__PURE__*/React.createElement("div", {
+      className: "liquid-morph-gallery",
+      style: {
+        position: 'relative',
+        width: '100%',
+        height: heightStyle,
+        backgroundColor,
+        overflow: 'hidden',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        width: '60%',
+        height: '60%',
+        background: `radial-gradient(circle, ${accentColor}20 0%, transparent 70%)`,
+        filter: 'blur(60px)',
+        pointerEvents: 'none',
+        opacity: 0.5 + morphProgress * 0.5
+      }
+    }), /*#__PURE__*/React.createElement("svg", {
+      viewBox: "0 0 100 100",
+      style: {
+        width: `${blobSize}%`,
+        maxWidth: '800px',
+        aspectRatio: '1',
+        overflow: 'visible'
+      }
+    }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
+      id: `${uniqueId}-blob`
+    }, /*#__PURE__*/React.createElement("path", {
+      d: blobPath
+    })), /*#__PURE__*/React.createElement("filter", {
+      id: `${uniqueId}-glow`,
+      x: "-50%",
+      y: "-50%",
+      width: "200%",
+      height: "200%"
+    }, /*#__PURE__*/React.createElement("feGaussianBlur", {
+      stdDeviation: "2",
+      result: "blur"
+    }), /*#__PURE__*/React.createElement("feMerge", null, /*#__PURE__*/React.createElement("feMergeNode", {
+      in: "blur"
+    }), /*#__PURE__*/React.createElement("feMergeNode", {
+      in: "SourceGraphic"
+    })))), /*#__PURE__*/React.createElement("image", {
+      href: images[currentIndex],
+      x: "0",
+      y: "0",
+      width: "100",
+      height: "100",
+      preserveAspectRatio: "xMidYMid slice",
+      clipPath: `url(#${uniqueId}-blob)`
+    }), /*#__PURE__*/React.createElement("path", {
+      d: blobPath,
+      fill: "none",
+      stroke: accentColor,
+      strokeWidth: "0.3",
+      opacity: 0.5,
+      filter: `url(#${uniqueId}-glow)`
+    })), /*#__PURE__*/React.createElement("button", {
+      onClick: () => handleNav('prev'),
+      disabled: isAnimating,
+      "aria-label": "Previous",
+      style: {
+        position: 'absolute',
+        left: '24px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        width: '50px',
+        height: '50px',
+        borderRadius: '50%',
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        backdropFilter: 'blur(10px)',
+        border: `1px solid ${navColor}30`,
+        color: navColor,
+        fontSize: '20px',
+        cursor: isAnimating ? 'not-allowed' : 'pointer',
+        opacity: isAnimating ? 0.5 : 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 10,
+        transition: 'all 200ms ease'
+      }
+    }, "←"), /*#__PURE__*/React.createElement("button", {
+      onClick: () => handleNav('next'),
+      disabled: isAnimating,
+      "aria-label": "Next",
+      style: {
+        position: 'absolute',
+        right: '24px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        width: '50px',
+        height: '50px',
+        borderRadius: '50%',
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        backdropFilter: 'blur(10px)',
+        border: `1px solid ${navColor}30`,
+        color: navColor,
+        fontSize: '20px',
+        cursor: isAnimating ? 'not-allowed' : 'pointer',
+        opacity: isAnimating ? 0.5 : 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 10,
+        transition: 'all 200ms ease'
+      }
+    }, "→"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        bottom: '30px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex',
+        gap: '10px',
+        zIndex: 10
+      }
+    }, images.map((_, idx) => /*#__PURE__*/React.createElement("button", {
+      key: idx,
+      onClick: () => !isAnimating && animateTransition(idx),
+      "aria-label": `Go to slide ${idx + 1}`,
+      style: {
+        width: currentIndex === idx ? '28px' : '10px',
+        height: '10px',
+        borderRadius: '5px',
+        backgroundColor: currentIndex === idx ? navColor : `${navColor}40`,
+        border: 'none',
+        cursor: isAnimating ? 'not-allowed' : 'pointer',
+        padding: 0,
+        transition: 'all 300ms ease'
+      }
+    }))));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

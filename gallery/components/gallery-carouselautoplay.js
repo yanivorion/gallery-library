@@ -1,0 +1,469 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["gallery-carouselautoplay"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (1/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Gallery.CarouselAutoplay
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Gallery.CarouselAutoplay",
+    "description": "Auto-rotating carousel with smooth transitions, intuitive dot navigation, pause-on-hover, arrow controls, and keyboard support for engaging image showcasing",
+    "editorElement": {
+      "selector": ".carousel-autoplay",
+      "displayName": "Carousel with Autoplay",
+      "archetype": "container",
+      "data": {
+        "images": {
+          "dataType": "text",
+          "displayName": "Images (JSON Array)",
+          "defaultValue": JSON.stringify([{
+            url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920",
+            caption: "Mountain Vista"
+          }, {
+            url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920",
+            caption: "Forest Path"
+          }, {
+            url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920",
+            caption: "Desert Sunset"
+          }, {
+            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920",
+            caption: "Misty Valley"
+          }, {
+            url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920",
+            caption: "Wild Trail"
+          }]),
+          "group": "Content",
+          "description": "Array of image objects with url and caption"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background Color",
+          "defaultValue": "#FAFBFC",
+          "group": "Colors"
+        },
+        "dotColorInactive": {
+          "dataType": "color",
+          "displayName": "Inactive Dot Color",
+          "defaultValue": "#E5E7EB",
+          "group": "Colors"
+        },
+        "dotColorActive": {
+          "dataType": "color",
+          "displayName": "Active Dot Color",
+          "defaultValue": "#1F2937",
+          "group": "Colors"
+        },
+        "controlsColor": {
+          "dataType": "color",
+          "displayName": "Controls Color",
+          "defaultValue": "#FFFFFF",
+          "group": "Colors"
+        },
+        "accentColor": {
+          "dataType": "color",
+          "displayName": "Accent Color",
+          "defaultValue": "#3B82F6",
+          "group": "Colors"
+        },
+        "carouselHeight": {
+          "dataType": "select",
+          "displayName": "Carousel Height",
+          "defaultValue": "600px",
+          "options": ["400px", "500px", "600px", "70vh", "80vh", "100vh"],
+          "group": "Layout"
+        },
+        "imageObjectFit": {
+          "dataType": "select",
+          "displayName": "Image Fit",
+          "defaultValue": "cover",
+          "options": ["cover", "contain"],
+          "group": "Layout"
+        },
+        "showCaptions": {
+          "dataType": "booleanValue",
+          "displayName": "Show Captions",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "showArrows": {
+          "dataType": "booleanValue",
+          "displayName": "Show Navigation Arrows",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "dotSize": {
+          "dataType": "number",
+          "displayName": "Dot Size (px)",
+          "defaultValue": 12,
+          "group": "Layout"
+        },
+        "dotGap": {
+          "dataType": "number",
+          "displayName": "Dot Gap (px)",
+          "defaultValue": 8,
+          "group": "Layout"
+        },
+        "autoPlayInterval": {
+          "dataType": "select",
+          "displayName": "Auto-play Interval (ms)",
+          "defaultValue": "4000",
+          "options": ["3000", "4000", "5000", "6000", "8000"],
+          "group": "Animation"
+        },
+        "transitionDuration": {
+          "dataType": "select",
+          "displayName": "Transition Duration (ms)",
+          "defaultValue": "500",
+          "options": ["300", "400", "500", "600", "800"],
+          "group": "Animation"
+        },
+        "pauseOnHover": {
+          "dataType": "booleanValue",
+          "displayName": "Pause on Hover",
+          "defaultValue": true,
+          "group": "Animation"
+        }
+      },
+      "layout": {
+        "resizeDirection": "horizontalAndVertical",
+        "contentResizeDirection": "vertical"
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const imagesData = config?.images || JSON.stringify([{
+      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920",
+      caption: "Mountain Vista"
+    }, {
+      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920",
+      caption: "Forest Path"
+    }, {
+      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920",
+      caption: "Desert Sunset"
+    }, {
+      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920",
+      caption: "Misty Valley"
+    }, {
+      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920",
+      caption: "Wild Trail"
+    }]);
+    const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
+    const backgroundColor = config?.backgroundColor || "#FAFBFC";
+    const dotColorInactive = config?.dotColorInactive || "#E5E7EB";
+    const dotColorActive = config?.dotColorActive || "#1F2937";
+    const controlsColor = config?.controlsColor || "#FFFFFF";
+    const accentColor = config?.accentColor || "#3B82F6";
+    const carouselHeight = config?.carouselHeight || "600px";
+    const imageObjectFit = config?.imageObjectFit || "cover";
+    const showCaptions = config?.showCaptions !== false;
+    const showArrows = config?.showArrows !== false;
+    const dotSize = parseInt(config?.dotSize || "12");
+    const dotGap = parseInt(config?.dotGap || "8");
+    const autoPlayInterval = parseInt(config?.autoPlayInterval || "4000");
+    const transitionDuration = parseInt(config?.transitionDuration || "500");
+    const pauseOnHover = config?.pauseOnHover !== false;
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [isTransitioning, setIsTransitioning] = React.useState(false);
+    const [isPaused, setIsPaused] = React.useState(false);
+    const [isHovered, setIsHovered] = React.useState(false);
+    const autoPlayRef = React.useRef(null);
+    const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    const duration = prefersReducedMotion ? 0 : transitionDuration;
+
+    // Navigation functions
+    const goToSlide = index => {
+      if (isTransitioning) return;
+      setIsTransitioning(true);
+      setCurrentIndex(index);
+      setTimeout(() => setIsTransitioning(false), duration);
+    };
+    const goToNext = () => {
+      if (isTransitioning) return;
+      setIsTransitioning(true);
+      setCurrentIndex(prev => (prev + 1) % images.length);
+      setTimeout(() => setIsTransitioning(false), duration);
+    };
+    const goToPrevious = () => {
+      if (isTransitioning) return;
+      setIsTransitioning(true);
+      setCurrentIndex(prev => (prev - 1 + images.length) % images.length);
+      setTimeout(() => setIsTransitioning(false), duration);
+    };
+
+    // Auto-play logic
+    React.useEffect(() => {
+      const shouldPause = pauseOnHover && isHovered;
+      if (isPaused || shouldPause || prefersReducedMotion) {
+        if (autoPlayRef.current) {
+          clearInterval(autoPlayRef.current);
+        }
+        return;
+      }
+      autoPlayRef.current = setInterval(() => {
+        goToNext();
+      }, autoPlayInterval);
+      return () => {
+        if (autoPlayRef.current) {
+          clearInterval(autoPlayRef.current);
+        }
+      };
+    }, [currentIndex, isPaused, isHovered, autoPlayInterval, pauseOnHover, prefersReducedMotion]);
+
+    // Keyboard navigation
+    React.useEffect(() => {
+      const handleKeyDown = e => {
+        switch (e.key) {
+          case 'ArrowLeft':
+            e.preventDefault();
+            goToPrevious();
+            break;
+          case 'ArrowRight':
+            e.preventDefault();
+            goToNext();
+            break;
+          case ' ':
+            e.preventDefault();
+            setIsPaused(prev => !prev);
+            break;
+        }
+      };
+      if (typeof window !== 'undefined') {
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+      }
+    }, []);
+    const currentImage = images[currentIndex];
+    return /*#__PURE__*/React.createElement("div", {
+      className: "carousel-autoplay",
+      style: {
+        backgroundColor: backgroundColor,
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        height: carouselHeight,
+        overflow: 'hidden'
+      },
+      onMouseEnter: () => setIsHovered(true),
+      onMouseLeave: () => setIsHovered(false)
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: '100%',
+        height: '100%'
+      }
+    }, images.map((image, index) => /*#__PURE__*/React.createElement("div", {
+      key: index,
+      style: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        opacity: index === currentIndex ? 1 : 0,
+        transition: prefersReducedMotion ? 'none' : `opacity ${duration}ms ease-out`,
+        pointerEvents: index === currentIndex ? 'auto' : 'none'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: image.url,
+      alt: image.caption || '',
+      style: {
+        width: '100%',
+        height: '100%',
+        objectFit: imageObjectFit,
+        display: 'block'
+      }
+    }), showCaptions && image.caption && /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        bottom: '80px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        color: controlsColor,
+        padding: '16px 32px',
+        borderRadius: '8px',
+        fontSize: '20px',
+        fontWeight: '500',
+        maxWidth: '80%',
+        textAlign: 'center'
+      }
+    }, image.caption)))), showArrows && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
+      onClick: goToPrevious,
+      "aria-label": "Previous slide",
+      style: {
+        position: 'absolute',
+        left: '24px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        border: 'none',
+        borderRadius: '50%',
+        width: '48px',
+        height: '48px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: controlsColor,
+        fontSize: '24px',
+        cursor: 'pointer',
+        transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out, opacity 200ms ease-out',
+        opacity: isHovered ? 1 : 0.7,
+        outline: 'none'
+      },
+      onMouseEnter: e => {
+        if (!prefersReducedMotion) e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+      },
+      onMouseLeave: e => {
+        e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+      },
+      onFocus: e => {
+        e.currentTarget.style.outline = `2px solid ${accentColor}`;
+        e.currentTarget.style.outlineOffset = '2px';
+      },
+      onBlur: e => {
+        e.currentTarget.style.outline = 'none';
+      }
+    }, "‹"), /*#__PURE__*/React.createElement("button", {
+      onClick: goToNext,
+      "aria-label": "Next slide",
+      style: {
+        position: 'absolute',
+        right: '24px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        border: 'none',
+        borderRadius: '50%',
+        width: '48px',
+        height: '48px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: controlsColor,
+        fontSize: '24px',
+        cursor: 'pointer',
+        transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out, opacity 200ms ease-out',
+        opacity: isHovered ? 1 : 0.7,
+        outline: 'none'
+      },
+      onMouseEnter: e => {
+        if (!prefersReducedMotion) e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+      },
+      onMouseLeave: e => {
+        e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+      },
+      onFocus: e => {
+        e.currentTarget.style.outline = `2px solid ${accentColor}`;
+        e.currentTarget.style.outlineOffset = '2px';
+      },
+      onBlur: e => {
+        e.currentTarget.style.outline = 'none';
+      }
+    }, "›")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        bottom: '24px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex',
+        gap: `${dotGap}px`,
+        alignItems: 'center'
+      }
+    }, images.map((_, index) => /*#__PURE__*/React.createElement("button", {
+      key: index,
+      onClick: () => goToSlide(index),
+      "aria-label": `Go to slide ${index + 1}`,
+      "aria-current": index === currentIndex ? 'true' : 'false',
+      style: {
+        width: `${dotSize}px`,
+        height: `${dotSize}px`,
+        borderRadius: '50%',
+        border: 'none',
+        backgroundColor: index === currentIndex ? dotColorActive : dotColorInactive,
+        cursor: 'pointer',
+        padding: 0,
+        transition: prefersReducedMotion ? 'none' : 'all 300ms ease-out',
+        transform: index === currentIndex ? 'scale(1.2)' : 'scale(1)',
+        outline: 'none'
+      },
+      onMouseEnter: e => {
+        if (!prefersReducedMotion && index !== currentIndex) {
+          e.currentTarget.style.transform = 'scale(1.1)';
+        }
+      },
+      onMouseLeave: e => {
+        if (index !== currentIndex) {
+          e.currentTarget.style.transform = 'scale(1)';
+        }
+      },
+      onFocus: e => {
+        e.currentTarget.style.outline = `2px solid ${accentColor}`;
+        e.currentTarget.style.outlineOffset = '2px';
+      },
+      onBlur: e => {
+        e.currentTarget.style.outline = 'none';
+      }
+    }))), isPaused && /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: '24px',
+        right: '24px',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        color: controlsColor,
+        padding: '8px 16px',
+        borderRadius: '20px',
+        fontSize: '14px',
+        fontWeight: '500'
+      }
+    }, "Paused")));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

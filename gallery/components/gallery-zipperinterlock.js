@@ -1,0 +1,376 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["gallery-zipperinterlock"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (3/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Gallery.ZipperInterlock
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Gallery.ZipperInterlock",
+    "description": "A gallery where two rows of images interlock like zipper teeth with zip/unzip interactions",
+    "editorElement": {
+      "selector": ".zipper-interlock-gallery",
+      "displayName": "Zipper Interlock Gallery",
+      "archetype": "container",
+      "data": {
+        "images": {
+          "dataType": "text",
+          "displayName": "Image URLs",
+          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300&h=400&fit=crop,https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300&h=400&fit=crop",
+          "group": "Content",
+          "description": "Comma-separated image URLs (6-10 recommended, even number)"
+        },
+        "cardWidth": {
+          "dataType": "select",
+          "displayName": "Card Width",
+          "defaultValue": "140",
+          "options": ["100", "120", "140", "160", "180"],
+          "group": "Layout"
+        },
+        "cardHeight": {
+          "dataType": "select",
+          "displayName": "Card Height",
+          "defaultValue": "200",
+          "options": ["160", "180", "200", "240", "280"],
+          "group": "Layout"
+        },
+        "interlockDepth": {
+          "dataType": "select",
+          "displayName": "Interlock Depth (px)",
+          "defaultValue": "80",
+          "options": ["40", "60", "80", "100", "120"],
+          "group": "Layout"
+        },
+        "separationDistance": {
+          "dataType": "select",
+          "displayName": "Hover Separation (px)",
+          "defaultValue": "60",
+          "options": ["40", "50", "60", "80", "100"],
+          "group": "Animation"
+        },
+        "cardGap": {
+          "dataType": "select",
+          "displayName": "Card Gap",
+          "defaultValue": "12",
+          "options": ["8", "10", "12", "16", "20"],
+          "group": "Layout"
+        },
+        "transitionDuration": {
+          "dataType": "select",
+          "displayName": "Transition Duration",
+          "defaultValue": "400",
+          "options": ["200", "300", "400", "500", "600"],
+          "group": "Animation"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background Color",
+          "defaultValue": "#27272A",
+          "group": "Colors"
+        },
+        "cardBorderColor": {
+          "dataType": "color",
+          "displayName": "Card Border Color",
+          "defaultValue": "#52525B",
+          "group": "Colors"
+        },
+        "accentColor": {
+          "dataType": "color",
+          "displayName": "Accent Color",
+          "defaultValue": "#A1A1AA",
+          "group": "Colors"
+        },
+        "borderRadius": {
+          "dataType": "select",
+          "displayName": "Border Radius",
+          "defaultValue": "12",
+          "options": ["4", "8", "12", "16", "20"],
+          "group": "Layout"
+        },
+        "hoverToSeparate": {
+          "dataType": "booleanValue",
+          "displayName": "Separate on Hover",
+          "defaultValue": true,
+          "group": "Animation"
+        },
+        "showZipperLine": {
+          "dataType": "booleanValue",
+          "displayName": "Show Center Line",
+          "defaultValue": true,
+          "group": "Colors"
+        },
+        "staggerAnimation": {
+          "dataType": "booleanValue",
+          "displayName": "Stagger Animation",
+          "defaultValue": true,
+          "group": "Animation"
+        }
+      },
+      "layout": {
+        "resizeDirection": "horizontalAndVertical",
+        "contentResizeDirection": "horizontal"
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const [isHovered, setIsHovered] = React.useState(false);
+    const [isSeparated, setIsSeparated] = React.useState(false);
+    const [focusedCard, setFocusedCard] = React.useState(null);
+    const [isInView, setIsInView] = React.useState(false);
+    const containerRef = React.useRef(null);
+    const images = React.useMemo(() => {
+      return (config?.images || MANIFEST.editorElement.data.images.defaultValue).split(',').map(url => url.trim()).filter(Boolean);
+    }, [config?.images]);
+    const cardWidth = parseInt(config?.cardWidth || '140');
+    const cardHeight = parseInt(config?.cardHeight || '200');
+    const interlockDepth = parseInt(config?.interlockDepth || '80');
+    const separationDistance = parseInt(config?.separationDistance || '60');
+    const cardGap = parseInt(config?.cardGap || '12');
+    const transitionDuration = parseInt(config?.transitionDuration || '400');
+    const backgroundColor = config?.backgroundColor || '#27272A';
+    const cardBorderColor = config?.cardBorderColor || '#52525B';
+    const accentColor = config?.accentColor || '#A1A1AA';
+    const borderRadius = parseInt(config?.borderRadius || '12');
+    const hoverToSeparate = config?.hoverToSeparate !== false;
+    const showZipperLine = config?.showZipperLine !== false;
+    const staggerAnimation = config?.staggerAnimation !== false;
+    const prefersReducedMotion = React.useMemo(() => {
+      return typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    }, []);
+    React.useEffect(() => {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setIsInView(true);
+        });
+      }, {
+        threshold: 0.3
+      });
+      if (containerRef.current) observer.observe(containerRef.current);
+      return () => observer.disconnect();
+    }, []);
+
+    // Split images into top and bottom rows
+    const {
+      topRow,
+      bottomRow
+    } = React.useMemo(() => {
+      const half = Math.ceil(images.length / 2);
+      return {
+        topRow: images.slice(0, half),
+        bottomRow: images.slice(half)
+      };
+    }, [images]);
+    const shouldSeparate = hoverToSeparate ? isHovered : isSeparated;
+
+    // Calculate stagger delay
+    const getStaggerDelay = (index, isTop) => {
+      if (!staggerAnimation) return 0;
+      const baseDelay = isTop ? index * 30 : (bottomRow.length - 1 - index) * 30;
+      return baseDelay;
+    };
+    if (images.length === 0) {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          backgroundColor,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '400px',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          textAlign: 'center',
+          color: '#71717A'
+        }
+      }, /*#__PURE__*/React.createElement("p", {
+        style: {
+          fontSize: '18px'
+        }
+      }, "No images provided")));
+    }
+    const totalWidth = Math.max(topRow.length, bottomRow.length) * (cardWidth + cardGap);
+    return /*#__PURE__*/React.createElement("div", {
+      ref: containerRef,
+      className: "zipper-interlock-gallery",
+      style: {
+        backgroundColor,
+        minHeight: `${cardHeight * 2 + 120}px`,
+        padding: '60px 40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '32px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      onMouseEnter: () => hoverToSeparate && setIsHovered(true),
+      onMouseLeave: () => {
+        hoverToSeparate && setIsHovered(false);
+        setFocusedCard(null);
+      },
+      style: {
+        position: 'relative',
+        width: `${totalWidth + 60}px`,
+        height: `${cardHeight * 2 - interlockDepth + separationDistance * 2}px`
+      }
+    }, showZipperLine && /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '100%',
+        height: '2px',
+        backgroundColor: accentColor,
+        opacity: shouldSeparate ? 0 : 0.3,
+        transition: `opacity ${transitionDuration}ms ease-out`
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 0,
+        left: '50%',
+        transform: `translateX(-50%) translateY(${shouldSeparate ? -separationDistance : 0}px)`,
+        display: 'flex',
+        gap: `${cardGap}px`,
+        transition: prefersReducedMotion ? 'none' : `transform ${transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1)`
+      }
+    }, topRow.map((image, index) => {
+      const isFocused = focusedCard === `top-${index}`;
+      const staggerDelay = getStaggerDelay(index, true);
+      return /*#__PURE__*/React.createElement("div", {
+        key: `top-${index}`,
+        onClick: () => setFocusedCard(isFocused ? null : `top-${index}`),
+        onMouseEnter: () => setFocusedCard(`top-${index}`),
+        onMouseLeave: () => setFocusedCard(null),
+        style: {
+          width: `${cardWidth}px`,
+          height: `${cardHeight}px`,
+          borderRadius: `${borderRadius}px`,
+          overflow: 'hidden',
+          border: `2px solid ${isFocused ? accentColor : cardBorderColor}`,
+          cursor: 'pointer',
+          opacity: prefersReducedMotion ? 1 : isInView ? 1 : 0,
+          transform: prefersReducedMotion ? `scale(${isFocused ? 1.05 : 1})` : isInView ? `translateY(0) scale(${isFocused ? 1.05 : 1})` : 'translateY(-30px) scale(0.9)',
+          zIndex: index % 2 === 0 ? 2 : 1 + (isFocused ? 10 : 0),
+          boxShadow: isFocused ? `0 8px 30px rgba(0,0,0,0.4), 0 0 0 1px ${accentColor}40` : '0 4px 12px rgba(0,0,0,0.3)',
+          transition: prefersReducedMotion ? 'none' : `transform ${transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1) ${staggerDelay}ms,
+                       opacity ${transitionDuration}ms ease-out ${staggerDelay}ms,
+                       border-color 200ms ease-out,
+                       box-shadow 200ms ease-out`
+        }
+      }, /*#__PURE__*/React.createElement("img", {
+        src: image,
+        alt: `Top row ${index + 1}`,
+        style: {
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          display: 'block'
+        }
+      }));
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        bottom: 0,
+        left: '50%',
+        transform: `translateX(calc(-50% + ${(cardWidth + cardGap) / 2}px)) translateY(${shouldSeparate ? separationDistance : 0}px)`,
+        display: 'flex',
+        gap: `${cardGap}px`,
+        transition: prefersReducedMotion ? 'none' : `transform ${transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1)`
+      }
+    }, bottomRow.map((image, index) => {
+      const isFocused = focusedCard === `bottom-${index}`;
+      const staggerDelay = getStaggerDelay(index, false);
+      return /*#__PURE__*/React.createElement("div", {
+        key: `bottom-${index}`,
+        onClick: () => setFocusedCard(isFocused ? null : `bottom-${index}`),
+        onMouseEnter: () => setFocusedCard(`bottom-${index}`),
+        onMouseLeave: () => setFocusedCard(null),
+        style: {
+          width: `${cardWidth}px`,
+          height: `${cardHeight}px`,
+          borderRadius: `${borderRadius}px`,
+          overflow: 'hidden',
+          border: `2px solid ${isFocused ? accentColor : cardBorderColor}`,
+          cursor: 'pointer',
+          opacity: prefersReducedMotion ? 1 : isInView ? 1 : 0,
+          transform: prefersReducedMotion ? `scale(${isFocused ? 1.05 : 1})` : isInView ? `translateY(0) scale(${isFocused ? 1.05 : 1})` : 'translateY(30px) scale(0.9)',
+          zIndex: index % 2 === 0 ? 1 : 2 + (isFocused ? 10 : 0),
+          boxShadow: isFocused ? `0 8px 30px rgba(0,0,0,0.4), 0 0 0 1px ${accentColor}40` : '0 4px 12px rgba(0,0,0,0.3)',
+          transition: prefersReducedMotion ? 'none' : `transform ${transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1) ${staggerDelay}ms,
+                       opacity ${transitionDuration}ms ease-out ${staggerDelay}ms,
+                       border-color 200ms ease-out,
+                       box-shadow 200ms ease-out`
+        }
+      }, /*#__PURE__*/React.createElement("img", {
+        src: image,
+        alt: `Bottom row ${index + 1}`,
+        style: {
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          display: 'block'
+        }
+      }));
+    }))), !hoverToSeparate && /*#__PURE__*/React.createElement("button", {
+      onClick: () => setIsSeparated(!isSeparated),
+      "aria-label": isSeparated ? 'Zip together' : 'Unzip',
+      style: {
+        fontFamily: 'inherit',
+        fontSize: '14px',
+        fontWeight: '500',
+        color: backgroundColor,
+        backgroundColor: accentColor,
+        border: 'none',
+        borderRadius: '8px',
+        padding: '12px 24px',
+        cursor: 'pointer',
+        transition: 'opacity 200ms ease-out'
+      },
+      onMouseEnter: e => e.target.style.opacity = '0.85',
+      onMouseLeave: e => e.target.style.opacity = '1'
+    }, isSeparated ? 'Zip Together' : 'Unzip'));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

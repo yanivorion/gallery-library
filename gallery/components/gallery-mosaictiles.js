@@ -1,0 +1,410 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["gallery-mosaictiles"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (2/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Gallery.MosaicTiles
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Gallery.MosaicTiles",
+    "description": "Images break into mosaic tiles that scatter and reform during transitions.",
+    "editorElement": {
+      "selector": ".mosaic-tiles-gallery",
+      "displayName": "Mosaic Tiles Gallery",
+      "archetype": "container",
+      "data": {
+        "images": {
+          "dataType": "text",
+          "displayName": "Image URLs",
+          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200&h=800&fit=crop",
+          "group": "Content"
+        },
+        "gridSize": {
+          "dataType": "select",
+          "displayName": "Grid Size",
+          "defaultValue": "6",
+          "options": ["4", "5", "6", "8", "10"],
+          "group": "Animation"
+        },
+        "scatterPattern": {
+          "dataType": "select",
+          "displayName": "Scatter Pattern",
+          "defaultValue": "random",
+          "options": ["random", "explode", "wave", "spiral"],
+          "group": "Animation"
+        },
+        "autoPlay": {
+          "dataType": "booleanValue",
+          "displayName": "Auto Play",
+          "defaultValue": "true",
+          "group": "Animation"
+        },
+        "interval": {
+          "dataType": "select",
+          "displayName": "Interval (ms)",
+          "defaultValue": "5000",
+          "options": ["3000", "4000", "5000", "6000"],
+          "group": "Animation"
+        },
+        "transitionDuration": {
+          "dataType": "select",
+          "displayName": "Transition Duration (ms)",
+          "defaultValue": "1000",
+          "options": ["600", "800", "1000", "1200", "1500"],
+          "group": "Animation"
+        },
+        "containerHeight": {
+          "dataType": "select",
+          "displayName": "Container Height",
+          "defaultValue": "600",
+          "options": ["400", "500", "600", "700", "100vh"],
+          "group": "Layout"
+        },
+        "tileGap": {
+          "dataType": "select",
+          "displayName": "Tile Gap (px)",
+          "defaultValue": "2",
+          "options": ["0", "1", "2", "3", "4"],
+          "group": "Layout"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background Color",
+          "defaultValue": "#0a0a0f",
+          "group": "Colors"
+        },
+        "navColor": {
+          "dataType": "color",
+          "displayName": "Navigation Color",
+          "defaultValue": "#ffffff",
+          "group": "Colors"
+        }
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [isAnimating, setIsAnimating] = React.useState(false);
+    const [tiles, setTiles] = React.useState([]);
+    const [tileAnimations, setTileAnimations] = React.useState([]);
+    const containerRef = React.useRef(null);
+    const imagesRaw = config?.images || '';
+    const gridSize = parseInt(config?.gridSize || '6');
+    const scatterPattern = config?.scatterPattern || 'random';
+    const autoPlay = config?.autoPlay !== false;
+    const interval = parseInt(config?.interval || '5000');
+    const transitionDuration = parseInt(config?.transitionDuration || '1000');
+    const containerHeight = config?.containerHeight || '600';
+    const tileGap = parseInt(config?.tileGap || '2');
+    const backgroundColor = config?.backgroundColor || '#0a0a0f';
+    const navColor = config?.navColor || '#ffffff';
+    const images = React.useMemo(() => {
+      return imagesRaw.split(',').map(url => url.trim()).filter(Boolean);
+    }, [imagesRaw]);
+    const prefersReducedMotion = React.useMemo(() => {
+      return typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    }, []);
+
+    // Initialize tiles
+    React.useEffect(() => {
+      const totalTiles = gridSize * gridSize;
+      const newTiles = [];
+      for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+          newTiles.push({
+            id: row * gridSize + col,
+            row,
+            col,
+            transform: 'none',
+            opacity: 1
+          });
+        }
+      }
+      setTiles(newTiles);
+      setTileAnimations(newTiles.map(() => ({
+        transform: 'none',
+        opacity: 1
+      })));
+    }, [gridSize]);
+    const getScatterTransform = React.useCallback((row, col, index) => {
+      const centerRow = (gridSize - 1) / 2;
+      const centerCol = (gridSize - 1) / 2;
+      switch (scatterPattern) {
+        case 'explode':
+          {
+            const dx = (col - centerCol) * 200;
+            const dy = (row - centerRow) * 200;
+            const rotation = (Math.random() - 0.5) * 360;
+            return `translate(${dx}px, ${dy}px) rotate(${rotation}deg) scale(0.5)`;
+          }
+        case 'wave':
+          {
+            const delay = (row + col) * 0.1;
+            const dy = Math.sin(delay * Math.PI) * 300;
+            return `translateY(${dy}px) rotateX(${90}deg)`;
+          }
+        case 'spiral':
+          {
+            const angle = index * (360 / (gridSize * gridSize)) * 3;
+            const radius = index * 10;
+            const dx = Math.cos(angle * Math.PI / 180) * radius;
+            const dy = Math.sin(angle * Math.PI / 180) * radius;
+            return `translate(${dx}px, ${dy}px) rotate(${angle}deg) scale(0)`;
+          }
+        case 'random':
+        default:
+          {
+            const dx = (Math.random() - 0.5) * 500;
+            const dy = (Math.random() - 0.5) * 500;
+            const rotation = (Math.random() - 0.5) * 360;
+            const scale = Math.random() * 0.5;
+            return `translate(${dx}px, ${dy}px) rotate(${rotation}deg) scale(${scale})`;
+          }
+      }
+    }, [scatterPattern, gridSize]);
+    const animateTransition = React.useCallback(nextIndex => {
+      if (isAnimating || images.length <= 1) return;
+      setIsAnimating(true);
+      if (prefersReducedMotion) {
+        setCurrentIndex(nextIndex);
+        setIsAnimating(false);
+        return;
+      }
+
+      // Scatter tiles
+      const scatterAnimations = tiles.map((tile, index) => ({
+        transform: getScatterTransform(tile.row, tile.col, index),
+        opacity: 0
+      }));
+      setTileAnimations(scatterAnimations);
+
+      // Change image and reform
+      setTimeout(() => {
+        setCurrentIndex(nextIndex);
+
+        // Staggered reform
+        tiles.forEach((tile, index) => {
+          setTimeout(() => {
+            setTileAnimations(prev => {
+              const newAnimations = [...prev];
+              newAnimations[index] = {
+                transform: 'none',
+                opacity: 1
+              };
+              return newAnimations;
+            });
+          }, index * (transitionDuration / (gridSize * gridSize) / 2));
+        });
+        setTimeout(() => {
+          setIsAnimating(false);
+        }, transitionDuration);
+      }, transitionDuration / 2);
+    }, [isAnimating, images.length, tiles, getScatterTransform, transitionDuration, gridSize, prefersReducedMotion]);
+    React.useEffect(() => {
+      if (!autoPlay || images.length <= 1 || prefersReducedMotion) return;
+      const timer = setInterval(() => {
+        animateTransition((currentIndex + 1) % images.length);
+      }, interval);
+      return () => clearInterval(timer);
+    }, [autoPlay, interval, currentIndex, images.length, animateTransition, prefersReducedMotion]);
+    const handleNav = direction => {
+      const next = direction === 'next' ? (currentIndex + 1) % images.length : (currentIndex - 1 + images.length) % images.length;
+      animateTransition(next);
+    };
+    if (images.length === 0) {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          height: containerHeight === '100vh' ? '100vh' : `${containerHeight}px`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor,
+          color: 'rgba(255,255,255,0.5)',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }
+      }, "Add comma-separated image URLs");
+    }
+    const heightStyle = containerHeight === '100vh' ? '100vh' : `${containerHeight}px`;
+    const tileSize = `calc((100% - ${(gridSize - 1) * tileGap}px) / ${gridSize})`;
+    return /*#__PURE__*/React.createElement("div", {
+      className: "mosaic-tiles-gallery",
+      ref: containerRef,
+      style: {
+        position: 'relative',
+        width: '100%',
+        height: heightStyle,
+        backgroundColor,
+        overflow: 'hidden',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        inset: 0,
+        display: 'grid',
+        gridTemplateColumns: `repeat(${gridSize}, ${tileSize})`,
+        gridTemplateRows: `repeat(${gridSize}, ${tileSize})`,
+        gap: `${tileGap}px`,
+        perspective: '1000px'
+      }
+    }, tiles.map((tile, index) => /*#__PURE__*/React.createElement("div", {
+      key: tile.id,
+      style: {
+        position: 'relative',
+        overflow: 'hidden',
+        transform: tileAnimations[index]?.transform || 'none',
+        opacity: tileAnimations[index]?.opacity ?? 1,
+        transition: `all ${transitionDuration / 2}ms cubic-bezier(0.4, 0, 0.2, 1)`,
+        transitionDelay: `${index * 10}ms`,
+        transformOrigin: 'center center',
+        backfaceVisibility: 'hidden'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: images[currentIndex],
+      alt: "",
+      style: {
+        position: 'absolute',
+        width: `${gridSize * 100}%`,
+        height: `${gridSize * 100}%`,
+        left: `${-tile.col * 100}%`,
+        top: `${-tile.row * 100}%`,
+        objectFit: 'cover'
+      }
+    })))), /*#__PURE__*/React.createElement("button", {
+      onClick: () => handleNav('prev'),
+      disabled: isAnimating,
+      "aria-label": "Previous",
+      style: {
+        position: 'absolute',
+        left: '24px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        width: '50px',
+        height: '50px',
+        borderRadius: '50%',
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        backdropFilter: 'blur(10px)',
+        border: `1px solid ${navColor}30`,
+        color: navColor,
+        fontSize: '20px',
+        cursor: isAnimating ? 'not-allowed' : 'pointer',
+        opacity: isAnimating ? 0.5 : 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 10,
+        transition: 'all 200ms ease'
+      }
+    }, "←"), /*#__PURE__*/React.createElement("button", {
+      onClick: () => handleNav('next'),
+      disabled: isAnimating,
+      "aria-label": "Next",
+      style: {
+        position: 'absolute',
+        right: '24px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        width: '50px',
+        height: '50px',
+        borderRadius: '50%',
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        backdropFilter: 'blur(10px)',
+        border: `1px solid ${navColor}30`,
+        color: navColor,
+        fontSize: '20px',
+        cursor: isAnimating ? 'not-allowed' : 'pointer',
+        opacity: isAnimating ? 0.5 : 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 10,
+        transition: 'all 200ms ease'
+      }
+    }, "→"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        bottom: '24px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '20px',
+        padding: '12px 24px',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        backdropFilter: 'blur(10px)',
+        borderRadius: '30px',
+        zIndex: 10
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: navColor,
+        fontSize: '12px',
+        opacity: 0.7
+      }
+    }, gridSize, "×", gridSize, " tiles"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        gap: '8px'
+      }
+    }, images.map((_, idx) => /*#__PURE__*/React.createElement("button", {
+      key: idx,
+      onClick: () => !isAnimating && animateTransition(idx),
+      "aria-label": `Go to slide ${idx + 1}`,
+      style: {
+        width: currentIndex === idx ? '24px' : '8px',
+        height: '8px',
+        borderRadius: '4px',
+        backgroundColor: currentIndex === idx ? navColor : `${navColor}40`,
+        border: 'none',
+        cursor: isAnimating ? 'not-allowed' : 'pointer',
+        padding: 0,
+        transition: 'all 300ms ease'
+      }
+    }))), /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: navColor,
+        fontSize: '12px',
+        opacity: 0.7
+      }
+    }, scatterPattern)));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

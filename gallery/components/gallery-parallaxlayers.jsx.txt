@@ -1,0 +1,412 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (2/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.ParallaxLayers
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.ParallaxLayers",
+  "description": "Multi-layer parallax slideshow with depth-based mouse tracking and scroll effects.",
+  "editorElement": {
+    "selector": ".parallax-layers-gallery",
+    "displayName": "Parallax Layers Gallery",
+    "archetype": "container",
+    "data": {
+      "images": {
+        "dataType": "text",
+        "displayName": "Image URLs",
+        "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200&h=800&fit=crop",
+        "group": "Content"
+      },
+      "parallaxStrength": {
+        "dataType": "select",
+        "displayName": "Parallax Strength",
+        "defaultValue": "medium",
+        "options": ["subtle", "medium", "strong"],
+        "group": "Animation"
+      },
+      "autoPlay": {
+        "dataType": "booleanValue",
+        "displayName": "Auto Play",
+        "defaultValue": "true",
+        "group": "Animation"
+      },
+      "interval": {
+        "dataType": "select",
+        "displayName": "Interval (ms)",
+        "defaultValue": "5000",
+        "options": ["3000", "4000", "5000", "6000"],
+        "group": "Animation"
+      },
+      "containerHeight": {
+        "dataType": "select",
+        "displayName": "Container Height",
+        "defaultValue": "600",
+        "options": ["400", "500", "600", "700", "100vh"],
+        "group": "Layout"
+      },
+      "showDepthLayers": {
+        "dataType": "booleanValue",
+        "displayName": "Show Depth Layers",
+        "defaultValue": "true",
+        "group": "Effects"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#0a0a1a",
+        "group": "Colors"
+      },
+      "overlayColor": {
+        "dataType": "color",
+        "displayName": "Overlay Tint",
+        "defaultValue": "#1a1a2e",
+        "group": "Colors"
+      },
+      "navColor": {
+        "dataType": "color",
+        "displayName": "Navigation Color",
+        "defaultValue": "#ffffff",
+        "group": "Colors"
+      }
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [mousePosition, setMousePosition] = React.useState({ x: 0.5, y: 0.5 });
+  const [isAnimating, setIsAnimating] = React.useState(false);
+  const containerRef = React.useRef(null);
+  
+  const imagesRaw = config?.images || '';
+  const parallaxStrength = config?.parallaxStrength || 'medium';
+  const autoPlay = config?.autoPlay !== false;
+  const interval = parseInt(config?.interval || '5000');
+  const containerHeight = config?.containerHeight || '600';
+  const showDepthLayers = config?.showDepthLayers !== false;
+  const backgroundColor = config?.backgroundColor || '#0a0a1a';
+  const overlayColor = config?.overlayColor || '#1a1a2e';
+  const navColor = config?.navColor || '#ffffff';
+  
+  const images = React.useMemo(() => {
+    return imagesRaw.split(',').map(url => url.trim()).filter(Boolean);
+  }, [imagesRaw]);
+  
+  const prefersReducedMotion = React.useMemo(() => {
+    return typeof window !== 'undefined' 
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+      : false;
+  }, []);
+  
+  const strengthConfig = React.useMemo(() => {
+    const configs = {
+      subtle: { layer1: 10, layer2: 20, layer3: 30 },
+      medium: { layer1: 20, layer2: 40, layer3: 60 },
+      strong: { layer1: 30, layer2: 60, layer3: 90 }
+    };
+    return configs[parallaxStrength] || configs.medium;
+  }, [parallaxStrength]);
+  
+  // Mouse tracking
+  React.useEffect(() => {
+    if (prefersReducedMotion) return;
+    
+    const container = containerRef.current;
+    if (!container) return;
+    
+    const handleMouseMove = (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      setMousePosition({ x, y });
+    };
+    
+    const handleMouseLeave = () => {
+      setMousePosition({ x: 0.5, y: 0.5 });
+    };
+    
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('mouseleave', handleMouseLeave);
+    
+    return () => {
+      container.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [prefersReducedMotion]);
+  
+  const getParallaxTransform = (strength) => {
+    if (prefersReducedMotion) return 'none';
+    const x = (mousePosition.x - 0.5) * strength;
+    const y = (mousePosition.y - 0.5) * strength;
+    return `translate(${x}px, ${y}px)`;
+  };
+  
+  const handleTransition = React.useCallback((nextIndex) => {
+    if (isAnimating || images.length <= 1) return;
+    
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentIndex(nextIndex);
+      setIsAnimating(false);
+    }, 600);
+  }, [isAnimating, images.length]);
+  
+  React.useEffect(() => {
+    if (!autoPlay || images.length <= 1 || prefersReducedMotion) return;
+    
+    const timer = setInterval(() => {
+      handleTransition((currentIndex + 1) % images.length);
+    }, interval);
+    
+    return () => clearInterval(timer);
+  }, [autoPlay, interval, currentIndex, images.length, handleTransition, prefersReducedMotion]);
+  
+  const handleNav = (direction) => {
+    const next = direction === 'next' 
+      ? (currentIndex + 1) % images.length
+      : (currentIndex - 1 + images.length) % images.length;
+    handleTransition(next);
+  };
+  
+  if (images.length === 0) {
+    return (
+      <div style={{ 
+        height: containerHeight === '100vh' ? '100vh' : `${containerHeight}px`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor,
+        color: 'rgba(255,255,255,0.5)',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}>
+        Add comma-separated image URLs
+      </div>
+    );
+  }
+  
+  const heightStyle = containerHeight === '100vh' ? '100vh' : `${containerHeight}px`;
+  
+  return (
+    <div
+      ref={containerRef}
+      className="parallax-layers-gallery"
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: heightStyle,
+        backgroundColor,
+        overflow: 'hidden',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}
+    >
+      {/* Background layer - slowest parallax */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: '-60px',
+          transform: getParallaxTransform(strengthConfig.layer3),
+          transition: prefersReducedMotion ? 'none' : 'transform 0.3s ease-out',
+          opacity: isAnimating ? 0 : 1
+        }}
+      >
+        <img
+          src={images[currentIndex]}
+          alt=""
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            filter: 'blur(4px) brightness(0.5)',
+            transform: 'scale(1.2)',
+            transition: 'opacity 600ms ease'
+          }}
+        />
+      </div>
+      
+      {/* Middle layer */}
+      {showDepthLayers && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: '-40px',
+            transform: getParallaxTransform(strengthConfig.layer2),
+            transition: prefersReducedMotion ? 'none' : 'transform 0.2s ease-out',
+            opacity: 0.5
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              background: `radial-gradient(circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, transparent 0%, ${overlayColor}90 70%)`,
+              transition: 'background 0.3s ease-out'
+            }}
+          />
+        </div>
+      )}
+      
+      {/* Main image layer - fastest parallax */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: '10%',
+          transform: getParallaxTransform(strengthConfig.layer1),
+          transition: prefersReducedMotion ? 'none' : 'transform 0.1s ease-out, opacity 600ms ease',
+          opacity: isAnimating ? 0 : 1,
+          borderRadius: '20px',
+          overflow: 'hidden',
+          boxShadow: '0 30px 80px rgba(0,0,0,0.5)'
+        }}
+      >
+        <img
+          src={images[currentIndex]}
+          alt={`Slide ${currentIndex + 1}`}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
+      </div>
+      
+      {/* Floating particles - decorative */}
+      {showDepthLayers && !prefersReducedMotion && (
+        <>
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              style={{
+                position: 'absolute',
+                width: `${8 + i * 4}px`,
+                height: `${8 + i * 4}px`,
+                borderRadius: '50%',
+                backgroundColor: `${navColor}20`,
+                left: `${20 + i * 15}%`,
+                top: `${20 + (i % 3) * 20}%`,
+                transform: getParallaxTransform(strengthConfig.layer1 * (i + 1) * 0.5),
+                transition: 'transform 0.15s ease-out',
+                pointerEvents: 'none'
+              }}
+            />
+          ))}
+        </>
+      )}
+      
+      {/* Navigation */}
+      <button
+        onClick={() => handleNav('prev')}
+        disabled={isAnimating}
+        aria-label="Previous"
+        style={{
+          position: 'absolute',
+          left: '24px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: '50px',
+          height: '50px',
+          borderRadius: '50%',
+          backgroundColor: 'rgba(0,0,0,0.4)',
+          backdropFilter: 'blur(10px)',
+          border: `1px solid ${navColor}30`,
+          color: navColor,
+          fontSize: '20px',
+          cursor: isAnimating ? 'not-allowed' : 'pointer',
+          opacity: isAnimating ? 0.5 : 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10,
+          transition: 'all 200ms ease'
+        }}
+      >
+        ←
+      </button>
+      
+      <button
+        onClick={() => handleNav('next')}
+        disabled={isAnimating}
+        aria-label="Next"
+        style={{
+          position: 'absolute',
+          right: '24px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: '50px',
+          height: '50px',
+          borderRadius: '50%',
+          backgroundColor: 'rgba(0,0,0,0.4)',
+          backdropFilter: 'blur(10px)',
+          border: `1px solid ${navColor}30`,
+          color: navColor,
+          fontSize: '20px',
+          cursor: isAnimating ? 'not-allowed' : 'pointer',
+          opacity: isAnimating ? 0.5 : 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10,
+          transition: 'all 200ms ease'
+        }}
+      >
+        →
+      </button>
+      
+      {/* Indicators */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '30px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          gap: '10px',
+          zIndex: 10
+        }}
+      >
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => !isAnimating && handleTransition(idx)}
+            aria-label={`Go to slide ${idx + 1}`}
+            style={{
+              width: currentIndex === idx ? '28px' : '10px',
+              height: '10px',
+              borderRadius: '5px',
+              backgroundColor: currentIndex === idx ? navColor : `${navColor}40`,
+              border: 'none',
+              cursor: isAnimating ? 'not-allowed' : 'pointer',
+              padding: 0,
+              transition: 'all 300ms ease'
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Depth indicator */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '24px',
+          right: '24px',
+          padding: '8px 14px',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          backdropFilter: 'blur(10px)',
+          borderRadius: '20px',
+          color: navColor,
+          fontSize: '11px',
+          fontWeight: '500',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          zIndex: 10
+        }}
+      >
+        {parallaxStrength} depth
+      </div>
+    </div>
+  );
+}

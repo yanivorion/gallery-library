@@ -1,0 +1,371 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["portfolio-parallaxshowcase"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (4/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Portfolio.ParallaxShowcase
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Portfolio.ParallaxShowcase",
+    "description": "Premium portfolio showcase with parallax scrolling, staggered card reveals, and hover-triggered image peeks",
+    "editorElement": {
+      "selector": ".parallax-showcase-wrapper",
+      "displayName": "Parallax Portfolio Showcase",
+      "archetype": "container",
+      "data": {
+        "cards": {
+          "dataType": "text",
+          "displayName": "Cards Data (JSON)",
+          "defaultValue": JSON.stringify([{
+            "title": "Volta Charging",
+            "subtitle": "Product Design",
+            "image": "data:image/svg+xml,%3Csvg width='400' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect width='400' height='100' fill='%23ffffff'/%3E%3Cpath d='M50,20 L80,80 L20,80 Z' fill='%23000000'/%3E%3C/g%3E%3C/svg%3E",
+            "peekImage": "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%2366b3ff'/%3E%3Cstop offset='100%25' style='stop-color:%234a90e2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g1)'/%3E%3C/svg%3E",
+            "backgroundColor": "#1a1a1a"
+          }, {
+            "title": "Meta AI",
+            "subtitle": "Brand Design",
+            "image": "data:image/svg+xml,%3Csvg width='200' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,40 Q60,10 100,40 T180,40' stroke='%23ffffff' fill='none' stroke-width='4'/%3E%3C/svg%3E",
+            "peekImage": "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%239b6dff'/%3E%3Cstop offset='100%25' style='stop-color:%236a4cbf'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g2)'/%3E%3C/svg%3E",
+            "backgroundColor": "#1a1a1a"
+          }, {
+            "title": "Quantum Labs",
+            "subtitle": "Technology Strategy",
+            "image": "data:image/svg+xml,%3Csvg width='150' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='75' cy='40' r='30' stroke='%23ffffff' fill='none' stroke-width='2'/%3E%3Ccircle cx='75' cy='40' r='5' fill='%23ffffff'/%3E%3C/svg%3E",
+            "peekImage": "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%23ff6b9d'/%3E%3Cstop offset='100%25' style='stop-color:%23c44569'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g3)'/%3E%3C/svg%3E",
+            "backgroundColor": "#1a1a1a"
+          }], null, 2),
+          "group": "Content",
+          "description": "Array of card objects with title, subtitle, image, peekImage, backgroundColor"
+        },
+        "staggerDelay": {
+          "dataType": "select",
+          "displayName": "Stagger Delay (ms)",
+          "defaultValue": "150",
+          "options": ["100", "150", "200", "250"],
+          "group": "Animation",
+          "description": "Delay between each card reveal"
+        },
+        "cardHeight": {
+          "dataType": "select",
+          "displayName": "Card Height (vh)",
+          "defaultValue": "50",
+          "options": ["40", "45", "50", "55", "60"],
+          "group": "Layout",
+          "description": "Height of each card as viewport percentage"
+        },
+        "peekHeight": {
+          "dataType": "select",
+          "displayName": "Peek Image Height (%)",
+          "defaultValue": "30",
+          "options": ["20", "25", "30", "35", "40"],
+          "group": "Animation",
+          "description": "How much of peek image reveals on hover"
+        },
+        "parallaxSpeed": {
+          "dataType": "select",
+          "displayName": "Parallax Speed",
+          "defaultValue": "0.5",
+          "options": ["0.3", "0.5", "0.7", "1.0"],
+          "group": "Animation",
+          "description": "Speed multiplier for parallax effect (lower = more dramatic)"
+        },
+        "scrollThreshold": {
+          "dataType": "select",
+          "displayName": "Reveal Threshold",
+          "defaultValue": "0.2",
+          "options": ["0.1", "0.2", "0.3", "0.4"],
+          "group": "Animation",
+          "description": "How much card must be visible to trigger reveal"
+        },
+        "titleSize": {
+          "dataType": "number",
+          "displayName": "Title Font Size (px)",
+          "defaultValue": 56,
+          "group": "Typography",
+          "description": "Font size for card titles"
+        },
+        "subtitleSize": {
+          "dataType": "number",
+          "displayName": "Subtitle Font Size (px)",
+          "defaultValue": 18,
+          "group": "Typography",
+          "description": "Font size for card subtitles"
+        },
+        "fontWeight": {
+          "dataType": "select",
+          "displayName": "Title Font Weight",
+          "defaultValue": "500",
+          "options": ["400", "500"],
+          "group": "Typography"
+        },
+        "titleColor": {
+          "dataType": "color",
+          "displayName": "Title Color",
+          "defaultValue": "#FFFFFF",
+          "group": "Colors"
+        },
+        "subtitleColor": {
+          "dataType": "color",
+          "displayName": "Subtitle Color",
+          "defaultValue": "#A1A1AA",
+          "group": "Colors"
+        },
+        "pageBackground": {
+          "dataType": "color",
+          "displayName": "Page Background",
+          "defaultValue": "#0a0a0a",
+          "group": "Colors"
+        },
+        "cardGap": {
+          "dataType": "select",
+          "displayName": "Card Gap (px)",
+          "defaultValue": "2",
+          "options": ["0", "1", "2", "4"],
+          "group": "Layout",
+          "description": "Space between cards"
+        }
+      },
+      "layout": {
+        "resizeDirection": "vertical",
+        "contentResizeDirection": "vertical"
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    // Safe config access
+    const cardsData = config?.cards || JSON.stringify([{
+      "title": "Volta Charging",
+      "subtitle": "Product Design",
+      "image": "data:image/svg+xml,%3Csvg width='400' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect width='400' height='100' fill='%23ffffff'/%3E%3Cpath d='M50,20 L80,80 L20,80 Z' fill='%23000000'/%3E%3C/g%3E%3C/svg%3E",
+      "peekImage": "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%2366b3ff'/%3E%3Cstop offset='100%25' style='stop-color:%234a90e2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g1)'/%3E%3C/svg%3E",
+      "backgroundColor": "#1a1a1a"
+    }, {
+      "title": "Meta AI",
+      "subtitle": "Brand Design",
+      "image": "data:image/svg+xml,%3Csvg width='200' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,40 Q60,10 100,40 T180,40' stroke='%23ffffff' fill='none' stroke-width='4'/%3E%3C/svg%3E",
+      "peekImage": "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%239b6dff'/%3E%3Cstop offset='100%25' style='stop-color:%236a4cbf'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='400' fill='url(%23g2)'/%3E%3C/svg%3E",
+      "backgroundColor": "#1a1a1a"
+    }], null, 2);
+    const staggerDelay = parseInt(config?.staggerDelay || "150");
+    const cardHeight = parseInt(config?.cardHeight || "50");
+    const peekHeight = parseInt(config?.peekHeight || "30");
+    const parallaxSpeed = parseFloat(config?.parallaxSpeed || "0.5");
+    const scrollThreshold = parseFloat(config?.scrollThreshold || "0.2");
+    const titleSize = parseInt(config?.titleSize || "56");
+    const subtitleSize = parseInt(config?.subtitleSize || "18");
+    const fontWeight = config?.fontWeight || "500";
+    const titleColor = config?.titleColor || "#FFFFFF";
+    const subtitleColor = config?.subtitleColor || "#A1A1AA";
+    const pageBackground = config?.pageBackground || "#0a0a0a";
+    const cardGap = config?.cardGap || "2";
+
+    // Parse cards data
+    let cards = [];
+    try {
+      cards = JSON.parse(cardsData);
+    } catch (e) {
+      cards = [{
+        title: "Volta Charging",
+        subtitle: "Product Design",
+        image: "data:image/svg+xml,%3Csvg width='400' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='100' fill='%23ffffff'/%3E%3C/svg%3E",
+        peekImage: "data:image/svg+xml,%3Csvg width='1200' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1200' height='400' fill='%234a90e2'/%3E%3C/svg%3E",
+        backgroundColor: "#1a1a1a"
+      }];
+    }
+
+    // State
+    const [visibleCards, setVisibleCards] = React.useState(new Set());
+    const [hoveredCard, setHoveredCard] = React.useState(null);
+    const [scrollY, setScrollY] = React.useState(0);
+    const cardRefs = React.useRef([]);
+
+    // Accessibility
+    const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+
+    // Parallax scroll tracking
+    React.useEffect(() => {
+      if (prefersReducedMotion) return;
+      const handleScroll = () => {
+        setScrollY(window.scrollY);
+      };
+      window.addEventListener('scroll', handleScroll, {
+        passive: true
+      });
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, [prefersReducedMotion]);
+
+    // Intersection Observer for card reveals
+    React.useEffect(() => {
+      if (prefersReducedMotion) {
+        // Show all cards immediately if reduced motion
+        setVisibleCards(new Set(cards.map((_, i) => i)));
+        return;
+      }
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute('data-card-index'));
+            setTimeout(() => {
+              setVisibleCards(prev => {
+                const newSet = new Set(prev);
+                newSet.add(index);
+                return newSet;
+              });
+            }, index * staggerDelay);
+          }
+        });
+      }, {
+        threshold: scrollThreshold
+      });
+      cardRefs.current.forEach(ref => {
+        if (ref) observer.observe(ref);
+      });
+      return () => observer.disconnect();
+    }, [cards.length, staggerDelay, scrollThreshold, prefersReducedMotion]);
+    return /*#__PURE__*/React.createElement("div", {
+      className: "parallax-showcase-wrapper",
+      style: {
+        backgroundColor: pageBackground,
+        minHeight: '100vh',
+        position: 'relative',
+        overflow: 'hidden'
+      }
+    }, cards.map((card, index) => {
+      const isVisible = visibleCards.has(index);
+      const isHovered = hoveredCard === index;
+
+      // Calculate parallax offset for peek image
+      const cardTop = cardRefs.current[index]?.offsetTop || 0;
+      const parallaxOffset = prefersReducedMotion ? 0 : (scrollY - cardTop) * parallaxSpeed;
+      return /*#__PURE__*/React.createElement("div", {
+        key: index,
+        ref: el => cardRefs.current[index] = el,
+        "data-card-index": index,
+        onMouseEnter: () => setHoveredCard(index),
+        onMouseLeave: () => setHoveredCard(null),
+        style: {
+          height: `${cardHeight}vh`,
+          minHeight: '400px',
+          position: 'relative',
+          backgroundColor: card.backgroundColor || '#1a1a1a',
+          marginBottom: `${cardGap}px`,
+          overflow: 'hidden',
+          cursor: 'pointer',
+          opacity: prefersReducedMotion ? 1 : isVisible ? 1 : 0,
+          transform: prefersReducedMotion ? 'none' : isVisible ? 'translateY(0)' : 'translateY(40px)',
+          transition: `opacity 600ms cubic-bezier(0.22, 1, 0.36, 1), transform 600ms cubic-bezier(0.22, 1, 0.36, 1)`,
+          willChange: 'opacity, transform'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '100%',
+          overflow: 'hidden',
+          clipPath: prefersReducedMotion ? 'none' : isHovered ? `inset(0 0 ${100 - peekHeight}% 0)` : 'inset(0 0 100% 0)',
+          transition: `clip-path 500ms cubic-bezier(0.22, 1, 0.36, 1)`,
+          willChange: 'clip-path'
+        }
+      }, /*#__PURE__*/React.createElement("img", {
+        src: card.peekImage,
+        alt: "",
+        style: {
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          transform: prefersReducedMotion ? 'none' : `translateY(${parallaxOffset}px) scale(${isHovered ? 1.05 : 1})`,
+          transition: `transform 500ms cubic-bezier(0.22, 1, 0.36, 1)`,
+          willChange: 'transform'
+        }
+      })), /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'relative',
+          zIndex: 2,
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: 'clamp(40px, 6vw, 80px)',
+          pointerEvents: 'none'
+        }
+      }, /*#__PURE__*/React.createElement("h2", {
+        style: {
+          fontSize: `clamp(${titleSize * 0.6}px, ${titleSize * 0.06}vw + ${titleSize * 0.5}px, ${titleSize}px)`,
+          fontWeight,
+          color: titleColor,
+          margin: 0,
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+          letterSpacing: '-0.02em',
+          lineHeight: 1.1
+        }
+      }, card.title), /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-end'
+        }
+      }, /*#__PURE__*/React.createElement("p", {
+        style: {
+          fontSize: `${subtitleSize}px`,
+          fontWeight: '400',
+          color: subtitleColor,
+          margin: 0,
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+          letterSpacing: '0.05em',
+          textTransform: 'uppercase'
+        }
+      }, card.subtitle), card.image && /*#__PURE__*/React.createElement("img", {
+        src: card.image,
+        alt: card.title,
+        style: {
+          maxWidth: '200px',
+          maxHeight: '80px',
+          objectFit: 'contain',
+          filter: 'brightness(0) invert(1)'
+        }
+      }))));
+    }));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

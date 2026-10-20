@@ -1,0 +1,465 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["gallery-bookspread"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (1/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Gallery.BookSpread
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Gallery.BookSpread",
+    "description": "A gallery where images fan out like pages of an open book from a center spine",
+    "editorElement": {
+      "selector": ".book-spread-gallery",
+      "displayName": "Book Spread Gallery",
+      "archetype": "container",
+      "data": {
+        "images": {
+          "dataType": "text",
+          "displayName": "Image URLs",
+          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=280&h=400&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=280&h=400&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=280&h=400&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=280&h=400&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=280&h=400&fit=crop,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=280&h=400&fit=crop",
+          "group": "Content",
+          "description": "Comma-separated image URLs (even number, 4-8 recommended)"
+        },
+        "pageWidth": {
+          "dataType": "select",
+          "displayName": "Page Width",
+          "defaultValue": "200",
+          "options": ["160", "180", "200", "220", "250"],
+          "group": "Layout"
+        },
+        "pageHeight": {
+          "dataType": "select",
+          "displayName": "Page Height",
+          "defaultValue": "300",
+          "options": ["250", "280", "300", "340", "380"],
+          "group": "Layout"
+        },
+        "spreadAngle": {
+          "dataType": "select",
+          "displayName": "Page Spread Angle (degrees)",
+          "defaultValue": "35",
+          "options": ["20", "25", "30", "35", "40", "45"],
+          "group": "Animation"
+        },
+        "perspective": {
+          "dataType": "select",
+          "displayName": "Perspective Depth",
+          "defaultValue": "1200",
+          "options": ["800", "1000", "1200", "1500", "2000"],
+          "group": "Animation"
+        },
+        "transitionDuration": {
+          "dataType": "select",
+          "displayName": "Flip Duration (ms)",
+          "defaultValue": "600",
+          "options": ["400", "500", "600", "800", "1000"],
+          "group": "Animation"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background Color",
+          "defaultValue": "#292524",
+          "group": "Colors"
+        },
+        "spineColor": {
+          "dataType": "color",
+          "displayName": "Spine Color",
+          "defaultValue": "#78716C",
+          "group": "Colors"
+        },
+        "pageBorderColor": {
+          "dataType": "color",
+          "displayName": "Page Border Color",
+          "defaultValue": "#D6D3D1",
+          "group": "Colors"
+        },
+        "pageBackColor": {
+          "dataType": "color",
+          "displayName": "Page Back Color",
+          "defaultValue": "#F5F5F4",
+          "group": "Colors"
+        },
+        "borderRadius": {
+          "dataType": "select",
+          "displayName": "Border Radius",
+          "defaultValue": "4",
+          "options": ["0", "2", "4", "6", "8"],
+          "group": "Layout"
+        },
+        "showPageTexture": {
+          "dataType": "booleanValue",
+          "displayName": "Show Page Texture",
+          "defaultValue": true,
+          "group": "Colors"
+        },
+        "showSpineShadow": {
+          "dataType": "booleanValue",
+          "displayName": "Show Spine Shadow",
+          "defaultValue": true,
+          "group": "Colors"
+        },
+        "hoverLift": {
+          "dataType": "booleanValue",
+          "displayName": "Lift on Hover",
+          "defaultValue": true,
+          "group": "Animation"
+        }
+      },
+      "layout": {
+        "resizeDirection": "horizontalAndVertical",
+        "contentResizeDirection": "horizontal"
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const [selectedPage, setSelectedPage] = React.useState(null);
+    const [hoveredPage, setHoveredPage] = React.useState(null);
+    const [isInView, setIsInView] = React.useState(false);
+    const containerRef = React.useRef(null);
+    const images = React.useMemo(() => {
+      return (config?.images || MANIFEST.editorElement.data.images.defaultValue).split(',').map(url => url.trim()).filter(Boolean);
+    }, [config?.images]);
+    const pageWidth = parseInt(config?.pageWidth || '200');
+    const pageHeight = parseInt(config?.pageHeight || '300');
+    const spreadAngle = parseInt(config?.spreadAngle || '35');
+    const perspective = parseInt(config?.perspective || '1200');
+    const transitionDuration = parseInt(config?.transitionDuration || '600');
+    const backgroundColor = config?.backgroundColor || '#292524';
+    const spineColor = config?.spineColor || '#78716C';
+    const pageBorderColor = config?.pageBorderColor || '#D6D3D1';
+    const pageBackColor = config?.pageBackColor || '#F5F5F4';
+    const borderRadius = parseInt(config?.borderRadius || '4');
+    const showPageTexture = config?.showPageTexture !== false;
+    const showSpineShadow = config?.showSpineShadow !== false;
+    const hoverLift = config?.hoverLift !== false;
+    const prefersReducedMotion = React.useMemo(() => {
+      return typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    }, []);
+    React.useEffect(() => {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setIsInView(true);
+        });
+      }, {
+        threshold: 0.3
+      });
+      if (containerRef.current) observer.observe(containerRef.current);
+      return () => observer.disconnect();
+    }, []);
+
+    // Split into left and right pages
+    const {
+      leftPages,
+      rightPages
+    } = React.useMemo(() => {
+      const half = Math.ceil(images.length / 2);
+      return {
+        leftPages: images.slice(0, half).reverse(),
+        rightPages: images.slice(half)
+      };
+    }, [images]);
+
+    // Get page transform
+    const getPageTransform = (index, side, total) => {
+      const isSelected = selectedPage === `${side}-${index}`;
+      const isHovered = hoveredPage === `${side}-${index}`;
+      if (isSelected) {
+        return {
+          rotateY: side === 'left' ? 0 : 0,
+          translateZ: 100,
+          translateY: -30,
+          scale: 1.1
+        };
+      }
+      const baseAngle = index / (total - 1 || 1) * spreadAngle;
+      const rotation = side === 'left' ? baseAngle : -baseAngle;
+      const lift = hoverLift && isHovered ? -10 : 0;
+      return {
+        rotateY: rotation,
+        translateZ: index * 5,
+        translateY: lift,
+        scale: isHovered ? 1.02 : 1
+      };
+    };
+    if (images.length === 0) {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          backgroundColor,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '400px',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          textAlign: 'center',
+          color: '#71717A'
+        }
+      }, /*#__PURE__*/React.createElement("p", {
+        style: {
+          fontSize: '18px'
+        }
+      }, "No images provided")));
+    }
+    return /*#__PURE__*/React.createElement("div", {
+      ref: containerRef,
+      className: "book-spread-gallery",
+      style: {
+        backgroundColor,
+        minHeight: `${pageHeight + 200}px`,
+        padding: '80px 40px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        perspective: `${perspective}px`,
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        width: `${pageWidth * 2 + 40}px`,
+        height: `${pageHeight + 40}px`,
+        transformStyle: 'preserve-3d'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        width: '8px',
+        height: `${pageHeight + 20}px`,
+        transform: 'translate(-50%, -50%)',
+        backgroundColor: spineColor,
+        borderRadius: '4px',
+        zIndex: 50,
+        boxShadow: showSpineShadow ? `0 0 20px rgba(0,0,0,0.5), inset 2px 0 4px rgba(0,0,0,0.2), inset -2px 0 4px rgba(255,255,255,0.1)` : 'none'
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        right: '50%',
+        top: '50%',
+        width: `${pageWidth}px`,
+        height: `${pageHeight}px`,
+        transformStyle: 'preserve-3d',
+        transformOrigin: 'right center'
+      }
+    }, leftPages.map((image, index) => {
+      const transform = getPageTransform(index, 'left', leftPages.length);
+      const isSelected = selectedPage === `left-${index}`;
+      const isHovered = hoveredPage === `left-${index}`;
+      return /*#__PURE__*/React.createElement("div", {
+        key: `left-${index}`,
+        onClick: () => setSelectedPage(isSelected ? null : `left-${index}`),
+        onMouseEnter: () => setHoveredPage(`left-${index}`),
+        onMouseLeave: () => setHoveredPage(null),
+        style: {
+          position: 'absolute',
+          top: '50%',
+          right: 0,
+          width: `${pageWidth}px`,
+          height: `${pageHeight}px`,
+          marginTop: `-${pageHeight / 2}px`,
+          transformStyle: 'preserve-3d',
+          transformOrigin: 'right center',
+          cursor: 'pointer',
+          opacity: prefersReducedMotion ? 1 : isInView ? 1 : 0,
+          transform: prefersReducedMotion ? `rotateY(${transform.rotateY}deg) translateZ(${transform.translateZ}px) scale(${transform.scale})` : isInView ? `rotateY(${transform.rotateY}deg) translateZ(${transform.translateZ}px) translateY(${transform.translateY}px) scale(${transform.scale})` : `rotateY(-90deg) translateZ(0) scale(0.8)`,
+          zIndex: isSelected ? 100 : leftPages.length - index + (isHovered ? 50 : 0),
+          transition: prefersReducedMotion ? 'none' : `transform ${transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                       opacity 500ms ease-out ${index * 80}ms`
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          borderRadius: `${borderRadius}px ${borderRadius}px ${borderRadius}px ${borderRadius + 2}px`,
+          overflow: 'hidden',
+          border: `1px solid ${pageBorderColor}`,
+          boxShadow: isSelected ? '0 10px 40px rgba(0,0,0,0.4), -5px 5px 20px rgba(0,0,0,0.2)' : '-3px 3px 10px rgba(0,0,0,0.2)',
+          backfaceVisibility: 'hidden'
+        }
+      }, /*#__PURE__*/React.createElement("img", {
+        src: image,
+        alt: `Left page ${index + 1}`,
+        style: {
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          display: 'block'
+        }
+      }), showPageTexture && /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(90deg, rgba(0,0,0,0.05) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.03) 100%)',
+          pointerEvents: 'none'
+        }
+      })), /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          borderRadius: `${borderRadius}px`,
+          backgroundColor: pageBackColor,
+          transform: 'rotateY(180deg)',
+          backfaceVisibility: 'hidden',
+          boxShadow: '3px 3px 10px rgba(0,0,0,0.1)'
+        }
+      }, showPageTexture && /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(0,0,0,0.02) 20px, rgba(0,0,0,0.02) 21px)`,
+          pointerEvents: 'none'
+        }
+      })), /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          width: '30px',
+          height: '30px',
+          background: `linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.05) 50%)`,
+          borderRadius: `0 0 0 ${borderRadius}px`,
+          pointerEvents: 'none'
+        }
+      }));
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        width: `${pageWidth}px`,
+        height: `${pageHeight}px`,
+        transformStyle: 'preserve-3d',
+        transformOrigin: 'left center'
+      }
+    }, rightPages.map((image, index) => {
+      const transform = getPageTransform(index, 'right', rightPages.length);
+      const isSelected = selectedPage === `right-${index}`;
+      const isHovered = hoveredPage === `right-${index}`;
+      return /*#__PURE__*/React.createElement("div", {
+        key: `right-${index}`,
+        onClick: () => setSelectedPage(isSelected ? null : `right-${index}`),
+        onMouseEnter: () => setHoveredPage(`right-${index}`),
+        onMouseLeave: () => setHoveredPage(null),
+        style: {
+          position: 'absolute',
+          top: '50%',
+          left: 0,
+          width: `${pageWidth}px`,
+          height: `${pageHeight}px`,
+          marginTop: `-${pageHeight / 2}px`,
+          transformStyle: 'preserve-3d',
+          transformOrigin: 'left center',
+          cursor: 'pointer',
+          opacity: prefersReducedMotion ? 1 : isInView ? 1 : 0,
+          transform: prefersReducedMotion ? `rotateY(${transform.rotateY}deg) translateZ(${transform.translateZ}px) scale(${transform.scale})` : isInView ? `rotateY(${transform.rotateY}deg) translateZ(${transform.translateZ}px) translateY(${transform.translateY}px) scale(${transform.scale})` : `rotateY(90deg) translateZ(0) scale(0.8)`,
+          zIndex: isSelected ? 100 : rightPages.length - index + (isHovered ? 50 : 0),
+          transition: prefersReducedMotion ? 'none' : `transform ${transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                       opacity 500ms ease-out ${(leftPages.length + index) * 80}ms`
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          borderRadius: `${borderRadius}px ${borderRadius}px ${borderRadius + 2}px ${borderRadius}px`,
+          overflow: 'hidden',
+          border: `1px solid ${pageBorderColor}`,
+          boxShadow: isSelected ? '0 10px 40px rgba(0,0,0,0.4), 5px 5px 20px rgba(0,0,0,0.2)' : '3px 3px 10px rgba(0,0,0,0.2)',
+          backfaceVisibility: 'hidden'
+        }
+      }, /*#__PURE__*/React.createElement("img", {
+        src: image,
+        alt: `Right page ${index + 1}`,
+        style: {
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          display: 'block'
+        }
+      }), showPageTexture && /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(90deg, rgba(0,0,0,0.03) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.05) 100%)',
+          pointerEvents: 'none'
+        }
+      })), /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          borderRadius: `${borderRadius}px`,
+          backgroundColor: pageBackColor,
+          transform: 'rotateY(180deg)',
+          backfaceVisibility: 'hidden',
+          boxShadow: '-3px 3px 10px rgba(0,0,0,0.1)'
+        }
+      }), /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          bottom: 0,
+          right: 0,
+          width: '30px',
+          height: '30px',
+          background: `linear-gradient(-135deg, transparent 50%, rgba(0,0,0,0.05) 50%)`,
+          borderRadius: `0 0 ${borderRadius}px 0`,
+          pointerEvents: 'none'
+        }
+      }));
+    }))));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

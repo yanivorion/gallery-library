@@ -1,0 +1,542 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (3/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Media.ImageCarousel
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Media.ImageCarousel",
+  "description": "Sophisticated image carousel with smooth transitions, touch gestures, and elegant controls",
+  "editorElement": {
+    "selector": ".image-carousel",
+    "displayName": "Image Carousel",
+    "archetype": "container",
+    "data": {
+      "images": {
+        "dataType": "text",
+        "displayName": "Image URLs (comma-separated)",
+        "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200",
+        "group": "Content"
+      },
+      "captions": {
+        "dataType": "text",
+        "displayName": "Captions (pipe-separated)",
+        "defaultValue": "Mountain Vista|Forest Trail|Meadow Bloom|Valley View",
+        "group": "Content"
+      },
+      "autoplay": {
+        "dataType": "booleanValue",
+        "displayName": "Enable Autoplay",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "autoplayInterval": {
+        "dataType": "select",
+        "displayName": "Autoplay Interval (seconds)",
+        "defaultValue": "5",
+        "options": ["3", "4", "5", "6", "8"],
+        "group": "Content"
+      },
+      "showThumbnails": {
+        "dataType": "booleanValue",
+        "displayName": "Show Thumbnails",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "showDots": {
+        "dataType": "booleanValue",
+        "displayName": "Show Dot Indicators",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "showArrows": {
+        "dataType": "booleanValue",
+        "displayName": "Show Arrow Controls",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "showCaptions": {
+        "dataType": "booleanValue",
+        "displayName": "Show Captions",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "transitionStyle": {
+        "dataType": "select",
+        "displayName": "Transition Style",
+        "defaultValue": "slide",
+        "options": ["slide", "fade", "zoom", "blur"],
+        "group": "Animation"
+      },
+      "transitionDuration": {
+        "dataType": "select",
+        "displayName": "Transition Duration (ms)",
+        "defaultValue": "500",
+        "options": ["300", "400", "500", "600", "800"],
+        "group": "Animation"
+      },
+      "aspectRatio": {
+        "dataType": "select",
+        "displayName": "Aspect Ratio",
+        "defaultValue": "16/9",
+        "options": ["16/9", "4/3", "21/9", "1/1"],
+        "group": "Layout"
+      },
+      "fontSize": {
+        "dataType": "number",
+        "displayName": "Caption Font Size (px)",
+        "defaultValue": 18,
+        "group": "Typography"
+      },
+      "fontWeight": {
+        "dataType": "select",
+        "displayName": "Font Weight",
+        "defaultValue": "400",
+        "options": ["300", "400", "500"],
+        "group": "Typography"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "controlsColor": {
+        "dataType": "color",
+        "displayName": "Controls Color",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "controlsBackground": {
+        "dataType": "color",
+        "displayName": "Controls Background",
+        "defaultValue": "rgba(0,0,0,0.5)",
+        "group": "Colors"
+      },
+      "activeDotColor": {
+        "dataType": "color",
+        "displayName": "Active Dot Color",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "inactiveDotColor": {
+        "dataType": "color",
+        "displayName": "Inactive Dot Color",
+        "defaultValue": "rgba(255,255,255,0.5)",
+        "group": "Colors"
+      },
+      "captionBackground": {
+        "dataType": "color",
+        "displayName": "Caption Background",
+        "defaultValue": "rgba(0,0,0,0.6)",
+        "group": "Colors"
+      },
+      "captionTextColor": {
+        "dataType": "color",
+        "displayName": "Caption Text Color",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      }
+    },
+    "layout": {
+      "resizeDirection": "horizontalAndVertical",
+      "contentResizeDirection": "vertical"
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const imageUrls = (config?.images || "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200").split(',').map(url => url.trim());
+  const captions = (config?.captions || "Mountain Vista|Forest Trail|Meadow Bloom|Valley View").split('|').map(c => c.trim());
+  const autoplay = config?.autoplay !== false;
+  const autoplayInterval = parseInt(config?.autoplayInterval || "5") * 1000;
+  const showThumbnails = config?.showThumbnails !== false;
+  const showDots = config?.showDots !== false;
+  const showArrows = config?.showArrows !== false;
+  const showCaptions = config?.showCaptions !== false;
+  const transitionStyle = config?.transitionStyle || "slide";
+  const transitionDuration = parseInt(config?.transitionDuration || "500");
+  const aspectRatio = config?.aspectRatio || "16/9";
+  const fontSize = parseInt(config?.fontSize || "18");
+  const fontWeight = config?.fontWeight || "400";
+  const backgroundColor = config?.backgroundColor || "#FFFFFF";
+  const controlsColor = config?.controlsColor || "#FFFFFF";
+  const controlsBackground = config?.controlsBackground || "rgba(0,0,0,0.5)";
+  const activeDotColor = config?.activeDotColor || "#FFFFFF";
+  const inactiveDotColor = config?.inactiveDotColor || "rgba(255,255,255,0.5)";
+  const captionBackground = config?.captionBackground || "rgba(0,0,0,0.6)";
+  const captionTextColor = config?.captionTextColor || "#FFFFFF";
+
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [direction, setDirection] = React.useState(1);
+  const [isPaused, setIsPaused] = React.useState(false);
+  const [touchStart, setTouchStart] = React.useState(0);
+  const [touchEnd, setTouchEnd] = React.useState(0);
+
+  const prefersReducedMotion = typeof window !== 'undefined' 
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+    : false;
+
+  const goToSlide = (index) => {
+    setDirection(index > currentIndex ? 1 : -1);
+    setCurrentIndex(index);
+  };
+
+  const goNext = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % imageUrls.length);
+  };
+
+  const goPrev = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + imageUrls.length) % imageUrls.length);
+  };
+
+  // Autoplay
+  React.useEffect(() => {
+    if (!autoplay || isPaused || prefersReducedMotion) return;
+    const interval = setInterval(goNext, autoplayInterval);
+    return () => clearInterval(interval);
+  }, [autoplay, isPaused, currentIndex, autoplayInterval, prefersReducedMotion]);
+
+  // Touch handlers
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) goNext();
+    if (isRightSwipe) goPrev();
+
+    setTouchStart(0);
+    setTouchEnd(0);
+  };
+
+  // Keyboard navigation
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') goPrev();
+      if (e.key === 'ArrowRight') goNext();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentIndex]);
+
+  const getSlideStyle = (index) => {
+    const isActive = index === currentIndex;
+    const isPrev = index === currentIndex - 1 || (currentIndex === 0 && index === imageUrls.length - 1);
+    const isNext = index === currentIndex + 1 || (currentIndex === imageUrls.length - 1 && index === 0);
+
+    let baseStyle = {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      transition: prefersReducedMotion ? 'none' : `all ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+      willChange: 'transform, opacity'
+    };
+
+    if (prefersReducedMotion) {
+      return {
+        ...baseStyle,
+        opacity: isActive ? 1 : 0,
+        pointerEvents: isActive ? 'auto' : 'none'
+      };
+    }
+
+    switch (transitionStyle) {
+      case 'slide':
+        return {
+          ...baseStyle,
+          transform: isActive ? 'translateX(0)' : isPrev ? 'translateX(-100%)' : 'translateX(100%)',
+          opacity: isActive ? 1 : 0
+        };
+      case 'fade':
+        return {
+          ...baseStyle,
+          opacity: isActive ? 1 : 0,
+          transform: 'translateX(0)'
+        };
+      case 'zoom':
+        return {
+          ...baseStyle,
+          opacity: isActive ? 1 : 0,
+          transform: isActive ? 'scale(1)' : 'scale(0.95)'
+        };
+      case 'blur':
+        return {
+          ...baseStyle,
+          opacity: isActive ? 1 : 0,
+          filter: isActive ? 'blur(0)' : 'blur(10px)'
+        };
+      default:
+        return baseStyle;
+    }
+  };
+
+  return (
+    <div className="image-carousel" style={{
+      minHeight: '100vh',
+      width: '100%',
+      backgroundColor,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '2rem',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+    }}>
+      <div style={{
+        maxWidth: '1400px',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1.5rem'
+      }}>
+        {/* Main Carousel */}
+        <div
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          style={{
+            position: 'relative',
+            width: '100%',
+            aspectRatio,
+            borderRadius: '12px',
+            overflow: 'hidden',
+            backgroundColor: '#000000',
+            boxShadow: '0 4px 24px rgba(0,0,0,0.12)'
+          }}
+        >
+          {/* Slides */}
+          {imageUrls.map((url, index) => (
+            <div key={index} style={getSlideStyle(index)}>
+              <img
+                src={url}
+                alt={captions[index] || `Slide ${index + 1}`}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+              />
+            </div>
+          ))}
+
+          {/* Caption Overlay */}
+          {showCaptions && captions[currentIndex] && (
+            <div style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              padding: '1.5rem 2rem',
+              background: captionBackground,
+              backdropFilter: 'blur(8px)',
+              color: captionTextColor,
+              fontSize: `${fontSize}px`,
+              fontWeight,
+              letterSpacing: '0.025em',
+              opacity: prefersReducedMotion ? 1 : 0,
+              transform: prefersReducedMotion ? 'translateY(0)' : 'translateY(10px)',
+              animation: prefersReducedMotion ? 'none' : 'slideUpFadeCaption 400ms ease-out 300ms forwards'
+            }}>
+              {captions[currentIndex]}
+            </div>
+          )}
+
+          {/* Arrow Controls */}
+          {showArrows && (
+            <>
+              <button
+                onClick={goPrev}
+                aria-label="Previous slide"
+                style={{
+                  position: 'absolute',
+                  left: '1.5rem',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  backgroundColor: controlsBackground,
+                  backdropFilter: 'blur(8px)',
+                  color: controlsColor,
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '1.5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 200ms ease-out',
+                  opacity: 0.8
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = 1;
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = 0.8;
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                }}
+              >
+                ‹
+              </button>
+              <button
+                onClick={goNext}
+                aria-label="Next slide"
+                style={{
+                  position: 'absolute',
+                  right: '1.5rem',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  backgroundColor: controlsBackground,
+                  backdropFilter: 'blur(8px)',
+                  color: controlsColor,
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '1.5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 200ms ease-out',
+                  opacity: 0.8
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = 1;
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = 0.8;
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                }}
+              >
+                ›
+              </button>
+            </>
+          )}
+
+          {/* Dot Indicators */}
+          {showDots && (
+            <div style={{
+              position: 'absolute',
+              bottom: '1.5rem',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              gap: '0.5rem',
+              padding: '0.5rem 1rem',
+              backgroundColor: controlsBackground,
+              backdropFilter: 'blur(8px)',
+              borderRadius: '24px'
+            }}>
+              {imageUrls.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                  aria-current={index === currentIndex ? "true" : "false"}
+                  style={{
+                    width: index === currentIndex ? '24px' : '8px',
+                    height: '8px',
+                    borderRadius: '4px',
+                    backgroundColor: index === currentIndex ? activeDotColor : inactiveDotColor,
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 200ms ease-out',
+                    padding: 0
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Thumbnail Navigation */}
+        {showThumbnails && (
+          <div style={{
+            display: 'flex',
+            gap: '1rem',
+            overflowX: 'auto',
+            padding: '0.5rem 0',
+            scrollbarWidth: 'thin'
+          }}>
+            {imageUrls.map((url, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                aria-label={`Thumbnail ${index + 1}`}
+                style={{
+                  flexShrink: 0,
+                  width: '120px',
+                  aspectRatio: '16/9',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  border: index === currentIndex ? `3px solid ${activeDotColor}` : '3px solid transparent',
+                  opacity: index === currentIndex ? 1 : 0.6,
+                  cursor: 'pointer',
+                  transition: 'all 200ms ease-out',
+                  padding: 0,
+                  backgroundColor: 'transparent'
+                }}
+                onMouseEnter={(e) => {
+                  if (index !== currentIndex) {
+                    e.currentTarget.style.opacity = 1;
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (index !== currentIndex) {
+                    e.currentTarget.style.opacity = 0.6;
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }
+                }}
+              >
+                <img
+                  src={url}
+                  alt={`Thumbnail ${index + 1}`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes slideUpFadeCaption {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </div>
+  );
+}

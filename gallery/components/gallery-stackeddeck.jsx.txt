@@ -1,0 +1,419 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (2/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.StackedDeck
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.StackedDeck",
+  "description": "A vertical stack gallery where images appear piled like playing cards with shuffle and fan interactions",
+  "editorElement": {
+    "selector": ".stacked-deck-gallery",
+    "displayName": "Stacked Deck Gallery",
+    "archetype": "container",
+    "data": {
+      "images": {
+        "dataType": "text",
+        "displayName": "Image URLs",
+        "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=500&fit=crop",
+        "group": "Content",
+        "description": "Comma-separated image URLs (5-7 recommended)"
+      },
+      "cardWidth": {
+        "dataType": "select",
+        "displayName": "Card Width",
+        "defaultValue": "280",
+        "options": ["220", "250", "280", "320", "360"],
+        "group": "Layout"
+      },
+      "cardHeight": {
+        "dataType": "select",
+        "displayName": "Card Height",
+        "defaultValue": "360",
+        "options": ["280", "320", "360", "400", "450"],
+        "group": "Layout"
+      },
+      "stackOffset": {
+        "dataType": "select",
+        "displayName": "Stack Offset",
+        "defaultValue": "8",
+        "options": ["4", "6", "8", "10", "12"],
+        "group": "Layout"
+      },
+      "rotationRange": {
+        "dataType": "select",
+        "displayName": "Rotation Range (degrees)",
+        "defaultValue": "3",
+        "options": ["1", "2", "3", "4", "5"],
+        "group": "Animation"
+      },
+      "fanSpread": {
+        "dataType": "select",
+        "displayName": "Fan Spread Distance",
+        "defaultValue": "60",
+        "options": ["40", "50", "60", "80", "100"],
+        "group": "Animation"
+      },
+      "transitionDuration": {
+        "dataType": "select",
+        "displayName": "Transition Duration",
+        "defaultValue": "400",
+        "options": ["200", "300", "400", "500", "600"],
+        "group": "Animation"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#F5F5F4",
+        "group": "Colors"
+      },
+      "cardBorderColor": {
+        "dataType": "color",
+        "displayName": "Card Border Color",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "shadowColor": {
+        "dataType": "color",
+        "displayName": "Shadow Color",
+        "defaultValue": "#1C1917",
+        "group": "Colors"
+      },
+      "borderRadius": {
+        "dataType": "select",
+        "displayName": "Border Radius",
+        "defaultValue": "16",
+        "options": ["8", "12", "16", "20", "24"],
+        "group": "Layout"
+      },
+      "cardBorderWidth": {
+        "dataType": "select",
+        "displayName": "Card Border Width",
+        "defaultValue": "4",
+        "options": ["0", "2", "3", "4", "6"],
+        "group": "Layout"
+      },
+      "showShuffleButton": {
+        "dataType": "booleanValue",
+        "displayName": "Show Shuffle Button",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "enableHoverFan": {
+        "dataType": "booleanValue",
+        "displayName": "Fan on Hover",
+        "defaultValue": true,
+        "group": "Animation"
+      },
+      "autoShuffle": {
+        "dataType": "booleanValue",
+        "displayName": "Auto Shuffle",
+        "defaultValue": false,
+        "group": "Animation"
+      },
+      "autoShuffleInterval": {
+        "dataType": "select",
+        "displayName": "Auto Shuffle Interval (seconds)",
+        "defaultValue": "3",
+        "options": ["2", "3", "4", "5", "6"],
+        "group": "Animation"
+      }
+    },
+    "layout": {
+      "resizeDirection": "horizontalAndVertical",
+      "contentResizeDirection": "horizontal"
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const [stackOrder, setStackOrder] = React.useState([]);
+  const [isHovered, setIsHovered] = React.useState(false);
+  const [hoveredCard, setHoveredCard] = React.useState(null);
+  const [isShuffling, setIsShuffling] = React.useState(false);
+  const [isInView, setIsInView] = React.useState(false);
+  const containerRef = React.useRef(null);
+
+  const images = React.useMemo(() => {
+    return (config?.images || MANIFEST.editorElement.data.images.defaultValue)
+      .split(',')
+      .map(url => url.trim())
+      .filter(Boolean);
+  }, [config?.images]);
+
+  const cardWidth = parseInt(config?.cardWidth || '280');
+  const cardHeight = parseInt(config?.cardHeight || '360');
+  const stackOffset = parseInt(config?.stackOffset || '8');
+  const rotationRange = parseFloat(config?.rotationRange || '3');
+  const fanSpread = parseInt(config?.fanSpread || '60');
+  const transitionDuration = parseInt(config?.transitionDuration || '400');
+  const backgroundColor = config?.backgroundColor || '#F5F5F4';
+  const cardBorderColor = config?.cardBorderColor || '#FFFFFF';
+  const shadowColor = config?.shadowColor || '#1C1917';
+  const borderRadius = parseInt(config?.borderRadius || '16');
+  const cardBorderWidth = parseInt(config?.cardBorderWidth || '4');
+  const showShuffleButton = config?.showShuffleButton !== false;
+  const enableHoverFan = config?.enableHoverFan !== false;
+  const autoShuffle = config?.autoShuffle === true;
+  const autoShuffleInterval = parseInt(config?.autoShuffleInterval || '3');
+
+  const prefersReducedMotion = React.useMemo(() => {
+    return typeof window !== 'undefined'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false;
+  }, []);
+
+  // Initialize stack order
+  React.useEffect(() => {
+    setStackOrder(images.map((_, i) => i));
+  }, [images.length]);
+
+  // Intersection observer
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setIsInView(true);
+        });
+      },
+      { threshold: 0.3 }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto shuffle
+  React.useEffect(() => {
+    if (!autoShuffle || prefersReducedMotion) return;
+    const interval = setInterval(() => {
+      shuffleStack();
+    }, autoShuffleInterval * 1000);
+    return () => clearInterval(interval);
+  }, [autoShuffle, autoShuffleInterval, prefersReducedMotion]);
+
+  // Generate deterministic rotation for each card
+  const getCardRotation = (index) => {
+    const seed = index * 1.5;
+    return (Math.sin(seed) * rotationRange);
+  };
+
+  // Shuffle function
+  const shuffleStack = () => {
+    if (isShuffling) return;
+    setIsShuffling(true);
+    
+    setStackOrder(prev => {
+      const newOrder = [...prev];
+      const top = newOrder.pop();
+      newOrder.unshift(top);
+      return newOrder;
+    });
+
+    setTimeout(() => setIsShuffling(false), transitionDuration);
+  };
+
+  // Bring card to top
+  const bringToTop = (cardIndex) => {
+    setStackOrder(prev => {
+      const newOrder = prev.filter(i => i !== cardIndex);
+      newOrder.push(cardIndex);
+      return newOrder;
+    });
+  };
+
+  // Parse shadow color to RGB
+  const shadowRGB = React.useMemo(() => {
+    const hex = shadowColor.replace('#', '');
+    return {
+      r: parseInt(hex.slice(0, 2), 16),
+      g: parseInt(hex.slice(2, 4), 16),
+      b: parseInt(hex.slice(4, 6), 16)
+    };
+  }, [shadowColor]);
+
+  if (images.length === 0) {
+    return (
+      <div style={{
+        backgroundColor,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '400px',
+        padding: '40px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}>
+        <div style={{ textAlign: 'center', color: '#71717A' }}>
+          <p style={{ fontSize: '18px', marginBottom: '8px' }}>No images provided</p>
+          <p style={{ fontSize: '14px', opacity: 0.7 }}>Add comma-separated image URLs</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      className="stacked-deck-gallery"
+      style={{
+        backgroundColor,
+        minHeight: `${cardHeight + 200}px`,
+        padding: '60px 40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '40px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}
+    >
+      {/* Stack Container */}
+      <div
+        onMouseEnter={() => enableHoverFan && setIsHovered(true)}
+        onMouseLeave={() => {
+          enableHoverFan && setIsHovered(false);
+          setHoveredCard(null);
+        }}
+        style={{
+          position: 'relative',
+          width: `${cardWidth + fanSpread * 2}px`,
+          height: `${cardHeight + stackOffset * images.length}px`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        {stackOrder.map((imageIndex, stackPosition) => {
+          const image = images[imageIndex];
+          const isTop = stackPosition === stackOrder.length - 1;
+          const distanceFromTop = stackOrder.length - 1 - stackPosition;
+          
+          // Calculate stack offsets
+          const baseOffsetX = distanceFromTop * stackOffset * 0.5;
+          const baseOffsetY = distanceFromTop * stackOffset;
+          const baseRotation = getCardRotation(imageIndex);
+          const baseScale = 1 - (distanceFromTop * 0.02);
+
+          // Fan effect calculations
+          const fanIndex = stackPosition - (stackOrder.length - 1) / 2;
+          const fanOffsetX = isHovered ? fanIndex * fanSpread : 0;
+          const fanRotation = isHovered ? fanIndex * 8 : 0;
+
+          // Hover lift for individual card
+          const isCardHovered = hoveredCard === imageIndex;
+          const hoverLift = isCardHovered ? -20 : 0;
+          const hoverScale = isCardHovered ? 1.05 : 1;
+
+          return (
+            <div
+              key={imageIndex}
+              onClick={() => bringToTop(imageIndex)}
+              onMouseEnter={() => setHoveredCard(imageIndex)}
+              onMouseLeave={() => setHoveredCard(null)}
+              style={{
+                position: 'absolute',
+                width: `${cardWidth}px`,
+                height: `${cardHeight}px`,
+                borderRadius: `${borderRadius}px`,
+                overflow: 'hidden',
+                cursor: 'pointer',
+                border: `${cardBorderWidth}px solid ${cardBorderColor}`,
+                boxSizing: 'border-box',
+                opacity: prefersReducedMotion ? 1 : (isInView ? 1 : 0),
+                transform: prefersReducedMotion
+                  ? `translate(${baseOffsetX + fanOffsetX}px, ${baseOffsetY + hoverLift}px) rotate(${baseRotation + fanRotation}deg) scale(${baseScale * hoverScale})`
+                  : (isInView
+                    ? `translate(${baseOffsetX + fanOffsetX}px, ${baseOffsetY + hoverLift}px) rotate(${baseRotation + fanRotation}deg) scale(${baseScale * hoverScale})`
+                    : `translate(${baseOffsetX}px, ${baseOffsetY + 50}px) rotate(${baseRotation}deg) scale(0.8)`
+                  ),
+                zIndex: stackPosition + (isCardHovered ? 100 : 0),
+                boxShadow: `
+                  0 ${4 + distanceFromTop * 2}px ${8 + distanceFromTop * 4}px rgba(${shadowRGB.r}, ${shadowRGB.g}, ${shadowRGB.b}, ${0.1 + distanceFromTop * 0.02}),
+                  0 ${2 + distanceFromTop}px ${4 + distanceFromTop * 2}px rgba(${shadowRGB.r}, ${shadowRGB.g}, ${shadowRGB.b}, 0.06)
+                `,
+                transition: prefersReducedMotion
+                  ? 'none'
+                  : `transform ${transitionDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1), 
+                     box-shadow ${transitionDuration}ms ease-out,
+                     opacity 500ms ease-out ${stackPosition * 50}ms`,
+                willChange: 'transform'
+              }}
+            >
+              <img
+                src={image}
+                alt={`Card ${imageIndex + 1}`}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block'
+                }}
+              />
+
+              {/* Paper texture overlay */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(0,0,0,0.05) 100%)',
+                  pointerEvents: 'none'
+                }}
+              />
+
+              {/* Corner dog-ear effect for non-top cards */}
+              {!isTop && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: '20px',
+                    height: '20px',
+                    background: `linear-gradient(135deg, transparent 50%, rgba(${shadowRGB.r}, ${shadowRGB.g}, ${shadowRGB.b}, 0.1) 50%)`,
+                    pointerEvents: 'none'
+                  }}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Shuffle Button */}
+      {showShuffleButton && (
+        <button
+          onClick={shuffleStack}
+          disabled={isShuffling}
+          aria-label="Shuffle cards"
+          style={{
+            fontFamily: 'inherit',
+            fontSize: '14px',
+            fontWeight: '500',
+            color: '#FFFFFF',
+            backgroundColor: isShuffling ? '#A1A1AA' : '#18181B',
+            border: 'none',
+            borderRadius: '8px',
+            padding: '12px 24px',
+            cursor: isShuffling ? 'not-allowed' : 'pointer',
+            transition: prefersReducedMotion ? 'none' : 'background-color 200ms ease-out, transform 200ms ease-out',
+            transform: isShuffling ? 'scale(0.95)' : 'scale(1)'
+          }}
+          onMouseEnter={(e) => {
+            if (!isShuffling) e.target.style.backgroundColor = '#27272A';
+          }}
+          onMouseLeave={(e) => {
+            if (!isShuffling) e.target.style.backgroundColor = '#18181B';
+          }}
+        >
+          {isShuffling ? 'Shuffling...' : 'Shuffle Stack'}
+        </button>
+      )}
+    </div>
+  );
+}

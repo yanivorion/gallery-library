@@ -1,0 +1,471 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["gallery-categoryfilter"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (1/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Gallery.CategoryFilter
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Gallery.CategoryFilter",
+    "description": "Filterable gallery with category buttons, smooth grid reorganization, and elegant transitions for organized image browsing by topic or tag",
+    "editorElement": {
+      "selector": ".category-filter-gallery",
+      "displayName": "Gallery with Category Filters",
+      "archetype": "container",
+      "data": {
+        "images": {
+          "dataType": "text",
+          "displayName": "Images (JSON Array)",
+          "defaultValue": JSON.stringify([{
+            url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+            caption: "Mountain Vista",
+            category: "Nature"
+          }, {
+            url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+            caption: "Forest Path",
+            category: "Nature"
+          }, {
+            url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
+            caption: "Desert Sunset",
+            category: "Nature"
+          }, {
+            url: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800",
+            caption: "City Skyline",
+            category: "Urban"
+          }, {
+            url: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800",
+            caption: "Street Art",
+            category: "Urban"
+          }, {
+            url: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800",
+            caption: "Concert Crowd",
+            category: "People"
+          }, {
+            url: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800",
+            caption: "Friends Laughing",
+            category: "People"
+          }, {
+            url: "https://images.unsplash.com/photo-1502301103665-0b95cc738daf?w=800",
+            caption: "Abstract Art",
+            category: "Abstract"
+          }, {
+            url: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800",
+            caption: "Color Splash",
+            category: "Abstract"
+          }, {
+            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800",
+            caption: "Misty Valley",
+            category: "Nature"
+          }, {
+            url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800",
+            caption: "Urban Night",
+            category: "Urban"
+          }, {
+            url: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800",
+            caption: "Portrait",
+            category: "People"
+          }]),
+          "group": "Content",
+          "description": "Array of image objects with url, caption, and category"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background Color",
+          "defaultValue": "#FAFBFC",
+          "group": "Colors"
+        },
+        "cardBackground": {
+          "dataType": "color",
+          "displayName": "Card Background",
+          "defaultValue": "#FFFFFF",
+          "group": "Colors"
+        },
+        "textColor": {
+          "dataType": "color",
+          "displayName": "Text Color",
+          "defaultValue": "#1F2937",
+          "group": "Colors"
+        },
+        "filterInactiveColor": {
+          "dataType": "color",
+          "displayName": "Filter Inactive Color",
+          "defaultValue": "#E5E7EB",
+          "group": "Colors"
+        },
+        "accentColor": {
+          "dataType": "color",
+          "displayName": "Active Filter Color",
+          "defaultValue": "#3B82F6",
+          "group": "Colors"
+        },
+        "gridGap": {
+          "dataType": "number",
+          "displayName": "Grid Gap (px)",
+          "defaultValue": 16,
+          "group": "Layout"
+        },
+        "columnMinWidth": {
+          "dataType": "number",
+          "displayName": "Column Min Width (px)",
+          "defaultValue": 250,
+          "group": "Layout"
+        },
+        "borderRadius": {
+          "dataType": "number",
+          "displayName": "Border Radius (px)",
+          "defaultValue": 8,
+          "group": "Layout"
+        },
+        "showCaptions": {
+          "dataType": "booleanValue",
+          "displayName": "Show Captions",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "showItemCount": {
+          "dataType": "booleanValue",
+          "displayName": "Show Item Count on Filters",
+          "defaultValue": true,
+          "group": "Content"
+        },
+        "filterButtonStyle": {
+          "dataType": "select",
+          "displayName": "Filter Button Style",
+          "defaultValue": "pill",
+          "options": ["pill", "minimal", "outlined"],
+          "group": "Layout"
+        },
+        "transitionDuration": {
+          "dataType": "select",
+          "displayName": "Transition Duration (ms)",
+          "defaultValue": "400",
+          "options": ["300", "400", "500"],
+          "group": "Animation"
+        }
+      },
+      "layout": {
+        "resizeDirection": "horizontalAndVertical",
+        "contentResizeDirection": "vertical"
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const imagesData = config?.images || JSON.stringify([{
+      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+      caption: "Mountain Vista",
+      category: "Nature"
+    }, {
+      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+      caption: "Forest Path",
+      category: "Nature"
+    }, {
+      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
+      caption: "Desert Sunset",
+      category: "Nature"
+    }, {
+      url: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800",
+      caption: "City Skyline",
+      category: "Urban"
+    }, {
+      url: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800",
+      caption: "Street Art",
+      category: "Urban"
+    }, {
+      url: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800",
+      caption: "Concert Crowd",
+      category: "People"
+    }, {
+      url: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800",
+      caption: "Friends Laughing",
+      category: "People"
+    }, {
+      url: "https://images.unsplash.com/photo-1502301103665-0b95cc738daf?w=800",
+      caption: "Abstract Art",
+      category: "Abstract"
+    }, {
+      url: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800",
+      caption: "Color Splash",
+      category: "Abstract"
+    }, {
+      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800",
+      caption: "Misty Valley",
+      category: "Nature"
+    }, {
+      url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800",
+      caption: "Urban Night",
+      category: "Urban"
+    }, {
+      url: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800",
+      caption: "Portrait",
+      category: "People"
+    }]);
+    const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
+    const backgroundColor = config?.backgroundColor || "#FAFBFC";
+    const cardBackground = config?.cardBackground || "#FFFFFF";
+    const textColor = config?.textColor || "#1F2937";
+    const filterInactiveColor = config?.filterInactiveColor || "#E5E7EB";
+    const accentColor = config?.accentColor || "#3B82F6";
+    const gridGap = parseInt(config?.gridGap || "16");
+    const columnMinWidth = parseInt(config?.columnMinWidth || "250");
+    const borderRadius = parseInt(config?.borderRadius || "8");
+    const showCaptions = config?.showCaptions !== false;
+    const showItemCount = config?.showItemCount !== false;
+    const filterButtonStyle = config?.filterButtonStyle || "pill";
+    const transitionDuration = parseInt(config?.transitionDuration || "400");
+    const [activeCategory, setActiveCategory] = React.useState("All");
+    const [isTransitioning, setIsTransitioning] = React.useState(false);
+    const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+
+    // Extract unique categories
+    const categories = React.useMemo(() => {
+      const uniqueCategories = ["All", ...new Set(images.map(img => img.category).filter(Boolean))];
+      return uniqueCategories;
+    }, [images]);
+
+    // Get count for each category
+    const getCategoryCount = category => {
+      if (category === "All") return images.length;
+      return images.filter(img => img.category === category).length;
+    };
+
+    // Filter images based on active category
+    const filteredImages = React.useMemo(() => {
+      if (activeCategory === "All") return images;
+      return images.filter(img => img.category === activeCategory);
+    }, [activeCategory, images]);
+
+    // Handle category change with transition
+    const handleCategoryChange = category => {
+      if (category === activeCategory) return;
+      setIsTransitioning(true);
+
+      // Fade out, then change category, then fade in
+      setTimeout(() => {
+        setActiveCategory(category);
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 50);
+      }, prefersReducedMotion ? 0 : 200);
+    };
+
+    // Get filter button styles based on style type
+    const getFilterButtonStyles = isActive => {
+      const baseStyles = {
+        border: 'none',
+        cursor: 'pointer',
+        fontSize: '14px',
+        fontWeight: '500',
+        transition: prefersReducedMotion ? 'none' : 'all 300ms ease-out',
+        outline: 'none',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      };
+      switch (filterButtonStyle) {
+        case 'minimal':
+          return {
+            ...baseStyles,
+            backgroundColor: 'transparent',
+            color: isActive ? accentColor : textColor,
+            padding: '8px 16px',
+            borderRadius: '4px',
+            borderBottom: isActive ? `2px solid ${accentColor}` : '2px solid transparent'
+          };
+        case 'outlined':
+          return {
+            ...baseStyles,
+            backgroundColor: isActive ? accentColor : 'transparent',
+            color: isActive ? '#FFFFFF' : textColor,
+            padding: '10px 20px',
+            borderRadius: `${borderRadius}px`,
+            border: isActive ? 'none' : `1px solid ${filterInactiveColor}`
+          };
+        case 'pill':
+        default:
+          return {
+            ...baseStyles,
+            backgroundColor: isActive ? accentColor : filterInactiveColor,
+            color: isActive ? '#FFFFFF' : textColor,
+            padding: '10px 20px',
+            borderRadius: '24px'
+          };
+      }
+    };
+    return /*#__PURE__*/React.createElement("div", {
+      className: "category-filter-gallery",
+      style: {
+        backgroundColor: backgroundColor,
+        padding: '48px 24px',
+        minHeight: '100vh',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        maxWidth: '1400px',
+        margin: '0 auto'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '12px',
+        marginBottom: '48px',
+        justifyContent: 'center'
+      }
+    }, categories.map(category => {
+      const isActive = category === activeCategory;
+      return /*#__PURE__*/React.createElement("button", {
+        key: category,
+        onClick: () => handleCategoryChange(category),
+        "aria-pressed": isActive,
+        style: {
+          ...getFilterButtonStyles(isActive),
+          boxShadow: isActive ? '0 2px 8px rgba(59, 130, 246, 0.3)' : 'none'
+        },
+        onMouseEnter: e => {
+          if (!prefersReducedMotion && !isActive) {
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+          }
+        },
+        onMouseLeave: e => {
+          e.currentTarget.style.transform = 'translateY(0)';
+          e.currentTarget.style.boxShadow = isActive ? '0 2px 8px rgba(59, 130, 246, 0.3)' : 'none';
+        },
+        onFocus: e => {
+          e.currentTarget.style.outline = `2px solid ${accentColor}`;
+          e.currentTarget.style.outlineOffset = '2px';
+        },
+        onBlur: e => {
+          e.currentTarget.style.outline = 'none';
+        }
+      }, category, showItemCount && /*#__PURE__*/React.createElement("span", {
+        style: {
+          marginLeft: '6px',
+          opacity: 0.8
+        }
+      }, "(", getCategoryCount(category), ")"));
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: `repeat(auto-fit, minmax(${columnMinWidth}px, 1fr))`,
+        gap: `${gridGap}px`,
+        opacity: isTransitioning ? 0 : 1,
+        transform: isTransitioning ? 'translateY(10px)' : 'translateY(0)',
+        transition: prefersReducedMotion ? 'none' : `opacity ${transitionDuration}ms ease-out, transform ${transitionDuration}ms ease-out`
+      }
+    }, filteredImages.map((image, index) => /*#__PURE__*/React.createElement("div", {
+      key: `${activeCategory}-${index}`,
+      style: {
+        backgroundColor: cardBackground,
+        borderRadius: `${borderRadius}px`,
+        overflow: 'hidden',
+        boxShadow: '0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03)',
+        cursor: 'pointer',
+        transition: prefersReducedMotion ? 'none' : 'transform 250ms ease-out, box-shadow 250ms ease-out',
+        animation: prefersReducedMotion ? 'none' : `fadeInStagger ${transitionDuration}ms ease-out ${index * 50}ms both`
+      },
+      onMouseEnter: e => {
+        if (!prefersReducedMotion) {
+          e.currentTarget.style.transform = 'scale(1.02)';
+          e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1), 0 12px 24px rgba(0,0,0,0.08)';
+        }
+      },
+      onMouseLeave: e => {
+        e.currentTarget.style.transform = 'scale(1)';
+        e.currentTarget.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03)';
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: image.url,
+      alt: image.caption || '',
+      style: {
+        width: '100%',
+        aspectRatio: '4/3',
+        objectFit: 'cover',
+        display: 'block'
+      }
+    }), showCaptions && image.caption && /*#__PURE__*/React.createElement("div", {
+      style: {
+        padding: '16px'
+      }
+    }, /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: 0,
+        fontSize: '14px',
+        fontWeight: '400',
+        color: textColor
+      }
+    }, image.caption), image.category && /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'inline-block',
+        marginTop: '8px',
+        fontSize: '12px',
+        color: accentColor,
+        backgroundColor: `${accentColor}20`,
+        padding: '4px 10px',
+        borderRadius: '12px',
+        fontWeight: '500'
+      }
+    }, image.category))))), filteredImages.length === 0 && /*#__PURE__*/React.createElement("div", {
+      style: {
+        textAlign: 'center',
+        padding: '80px 20px',
+        color: textColor,
+        opacity: 0.6
+      }
+    }, /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: '18px',
+        margin: 0
+      }
+    }, "No images found in this category"))), /*#__PURE__*/React.createElement("style", null, `
+        @keyframes fadeInStagger {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

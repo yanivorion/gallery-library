@@ -1,0 +1,685 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (4/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Media.WebGLCarousel
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Media.WebGLCarousel",
+  "description": "Advanced WebGL carousel with shader-based transitions, barrel distortion, chromatic aberration, and scroll-driven momentum physics",
+  "editorElement": {
+    "selector": ".webgl-carousel-container",
+    "displayName": "WebGL Carousel",
+    "archetype": "container",
+    "data": {
+      "slides": {
+        "dataType": "text",
+        "displayName": "Slide Images (comma-separated URLs)",
+        "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&h=900,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1600&h=900,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1600&h=900",
+        "group": "Content",
+        "description": "Enter image URLs separated by commas"
+      },
+      "fallbackColors": {
+        "dataType": "text",
+        "displayName": "Fallback Colors (if images fail)",
+        "defaultValue": "#FF6B6B,#4ECDC4,#45B7D1",
+        "group": "Content",
+        "description": "Hex color codes as fallback"
+      },
+      "imageTimeout": {
+        "dataType": "select",
+        "displayName": "Image Load Timeout (seconds)",
+        "defaultValue": "5",
+        "options": ["3", "5", "8", "10"],
+        "group": "Content",
+        "description": "Time to wait before using fallback"
+      },
+      "containerHeight": {
+        "dataType": "select",
+        "displayName": "Container Height",
+        "defaultValue": "600",
+        "options": ["400", "500", "600", "700", "800"],
+        "group": "Layout"
+      },
+      "autoPlaySpeed": {
+        "dataType": "select",
+        "displayName": "Auto-Play Speed (seconds)",
+        "defaultValue": "3",
+        "options": ["0", "2", "3", "4", "5"],
+        "group": "Content"
+      },
+      "showCounter": {
+        "dataType": "booleanValue",
+        "displayName": "Show Slide Counter",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "counterPosition": {
+        "dataType": "select",
+        "displayName": "Counter Position",
+        "defaultValue": "bottom-left",
+        "options": ["bottom-left", "bottom-right", "top-left", "top-right"],
+        "group": "Content"
+      },
+      "showNavButtons": {
+        "dataType": "booleanValue",
+        "displayName": "Show Navigation Buttons",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#000000",
+        "group": "Colors"
+      },
+      "counterTextColor": {
+        "dataType": "color",
+        "displayName": "Counter Text Color",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "counterBackgroundColor": {
+        "dataType": "color",
+        "displayName": "Counter Background",
+        "defaultValue": "rgba(0, 0, 0, 0.6)",
+        "group": "Colors"
+      },
+      "navButtonColor": {
+        "dataType": "color",
+        "displayName": "Navigation Button Color",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "borderRadius": {
+        "dataType": "select",
+        "displayName": "Corner Radius",
+        "defaultValue": "20",
+        "options": ["0", "8", "12", "20", "30"],
+        "group": "Layout"
+      },
+      "padding": {
+        "dataType": "select",
+        "displayName": "Canvas Padding",
+        "defaultValue": "40",
+        "options": ["0", "20", "40", "60", "80"],
+        "group": "Layout"
+      },
+      "distortionIntensity": {
+        "dataType": "select",
+        "displayName": "Distortion Intensity",
+        "defaultValue": "1.0",
+        "options": ["0.5", "0.75", "1.0", "1.25", "1.5"],
+        "group": "Animation"
+      },
+      "chromaticAberration": {
+        "dataType": "select",
+        "displayName": "Chromatic Aberration",
+        "defaultValue": "0.1",
+        "options": ["0.0", "0.05", "0.1", "0.15", "0.2"],
+        "group": "Animation"
+      },
+      "bowIntensity": {
+        "dataType": "select",
+        "displayName": "Bow Effect Intensity",
+        "defaultValue": "0.5",
+        "options": ["0.0", "0.25", "0.5", "0.75", "1.0"],
+        "group": "Animation"
+      },
+      "transitionDuration": {
+        "dataType": "select",
+        "displayName": "Transition Duration (ms)",
+        "defaultValue": "1500",
+        "options": ["800", "1000", "1500", "2000", "2500"],
+        "group": "Animation"
+      }
+    },
+    "layout": {
+      "resizeDirection": "horizontalAndVertical",
+      "contentResizeDirection": "vertical"
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const canvasRef = React.useRef(null);
+  const containerRef = React.useRef(null);
+  const glRef = React.useRef(null);
+  const programRef = React.useRef(null);
+  const texturesRef = React.useRef([]);
+  const rafRef = React.useRef(null);
+  
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [isTransitioning, setIsTransitioning] = React.useState(false);
+  const [transitionProgress, setTransitionProgress] = React.useState(0);
+  const [momentum, setMomentum] = React.useState(0);
+  const [isReady, setIsReady] = React.useState(false);
+  const [loadedSlides, setLoadedSlides] = React.useState([]);
+  const [loadStatus, setLoadStatus] = React.useState('loading');
+  
+  const slides = (config?.slides || MANIFEST.editorElement.data.slides.defaultValue)
+    .split(',')
+    .map(url => url.trim())
+    .filter(url => url.length > 0);
+  
+  const fallbackColors = (config?.fallbackColors || MANIFEST.editorElement.data.fallbackColors.defaultValue)
+    .split(',')
+    .map(c => c.trim())
+    .filter(c => c.length > 0);
+  
+  const imageTimeout = parseInt(config?.imageTimeout || '5') * 1000;
+  
+  const totalSlides = Math.max(slides.length, 2);
+  const nextSlide = (currentSlide + 1) % totalSlides;
+  
+  const containerHeight = parseInt(config?.containerHeight || '600');
+  const autoPlaySpeed = parseFloat(config?.autoPlaySpeed || '3');
+  const distortionIntensity = parseFloat(config?.distortionIntensity || '1.0');
+  const chromaticOffset = parseFloat(config?.chromaticAberration || '0.1');
+  const bowIntensity = parseFloat(config?.bowIntensity || '0.5');
+  const borderRadius = parseFloat(config?.borderRadius || '20');
+  const padding = parseFloat(config?.padding || '40');
+  const transitionDuration = parseInt(config?.transitionDuration || '1500');
+
+  // Create gradient fallback
+  const createGradientCanvas = React.useCallback((color, index) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1600;
+    canvas.height = 900;
+    const ctx = canvas.getContext('2d');
+    
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substr(0, 2), 16) || 100;
+    const g = parseInt(hex.substr(2, 2), 16) || 150;
+    const b = parseInt(hex.substr(4, 2), 16) || 200;
+    
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0, `rgb(${r}, ${g}, ${b})`);
+    gradient.addColorStop(1, `rgb(${Math.max(0, r - 60)}, ${Math.max(0, g - 60)}, ${Math.max(0, b - 60)})`);
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Add pattern
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
+    for (let i = 0; i < 100; i++) {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
+      const size = Math.random() * 80 + 40;
+      ctx.fillRect(x, y, size, 1.5);
+      ctx.fillRect(x, y, 1.5, size);
+    }
+    
+    // Add slide number
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.font = 'bold 200px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText((index + 1).toString(), canvas.width / 2, canvas.height / 2);
+    
+    return canvas;
+  }, []);
+
+  // Load images with fallback
+  React.useEffect(() => {
+    setLoadStatus('loading');
+    
+    const loadSlide = (url, index) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        
+        const timeoutId = setTimeout(() => {
+          const fallbackColor = fallbackColors[index % fallbackColors.length];
+          resolve(createGradientCanvas(fallbackColor, index));
+        }, imageTimeout);
+        
+        img.onload = () => {
+          clearTimeout(timeoutId);
+          resolve(img);
+        };
+        
+        img.onerror = () => {
+          clearTimeout(timeoutId);
+          const fallbackColor = fallbackColors[index % fallbackColors.length];
+          resolve(createGradientCanvas(fallbackColor, index));
+        };
+        
+        img.src = url;
+      });
+    };
+    
+    Promise.all(slides.map((url, idx) => loadSlide(url, idx))).then(images => {
+      setLoadedSlides(images);
+      setLoadStatus('ready');
+    });
+  }, [slides.join(','), fallbackColors.join(','), imageTimeout, createGradientCanvas]);
+
+  // Initialize WebGL
+  React.useEffect(() => {
+    if (loadStatus !== 'ready' || loadedSlides.length === 0) return;
+    
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const gl = canvas.getContext('webgl2', { 
+      antialias: true,
+      alpha: false,
+      premultipliedAlpha: false
+    });
+    
+    if (!gl) {
+      console.error('WebGL2 not supported');
+      return;
+    }
+
+    glRef.current = gl;
+
+    const vertexSource = `#version 300 es
+      precision highp float;
+      in vec2 position;
+      in vec2 texcoord;
+      out vec2 uv;
+      void main() {
+        gl_Position = vec4(position, 0, 1);
+        uv = texcoord;
+      }
+    `;
+
+    const fragmentSource = `#version 300 es
+      precision highp float;
+      out vec4 outColor;
+      in vec2 uv;
+      
+      uniform float paddingX;
+      uniform float paddingY;
+      uniform vec2 resolution;
+      uniform sampler2D fromTexture;
+      uniform sampler2D toTexture;
+      uniform float transitionProgress;
+      uniform float momentum;
+      uniform float bow;
+      uniform float borderRadius;
+      uniform float chromaticOffset;
+      uniform float distortionScale;
+      
+      float roundedBoxSDF(vec2 centerPos, vec2 size, float radius) {
+        return length(max(abs(centerPos) - size + radius, 0.0)) - radius;
+      }
+      
+      vec2 barrelDistortion(vec2 uv, float k1, float k2) {
+        vec2 centered = uv * 2.0 - 1.0;
+        float r2 = dot(centered, centered);
+        vec2 distorted = centered * (1.0 + k1 * r2 + k2 * r2 * r2);
+        return (distorted * 0.5 + 0.5);
+      }
+      
+      float bezier(float t, float intensity) {
+        return 2.0 * (1.0 - t) * t * intensity;
+      }
+      
+      vec4 chromaticSample(sampler2D tex, vec2 uv, float offset) {
+        float r = texture(tex, uv + vec2(offset, 0.0)).r;
+        float g = texture(tex, uv).g;
+        float b = texture(tex, uv - vec2(offset, 0.0)).b;
+        return vec4(r, g, b, 1.0);
+      }
+      
+      void main() {
+        float k = 0.15 * momentum * distortionScale;
+        vec2 distortedUV = barrelDistortion(uv, k, k * 0.5);
+        
+        vec2 contentSize = vec2(resolution.x - paddingX, resolution.y - paddingY);
+        vec2 contentPos = vec2(paddingX / 2.0, paddingY / 2.0);
+        vec2 fragCoord = distortedUV * resolution;
+        
+        float distance = roundedBoxSDF(
+          fragCoord - contentPos - (contentSize / 2.0),
+          contentSize / 2.0,
+          borderRadius
+        );
+        
+        float mask = 1.0 - smoothstep(0.0, 1.0, distance);
+        
+        if (mask < 0.01) {
+          outColor = vec4(0.0, 0.0, 0.0, 1.0);
+          return;
+        }
+        
+        vec2 contentUV = (fragCoord - contentPos) / contentSize;
+        
+        float revealThreshold = transitionProgress + bezier(contentUV.y, bow / 3.0);
+        float revealEdge = smoothstep(revealThreshold - 0.02, revealThreshold + 0.02, contentUV.x);
+        
+        vec4 fromColor = chromaticSample(fromTexture, contentUV, chromaticOffset * momentum);
+        vec4 toColor = chromaticSample(toTexture, contentUV, chromaticOffset * momentum);
+        
+        vec4 finalColor = mix(fromColor, toColor, revealEdge);
+        
+        outColor = finalColor;
+      }
+    `;
+
+    const compileShader = (type, source) => {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error('Shader error:', gl.getShaderInfoLog(shader));
+      }
+      return shader;
+    };
+
+    const vertexShader = compileShader(gl.VERTEX_SHADER, vertexSource);
+    const fragmentShader = compileShader(gl.FRAGMENT_SHADER, fragmentSource);
+
+    const program = gl.createProgram();
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+
+    programRef.current = program;
+    gl.useProgram(program);
+
+    const positions = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
+    const texcoords = new Float32Array([0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1]);
+
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+    const posLoc = gl.getAttribLocation(program, 'position');
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    const texcoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, texcoords, gl.STATIC_DRAW);
+    const texLoc = gl.getAttribLocation(program, 'texcoord');
+    gl.enableVertexAttribArray(texLoc);
+    gl.vertexAttribPointer(texLoc, 2, gl.FLOAT, false, 0, 0);
+
+    const textures = loadedSlides.map(slide => {
+      const texture = gl.createTexture();
+      gl.bindTexture(gl.TEXTURE_2D, texture);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, slide);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      return texture;
+    });
+
+    texturesRef.current = textures;
+    setIsReady(true);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
+    };
+  }, [loadStatus, loadedSlides]);
+
+  // Resize handler
+  React.useEffect(() => {
+    if (!isReady) return;
+    
+    const handleResize = () => {
+      const canvas = canvasRef.current;
+      const container = containerRef.current;
+      if (!canvas || !container) return;
+      
+      const dpr = window.devicePixelRatio || 1;
+      const rect = container.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isReady]);
+
+  // Render loop
+  React.useEffect(() => {
+    if (!isReady) return;
+
+    const render = () => {
+      const gl = glRef.current;
+      const program = programRef.current;
+      const canvas = canvasRef.current;
+      const textures = texturesRef.current;
+      
+      if (!gl || !program || !canvas || !textures || textures.length < 2) {
+        rafRef.current = requestAnimationFrame(render);
+        return;
+      }
+
+      const dpr = window.devicePixelRatio || 1;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.clearColor(0, 0, 0, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      const fromIdx = currentSlide % textures.length;
+      const toIdx = isTransitioning ? nextSlide % textures.length : fromIdx;
+      
+      gl.uniform2f(gl.getUniformLocation(program, 'resolution'), canvas.width, canvas.height);
+      gl.uniform1f(gl.getUniformLocation(program, 'paddingX'), padding * dpr);
+      gl.uniform1f(gl.getUniformLocation(program, 'paddingY'), padding * dpr);
+      gl.uniform1f(gl.getUniformLocation(program, 'transitionProgress'), transitionProgress);
+      gl.uniform1f(gl.getUniformLocation(program, 'momentum'), momentum);
+      gl.uniform1f(gl.getUniformLocation(program, 'bow'), bowIntensity * (0.5 - transitionProgress));
+      gl.uniform1f(gl.getUniformLocation(program, 'borderRadius'), borderRadius * dpr);
+      gl.uniform1f(gl.getUniformLocation(program, 'chromaticOffset'), chromaticOffset / canvas.width);
+      gl.uniform1f(gl.getUniformLocation(program, 'distortionScale'), distortionIntensity);
+
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(gl.TEXTURE_2D, textures[fromIdx]);
+      gl.uniform1i(gl.getUniformLocation(program, 'fromTexture'), 0);
+
+      gl.activeTexture(gl.TEXTURE1);
+      gl.bindTexture(gl.TEXTURE_2D, textures[toIdx]);
+      gl.uniform1i(gl.getUniformLocation(program, 'toTexture'), 1);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      
+      rafRef.current = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [isReady, currentSlide, nextSlide, isTransitioning, transitionProgress, momentum, padding, borderRadius, chromaticOffset, bowIntensity, distortionIntensity]);
+
+  // Auto-play
+  React.useEffect(() => {
+    if (autoPlaySpeed > 0 && !isTransitioning && isReady) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(true);
+        setCurrentSlide(prev => (prev + 1) % totalSlides);
+      }, autoPlaySpeed * 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [currentSlide, isTransitioning, autoPlaySpeed, isReady, totalSlides]);
+
+  // Transition animation
+  React.useEffect(() => {
+    if (!isTransitioning) return;
+    
+    const start = Date.now();
+    
+    const animate = () => {
+      const elapsed = Date.now() - start;
+      const progress = Math.min(elapsed / transitionDuration, 1);
+      
+      setTransitionProgress(progress);
+      setMomentum(Math.sin(progress * Math.PI) * 1.5);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setIsTransitioning(false);
+        setTransitionProgress(0);
+        setMomentum(0);
+      }
+    };
+    
+    animate();
+  }, [isTransitioning, transitionDuration]);
+
+  const goToNext = () => {
+    if (isTransitioning || !isReady) return;
+    setIsTransitioning(true);
+    setCurrentSlide(prev => (prev + 1) % totalSlides);
+  };
+
+  const goToPrev = () => {
+    if (isTransitioning || !isReady) return;
+    setIsTransitioning(true);
+    setCurrentSlide(prev => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const counterPos = {
+    'bottom-left': { bottom: '20px', left: '20px' },
+    'bottom-right': { bottom: '20px', right: '20px' },
+    'top-left': { top: '20px', left: '20px' },
+    'top-right': { top: '20px', right: '20px' }
+  }[config?.counterPosition || 'bottom-left'];
+
+  return (
+    <div 
+      ref={containerRef}
+      className="webgl-carousel-container"
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: `${containerHeight}px`,
+        backgroundColor: config?.backgroundColor || '#000000',
+        overflow: 'hidden'
+      }}
+    >
+      <canvas
+        ref={canvasRef}
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'block'
+        }}
+      />
+      
+      {loadStatus === 'loading' && (
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          color: '#FFFFFF',
+          fontSize: '14px',
+          textAlign: 'center'
+        }}>
+          <div>Loading images...</div>
+          <div style={{ fontSize: '12px', opacity: 0.6, marginTop: '8px' }}>
+            Will use fallback if timeout
+          </div>
+        </div>
+      )}
+      
+      {config?.showCounter !== false && isReady && (
+        <div style={{
+          position: 'absolute',
+          ...counterPos,
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px',
+          padding: '10px 14px',
+          backgroundColor: config?.counterBackgroundColor || 'rgba(0, 0, 0, 0.6)',
+          backdropFilter: 'blur(10px)',
+          borderRadius: '6px',
+          fontFamily: 'monospace',
+          fontSize: '14px',
+          fontWeight: '400',
+          letterSpacing: '0.05em',
+          color: config?.counterTextColor || '#FFFFFF',
+          userSelect: 'none',
+          zIndex: 10,
+          lineHeight: '1'
+        }}>
+          <span style={{ display: 'inline-block' }}>{String(currentSlide + 1).padStart(2, '0')}</span>
+          <span style={{ opacity: 0.5, display: 'inline-block' }}>→</span>
+          <span style={{ opacity: 0.5, display: 'inline-block' }}>{String(totalSlides).padStart(2, '0')}</span>
+        </div>
+      )}
+      
+      {config?.showNavButtons !== false && isReady && (
+        <>
+          <button
+            onClick={goToPrev}
+            disabled={isTransitioning}
+            aria-label="Previous"
+            style={{
+              position: 'absolute',
+              left: '20px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '48px',
+              height: '48px',
+              borderRadius: '50%',
+              border: 'none',
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              backdropFilter: 'blur(10px)',
+              color: config?.navButtonColor || '#FFFFFF',
+              fontSize: '20px',
+              cursor: isTransitioning ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+              opacity: isTransitioning ? 0.5 : 1,
+              transition: 'all 0.2s ease',
+              lineHeight: '1',
+              padding: '0'
+            }}
+          >
+            <span style={{ display: 'block', transform: 'translateY(-1px)' }}>←</span>
+          </button>
+          
+          <button
+            onClick={goToNext}
+            disabled={isTransitioning}
+            aria-label="Next"
+            style={{
+              position: 'absolute',
+              right: '20px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '48px',
+              height: '48px',
+              borderRadius: '50%',
+              border: 'none',
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              backdropFilter: 'blur(10px)',
+              color: config?.navButtonColor || '#FFFFFF',
+              fontSize: '20px',
+              cursor: isTransitioning ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+              opacity: isTransitioning ? 0.5 : 1,
+              transition: 'all 0.2s ease',
+              lineHeight: '1',
+              padding: '0'
+            }}
+          >
+            <span style={{ display: 'block', transform: 'translateY(-1px)' }}>→</span>
+          </button>
+        </>
+      )}
+    </div>
+  );
+}

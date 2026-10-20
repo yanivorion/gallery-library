@@ -1,0 +1,389 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (1/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.GravityFall
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.GravityFall",
+  "description": "Images fall from above with realistic gravity and bouncing physics.",
+  "editorElement": {
+    "selector": ".gravity-fall-gallery",
+    "displayName": "Gravity Fall Gallery",
+    "archetype": "container",
+    "data": {
+      "images": {
+        "dataType": "text",
+        "displayName": "Image URLs",
+        "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&h=400&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=500&h=400&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=500&h=400&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=500&h=400&fit=crop",
+        "group": "Content"
+      },
+      "gravity": {
+        "dataType": "select",
+        "displayName": "Gravity Strength",
+        "defaultValue": "normal",
+        "options": ["light", "normal", "heavy", "moon"],
+        "group": "Physics"
+      },
+      "bounciness": {
+        "dataType": "select",
+        "displayName": "Bounciness",
+        "defaultValue": "medium",
+        "options": ["none", "low", "medium", "high", "super"],
+        "group": "Physics"
+      },
+      "friction": {
+        "dataType": "select",
+        "displayName": "Friction",
+        "defaultValue": "medium",
+        "options": ["none", "low", "medium", "high"],
+        "group": "Physics"
+      },
+      "staggerDelay": {
+        "dataType": "select",
+        "displayName": "Stagger Delay (ms)",
+        "defaultValue": "150",
+        "options": ["50", "100", "150", "200", "300"],
+        "group": "Animation"
+      },
+      "itemWidth": {
+        "dataType": "select",
+        "displayName": "Item Width (px)",
+        "defaultValue": "280",
+        "options": ["200", "240", "280", "320", "360"],
+        "group": "Layout"
+      },
+      "itemHeight": {
+        "dataType": "select",
+        "displayName": "Item Height (px)",
+        "defaultValue": "200",
+        "options": ["150", "180", "200", "240", "280"],
+        "group": "Layout"
+      },
+      "containerHeight": {
+        "dataType": "select",
+        "displayName": "Container Height (px)",
+        "defaultValue": "600",
+        "options": ["400", "500", "600", "700", "800"],
+        "group": "Layout"
+      },
+      "borderRadius": {
+        "dataType": "select",
+        "displayName": "Border Radius (px)",
+        "defaultValue": "12",
+        "options": ["0", "8", "12", "16", "24"],
+        "group": "Layout"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#0f0f1a",
+        "group": "Colors"
+      },
+      "shadowColor": {
+        "dataType": "color",
+        "displayName": "Shadow Color",
+        "defaultValue": "#000000",
+        "group": "Colors"
+      }
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const [items, setItems] = React.useState([]);
+  const [isDropped, setIsDropped] = React.useState(false);
+  const animationRefs = React.useRef([]);
+  const containerRef = React.useRef(null);
+  
+  const imagesRaw = config?.images || '';
+  const gravity = config?.gravity || 'normal';
+  const bounciness = config?.bounciness || 'medium';
+  const friction = config?.friction || 'medium';
+  const staggerDelay = parseInt(config?.staggerDelay || '150');
+  const itemWidth = parseInt(config?.itemWidth || '280');
+  const itemHeight = parseInt(config?.itemHeight || '200');
+  const containerHeight = parseInt(config?.containerHeight || '600');
+  const borderRadius = parseInt(config?.borderRadius || '12');
+  const backgroundColor = config?.backgroundColor || '#0f0f1a';
+  const shadowColor = config?.shadowColor || '#000000';
+  
+  const images = React.useMemo(() => {
+    return imagesRaw.split(',').map(url => url.trim()).filter(Boolean);
+  }, [imagesRaw]);
+  
+  const prefersReducedMotion = React.useMemo(() => {
+    return typeof window !== 'undefined' 
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+      : false;
+  }, []);
+  
+  const physicsConfig = React.useMemo(() => {
+    const gravities = { light: 0.3, normal: 0.6, heavy: 1.0, moon: 0.15 };
+    const bounces = { none: 0, low: 0.3, medium: 0.5, high: 0.7, super: 0.85 };
+    const frictions = { none: 1, low: 0.98, medium: 0.95, high: 0.9 };
+    
+    return {
+      gravity: gravities[gravity] || 0.6,
+      bounce: bounces[bounciness] || 0.5,
+      friction: frictions[friction] || 0.95
+    };
+  }, [gravity, bounciness, friction]);
+  
+  // Initialize items
+  React.useEffect(() => {
+    if (images.length === 0) return;
+    
+    const containerWidth = containerRef.current?.offsetWidth || 1000;
+    const spacing = 20;
+    const totalWidth = images.length * (itemWidth + spacing) - spacing;
+    const startX = (containerWidth - totalWidth) / 2;
+    
+    const newItems = images.map((img, index) => ({
+      id: index,
+      image: img,
+      x: startX + index * (itemWidth + spacing),
+      y: -itemHeight - 100 - (index * 50),
+      vy: 0,
+      vx: (Math.random() - 0.5) * 2,
+      rotation: (Math.random() - 0.5) * 20,
+      vr: (Math.random() - 0.5) * 5,
+      landed: false
+    }));
+    
+    setItems(newItems);
+    setIsDropped(false);
+  }, [images, itemWidth, itemHeight]);
+  
+  // Physics simulation
+  React.useEffect(() => {
+    if (isDropped || items.length === 0 || prefersReducedMotion) {
+      if (prefersReducedMotion && items.length > 0) {
+        // Instant placement for reduced motion
+        setItems(prev => prev.map((item, i) => ({
+          ...item,
+          y: containerHeight - itemHeight - 20,
+          rotation: 0,
+          landed: true
+        })));
+        setIsDropped(true);
+      }
+      return;
+    }
+    
+    const groundY = containerHeight - itemHeight - 20;
+    let allLanded = true;
+    
+    const simulate = () => {
+      setItems(prev => {
+        return prev.map((item, index) => {
+          // Wait for stagger
+          const dropTime = index * staggerDelay;
+          const elapsed = performance.now() - (animationRefs.current[0] || performance.now());
+          if (elapsed < dropTime) {
+            allLanded = false;
+            return item;
+          }
+          
+          if (item.landed) return item;
+          
+          let { y, vy, vx, rotation, vr } = item;
+          
+          // Apply gravity
+          vy += physicsConfig.gravity;
+          y += vy;
+          
+          // Apply horizontal velocity
+          const newX = item.x + vx;
+          
+          // Apply rotation
+          rotation += vr;
+          
+          // Ground collision
+          if (y >= groundY) {
+            y = groundY;
+            
+            if (Math.abs(vy) < 1) {
+              // Settled
+              return { ...item, y, vy: 0, vx: 0, rotation: 0, vr: 0, landed: true };
+            }
+            
+            // Bounce
+            vy = -vy * physicsConfig.bounce;
+            vx *= physicsConfig.friction;
+            vr *= physicsConfig.friction;
+            allLanded = false;
+          } else {
+            allLanded = false;
+          }
+          
+          return { ...item, x: newX, y, vy, vx, rotation, vr };
+        });
+      });
+      
+      if (!allLanded) {
+        animationRefs.current[1] = requestAnimationFrame(simulate);
+      } else {
+        setIsDropped(true);
+      }
+    };
+    
+    animationRefs.current[0] = performance.now();
+    animationRefs.current[1] = requestAnimationFrame(simulate);
+    
+    return () => {
+      if (animationRefs.current[1]) {
+        cancelAnimationFrame(animationRefs.current[1]);
+      }
+    };
+  }, [items.length, isDropped, physicsConfig, containerHeight, itemHeight, staggerDelay, prefersReducedMotion]);
+  
+  const handleReplay = () => {
+    const containerWidth = containerRef.current?.offsetWidth || 1000;
+    const spacing = 20;
+    const totalWidth = images.length * (itemWidth + spacing) - spacing;
+    const startX = (containerWidth - totalWidth) / 2;
+    
+    setItems(images.map((img, index) => ({
+      id: index,
+      image: img,
+      x: startX + index * (itemWidth + spacing),
+      y: -itemHeight - 100 - (index * 50),
+      vy: 0,
+      vx: (Math.random() - 0.5) * 2,
+      rotation: (Math.random() - 0.5) * 20,
+      vr: (Math.random() - 0.5) * 5,
+      landed: false
+    })));
+    setIsDropped(false);
+  };
+  
+  if (images.length === 0) {
+    return (
+      <div style={{ 
+        height: `${containerHeight}px`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor,
+        color: 'rgba(255,255,255,0.5)',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}>
+        Add comma-separated image URLs
+      </div>
+    );
+  }
+  
+  return (
+    <div
+      ref={containerRef}
+      className="gravity-fall-gallery"
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: `${containerHeight}px`,
+        backgroundColor,
+        overflow: 'hidden',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}
+    >
+      {/* Ground line */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '19px',
+          left: '5%',
+          right: '5%',
+          height: '1px',
+          background: `linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent)`
+        }}
+      />
+      
+      {/* Falling items */}
+      {items.map((item) => (
+        <div
+          key={item.id}
+          style={{
+            position: 'absolute',
+            left: `${item.x}px`,
+            top: `${item.y}px`,
+            width: `${itemWidth}px`,
+            height: `${itemHeight}px`,
+            transform: `rotate(${item.rotation}deg)`,
+            borderRadius: `${borderRadius}px`,
+            overflow: 'hidden',
+            boxShadow: item.landed 
+              ? `0 10px 40px ${shadowColor}60`
+              : `0 20px 60px ${shadowColor}80`,
+            transition: item.landed ? 'box-shadow 300ms ease' : 'none'
+          }}
+        >
+          <img
+            src={item.image}
+            alt={`Image ${item.id + 1}`}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block'
+            }}
+          />
+        </div>
+      ))}
+      
+      {/* Replay button */}
+      <button
+        onClick={handleReplay}
+        style={{
+          position: 'absolute',
+          top: '24px',
+          right: '24px',
+          padding: '10px 20px',
+          backgroundColor: 'rgba(255,255,255,0.1)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255,255,255,0.2)',
+          borderRadius: '24px',
+          color: '#ffffff',
+          fontSize: '13px',
+          fontWeight: '500',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          transition: 'all 200ms ease',
+          zIndex: 10
+        }}
+        onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)'}
+        onMouseLeave={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'}
+      >
+        ↺ Drop Again
+      </button>
+      
+      {/* Physics info */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '40px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          padding: '8px 16px',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          backdropFilter: 'blur(10px)',
+          borderRadius: '20px',
+          color: 'rgba(255,255,255,0.7)',
+          fontSize: '11px',
+          fontWeight: '500',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+          zIndex: 10
+        }}
+      >
+        {gravity} gravity • {bounciness} bounce • {friction} friction
+      </div>
+    </div>
+  );
+}

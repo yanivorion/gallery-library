@@ -1,0 +1,573 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["portfolio-completepage"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (4/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Portfolio.CompletePage
+   * ============================================================================
+   */
+
+  // ============================================================================
+  // PORTFOLIO SYSTEM #5: COMPLETE PAGE TEMPLATE
+  // ============================================================================
+  // Full portfolio section page combining Hero, Grid, and Next Section
+  // Perfect for: Creating complete pages like Exploration, Growth, Expression, etc.
+  // ============================================================================
+
+  const MANIFEST = {
+    "type": "Portfolio.CompletePage",
+    "description": "Complete portfolio section page with video hero, project grid (20 items), and next section navigation. Includes bilingual support and category filtering.",
+    "editorElement": {
+      "selector": ".portfolio-complete-page",
+      "displayName": "Portfolio Complete Page",
+      "archetype": "container",
+      "data": {
+        // Hero Section
+        "heroTitleEn": {
+          "dataType": "text",
+          "displayName": "Hero Title (English)",
+          "defaultValue": "Exploration",
+          "group": "Hero Content"
+        },
+        "heroTitleJa": {
+          "dataType": "text",
+          "displayName": "Hero Title (Japanese)",
+          "defaultValue": "探求",
+          "group": "Hero Content"
+        },
+        "heroTextEn": {
+          "dataType": "text",
+          "displayName": "Hero Description (English)",
+          "defaultValue": "20 experimental works featuring test code and strong elements of research.",
+          "group": "Hero Content"
+        },
+        "heroTextJa": {
+          "dataType": "text",
+          "displayName": "Hero Description (Japanese)",
+          "defaultValue": "試験的なコードと研究要素を備えた20作品",
+          "group": "Hero Content"
+        },
+        "videoUrl": {
+          "dataType": "text",
+          "displayName": "Hero Video URL",
+          "defaultValue": "https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-heights-in-a-sunset-26070-large.mp4",
+          "group": "Hero Content"
+        },
+        // Projects
+        "projects": {
+          "dataType": "text",
+          "displayName": "Projects (JSON - 20 items)",
+          "defaultValue": JSON.stringify([{
+            title: "Baked Stone",
+            url: "https://tech55-baked-stone.vercel.app/",
+            date: "2025",
+            category: "WebGL"
+          }, {
+            title: "BulkBox with WebGPU",
+            url: "https://tech52-bulk-box-webgpu.vercel.app/",
+            date: "2025",
+            category: "WebGL"
+          }, {
+            title: "Smooothy Slider",
+            url: "https://tech51-smooothy-slider.vercel.app/",
+            date: "2025",
+            category: "JavaScript"
+          }, {
+            title: "Scroll Overlapping Images",
+            url: "https://tech48-scroll-overlapping-images.vercel.app/",
+            date: "2025",
+            category: "JavaScript"
+          }, {
+            title: "Floor Mirror",
+            url: "https://tech42-floor-mirror.vercel.app/",
+            date: "2025",
+            category: "WebGL"
+          }]),
+          "group": "Projects",
+          "description": "JSON array of 20 projects"
+        },
+        // Next Section
+        "nextSectionTitle": {
+          "dataType": "text",
+          "displayName": "Next Section Title",
+          "defaultValue": "Growth",
+          "group": "Next Section"
+        },
+        "nextSectionLink": {
+          "dataType": "text",
+          "displayName": "Next Section URL",
+          "defaultValue": "/growth/",
+          "group": "Next Section"
+        },
+        "nextSectionImage": {
+          "dataType": "text",
+          "displayName": "Next Section Image",
+          "defaultValue": "",
+          "group": "Next Section"
+        },
+        // Colors
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Page Background",
+          "defaultValue": "#0A0A0A",
+          "group": "Colors"
+        },
+        "accentColor": {
+          "dataType": "color",
+          "displayName": "Accent Color",
+          "defaultValue": "#3B82F6",
+          "group": "Colors"
+        },
+        "webglColor": {
+          "dataType": "color",
+          "displayName": "WebGL Badge Color",
+          "defaultValue": "#3B82F6",
+          "group": "Colors"
+        },
+        "javascriptColor": {
+          "dataType": "color",
+          "displayName": "JavaScript Badge Color",
+          "defaultValue": "#10B981",
+          "group": "Colors"
+        },
+        "cssColor": {
+          "dataType": "color",
+          "displayName": "CSS Badge Color",
+          "defaultValue": "#8B5CF6",
+          "group": "Colors"
+        },
+        // Settings
+        "showJapanese": {
+          "dataType": "booleanValue",
+          "displayName": "Show Japanese Text",
+          "defaultValue": true,
+          "group": "Settings"
+        },
+        "enableFiltering": {
+          "dataType": "booleanValue",
+          "displayName": "Enable Category Filtering",
+          "defaultValue": true,
+          "group": "Settings"
+        },
+        "gridColumns": {
+          "dataType": "select",
+          "displayName": "Grid Columns",
+          "defaultValue": "4",
+          "options": ["2", "3", "4", "5"],
+          "group": "Settings"
+        }
+      },
+      "layout": {
+        "resizeDirection": "horizontalAndVertical",
+        "contentResizeDirection": "vertical"
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    // Parse all config values
+    const heroTitleEn = config?.heroTitleEn || "Exploration";
+    const heroTitleJa = config?.heroTitleJa || "探求";
+    const heroTextEn = config?.heroTextEn || "20 experimental works featuring test code and strong elements of research.";
+    const heroTextJa = config?.heroTextJa || "試験的なコードと研究要素を備えた20作品";
+    const videoUrl = config?.videoUrl || "";
+    const projectsJSON = config?.projects || "[]";
+    const nextSectionTitle = config?.nextSectionTitle || "Growth";
+    const nextSectionLink = config?.nextSectionLink || "/growth/";
+    const nextSectionImage = config?.nextSectionImage || "";
+    const backgroundColor = config?.backgroundColor || "#0A0A0A";
+    const accentColor = config?.accentColor || "#3B82F6";
+    const webglColor = config?.webglColor || "#3B82F6";
+    const javascriptColor = config?.javascriptColor || "#10B981";
+    const cssColor = config?.cssColor || "#8B5CF6";
+    const showJapanese = config?.showJapanese !== false;
+    const enableFiltering = config?.enableFiltering !== false;
+    const gridColumns = parseInt(config?.gridColumns || "4");
+    const [projects, setProjects] = React.useState([]);
+    const [selectedCategory, setSelectedCategory] = React.useState("All");
+    const [visibleCards, setVisibleCards] = React.useState([]);
+    const [heroVisible, setHeroVisible] = React.useState(false);
+    const [videoLoaded, setVideoLoaded] = React.useState(false);
+    const [isMobile, setIsMobile] = React.useState(false);
+    const videoRef = React.useRef(null);
+    const gridRef = React.useRef(null);
+
+    // Parse projects JSON
+    React.useEffect(() => {
+      try {
+        const parsed = JSON.parse(projectsJSON);
+        setProjects(Array.isArray(parsed) ? parsed : []);
+      } catch (e) {
+        console.error('Invalid projects JSON');
+        setProjects([]);
+      }
+    }, [projectsJSON]);
+
+    // Check mobile
+    React.useEffect(() => {
+      if (typeof window !== 'undefined') {
+        setIsMobile(window.innerWidth < 768);
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }
+    }, []);
+
+    // Hero entrance animation
+    React.useEffect(() => {
+      setTimeout(() => setHeroVisible(true), 100);
+    }, []);
+
+    // Grid intersection observer
+    React.useEffect(() => {
+      if (!gridRef.current) return;
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            projects.forEach((_, index) => {
+              setTimeout(() => {
+                setVisibleCards(prev => [...new Set([...prev, index])]);
+              }, index * 50);
+            });
+            observer.disconnect();
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+      observer.observe(gridRef.current);
+      return () => observer.disconnect();
+    }, [projects]);
+    const categories = ["All", ...new Set(projects.map(p => p.category).filter(Boolean))];
+    const filteredProjects = selectedCategory === "All" ? projects : projects.filter(p => p.category === selectedCategory);
+    const getCategoryColor = category => {
+      switch (category?.toLowerCase()) {
+        case 'webgl':
+          return webglColor;
+        case 'javascript':
+          return javascriptColor;
+        case 'css':
+          return cssColor;
+        default:
+          return '#737373';
+      }
+    };
+    const getAnimationStyle = (delay = 0, isVisible = true) => ({
+      opacity: isVisible ? 1 : 0,
+      transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+      transition: `opacity 600ms cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms, transform 600ms cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms`
+    });
+    return /*#__PURE__*/React.createElement("div", {
+      className: "portfolio-complete-page",
+      style: {
+        backgroundColor: backgroundColor,
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+      }
+    }, /*#__PURE__*/React.createElement("section", {
+      style: {
+        position: 'relative',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden'
+      }
+    }, videoUrl && !isMobile && /*#__PURE__*/React.createElement("video", {
+      ref: videoRef,
+      autoPlay: true,
+      loop: true,
+      muted: true,
+      playsInline: true,
+      onLoadedData: () => setVideoLoaded(true),
+      style: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        minWidth: '100%',
+        minHeight: '100%',
+        width: 'auto',
+        height: 'auto',
+        transform: 'translate(-50%, -50%)',
+        objectFit: 'cover',
+        opacity: videoLoaded ? 1 : 0,
+        transition: 'opacity 1s ease-out'
+      }
+    }, /*#__PURE__*/React.createElement("source", {
+      src: videoUrl,
+      type: "video/mp4"
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#000000',
+        opacity: 0.6
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        zIndex: 2,
+        textAlign: 'center',
+        padding: '80px 24px',
+        maxWidth: '1200px'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...getAnimationStyle(0, heroVisible),
+        width: '60px',
+        height: '3px',
+        backgroundColor: accentColor,
+        margin: '0 auto 32px'
+      }
+    }), /*#__PURE__*/React.createElement("h1", {
+      style: {
+        ...getAnimationStyle(200, heroVisible),
+        fontSize: 'clamp(40px, 8vw, 80px)',
+        fontWeight: '300',
+        color: '#FFFFFF',
+        margin: '0 0 16px 0',
+        letterSpacing: '0.02em',
+        textTransform: 'uppercase'
+      }
+    }, heroTitleEn), showJapanese && /*#__PURE__*/React.createElement("h2", {
+      style: {
+        ...getAnimationStyle(400, heroVisible),
+        fontSize: 'clamp(20px, 4vw, 40px)',
+        fontWeight: '300',
+        color: '#FFFFFF',
+        margin: '0 0 40px 0',
+        opacity: 0.8
+      }
+    }, heroTitleJa), /*#__PURE__*/React.createElement("p", {
+      style: {
+        ...getAnimationStyle(600, heroVisible),
+        fontSize: 'clamp(16px, 2.5vw, 20px)',
+        color: '#A3A3A3',
+        lineHeight: '1.7',
+        margin: '0 0 12px 0'
+      }
+    }, heroTextEn), showJapanese && /*#__PURE__*/React.createElement("p", {
+      style: {
+        ...getAnimationStyle(800, heroVisible),
+        fontSize: 'clamp(14px, 2vw, 16px)',
+        color: '#A3A3A3',
+        lineHeight: '1.7',
+        opacity: 0.7
+      }
+    }, heroTextJa))), /*#__PURE__*/React.createElement("section", {
+      ref: gridRef,
+      style: {
+        padding: 'clamp(48px, 8vw, 120px) clamp(24px, 5vw, 80px)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        maxWidth: '1600px',
+        margin: '0 auto'
+      }
+    }, enableFiltering && categories.length > 1 && /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        gap: '12px',
+        marginBottom: '48px',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+      }
+    }, categories.map(category => /*#__PURE__*/React.createElement("button", {
+      key: category,
+      onClick: () => setSelectedCategory(category),
+      style: {
+        padding: '10px 24px',
+        backgroundColor: selectedCategory === category ? getCategoryColor(category) : 'transparent',
+        color: selectedCategory === category ? '#FFFFFF' : '#A3A3A3',
+        border: `1px solid ${selectedCategory === category ? getCategoryColor(category) : '#404040'}`,
+        borderRadius: '12px',
+        fontSize: '14px',
+        fontWeight: '500',
+        cursor: 'pointer',
+        transition: 'all 300ms ease-out',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+        fontFamily: 'inherit'
+      }
+    }, category))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: `repeat(auto-fit, minmax(280px, 1fr))`,
+        gap: '24px'
+      }
+    }, filteredProjects.map((project, index) => /*#__PURE__*/React.createElement("div", {
+      key: index,
+      onClick: () => window.open(project.url, '_blank'),
+      style: {
+        backgroundColor: '#1A1A1A',
+        borderRadius: '12px',
+        padding: '32px 24px',
+        cursor: 'pointer',
+        transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+        opacity: visibleCards.includes(index) ? 1 : 0,
+        transform: visibleCards.includes(index) ? 'translateY(0)' : 'translateY(20px)'
+      },
+      onMouseEnter: e => {
+        e.currentTarget.style.transform = 'scale(1.05)';
+        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.4)';
+      },
+      onMouseLeave: e => {
+        e.currentTarget.style.transform = 'scale(1)';
+        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+      }
+    }, project.category && /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'inline-block',
+        padding: '4px 12px',
+        backgroundColor: `${getCategoryColor(project.category)}20`,
+        color: getCategoryColor(project.category),
+        borderRadius: '6px',
+        fontSize: '11px',
+        fontWeight: '600',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em',
+        marginBottom: '16px'
+      }
+    }, project.category), /*#__PURE__*/React.createElement("h3", {
+      style: {
+        fontSize: 'clamp(18px, 3vw, 22px)',
+        fontWeight: '500',
+        color: '#FFFFFF',
+        lineHeight: '1.3',
+        margin: '0 0 8px 0'
+      }
+    }, project.title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: '14px',
+        color: '#737373',
+        margin: 0
+      }
+    }, project.date)))))), /*#__PURE__*/React.createElement("section", {
+      style: {
+        padding: 'clamp(48px, 8vw, 120px) clamp(24px, 5vw, 80px)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        maxWidth: '1600px',
+        margin: '0 auto'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      onClick: () => window.location.href = nextSectionLink,
+      style: {
+        position: 'relative',
+        height: '500px',
+        backgroundColor: '#1A1A1A',
+        borderRadius: '16px',
+        overflow: 'hidden',
+        cursor: 'pointer',
+        transition: 'all 400ms cubic-bezier(0.4, 0, 0.2, 1)',
+        backgroundImage: nextSectionImage ? `url(${nextSectionImage})` : 'none',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      onMouseEnter: e => {
+        e.currentTarget.style.transform = 'scale(1.02)';
+      },
+      onMouseLeave: e => {
+        e.currentTarget.style.transform = 'scale(1)';
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#000000',
+        opacity: 0.5
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'relative',
+        zIndex: 1,
+        textAlign: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: '18px',
+        color: '#A3A3A3',
+        textTransform: 'uppercase',
+        letterSpacing: '0.15em',
+        margin: '0 0 16px 0'
+      }
+    }, "Explore Next Section"), /*#__PURE__*/React.createElement("h2", {
+      style: {
+        fontSize: 'clamp(32px, 6vw, 64px)',
+        fontWeight: '600',
+        color: '#FFFFFF',
+        margin: 0
+      }
+    }, nextSectionTitle))))));
+  }
+
+  // ============================================================================
+  // USAGE INSTRUCTIONS:
+  // 1. Copy MANIFEST object
+  // 2. Copy Component function  
+  // 3. Paste into Wix Component Editor
+  // 4. Customize all content via properties
+  //
+  // CREATING 5 SECTIONS:
+  // Use this template 5 times with different data:
+  // 1. Creative → Exploration
+  // 2. Exploration → Expression  
+  // 3. Expression → Growth
+  // 4. Growth → Playfulness
+  // 5. Playfulness → Creative (loop back)
+  //
+  // EACH SECTION NEEDS:
+  // - Unique hero title (EN + JA)
+  // - 20 projects in JSON format
+  // - Video URL for hero
+  // - Next section title and link
+  // - Accent color per section
+  // ============================================================================
+
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

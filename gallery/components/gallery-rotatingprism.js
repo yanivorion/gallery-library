@@ -1,0 +1,378 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["gallery-rotatingprism"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (2/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Gallery.RotatingPrism
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Gallery.RotatingPrism",
+    "description": "3D triangular prism carousel with images on each face that rotates on interaction.",
+    "editorElement": {
+      "selector": ".rotating-prism-gallery",
+      "displayName": "Rotating Prism Gallery",
+      "archetype": "container",
+      "data": {
+        "images": {
+          "dataType": "text",
+          "displayName": "Image URLs (3 images)",
+          "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=400&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600&h=400&fit=crop",
+          "group": "Content"
+        },
+        "autoRotate": {
+          "dataType": "booleanValue",
+          "displayName": "Auto Rotate",
+          "defaultValue": "true",
+          "group": "Animation"
+        },
+        "rotationInterval": {
+          "dataType": "select",
+          "displayName": "Rotation Interval (ms)",
+          "defaultValue": "4000",
+          "options": ["3000", "4000", "5000", "6000"],
+          "group": "Animation"
+        },
+        "transitionDuration": {
+          "dataType": "select",
+          "displayName": "Transition Duration (ms)",
+          "defaultValue": "1000",
+          "options": ["600", "800", "1000", "1200"],
+          "group": "Animation"
+        },
+        "prismWidth": {
+          "dataType": "select",
+          "displayName": "Prism Width (px)",
+          "defaultValue": "500",
+          "options": ["400", "450", "500", "550", "600"],
+          "group": "Layout"
+        },
+        "prismHeight": {
+          "dataType": "select",
+          "displayName": "Prism Height (px)",
+          "defaultValue": "350",
+          "options": ["250", "300", "350", "400", "450"],
+          "group": "Layout"
+        },
+        "showReflection": {
+          "dataType": "booleanValue",
+          "displayName": "Show Reflection",
+          "defaultValue": "true",
+          "group": "Effects"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background Color",
+          "defaultValue": "#0a0a1a",
+          "group": "Colors"
+        },
+        "navColor": {
+          "dataType": "color",
+          "displayName": "Navigation Color",
+          "defaultValue": "#ffffff",
+          "group": "Colors"
+        }
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const [currentFace, setCurrentFace] = React.useState(0);
+    const imagesRaw = config?.images || '';
+    const autoRotate = config?.autoRotate !== false;
+    const rotationInterval = parseInt(config?.rotationInterval || '4000');
+    const transitionDuration = parseInt(config?.transitionDuration || '1000');
+    const prismWidth = parseInt(config?.prismWidth || '500');
+    const prismHeight = parseInt(config?.prismHeight || '350');
+    const showReflection = config?.showReflection !== false;
+    const backgroundColor = config?.backgroundColor || '#0a0a1a';
+    const navColor = config?.navColor || '#ffffff';
+    const images = React.useMemo(() => {
+      const imgs = imagesRaw.split(',').map(url => url.trim()).filter(Boolean);
+      while (imgs.length < 3 && imgs.length > 0) {
+        imgs.push(imgs[imgs.length - 1]);
+      }
+      return imgs.slice(0, 3);
+    }, [imagesRaw]);
+    const prefersReducedMotion = React.useMemo(() => {
+      return typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    }, []);
+    React.useEffect(() => {
+      if (!autoRotate || images.length < 3 || prefersReducedMotion) return;
+      const timer = setInterval(() => {
+        setCurrentFace(prev => (prev + 1) % 3);
+      }, rotationInterval);
+      return () => clearInterval(timer);
+    }, [autoRotate, rotationInterval, images.length, prefersReducedMotion]);
+
+    // Calculate the apothem (distance from center to face)
+    const apothem = prismWidth / (2 * Math.tan(Math.PI / 3));
+    const getRotation = () => {
+      return currentFace * -120;
+    };
+    if (images.length === 0) {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          minHeight: `${prismHeight + 200}px`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor,
+          color: 'rgba(255,255,255,0.5)',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }
+      }, "Add comma-separated image URLs (3 images)");
+    }
+    return /*#__PURE__*/React.createElement("div", {
+      className: "rotating-prism-gallery",
+      style: {
+        backgroundColor,
+        minHeight: `${prismHeight + 200}px`,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '40px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        perspective: '1500px',
+        perspectiveOrigin: '50% 50%'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: `${prismWidth}px`,
+        height: `${prismHeight}px`,
+        position: 'relative',
+        transformStyle: 'preserve-3d',
+        transform: `rotateY(${getRotation()}deg)`,
+        transition: prefersReducedMotion ? 'none' : `transform ${transitionDuration}ms cubic-bezier(0.4, 0, 0.2, 1)`
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        transform: `translateZ(${apothem}px)`,
+        backfaceVisibility: 'hidden',
+        overflow: 'hidden',
+        borderRadius: '8px',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: images[0],
+      alt: "Face 1",
+      style: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        transform: `rotateY(120deg) translateZ(${apothem}px)`,
+        backfaceVisibility: 'hidden',
+        overflow: 'hidden',
+        borderRadius: '8px',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: images[1],
+      alt: "Face 2",
+      style: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        transform: `rotateY(240deg) translateZ(${apothem}px)`,
+        backfaceVisibility: 'hidden',
+        overflow: 'hidden',
+        borderRadius: '8px',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: images[2],
+      alt: "Face 3",
+      style: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }
+    })))), showReflection && /*#__PURE__*/React.createElement("div", {
+      style: {
+        perspective: '1500px',
+        perspectiveOrigin: '50% 0%',
+        marginTop: '10px',
+        opacity: 0.3,
+        transform: 'scaleY(-1)',
+        height: `${prismHeight * 0.3}px`,
+        overflow: 'hidden',
+        maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%)'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: `${prismWidth}px`,
+        height: `${prismHeight}px`,
+        position: 'relative',
+        transformStyle: 'preserve-3d',
+        transform: `rotateY(${getRotation()}deg)`,
+        transition: prefersReducedMotion ? 'none' : `transform ${transitionDuration}ms cubic-bezier(0.4, 0, 0.2, 1)`
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        transform: `translateZ(${apothem}px)`
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: images[0],
+      alt: "",
+      style: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        transform: `rotateY(120deg) translateZ(${apothem}px)`
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: images[1],
+      alt: "",
+      style: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }
+    })), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        transform: `rotateY(240deg) translateZ(${apothem}px)`
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      src: images[2],
+      alt: "",
+      style: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }
+    })))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '20px',
+        marginTop: '40px'
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      onClick: () => setCurrentFace(prev => (prev - 1 + 3) % 3),
+      "aria-label": "Previous",
+      style: {
+        width: '48px',
+        height: '48px',
+        borderRadius: '50%',
+        backgroundColor: 'rgba(255,255,255,0.1)',
+        border: '1px solid rgba(255,255,255,0.2)',
+        color: navColor,
+        fontSize: '18px',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'all 200ms ease'
+      },
+      onMouseEnter: e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)',
+      onMouseLeave: e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'
+    }, "←"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        gap: '10px'
+      }
+    }, [0, 1, 2].map(i => /*#__PURE__*/React.createElement("button", {
+      key: i,
+      onClick: () => setCurrentFace(i),
+      "aria-label": `Go to face ${i + 1}`,
+      style: {
+        width: currentFace === i ? '28px' : '10px',
+        height: '10px',
+        borderRadius: '5px',
+        backgroundColor: currentFace === i ? navColor : `${navColor}40`,
+        border: 'none',
+        cursor: 'pointer',
+        padding: 0,
+        transition: 'all 300ms ease'
+      }
+    }))), /*#__PURE__*/React.createElement("button", {
+      onClick: () => setCurrentFace(prev => (prev + 1) % 3),
+      "aria-label": "Next",
+      style: {
+        width: '48px',
+        height: '48px',
+        borderRadius: '50%',
+        backgroundColor: 'rgba(255,255,255,0.1)',
+        border: '1px solid rgba(255,255,255,0.2)',
+        color: navColor,
+        fontSize: '18px',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'all 200ms ease'
+      },
+      onMouseEnter: e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)',
+      onMouseLeave: e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'
+    }, "→")));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

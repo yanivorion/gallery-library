@@ -1,0 +1,463 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (1/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.FullscreenSlider
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.FullscreenSlider",
+  "description": "Immersive fullscreen image slider with thumbnail navigation strip, keyboard controls, and smooth transitions for professional image showcasing",
+  "editorElement": {
+    "selector": ".fullscreen-slider",
+    "displayName": "Fullscreen Image Slider",
+    "archetype": "container",
+    "data": {
+      "images": {
+        "dataType": "text",
+        "displayName": "Images (JSON Array)",
+        "defaultValue": JSON.stringify([
+          { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920", caption: "Mountain Vista" },
+          { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920", caption: "Forest Path" },
+          { url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920", caption: "Desert Sunset" },
+          { url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920", caption: "Misty Valley" },
+          { url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920", caption: "Wild Trail" },
+          { url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1920", caption: "Alpine Lake" }
+        ]),
+        "group": "Content",
+        "description": "Array of image objects with url and caption properties"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#0A0A0A",
+        "group": "Colors"
+      },
+      "thumbnailStripBackground": {
+        "dataType": "color",
+        "displayName": "Thumbnail Strip Background",
+        "defaultValue": "#1A1A1A",
+        "group": "Colors"
+      },
+      "controlsColor": {
+        "dataType": "color",
+        "displayName": "Controls Color",
+        "defaultValue": "#FAFAFA",
+        "group": "Colors"
+      },
+      "accentColor": {
+        "dataType": "color",
+        "displayName": "Accent Color",
+        "defaultValue": "#3B82F6",
+        "group": "Colors"
+      },
+      "thumbnailBorderColor": {
+        "dataType": "color",
+        "displayName": "Thumbnail Border Color",
+        "defaultValue": "#737373",
+        "group": "Colors"
+      },
+      "showCaptions": {
+        "dataType": "booleanValue",
+        "displayName": "Show Captions",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "showCounter": {
+        "dataType": "booleanValue",
+        "displayName": "Show Counter",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "thumbnailSize": {
+        "dataType": "number",
+        "displayName": "Thumbnail Size (px)",
+        "defaultValue": 80,
+        "group": "Layout"
+      },
+      "thumbnailGap": {
+        "dataType": "number",
+        "displayName": "Thumbnail Gap (px)",
+        "defaultValue": 12,
+        "group": "Layout"
+      },
+      "autoPlay": {
+        "dataType": "booleanValue",
+        "displayName": "Auto Play",
+        "defaultValue": false,
+        "group": "Animation"
+      },
+      "autoPlayInterval": {
+        "dataType": "select",
+        "displayName": "Auto Play Interval (ms)",
+        "defaultValue": "4000",
+        "options": ["2000", "3000", "4000", "5000", "6000"],
+        "group": "Animation"
+      },
+      "transitionDuration": {
+        "dataType": "select",
+        "displayName": "Transition Duration (ms)",
+        "defaultValue": "400",
+        "options": ["300", "400", "500", "600"],
+        "group": "Animation"
+      }
+    },
+    "layout": {
+      "resizeDirection": "horizontalAndVertical",
+      "contentResizeDirection": "vertical"
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const imagesData = config?.images || JSON.stringify([
+    { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920", caption: "Mountain Vista" },
+    { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920", caption: "Forest Path" },
+    { url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920", caption: "Desert Sunset" },
+    { url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920", caption: "Misty Valley" },
+    { url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920", caption: "Wild Trail" },
+    { url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1920", caption: "Alpine Lake" }
+  ]);
+  
+  const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
+  const backgroundColor = config?.backgroundColor || "#0A0A0A";
+  const thumbnailStripBackground = config?.thumbnailStripBackground || "#1A1A1A";
+  const controlsColor = config?.controlsColor || "#FAFAFA";
+  const accentColor = config?.accentColor || "#3B82F6";
+  const thumbnailBorderColor = config?.thumbnailBorderColor || "#737373";
+  const showCaptions = config?.showCaptions !== false;
+  const showCounter = config?.showCounter !== false;
+  const thumbnailSize = parseInt(config?.thumbnailSize || "80");
+  const thumbnailGap = parseInt(config?.thumbnailGap || "12");
+  const autoPlay = config?.autoPlay === true;
+  const autoPlayInterval = parseInt(config?.autoPlayInterval || "4000");
+  const transitionDuration = parseInt(config?.transitionDuration || "400");
+
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [isTransitioning, setIsTransitioning] = React.useState(false);
+  const thumbnailStripRef = React.useRef(null);
+
+  const prefersReducedMotion = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : false;
+
+  const duration = prefersReducedMotion ? 0 : transitionDuration;
+
+  // Navigation functions
+  const goToNext = React.useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+    setTimeout(() => setIsTransitioning(false), duration);
+  }, [isTransitioning, images.length, duration]);
+
+  const goToPrevious = React.useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    setTimeout(() => setIsTransitioning(false), duration);
+  }, [isTransitioning, images.length, duration]);
+
+  const goToIndex = (index) => {
+    if (isTransitioning || index === currentIndex) return;
+    setIsTransitioning(true);
+    setCurrentIndex(index);
+    setTimeout(() => setIsTransitioning(false), duration);
+  };
+
+  // Keyboard navigation
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goToPrevious();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goToNext();
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [goToNext, goToPrevious]);
+
+  // Auto play
+  React.useEffect(() => {
+    if (!autoPlay) return;
+
+    const interval = setInterval(goToNext, autoPlayInterval);
+    return () => clearInterval(interval);
+  }, [autoPlay, autoPlayInterval, goToNext]);
+
+  // Scroll thumbnail into view
+  React.useEffect(() => {
+    if (thumbnailStripRef.current) {
+      const activeThumbnail = thumbnailStripRef.current.children[currentIndex];
+      if (activeThumbnail) {
+        activeThumbnail.scrollIntoView({
+          behavior: prefersReducedMotion ? 'auto' : 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }
+    }
+  }, [currentIndex, prefersReducedMotion]);
+
+  const currentImage = images[currentIndex];
+
+  return (
+    <div
+      className="fullscreen-slider"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: backgroundColor,
+        display: 'flex',
+        flexDirection: 'column',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}
+    >
+      {/* Main image display */}
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
+        {/* Image */}
+        <img
+          src={currentImage.url}
+          alt={currentImage.caption || ''}
+          style={{
+            maxWidth: '90%',
+            maxHeight: '90%',
+            objectFit: 'contain',
+            transition: prefersReducedMotion ? 'none' : `opacity ${duration}ms ease-out`,
+            opacity: 1
+          }}
+        />
+
+        {/* Navigation arrows */}
+        <button
+          onClick={goToPrevious}
+          aria-label="Previous image"
+          style={{
+            position: 'absolute',
+            left: '24px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            border: 'none',
+            borderRadius: '50%',
+            width: '48px',
+            height: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: controlsColor,
+            fontSize: '24px',
+            cursor: 'pointer',
+            transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out',
+            outline: 'none'
+          }}
+          onMouseEnter={(e) => {
+            if (!prefersReducedMotion) e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.outline = `2px solid ${accentColor}`;
+            e.currentTarget.style.outlineOffset = '2px';
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.outline = 'none';
+          }}
+        >
+          ‹
+        </button>
+
+        <button
+          onClick={goToNext}
+          aria-label="Next image"
+          style={{
+            position: 'absolute',
+            right: '24px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            border: 'none',
+            borderRadius: '50%',
+            width: '48px',
+            height: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: controlsColor,
+            fontSize: '24px',
+            cursor: 'pointer',
+            transition: prefersReducedMotion ? 'none' : 'transform 200ms ease-out',
+            outline: 'none'
+          }}
+          onMouseEnter={(e) => {
+            if (!prefersReducedMotion) e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.outline = `2px solid ${accentColor}`;
+            e.currentTarget.style.outlineOffset = '2px';
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.outline = 'none';
+          }}
+        >
+          ›
+        </button>
+
+        {/* Counter */}
+        {showCounter && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '24px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              color: controlsColor,
+              fontSize: '14px',
+              fontWeight: '500',
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              padding: '8px 16px',
+              borderRadius: '20px',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)'
+            }}
+          >
+            {currentIndex + 1} / {images.length}
+          </div>
+        )}
+
+        {/* Caption */}
+        {showCaptions && currentImage.caption && (
+          <div
+            style={{
+              position: 'absolute',
+              bottom: `${thumbnailSize + 48}px`,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              color: controlsColor,
+              fontSize: '16px',
+              fontWeight: '400',
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              padding: '12px 24px',
+              borderRadius: '8px',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              maxWidth: '80%',
+              textAlign: 'center'
+            }}
+          >
+            {currentImage.caption}
+          </div>
+        )}
+      </div>
+
+      {/* Thumbnail strip */}
+      <div
+        style={{
+          backgroundColor: thumbnailStripBackground,
+          padding: '16px',
+          display: 'flex',
+          justifyContent: 'center',
+          borderTop: '1px solid rgba(255, 255, 255, 0.1)'
+        }}
+      >
+        <div
+          ref={thumbnailStripRef}
+          style={{
+            display: 'flex',
+            gap: `${thumbnailGap}px`,
+            overflowX: 'auto',
+            maxWidth: '100%',
+            padding: '4px',
+            scrollbarWidth: 'thin',
+            scrollbarColor: `${thumbnailBorderColor} transparent`
+          }}
+        >
+          {images.map((image, index) => (
+            <button
+              key={index}
+              onClick={() => goToIndex(index)}
+              aria-label={`Go to image ${index + 1}`}
+              aria-current={index === currentIndex ? 'true' : 'false'}
+              style={{
+                width: `${thumbnailSize}px`,
+                height: `${thumbnailSize}px`,
+                flexShrink: 0,
+                border: index === currentIndex 
+                  ? `3px solid ${accentColor}` 
+                  : `2px solid ${thumbnailBorderColor}`,
+                borderRadius: '6px',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                padding: 0,
+                backgroundColor: 'transparent',
+                transition: prefersReducedMotion ? 'none' : 'all 300ms ease-out',
+                transform: 'translateY(0)',
+                opacity: index === currentIndex ? 1 : 0.6,
+                outline: 'none'
+              }}
+              onMouseEnter={(e) => {
+                if (!prefersReducedMotion) {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.opacity = '1';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!prefersReducedMotion) {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.opacity = index === currentIndex ? '1' : '0.6';
+                }
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.outline = `2px solid ${accentColor}`;
+                e.currentTarget.style.outlineOffset = '2px';
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.outline = 'none';
+              }}
+            >
+              <img
+                src={image.url}
+                alt=""
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block'
+                }}
+              />
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

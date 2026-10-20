@@ -1,0 +1,423 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["gallery-gridhovereffects"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (2/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Gallery.GridHoverEffects
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Gallery.GridHoverEffects",
+    "description": "Clean grid gallery with sophisticated hover effects including subtle scale, overlay reveals, and elegant caption transitions for engaging image browsing",
+    "editorElement": {
+      "selector": ".grid-hover-gallery",
+      "displayName": "Grid Gallery with Hover Effects",
+      "archetype": "container",
+      "data": {
+        "images": {
+          "dataType": "text",
+          "displayName": "Images (JSON Array)",
+          "defaultValue": JSON.stringify([{
+            url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+            caption: "Mountain Vista",
+            subcaption: "Nature Photography"
+          }, {
+            url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+            caption: "Forest Path",
+            subcaption: "Landscape"
+          }, {
+            url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
+            caption: "Desert Sunset",
+            subcaption: "Travel"
+          }, {
+            url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800",
+            caption: "Misty Valley",
+            subcaption: "Atmospheric"
+          }, {
+            url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+            caption: "Wild Trail",
+            subcaption: "Adventure"
+          }, {
+            url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800",
+            caption: "Alpine Lake",
+            subcaption: "Scenic"
+          }, {
+            url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
+            caption: "Ocean Waves",
+            subcaption: "Coastal"
+          }, {
+            url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800",
+            caption: "Starry Night",
+            subcaption: "Astrophotography"
+          }, {
+            url: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=800",
+            caption: "Sunset Beach",
+            subcaption: "Tropical"
+          }, {
+            url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800",
+            caption: "Mountain Peak",
+            subcaption: "Alpine"
+          }, {
+            url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800",
+            caption: "Lake Reflection",
+            subcaption: "Serene"
+          }, {
+            url: "https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?w=800",
+            caption: "Canyon View",
+            subcaption: "Geological"
+          }]),
+          "group": "Content",
+          "description": "Array of image objects with url, caption, and optional subcaption"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background Color",
+          "defaultValue": "#FAFBFC",
+          "group": "Colors"
+        },
+        "overlayColor": {
+          "dataType": "color",
+          "displayName": "Overlay Background",
+          "defaultValue": "#1F2937",
+          "group": "Colors"
+        },
+        "textColor": {
+          "dataType": "color",
+          "displayName": "Text Color",
+          "defaultValue": "#FFFFFF",
+          "group": "Colors"
+        },
+        "accentColor": {
+          "dataType": "color",
+          "displayName": "Accent Color",
+          "defaultValue": "#3B82F6",
+          "group": "Colors"
+        },
+        "gridGap": {
+          "dataType": "number",
+          "displayName": "Grid Gap (px)",
+          "defaultValue": 16,
+          "group": "Layout"
+        },
+        "columnMinWidth": {
+          "dataType": "number",
+          "displayName": "Column Min Width (px)",
+          "defaultValue": 280,
+          "group": "Layout"
+        },
+        "imageAspectRatio": {
+          "dataType": "select",
+          "displayName": "Image Aspect Ratio",
+          "defaultValue": "4/3",
+          "options": ["1/1", "4/3", "3/2", "16/9"],
+          "group": "Layout"
+        },
+        "borderRadius": {
+          "dataType": "number",
+          "displayName": "Border Radius (px)",
+          "defaultValue": 8,
+          "group": "Layout"
+        },
+        "hoverEffect": {
+          "dataType": "select",
+          "displayName": "Hover Effect Type",
+          "defaultValue": "overlay",
+          "options": ["overlay", "zoom", "lift", "overlay-zoom"],
+          "group": "Animation",
+          "description": "Type of hover interaction"
+        },
+        "hoverScale": {
+          "dataType": "select",
+          "displayName": "Hover Scale Amount",
+          "defaultValue": "1.05",
+          "options": ["1.03", "1.05", "1.08", "1.1"],
+          "group": "Animation"
+        },
+        "transitionDuration": {
+          "dataType": "select",
+          "displayName": "Transition Duration (ms)",
+          "defaultValue": "300",
+          "options": ["200", "250", "300", "400"],
+          "group": "Animation"
+        },
+        "showSubcaptions": {
+          "dataType": "booleanValue",
+          "displayName": "Show Subcaptions",
+          "defaultValue": true,
+          "group": "Content"
+        }
+      },
+      "layout": {
+        "resizeDirection": "horizontalAndVertical",
+        "contentResizeDirection": "vertical"
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const imagesData = config?.images || JSON.stringify([{
+      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+      caption: "Mountain Vista",
+      subcaption: "Nature Photography"
+    }, {
+      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800",
+      caption: "Forest Path",
+      subcaption: "Landscape"
+    }, {
+      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
+      caption: "Desert Sunset",
+      subcaption: "Travel"
+    }, {
+      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800",
+      caption: "Misty Valley",
+      subcaption: "Atmospheric"
+    }, {
+      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+      caption: "Wild Trail",
+      subcaption: "Adventure"
+    }, {
+      url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800",
+      caption: "Alpine Lake",
+      subcaption: "Scenic"
+    }, {
+      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
+      caption: "Ocean Waves",
+      subcaption: "Coastal"
+    }, {
+      url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800",
+      caption: "Starry Night",
+      subcaption: "Astrophotography"
+    }, {
+      url: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=800",
+      caption: "Sunset Beach",
+      subcaption: "Tropical"
+    }, {
+      url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800",
+      caption: "Mountain Peak",
+      subcaption: "Alpine"
+    }, {
+      url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800",
+      caption: "Lake Reflection",
+      subcaption: "Serene"
+    }, {
+      url: "https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?w=800",
+      caption: "Canyon View",
+      subcaption: "Geological"
+    }]);
+    const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
+    const backgroundColor = config?.backgroundColor || "#FAFBFC";
+    const overlayColor = config?.overlayColor || "#1F2937";
+    const textColor = config?.textColor || "#FFFFFF";
+    const accentColor = config?.accentColor || "#3B82F6";
+    const gridGap = parseInt(config?.gridGap || "16");
+    const columnMinWidth = parseInt(config?.columnMinWidth || "280");
+    const imageAspectRatio = config?.imageAspectRatio || "4/3";
+    const borderRadius = parseInt(config?.borderRadius || "8");
+    const hoverEffect = config?.hoverEffect || "overlay";
+    const hoverScale = parseFloat(config?.hoverScale || "1.05");
+    const transitionDuration = parseInt(config?.transitionDuration || "300");
+    const showSubcaptions = config?.showSubcaptions !== false;
+    const [hoveredIndex, setHoveredIndex] = React.useState(null);
+    const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    const duration = prefersReducedMotion ? 0 : transitionDuration;
+
+    // Get hover styles based on effect type
+    const getHoverStyles = isHovered => {
+      if (prefersReducedMotion) return {};
+      const baseStyles = {
+        transition: `all ${duration}ms ease-out`
+      };
+      switch (hoverEffect) {
+        case 'zoom':
+          return {
+            ...baseStyles,
+            transform: isHovered ? `scale(${hoverScale})` : 'scale(1)'
+          };
+        case 'lift':
+          return {
+            ...baseStyles,
+            transform: isHovered ? 'translateY(-8px)' : 'translateY(0)',
+            boxShadow: isHovered ? '0 12px 24px rgba(0,0,0,0.15), 0 24px 48px rgba(0,0,0,0.12)' : '0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)'
+          };
+        case 'overlay-zoom':
+          return {
+            ...baseStyles,
+            transform: isHovered ? `scale(${hoverScale})` : 'scale(1)'
+          };
+        case 'overlay':
+        default:
+          return baseStyles;
+      }
+    };
+    return /*#__PURE__*/React.createElement("div", {
+      className: "grid-hover-gallery",
+      style: {
+        backgroundColor: backgroundColor,
+        padding: '48px 24px',
+        minHeight: '100vh',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'grid',
+        gridTemplateColumns: `repeat(auto-fit, minmax(${columnMinWidth}px, 1fr))`,
+        gap: `${gridGap}px`,
+        maxWidth: '1600px',
+        margin: '0 auto'
+      }
+    }, images.map((image, index) => {
+      const isHovered = hoveredIndex === index;
+      return /*#__PURE__*/React.createElement("div", {
+        key: index,
+        onMouseEnter: () => setHoveredIndex(index),
+        onMouseLeave: () => setHoveredIndex(null),
+        onFocus: () => setHoveredIndex(index),
+        onBlur: () => setHoveredIndex(null),
+        tabIndex: 0,
+        role: "button",
+        "aria-label": image.caption || `Image ${index + 1}`,
+        style: {
+          aspectRatio: imageAspectRatio,
+          position: 'relative',
+          borderRadius: `${borderRadius}px`,
+          overflow: 'hidden',
+          cursor: 'pointer',
+          boxShadow: hoverEffect === 'lift' ? isHovered ? '0 12px 24px rgba(0,0,0,0.15), 0 24px 48px rgba(0,0,0,0.12)' : '0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)' : '0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)',
+          outline: 'none',
+          ...getHoverStyles(isHovered)
+        },
+        onKeyDown: e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            // Handle click action here
+          }
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          width: '100%',
+          height: '100%',
+          position: 'relative',
+          overflow: 'hidden'
+        }
+      }, /*#__PURE__*/React.createElement("img", {
+        src: image.url,
+        alt: image.caption || '',
+        style: {
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          display: 'block',
+          transform: (hoverEffect === 'zoom' || hoverEffect === 'overlay-zoom') && isHovered && !prefersReducedMotion ? `scale(${hoverScale})` : 'scale(1)',
+          transition: prefersReducedMotion ? 'none' : `transform ${duration}ms ease-out`,
+          filter: isHovered ? 'brightness(1.1)' : 'brightness(1)'
+        }
+      })), (hoverEffect === 'overlay' || hoverEffect === 'overlay-zoom') && /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          background: `linear-gradient(to top, ${overlayColor}, transparent)`,
+          padding: '48px 20px 20px',
+          opacity: isHovered ? 1 : 0,
+          transition: prefersReducedMotion ? 'none' : `opacity ${duration * 0.8}ms ease-out`,
+          pointerEvents: 'none'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          transform: isHovered && !prefersReducedMotion ? 'translateY(0)' : 'translateY(10px)',
+          transition: prefersReducedMotion ? 'none' : `transform ${duration}ms ease-out`,
+          opacity: isHovered ? 1 : 0
+        }
+      }, /*#__PURE__*/React.createElement("h3", {
+        style: {
+          margin: 0,
+          color: textColor,
+          fontSize: '18px',
+          fontWeight: '500',
+          marginBottom: showSubcaptions && image.subcaption ? '6px' : 0
+        }
+      }, image.caption), showSubcaptions && image.subcaption && /*#__PURE__*/React.createElement("p", {
+        style: {
+          margin: 0,
+          color: textColor,
+          fontSize: '14px',
+          fontWeight: '400',
+          opacity: 0.8
+        }
+      }, image.subcaption))), hoverEffect === 'lift' && /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          background: overlayColor,
+          padding: '16px 20px',
+          pointerEvents: 'none'
+        }
+      }, /*#__PURE__*/React.createElement("h3", {
+        style: {
+          margin: 0,
+          color: textColor,
+          fontSize: '16px',
+          fontWeight: '500',
+          marginBottom: showSubcaptions && image.subcaption ? '4px' : 0
+        }
+      }, image.caption), showSubcaptions && image.subcaption && /*#__PURE__*/React.createElement("p", {
+        style: {
+          margin: 0,
+          color: textColor,
+          fontSize: '13px',
+          fontWeight: '400',
+          opacity: 0.8
+        }
+      }, image.subcaption)), /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: 'absolute',
+          inset: 0,
+          border: isHovered ? `2px solid ${accentColor}` : 'none',
+          borderRadius: `${borderRadius}px`,
+          pointerEvents: 'none',
+          transition: prefersReducedMotion ? 'none' : 'border 200ms ease-out'
+        }
+      }));
+    })));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

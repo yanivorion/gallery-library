@@ -1,0 +1,396 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (2/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.PerspectiveTunnel
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.PerspectiveTunnel",
+  "description": "A tunnel gallery where images converge toward a central vanishing point creating infinite depth illusion",
+  "editorElement": {
+    "selector": ".perspective-tunnel-gallery",
+    "displayName": "Perspective Tunnel Gallery",
+    "archetype": "container",
+    "data": {
+      "images": {
+        "dataType": "text",
+        "displayName": "Image URLs",
+        "defaultValue": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&h=300&fit=crop,https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=400&h=300&fit=crop,https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&h=300&fit=crop,https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=400&h=300&fit=crop,https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=400&h=300&fit=crop,https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=400&h=300&fit=crop",
+        "group": "Content",
+        "description": "Comma-separated image URLs (5-8 recommended)"
+      },
+      "tunnelDepth": {
+        "dataType": "select",
+        "displayName": "Tunnel Depth",
+        "defaultValue": "6",
+        "options": ["4", "5", "6", "7", "8"],
+        "group": "Layout"
+      },
+      "containerHeight": {
+        "dataType": "select",
+        "displayName": "Container Height",
+        "defaultValue": "600",
+        "options": ["500", "550", "600", "700", "800"],
+        "group": "Layout"
+      },
+      "convergenceRate": {
+        "dataType": "select",
+        "displayName": "Convergence Rate",
+        "defaultValue": "0.7",
+        "options": ["0.6", "0.65", "0.7", "0.75", "0.8"],
+        "group": "Animation"
+      },
+      "frameSpacing": {
+        "dataType": "select",
+        "displayName": "Frame Spacing",
+        "defaultValue": "60",
+        "options": ["40", "50", "60", "70", "80"],
+        "group": "Layout"
+      },
+      "animationMode": {
+        "dataType": "select",
+        "displayName": "Animation Mode",
+        "defaultValue": "continuous",
+        "options": ["none", "pulse", "continuous", "hover"],
+        "group": "Animation"
+      },
+      "animationSpeed": {
+        "dataType": "select",
+        "displayName": "Animation Speed (seconds)",
+        "defaultValue": "8",
+        "options": ["4", "6", "8", "10", "12"],
+        "group": "Animation"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#0A0A0B",
+        "group": "Colors"
+      },
+      "frameBorderColor": {
+        "dataType": "color",
+        "displayName": "Frame Border Color",
+        "defaultValue": "#27272A",
+        "group": "Colors"
+      },
+      "glowColor": {
+        "dataType": "color",
+        "displayName": "Center Glow Color",
+        "defaultValue": "#6366F1",
+        "group": "Colors"
+      },
+      "borderRadius": {
+        "dataType": "select",
+        "displayName": "Border Radius",
+        "defaultValue": "8",
+        "options": ["0", "4", "8", "12", "16"],
+        "group": "Layout"
+      },
+      "showVignette": {
+        "dataType": "booleanValue",
+        "displayName": "Show Vignette",
+        "defaultValue": true,
+        "group": "Colors"
+      },
+      "enableParallax": {
+        "dataType": "booleanValue",
+        "displayName": "Mouse Parallax",
+        "defaultValue": true,
+        "group": "Animation"
+      },
+      "depthFade": {
+        "dataType": "booleanValue",
+        "displayName": "Depth Fade Effect",
+        "defaultValue": true,
+        "group": "Animation"
+      }
+    },
+    "layout": {
+      "resizeDirection": "horizontalAndVertical",
+      "contentResizeDirection": "horizontal"
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const [mousePosition, setMousePosition] = React.useState({ x: 0.5, y: 0.5 });
+  const [animationPhase, setAnimationPhase] = React.useState(0);
+  const [isHovered, setIsHovered] = React.useState(false);
+  const [isInView, setIsInView] = React.useState(false);
+  const containerRef = React.useRef(null);
+  const animationRef = React.useRef(null);
+
+  const images = React.useMemo(() => {
+    return (config?.images || MANIFEST.editorElement.data.images.defaultValue)
+      .split(',')
+      .map(url => url.trim())
+      .filter(Boolean);
+  }, [config?.images]);
+
+  const tunnelDepth = parseInt(config?.tunnelDepth || '6');
+  const containerHeight = parseInt(config?.containerHeight || '600');
+  const convergenceRate = parseFloat(config?.convergenceRate || '0.7');
+  const frameSpacing = parseInt(config?.frameSpacing || '60');
+  const animationMode = config?.animationMode || 'continuous';
+  const animationSpeed = parseInt(config?.animationSpeed || '8');
+  const backgroundColor = config?.backgroundColor || '#0A0A0B';
+  const frameBorderColor = config?.frameBorderColor || '#27272A';
+  const glowColor = config?.glowColor || '#6366F1';
+  const borderRadius = parseInt(config?.borderRadius || '8');
+  const showVignette = config?.showVignette !== false;
+  const enableParallax = config?.enableParallax !== false;
+  const depthFade = config?.depthFade !== false;
+
+  const prefersReducedMotion = React.useMemo(() => {
+    return typeof window !== 'undefined'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false;
+  }, []);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setIsInView(true);
+        });
+      },
+      { threshold: 0.2 }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Animation loop
+  React.useEffect(() => {
+    if (prefersReducedMotion || animationMode === 'none') return;
+    if (animationMode === 'hover' && !isHovered) return;
+
+    const animate = () => {
+      setAnimationPhase(prev => (prev + 0.002) % 1);
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [animationMode, isHovered, prefersReducedMotion]);
+
+  // Mouse parallax
+  React.useEffect(() => {
+    if (!enableParallax || prefersReducedMotion) return;
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleMouseMove = (e) => {
+      const rect = container.getBoundingClientRect();
+      setMousePosition({
+        x: (e.clientX - rect.left) / rect.width,
+        y: (e.clientY - rect.top) / rect.height
+      });
+    };
+
+    const handleMouseLeave = () => {
+      setMousePosition({ x: 0.5, y: 0.5 });
+    };
+
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      container.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [enableParallax, prefersReducedMotion]);
+
+  // Generate frames
+  const frames = React.useMemo(() => {
+    const result = [];
+    for (let i = 0; i < tunnelDepth; i++) {
+      const depthProgress = i / (tunnelDepth - 1);
+      const scale = Math.pow(convergenceRate, i);
+      const imageIndex = i % images.length;
+
+      result.push({
+        index: i,
+        depthProgress,
+        scale,
+        image: images[imageIndex],
+        opacity: depthFade ? 1 - depthProgress * 0.7 : 1,
+        zIndex: tunnelDepth - i
+      });
+    }
+    return result;
+  }, [tunnelDepth, convergenceRate, images, depthFade]);
+
+  // Calculate parallax offset
+  const getParallaxOffset = (depthProgress) => {
+    if (!enableParallax) return { x: 0, y: 0 };
+    const intensity = 30 * (1 - depthProgress);
+    return {
+      x: (mousePosition.x - 0.5) * intensity,
+      y: (mousePosition.y - 0.5) * intensity
+    };
+  };
+
+  // Animation scale pulse
+  const getPulseScale = (depthProgress) => {
+    if (animationMode === 'none' || prefersReducedMotion) return 1;
+    if (animationMode === 'pulse') {
+      return 1 + Math.sin((animationPhase + depthProgress) * Math.PI * 2) * 0.03;
+    }
+    if (animationMode === 'continuous') {
+      const phase = (animationPhase + depthProgress) % 1;
+      return 1 + phase * 0.1;
+    }
+    return 1;
+  };
+
+  if (images.length === 0) {
+    return (
+      <div style={{
+        backgroundColor,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '400px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}>
+        <div style={{ textAlign: 'center', color: '#71717A' }}>
+          <p style={{ fontSize: '18px' }}>No images provided</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      className="perspective-tunnel-gallery"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        backgroundColor,
+        height: `${containerHeight}px`,
+        position: 'relative',
+        overflow: 'hidden',
+        perspective: '1000px',
+        perspectiveOrigin: '50% 50%',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}
+    >
+      {/* Frames */}
+      {frames.map((frame) => {
+        const parallax = getParallaxOffset(frame.depthProgress);
+        const pulseScale = getPulseScale(frame.depthProgress);
+        const finalScale = frame.scale * pulseScale;
+
+        return (
+          <div
+            key={frame.index}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              width: '80%',
+              height: '70%',
+              borderRadius: `${borderRadius}px`,
+              overflow: 'hidden',
+              border: `2px solid ${frameBorderColor}`,
+              opacity: prefersReducedMotion ? frame.opacity : (isInView ? frame.opacity : 0),
+              transform: `translate(-50%, -50%) translate(${parallax.x}px, ${parallax.y}px) scale(${finalScale})`,
+              zIndex: frame.zIndex,
+              boxShadow: `0 0 ${20 + frame.depthProgress * 40}px rgba(0,0,0,0.5)`,
+              transition: prefersReducedMotion
+                ? 'none'
+                : `opacity 600ms ease-out ${frame.index * 100}ms, transform 150ms ease-out`,
+              willChange: 'transform, opacity'
+            }}
+          >
+            <img
+              src={frame.image}
+              alt={`Frame ${frame.index + 1}`}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                display: 'block'
+              }}
+            />
+
+            {/* Depth darkening overlay */}
+            {depthFade && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: backgroundColor,
+                  opacity: frame.depthProgress * 0.5,
+                  pointerEvents: 'none'
+                }}
+              />
+            )}
+          </div>
+        );
+      })}
+
+      {/* Center glow */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          width: '100px',
+          height: '100px',
+          transform: 'translate(-50%, -50%)',
+          background: `radial-gradient(circle, ${glowColor}40 0%, ${glowColor}20 30%, transparent 70%)`,
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          opacity: 0.8,
+          filter: 'blur(10px)'
+        }}
+      />
+
+      {/* Vignette */}
+      {showVignette && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: `radial-gradient(ellipse at center, transparent 30%, ${backgroundColor} 100%)`,
+            pointerEvents: 'none'
+          }}
+        />
+      )}
+
+      {/* Motion lines */}
+      {animationMode === 'continuous' && !prefersReducedMotion && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: `
+              linear-gradient(to right, transparent 49.5%, rgba(255,255,255,0.02) 50%, transparent 50.5%),
+              linear-gradient(to bottom, transparent 49.5%, rgba(255,255,255,0.02) 50%, transparent 50.5%)
+            `,
+            pointerEvents: 'none'
+          }}
+        />
+      )}
+    </div>
+  );
+}

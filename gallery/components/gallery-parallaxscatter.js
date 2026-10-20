@@ -1,0 +1,222 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["gallery-parallaxscatter"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (2/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Gallery.ParallaxScatter
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Gallery.ParallaxScatter",
+    "description": "Mouse-reactive mood board with multi-plane depth parallax.",
+    "editorElement": {
+      "selector": ".parallax-scatter",
+      "displayName": "Parallax Scatter Grid",
+      "archetype": "container",
+      "data": {
+        "images": {
+          "dataType": "text",
+          "displayName": "Image URLs (Comma Sep)",
+          "defaultValue": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600,https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600,https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600,https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600,https://images.unsplash.com/photo-1488161628813-99c97485fe11?w=600",
+          "group": "Content"
+        },
+        "intensity": {
+          "dataType": "number",
+          "displayName": "Movement Intensity",
+          "defaultValue": 30,
+          "group": "Animation"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background",
+          "defaultValue": "#F5F5F4",
+          "group": "Colors"
+        }
+      },
+      "layout": {
+        "resizeDirection": "horizontalAndVertical",
+        "contentResizeDirection": "vertical"
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const containerRef = React.useRef(null);
+    const [mousePos, setMousePos] = React.useState({
+      x: 0,
+      y: 0
+    });
+    const [dimensions, setDimensions] = React.useState({
+      width: 0,
+      height: 0
+    });
+
+    // Safe Config
+    const rawImages = config?.images || '';
+    const imageList = React.useMemo(() => rawImages.split(',').map(i => i.trim()).filter(Boolean), [rawImages]);
+    const intensity = parseFloat(config?.intensity || '30');
+    const bgColor = config?.backgroundColor || '#F5F5F4';
+
+    // Seeded Random Helper (Deterministic)
+    const getSeededRandom = seed => {
+      const x = Math.sin(seed++) * 10000;
+      return x - Math.floor(x);
+    };
+
+    // Generate Layout Data Once
+    const items = React.useMemo(() => {
+      return imageList.map((url, i) => {
+        const rng = offset => getSeededRandom(i * 10 + offset);
+
+        // Depth: 1 (Close/Fast) to 0.2 (Far/Slow)
+        const depth = 0.2 + rng(1) * 0.8;
+        return {
+          id: i,
+          url,
+          depth,
+          // Position percentage (10% to 90%)
+          top: 10 + rng(2) * 70,
+          left: 10 + rng(3) * 70,
+          // Size (150px to 350px)
+          width: 150 + rng(4) * 200,
+          // Aspect Ratio (0.8 to 1.5)
+          aspect: 0.8 + rng(5) * 0.7,
+          zIndex: Math.floor(depth * 10)
+        };
+      });
+    }, [imageList]);
+
+    // Mouse Tracking
+    React.useEffect(() => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      // Set initial dimensions
+      const updateDimensions = () => {
+        setDimensions({
+          width: container.offsetWidth,
+          height: container.offsetHeight
+        });
+      };
+      updateDimensions();
+      window.addEventListener('resize', updateDimensions);
+      const handleMouseMove = e => {
+        const rect = container.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        // Smooth interpolation could be added here, using raw values for responsiveness
+        setMousePos({
+          x,
+          y
+        });
+      };
+      container.addEventListener('mousemove', handleMouseMove);
+      return () => {
+        window.removeEventListener('resize', updateDimensions);
+        container.removeEventListener('mousemove', handleMouseMove);
+      };
+    }, []);
+    const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    return /*#__PURE__*/React.createElement("div", {
+      ref: containerRef,
+      className: "parallax-scatter",
+      style: {
+        width: '100%',
+        height: '100%',
+        minHeight: '600px',
+        backgroundColor: bgColor,
+        position: 'relative',
+        overflow: 'hidden',
+        cursor: 'default'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: `translate(-50%, -50%) translate(${mousePos.x * -10}px, ${mousePos.y * -10}px)`,
+        color: '#D6D3D1',
+        fontSize: '12vw',
+        fontWeight: '800',
+        lineHeight: 1,
+        pointerEvents: 'none',
+        zIndex: 0,
+        whiteSpace: 'nowrap',
+        opacity: 0.5
+      }
+    }, "GALLERY"), items.map(item => {
+      // Parallax calculation
+      const moveX = prefersReducedMotion ? 0 : mousePos.x * item.depth * -intensity * 4;
+      const moveY = prefersReducedMotion ? 0 : mousePos.y * item.depth * -intensity * 4;
+      return /*#__PURE__*/React.createElement("div", {
+        key: item.id,
+        style: {
+          position: 'absolute',
+          top: `${item.top}%`,
+          left: `${item.left}%`,
+          width: `${item.width}px`,
+          height: `${item.width * item.aspect}px`,
+          zIndex: item.zIndex,
+          transform: `translate(-50%, -50%) translate(${moveX}px, ${moveY}px)`,
+          transition: 'transform 100ms ease-out',
+          // Small lag for smoothness
+          willChange: 'transform'
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          width: '100%',
+          height: '100%',
+          backgroundImage: `url(${item.url})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          boxShadow: `0 10px 30px -10px rgba(0,0,0,${0.1 + item.depth * 0.2})`,
+          // Deeper items = lighter shadow
+          filter: `blur(${prefersReducedMotion ? 0 : (1 - item.depth) * 2}px)`,
+          // Blur distant items
+          opacity: 0,
+          animation: `fadeIn 800ms ease-out ${item.id * 100}ms forwards`
+        }
+      }));
+    }), /*#__PURE__*/React.createElement("style", null, `
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+      `));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

@@ -1,0 +1,377 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (1/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.BentoGrid
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.BentoGrid",
+  "description": "Dynamic Bento-style portfolio grid with varied card sizes creating visual rhythm and hierarchy. Features hover effects, responsive layout, and staggered animations. Perfect for showcasing diverse project types.",
+  "editorElement": {
+    "selector": ".bento-grid-gallery",
+    "displayName": "Bento Grid Gallery",
+    "archetype": "container",
+    "data": {
+      "sectionTitle": {
+        "dataType": "text",
+        "displayName": "Section Title",
+        "defaultValue": "Featured Work",
+        "group": "Content"
+      },
+      "projects": {
+        "dataType": "text",
+        "displayName": "Projects (JSON Array)",
+        "defaultValue": JSON.stringify([
+          {
+            "title": "Brand System",
+            "category": "Identity",
+            "image": "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
+            "size": "large"
+          },
+          {
+            "title": "Mobile App",
+            "category": "Product Design",
+            "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80",
+            "size": "medium"
+          },
+          {
+            "title": "Web Platform",
+            "category": "Development",
+            "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
+            "size": "medium"
+          },
+          {
+            "title": "Editorial",
+            "category": "Art Direction",
+            "image": "https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&q=80",
+            "size": "small"
+          },
+          {
+            "title": "E-commerce",
+            "category": "Web Design",
+            "image": "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=500&q=80",
+            "size": "small"
+          }
+        ]),
+        "group": "Content",
+        "description": "Projects with title, category, image, size (small/medium/large)"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#F5F5F5",
+        "group": "Colors"
+      },
+      "cardBackgroundColor": {
+        "dataType": "color",
+        "displayName": "Card Background",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "titleColor": {
+        "dataType": "color",
+        "displayName": "Title Color",
+        "defaultValue": "#171717",
+        "group": "Colors"
+      },
+      "categoryColor": {
+        "dataType": "color",
+        "displayName": "Category Color",
+        "defaultValue": "#737373",
+        "group": "Colors"
+      },
+      "sectionTitleFontSize": {
+        "dataType": "number",
+        "displayName": "Section Title Font Size (px)",
+        "defaultValue": 56,
+        "group": "Typography"
+      },
+      "gap": {
+        "dataType": "number",
+        "displayName": "Grid Gap (px)",
+        "defaultValue": 24,
+        "group": "Layout"
+      },
+      "cardBorderRadius": {
+        "dataType": "number",
+        "displayName": "Card Border Radius (px)",
+        "defaultValue": 12,
+        "group": "Layout"
+      },
+      "animationDuration": {
+        "dataType": "select",
+        "displayName": "Animation Duration (ms)",
+        "defaultValue": "400",
+        "options": ["300", "400", "500", "600"],
+        "group": "Animation"
+      },
+      "staggerDelay": {
+        "dataType": "number",
+        "displayName": "Stagger Delay (ms)",
+        "defaultValue": 60,
+        "group": "Animation"
+      },
+      "enableAnimation": {
+        "dataType": "booleanValue",
+        "displayName": "Enable Entrance Animation",
+        "defaultValue": true,
+        "group": "Animation"
+      }
+    },
+    "layout": {
+      "resizeDirection": "horizontalAndVertical",
+      "contentResizeDirection": "vertical"
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const sectionTitle = config?.sectionTitle || "Featured Work";
+  const backgroundColor = config?.backgroundColor || "#F5F5F5";
+  const cardBackgroundColor = config?.cardBackgroundColor || "#FFFFFF";
+  const titleColor = config?.titleColor || "#171717";
+  const categoryColor = config?.categoryColor || "#737373";
+  const sectionTitleFontSize = parseInt(config?.sectionTitleFontSize || "56");
+  const gap = parseInt(config?.gap || "24");
+  const cardBorderRadius = parseInt(config?.cardBorderRadius || "12");
+  const animationDuration = parseInt(config?.animationDuration || "400");
+  const staggerDelay = parseInt(config?.staggerDelay || "60");
+  const enableAnimation = config?.enableAnimation !== false;
+
+  let projects = [];
+  try {
+    projects = JSON.parse(config?.projects || '[]');
+    if (!Array.isArray(projects) || projects.length === 0) {
+      projects = [
+        {
+          title: "Brand System",
+          category: "Identity",
+          image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
+          size: "large"
+        },
+        {
+          title: "Mobile App",
+          category: "Product Design",
+          image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80",
+          size: "medium"
+        },
+        {
+          title: "Web Platform",
+          category: "Development",
+          image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
+          size: "medium"
+        },
+        {
+          title: "Editorial",
+          category: "Art Direction",
+          image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&q=80",
+          size: "small"
+        },
+        {
+          title: "E-commerce",
+          category: "Web Design",
+          image: "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=500&q=80",
+          size: "small"
+        }
+      ];
+    }
+  } catch (e) {
+    projects = [
+      {
+        title: "Brand System",
+        category: "Identity",
+        image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
+        size: "large"
+      }
+    ];
+  }
+
+  const [visibleItems, setVisibleItems] = React.useState([]);
+  const sectionRef = React.useRef(null);
+
+  const prefersReducedMotion = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : false;
+
+  React.useEffect(() => {
+    if (!enableAnimation || prefersReducedMotion) {
+      setVisibleItems(projects.map((_, i) => i));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            projects.forEach((_, index) => {
+              setTimeout(() => {
+                setVisibleItems((prev) => [...new Set([...prev, index])]);
+              }, index * staggerDelay);
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [enableAnimation, prefersReducedMotion, staggerDelay, projects.length]);
+
+  const shouldAnimate = enableAnimation && !prefersReducedMotion;
+
+  const getCardHeight = (size) => {
+    switch (size) {
+      case 'large': return '520px';
+      case 'medium': return '380px';
+      case 'small': return '280px';
+      default: return '380px';
+    }
+  };
+
+  const getCardSpan = (size) => {
+    switch (size) {
+      case 'large': return 'span 2';
+      case 'medium': return 'span 1';
+      case 'small': return 'span 1';
+      default: return 'span 1';
+    }
+  };
+
+  return (
+    <div
+      ref={sectionRef}
+      className="bento-grid-gallery"
+      style={{
+        backgroundColor: backgroundColor,
+        padding: 'clamp(60px, 10vw, 100px) clamp(24px, 5vw, 80px)',
+        width: '100%'
+      }}
+    >
+      {/* Section Title */}
+      <h2
+        style={{
+          fontSize: `clamp(${sectionTitleFontSize * 0.55}px, ${sectionTitleFontSize * 0.08}vw + ${sectionTitleFontSize * 0.35}px, ${sectionTitleFontSize}px)`,
+          fontWeight: '600',
+          color: titleColor,
+          margin: '0 0 48px 0',
+          lineHeight: '1.2',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          maxWidth: '1400px',
+          marginLeft: 'auto',
+          marginRight: 'auto'
+        }}
+      >
+        {sectionTitle}
+      </h2>
+
+      {/* Bento Grid */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+          gap: `${gap}px`,
+          maxWidth: '1400px',
+          margin: '0 auto'
+        }}
+      >
+        {projects.map((project, index) => {
+          const isVisible = visibleItems.includes(index);
+          const cardHeight = getCardHeight(project.size);
+          
+          return (
+            <div
+              key={index}
+              style={{
+                gridColumn: window.innerWidth > 768 ? getCardSpan(project.size) : 'span 1',
+                height: cardHeight,
+                backgroundColor: cardBackgroundColor,
+                borderRadius: `${cardBorderRadius}px`,
+                overflow: 'hidden',
+                position: 'relative',
+                cursor: 'pointer',
+                opacity: shouldAnimate ? (isVisible ? 1 : 0) : 1,
+                transform: shouldAnimate ? (isVisible ? 'scale(1)' : 'scale(0.95)') : 'scale(1)',
+                transition: shouldAnimate 
+                  ? `opacity ${animationDuration}ms ease-out, transform ${animationDuration}ms ease-out, box-shadow 300ms ease-out`
+                  : 'box-shadow 300ms ease-out',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.02) translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = shouldAnimate && isVisible ? 'scale(1)' : 'scale(0.95)';
+                e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.05)';
+              }}
+            >
+              {/* Image */}
+              <div
+                style={{
+                  width: '100%',
+                  height: '70%',
+                  overflow: 'hidden'
+                }}
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
+
+              {/* Content */}
+              <div
+                style={{
+                  padding: '24px',
+                  height: '30%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center'
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    color: categoryColor,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    marginBottom: '8px',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                  }}
+                >
+                  {project.category}
+                </div>
+                <h3
+                  style={{
+                    fontSize: project.size === 'large' ? '28px' : project.size === 'medium' ? '22px' : '20px',
+                    fontWeight: '600',
+                    color: titleColor,
+                    margin: 0,
+                    lineHeight: '1.3',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                  }}
+                >
+                  {project.title}
+                </h3>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

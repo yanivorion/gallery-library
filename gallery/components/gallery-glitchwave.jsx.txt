@@ -1,0 +1,490 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (1/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.GlitchWave
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.GlitchWave",
+  "description": "Digital glitch effect with scan lines, RGB shift, and wave distortion on transitions.",
+  "editorElement": {
+    "selector": ".glitch-wave-gallery",
+    "displayName": "Glitch Wave Gallery",
+    "archetype": "container",
+    "data": {
+      "images": {
+        "dataType": "text",
+        "displayName": "Image URLs",
+        "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200&h=800&fit=crop",
+        "group": "Content"
+      },
+      "autoPlay": {
+        "dataType": "booleanValue",
+        "displayName": "Auto Play",
+        "defaultValue": "true",
+        "group": "Animation"
+      },
+      "interval": {
+        "dataType": "select",
+        "displayName": "Interval (ms)",
+        "defaultValue": "4000",
+        "options": ["3000", "4000", "5000", "6000"],
+        "group": "Animation"
+      },
+      "glitchIntensity": {
+        "dataType": "select",
+        "displayName": "Glitch Intensity",
+        "defaultValue": "medium",
+        "options": ["subtle", "medium", "intense", "chaos"],
+        "group": "Animation"
+      },
+      "showScanLines": {
+        "dataType": "booleanValue",
+        "displayName": "Show Scan Lines",
+        "defaultValue": "true",
+        "group": "Effects"
+      },
+      "showNoise": {
+        "dataType": "booleanValue",
+        "displayName": "Show Noise",
+        "defaultValue": "true",
+        "group": "Effects"
+      },
+      "containerHeight": {
+        "dataType": "select",
+        "displayName": "Container Height",
+        "defaultValue": "600",
+        "options": ["400", "500", "600", "700", "100vh"],
+        "group": "Layout"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#000000",
+        "group": "Colors"
+      },
+      "glitchColor1": {
+        "dataType": "color",
+        "displayName": "Glitch Color 1",
+        "defaultValue": "#ff0066",
+        "group": "Colors"
+      },
+      "glitchColor2": {
+        "dataType": "color",
+        "displayName": "Glitch Color 2",
+        "defaultValue": "#00ffff",
+        "group": "Colors"
+      },
+      "navColor": {
+        "dataType": "color",
+        "displayName": "Navigation Color",
+        "defaultValue": "#ffffff",
+        "group": "Colors"
+      }
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [isGlitching, setIsGlitching] = React.useState(false);
+  const [glitchState, setGlitchState] = React.useState({
+    offset1: 0,
+    offset2: 0,
+    sliceY: 0,
+    sliceHeight: 0,
+    noise: false
+  });
+  const glitchRef = React.useRef(null);
+  const uniqueId = React.useMemo(() => `glitch-${Math.random().toString(36).substr(2, 9)}`, []);
+  
+  const imagesRaw = config?.images || '';
+  const autoPlay = config?.autoPlay !== false;
+  const interval = parseInt(config?.interval || '4000');
+  const glitchIntensity = config?.glitchIntensity || 'medium';
+  const showScanLines = config?.showScanLines !== false;
+  const showNoise = config?.showNoise !== false;
+  const containerHeight = config?.containerHeight || '600';
+  const backgroundColor = config?.backgroundColor || '#000000';
+  const glitchColor1 = config?.glitchColor1 || '#ff0066';
+  const glitchColor2 = config?.glitchColor2 || '#00ffff';
+  const navColor = config?.navColor || '#ffffff';
+  
+  const images = React.useMemo(() => {
+    return imagesRaw.split(',').map(url => url.trim()).filter(Boolean);
+  }, [imagesRaw]);
+  
+  const prefersReducedMotion = React.useMemo(() => {
+    return typeof window !== 'undefined' 
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+      : false;
+  }, []);
+  
+  const intensityConfig = React.useMemo(() => {
+    const configs = {
+      subtle: { maxOffset: 5, duration: 400, slices: 3 },
+      medium: { maxOffset: 15, duration: 600, slices: 5 },
+      intense: { maxOffset: 30, duration: 800, slices: 8 },
+      chaos: { maxOffset: 50, duration: 1000, slices: 12 }
+    };
+    return configs[glitchIntensity] || configs.medium;
+  }, [glitchIntensity]);
+  
+  const triggerGlitch = React.useCallback((nextIndex) => {
+    if (isGlitching || images.length <= 1) return;
+    
+    setIsGlitching(true);
+    
+    if (prefersReducedMotion) {
+      setCurrentIndex(nextIndex);
+      setIsGlitching(false);
+      return;
+    }
+    
+    let glitchFrame = 0;
+    const totalFrames = intensityConfig.duration / 16;
+    const changePoint = totalFrames * 0.5;
+    
+    const glitchLoop = () => {
+      glitchFrame++;
+      
+      // Random glitch parameters
+      const intensity = Math.sin((glitchFrame / totalFrames) * Math.PI);
+      
+      setGlitchState({
+        offset1: (Math.random() - 0.5) * intensityConfig.maxOffset * intensity,
+        offset2: (Math.random() - 0.5) * intensityConfig.maxOffset * intensity,
+        sliceY: Math.random() * 100,
+        sliceHeight: 5 + Math.random() * 15,
+        noise: Math.random() > 0.7
+      });
+      
+      if (glitchFrame === Math.floor(changePoint)) {
+        setCurrentIndex(nextIndex);
+      }
+      
+      if (glitchFrame < totalFrames) {
+        glitchRef.current = requestAnimationFrame(glitchLoop);
+      } else {
+        setGlitchState({ offset1: 0, offset2: 0, sliceY: 0, sliceHeight: 0, noise: false });
+        setIsGlitching(false);
+      }
+    };
+    
+    glitchRef.current = requestAnimationFrame(glitchLoop);
+  }, [isGlitching, images.length, intensityConfig, prefersReducedMotion]);
+  
+  React.useEffect(() => {
+    return () => {
+      if (glitchRef.current) cancelAnimationFrame(glitchRef.current);
+    };
+  }, []);
+  
+  React.useEffect(() => {
+    if (!autoPlay || images.length <= 1 || prefersReducedMotion) return;
+    
+    const timer = setInterval(() => {
+      triggerGlitch((currentIndex + 1) % images.length);
+    }, interval);
+    
+    return () => clearInterval(timer);
+  }, [autoPlay, interval, currentIndex, images.length, triggerGlitch, prefersReducedMotion]);
+  
+  const handleNav = (direction) => {
+    const next = direction === 'next' 
+      ? (currentIndex + 1) % images.length
+      : (currentIndex - 1 + images.length) % images.length;
+    triggerGlitch(next);
+  };
+  
+  if (images.length === 0) {
+    return (
+      <div style={{ 
+        height: containerHeight === '100vh' ? '100vh' : `${containerHeight}px`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor,
+        color: 'rgba(255,255,255,0.5)',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}>
+        Add comma-separated image URLs
+      </div>
+    );
+  }
+  
+  const heightStyle = containerHeight === '100vh' ? '100vh' : `${containerHeight}px`;
+  
+  return (
+    <div
+      className="glitch-wave-gallery"
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: heightStyle,
+        backgroundColor,
+        overflow: 'hidden',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}
+    >
+      {/* Base image */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0
+        }}
+      >
+        <img
+          src={images[currentIndex]}
+          alt={`Slide ${currentIndex + 1}`}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
+      </div>
+      
+      {/* Glitch layer 1 - Red/Magenta shift */}
+      {isGlitching && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            transform: `translateX(${glitchState.offset1}px)`,
+            mixBlendMode: 'screen',
+            opacity: 0.8
+          }}
+        >
+          <img
+            src={images[currentIndex]}
+            alt=""
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              filter: `hue-rotate(-60deg) saturate(2)`
+            }}
+          />
+        </div>
+      )}
+      
+      {/* Glitch layer 2 - Cyan shift */}
+      {isGlitching && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            transform: `translateX(${glitchState.offset2}px)`,
+            mixBlendMode: 'screen',
+            opacity: 0.8
+          }}
+        >
+          <img
+            src={images[currentIndex]}
+            alt=""
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              filter: `hue-rotate(180deg) saturate(2)`
+            }}
+          />
+        </div>
+      )}
+      
+      {/* Glitch slice */}
+      {isGlitching && glitchState.sliceHeight > 0 && (
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: `${glitchState.sliceY}%`,
+            height: `${glitchState.sliceHeight}%`,
+            transform: `translateX(${(Math.random() - 0.5) * 30}px)`,
+            overflow: 'hidden'
+          }}
+        >
+          <img
+            src={images[currentIndex]}
+            alt=""
+            style={{
+              width: '100%',
+              height: heightStyle,
+              objectFit: 'cover',
+              marginTop: `-${glitchState.sliceY}%`
+            }}
+          />
+        </div>
+      )}
+      
+      {/* Scan lines */}
+      {showScanLines && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: `repeating-linear-gradient(
+              0deg,
+              rgba(0, 0, 0, 0.1) 0px,
+              rgba(0, 0, 0, 0.1) 1px,
+              transparent 1px,
+              transparent 2px
+            )`,
+            pointerEvents: 'none',
+            zIndex: 5
+          }}
+        />
+      )}
+      
+      {/* Noise overlay */}
+      {showNoise && glitchState.noise && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+            opacity: 0.15,
+            mixBlendMode: 'overlay',
+            pointerEvents: 'none',
+            zIndex: 6
+          }}
+        />
+      )}
+      
+      {/* Chromatic aberration indicator */}
+      {isGlitching && (
+        <>
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '3px',
+              height: '100%',
+              backgroundColor: glitchColor1,
+              opacity: 0.6,
+              zIndex: 7
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: '3px',
+              height: '100%',
+              backgroundColor: glitchColor2,
+              opacity: 0.6,
+              zIndex: 7
+            }}
+          />
+        </>
+      )}
+      
+      {/* Navigation */}
+      <button
+        onClick={() => handleNav('prev')}
+        disabled={isGlitching}
+        aria-label="Previous"
+        style={{
+          position: 'absolute',
+          left: '24px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: '50px',
+          height: '50px',
+          borderRadius: '50%',
+          backgroundColor: 'rgba(0,0,0,0.6)',
+          border: `1px solid ${navColor}30`,
+          color: navColor,
+          fontSize: '20px',
+          cursor: isGlitching ? 'not-allowed' : 'pointer',
+          opacity: isGlitching ? 0.5 : 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10,
+          transition: 'all 200ms ease'
+        }}
+      >
+        ←
+      </button>
+      
+      <button
+        onClick={() => handleNav('next')}
+        disabled={isGlitching}
+        aria-label="Next"
+        style={{
+          position: 'absolute',
+          right: '24px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: '50px',
+          height: '50px',
+          borderRadius: '50%',
+          backgroundColor: 'rgba(0,0,0,0.6)',
+          border: `1px solid ${navColor}30`,
+          color: navColor,
+          fontSize: '20px',
+          cursor: isGlitching ? 'not-allowed' : 'pointer',
+          opacity: isGlitching ? 0.5 : 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10,
+          transition: 'all 200ms ease'
+        }}
+      >
+        →
+      </button>
+      
+      {/* Counter */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '24px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          padding: '10px 20px',
+          backgroundColor: 'rgba(0,0,0,0.6)',
+          borderRadius: '24px',
+          color: navColor,
+          fontSize: '13px',
+          fontWeight: '500',
+          fontFamily: 'monospace',
+          zIndex: 10,
+          letterSpacing: '0.05em'
+        }}
+      >
+        [{String(currentIndex + 1).padStart(2, '0')}/{String(images.length).padStart(2, '0')}]
+      </div>
+      
+      {/* Intensity label */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '24px',
+          right: '24px',
+          padding: '8px 14px',
+          backgroundColor: 'rgba(0,0,0,0.6)',
+          borderRadius: '20px',
+          color: glitchColor1,
+          fontSize: '11px',
+          fontWeight: '500',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          fontFamily: 'monospace',
+          zIndex: 10
+        }}
+      >
+        {glitchIntensity}_mode
+      </div>
+    </div>
+  );
+}

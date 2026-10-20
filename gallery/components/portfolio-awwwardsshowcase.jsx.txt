@@ -1,0 +1,582 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (4/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Portfolio.AwwwardsShowcase
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Portfolio.AwwwardsShowcase",
+  "description": "Award-winning portfolio showcase with cinematic parallax, magnetic interactions, blur-to-focus reveals, and glassmorphism overlays",
+  "editorElement": {
+    "selector": ".awwwards-showcase-wrapper",
+    "displayName": "Awwwards Portfolio Showcase",
+    "archetype": "container",
+    "data": {
+      "projects": {
+        "dataType": "text",
+        "displayName": "Projects Data (JSON)",
+        "defaultValue": JSON.stringify([
+          {
+            "title": "KINETIC ENERGY",
+            "subtitle": "Brand Experience",
+            "category": "UI/UX Design",
+            "year": "2025",
+            "description": "Reimagining sustainable energy through immersive digital experiences",
+            "image": "data:image/svg+xml,%3Csvg width='1920' height='1080' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%2318181b'/%3E%3Cstop offset='100%25' style='stop-color:%233f3f46'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1920' height='1080' fill='url(%23g1)'/%3E%3Ctext x='50%25' y='50%25' font-family='system-ui' font-size='120' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3EKINETIC%3C/text%3E%3C/svg%3E",
+            "accentColor": "#18181b"
+          },
+          {
+            "title": "NEURAL FLUX",
+            "subtitle": "Product Design",
+            "category": "AI Interface",
+            "year": "2025",
+            "description": "Next-generation AI interaction paradigms for creative professionals",
+            "image": "data:image/svg+xml,%3Csvg width='1920' height='1080' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%233f3f46'/%3E%3Cstop offset='100%25' style='stop-color:%2371717a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1920' height='1080' fill='url(%23g2)'/%3E%3Ctext x='50%25' y='50%25' font-family='system-ui' font-size='120' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3ENEURAL%3C/text%3E%3C/svg%3E",
+            "accentColor": "#3f3f46"
+          },
+          {
+            "title": "QUANTUM SPACE",
+            "subtitle": "Digital Architecture",
+            "category": "3D Experience",
+            "year": "2024",
+            "description": "Exploring dimensional interfaces through spatial computing",
+            "image": "data:image/svg+xml,%3Csvg width='1920' height='1080' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' style='stop-color:%2352525b'/%3E%3Cstop offset='100%25' style='stop-color:%2318181b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1920' height='1080' fill='url(%23g3)'/%3E%3Ctext x='50%25' y='50%25' font-family='system-ui' font-size='120' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3EQUANTUM%3C/text%3E%3C/svg%3E",
+            "accentColor": "#52525b"
+          }
+        ], null, 2),
+        "group": "Content",
+        "description": "Array of project objects with title, subtitle, category, year, description, image, accentColor"
+      },
+      "cardHeight": {
+        "dataType": "select",
+        "displayName": "Card Height (vh)",
+        "defaultValue": "90",
+        "options": ["80", "85", "90", "95", "100"],
+        "group": "Layout",
+        "description": "Viewport height for each project card"
+      },
+      "cardGap": {
+        "dataType": "select",
+        "displayName": "Card Gap (px)",
+        "defaultValue": "80",
+        "options": ["40", "60", "80", "100", "120"],
+        "group": "Layout",
+        "description": "Space between project cards"
+      },
+      "parallaxIntensity": {
+        "dataType": "select",
+        "displayName": "Parallax Intensity",
+        "defaultValue": "0.3",
+        "options": ["0.15", "0.3", "0.5", "0.7"],
+        "group": "Animation",
+        "description": "Background parallax speed multiplier (lower = more dramatic)"
+      },
+      "magneticRadius": {
+        "dataType": "select",
+        "displayName": "Magnetic Radius (px)",
+        "defaultValue": "100",
+        "options": ["0", "80", "100", "150", "200"],
+        "group": "Animation",
+        "description": "Distance for magnetic cursor effect (0 = disabled)"
+      },
+      "revealDuration": {
+        "dataType": "select",
+        "displayName": "Reveal Duration (ms)",
+        "defaultValue": "1200",
+        "options": ["800", "1000", "1200", "1500"],
+        "group": "Animation",
+        "description": "Duration for scroll-triggered card reveals"
+      },
+      "blurAmount": {
+        "dataType": "select",
+        "displayName": "Initial Blur (px)",
+        "defaultValue": "20",
+        "options": ["0", "10", "15", "20", "30"],
+        "group": "Animation",
+        "description": "Blur amount before reveal (0 = no blur)"
+      },
+      "overlayDuration": {
+        "dataType": "select",
+        "displayName": "Overlay Duration (ms)",
+        "defaultValue": "600",
+        "options": ["400", "500", "600", "800"],
+        "group": "Animation",
+        "description": "Duration for hover overlay reveal"
+      },
+      "scrollThreshold": {
+        "dataType": "select",
+        "displayName": "Reveal Threshold",
+        "defaultValue": "0.15",
+        "options": ["0.1", "0.15", "0.2", "0.3"],
+        "group": "Animation",
+        "description": "Viewport percentage to trigger reveal"
+      },
+      "titleSize": {
+        "dataType": "number",
+        "displayName": "Title Size (px)",
+        "defaultValue": 96,
+        "group": "Typography",
+        "description": "Font size for project titles"
+      },
+      "titleWeight": {
+        "dataType": "select",
+        "displayName": "Title Weight",
+        "defaultValue": "500",
+        "options": ["300", "400", "500"],
+        "group": "Typography"
+      },
+      "subtitleSize": {
+        "dataType": "number",
+        "displayName": "Subtitle Size (px)",
+        "defaultValue": 20,
+        "group": "Typography"
+      },
+      "labelLetterSpacing": {
+        "dataType": "select",
+        "displayName": "Label Letter Spacing",
+        "defaultValue": "0.15em",
+        "options": ["0.1em", "0.15em", "0.2em", "0.25em"],
+        "group": "Typography",
+        "description": "Letter spacing for ALL CAPS labels"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#0a0a0a",
+        "group": "Colors"
+      },
+      "titleColor": {
+        "dataType": "color",
+        "displayName": "Title Color",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "subtitleColor": {
+        "dataType": "color",
+        "displayName": "Subtitle Color",
+        "defaultValue": "#71717A",
+        "group": "Colors"
+      },
+      "overlayBackground": {
+        "dataType": "color",
+        "displayName": "Overlay Background",
+        "defaultValue": "rgba(250, 250, 250, 0.1)",
+        "group": "Colors",
+        "description": "Background for hover overlay (supports transparency)"
+      },
+      "overlayTextColor": {
+        "dataType": "color",
+        "displayName": "Overlay Text Color",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "borderRadius": {
+        "dataType": "select",
+        "displayName": "Card Border Radius (px)",
+        "defaultValue": "24",
+        "options": ["0", "12", "16", "24", "32"],
+        "group": "Layout"
+      }
+    },
+    "layout": {
+      "resizeDirection": "vertical",
+      "contentResizeDirection": "vertical"
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  // Safe config access
+  const projectsData = config?.projects || JSON.stringify([
+    {
+      title: "KINETIC ENERGY",
+      subtitle: "Brand Experience",
+      category: "UI/UX Design",
+      year: "2025",
+      description: "Reimagining sustainable energy through immersive digital experiences",
+      image: "data:image/svg+xml,%3Csvg width='1920' height='1080' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1920' height='1080' fill='%2318181b'/%3E%3C/svg%3E",
+      accentColor: "#18181b"
+    }
+  ], null, 2);
+  
+  const cardHeight = parseInt(config?.cardHeight || "90");
+  const cardGap = parseInt(config?.cardGap || "80");
+  const parallaxIntensity = parseFloat(config?.parallaxIntensity || "0.3");
+  const magneticRadius = parseInt(config?.magneticRadius || "100");
+  const revealDuration = parseInt(config?.revealDuration || "1200");
+  const blurAmount = parseInt(config?.blurAmount || "20");
+  const overlayDuration = parseInt(config?.overlayDuration || "600");
+  const scrollThreshold = parseFloat(config?.scrollThreshold || "0.15");
+  const titleSize = parseInt(config?.titleSize || "96");
+  const titleWeight = config?.titleWeight || "500";
+  const subtitleSize = parseInt(config?.subtitleSize || "20");
+  const labelLetterSpacing = config?.labelLetterSpacing || "0.15em";
+  const backgroundColor = config?.backgroundColor || "#0a0a0a";
+  const titleColor = config?.titleColor || "#FFFFFF";
+  const subtitleColor = config?.subtitleColor || "#71717A";
+  const overlayBackground = config?.overlayBackground || "rgba(250, 250, 250, 0.1)";
+  const overlayTextColor = config?.overlayTextColor || "#FFFFFF";
+  const borderRadius = config?.borderRadius || "24";
+
+  // Parse projects
+  let projects = [];
+  try {
+    projects = JSON.parse(projectsData);
+  } catch (e) {
+    projects = [{
+      title: "KINETIC ENERGY",
+      subtitle: "Brand Experience",
+      category: "UI/UX Design",
+      year: "2025",
+      description: "Reimagining sustainable energy",
+      image: "data:image/svg+xml,%3Csvg width='1920' height='1080' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1920' height='1080' fill='%2318181b'/%3E%3C/svg%3E",
+      accentColor: "#18181b"
+    }];
+  }
+
+  // State
+  const [visibleCards, setVisibleCards] = React.useState(new Set());
+  const [hoveredCard, setHoveredCard] = React.useState(null);
+  const [scrollY, setScrollY] = React.useState(0);
+  const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
+  const cardRefs = React.useRef([]);
+  const containerRef = React.useRef(null);
+
+  // Accessibility
+  const prefersReducedMotion = typeof window !== 'undefined' 
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+    : false;
+
+  // Smooth scroll tracking
+  React.useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prefersReducedMotion]);
+
+  // Mouse tracking for magnetic effect
+  React.useEffect(() => {
+    if (prefersReducedMotion || magneticRadius === 0) return;
+
+    let ticking = false;
+    const handleMouseMove = (e) => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setMousePos({ x: e.clientX, y: e.clientY });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [prefersReducedMotion, magneticRadius]);
+
+  // Intersection Observer for reveals
+  React.useEffect(() => {
+    if (prefersReducedMotion) {
+      setVisibleCards(new Set(projects.map((_, i) => i)));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute('data-card-index'));
+            setTimeout(() => {
+              setVisibleCards(prev => new Set([...prev, index]));
+            }, 100);
+          }
+        });
+      },
+      { threshold: scrollThreshold, rootMargin: '0px' }
+    );
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [projects.length, scrollThreshold, prefersReducedMotion]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="awwwards-showcase-wrapper"
+      style={{
+        backgroundColor,
+        minHeight: '100vh',
+        position: 'relative',
+        overflow: 'hidden',
+        padding: `${cardGap / 2}px 0`
+      }}
+    >
+      {projects.map((project, index) => {
+        const isVisible = visibleCards.has(index);
+        const isHovered = hoveredCard === index;
+        
+        // Calculate parallax
+        const cardTop = cardRefs.current[index]?.offsetTop || 0;
+        const cardHeight = cardRefs.current[index]?.offsetHeight || 0;
+        const viewportCenter = scrollY + (typeof window !== 'undefined' ? window.innerHeight / 2 : 400);
+        const cardCenter = cardTop + cardHeight / 2;
+        const distance = viewportCenter - cardCenter;
+        const parallaxOffset = prefersReducedMotion ? 0 : distance * parallaxIntensity;
+
+        // Calculate magnetic effect
+        let magneticX = 0;
+        let magneticY = 0;
+        if (!prefersReducedMotion && magneticRadius > 0 && cardRefs.current[index]) {
+          const rect = cardRefs.current[index].getBoundingClientRect();
+          const cardCenterX = rect.left + rect.width / 2;
+          const cardCenterY = rect.top + rect.height / 2;
+          const distX = mousePos.x - cardCenterX;
+          const distY = mousePos.y - cardCenterY;
+          const dist = Math.sqrt(distX * distX + distY * distY);
+          
+          if (dist < magneticRadius) {
+            const strength = (magneticRadius - dist) / magneticRadius;
+            magneticX = distX * 0.08 * strength;
+            magneticY = distY * 0.08 * strength;
+          }
+        }
+
+        return (
+          <div
+            key={index}
+            ref={el => cardRefs.current[index] = el}
+            data-card-index={index}
+            onMouseEnter={() => setHoveredCard(index)}
+            onMouseLeave={() => setHoveredCard(null)}
+            style={{
+              height: `${cardHeight}vh`,
+              minHeight: '600px',
+              marginBottom: `${cardGap}px`,
+              position: 'relative',
+              borderRadius: `${borderRadius}px`,
+              overflow: 'hidden',
+              cursor: 'pointer',
+              opacity: prefersReducedMotion ? 1 : (isVisible ? 1 : 0),
+              transform: prefersReducedMotion ? 'none' : 
+                `scale(${isVisible ? 1 : 0.92}) translate(${magneticX}px, ${magneticY}px)`,
+              filter: prefersReducedMotion ? 'none' : 
+                `blur(${isVisible ? 0 : blurAmount}px)`,
+              transition: `opacity ${revealDuration}ms cubic-bezier(0.22, 1, 0.36, 1), 
+                          transform ${revealDuration}ms cubic-bezier(0.22, 1, 0.36, 1), 
+                          filter ${revealDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+              willChange: 'opacity, transform, filter'
+            }}
+          >
+            {/* Background Image with Parallax */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '-10%',
+                left: '-5%',
+                right: '-5%',
+                bottom: '-10%',
+                overflow: 'hidden'
+              }}
+            >
+              <img
+                src={project.image}
+                alt={project.title}
+                loading="lazy"
+                style={{
+                  width: '110%',
+                  height: '120%',
+                  objectFit: 'cover',
+                  transform: prefersReducedMotion ? 'none' : 
+                    `translateY(${parallaxOffset}px) scale(${isHovered ? 1.05 : 1})`,
+                  transition: `transform ${isHovered ? 800 : 0}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+                  willChange: 'transform'
+                }}
+              />
+            </div>
+
+            {/* Gradient Overlay */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: `linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)`,
+                zIndex: 1
+              }}
+            />
+
+            {/* Content Layer */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                zIndex: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                padding: 'clamp(40px, 5vw, 80px)',
+                opacity: prefersReducedMotion ? 1 : (isVisible ? 1 : 0),
+                transform: prefersReducedMotion ? 'none' : 
+                  (isVisible ? 'translateY(0)' : 'translateY(30px)'),
+                transition: `opacity ${revealDuration + 200}ms cubic-bezier(0.22, 1, 0.36, 1) ${revealDuration * 0.3}ms, 
+                            transform ${revealDuration + 200}ms cubic-bezier(0.22, 1, 0.36, 1) ${revealDuration * 0.3}ms`,
+                willChange: 'opacity, transform'
+              }}
+            >
+              {/* Top Meta */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <span
+                  style={{
+                    fontSize: `${subtitleSize}px`,
+                    fontWeight: '400',
+                    color: subtitleColor,
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+                    letterSpacing: labelLetterSpacing,
+                    textTransform: 'uppercase'
+                  }}
+                >
+                  {project.category}
+                </span>
+                <span
+                  style={{
+                    fontSize: `${subtitleSize}px`,
+                    fontWeight: '400',
+                    color: subtitleColor,
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+                    letterSpacing: labelLetterSpacing
+                  }}
+                >
+                  {project.year}
+                </span>
+              </div>
+
+              {/* Title */}
+              <div>
+                <h2
+                  style={{
+                    fontSize: `clamp(${titleSize * 0.5}px, ${titleSize * 0.06}vw + ${titleSize * 0.4}px, ${titleSize}px)`,
+                    fontWeight: titleWeight,
+                    color: titleColor,
+                    margin: '0 0 16px 0',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 0.95,
+                    textTransform: 'uppercase'
+                  }}
+                >
+                  {project.title}
+                </h2>
+                <p
+                  style={{
+                    fontSize: `${subtitleSize + 4}px`,
+                    fontWeight: '300',
+                    color: subtitleColor,
+                    margin: 0,
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+                    letterSpacing: '0.01em'
+                  }}
+                >
+                  {project.subtitle}
+                </p>
+              </div>
+            </div>
+
+            {/* Hover Overlay with Glassmorphism */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                zIndex: 3,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '80px',
+                clipPath: prefersReducedMotion || !isHovered ? 
+                  'circle(0% at 50% 50%)' : 
+                  'circle(100% at 50% 50%)',
+                transition: `clip-path ${overlayDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+                backgroundColor: overlayBackground,
+                backdropFilter: isHovered ? 'blur(12px)' : 'blur(0px)',
+                WebkitBackdropFilter: isHovered ? 'blur(12px)' : 'blur(0px)',
+                pointerEvents: isHovered ? 'auto' : 'none',
+                willChange: 'clip-path'
+              }}
+            >
+              <div
+                style={{
+                  textAlign: 'center',
+                  maxWidth: '600px',
+                  opacity: isHovered ? 1 : 0,
+                  transform: isHovered ? 'scale(1)' : 'scale(0.9)',
+                  transition: `opacity ${overlayDuration}ms cubic-bezier(0.22, 1, 0.36, 1) ${overlayDuration * 0.3}ms, 
+                              transform ${overlayDuration}ms cubic-bezier(0.22, 1, 0.36, 1) ${overlayDuration * 0.3}ms`
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: 'clamp(18px, 2vw, 28px)',
+                    fontWeight: '300',
+                    color: overlayTextColor,
+                    margin: '0 0 32px 0',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+                    lineHeight: 1.6,
+                    letterSpacing: '0.01em'
+                  }}
+                >
+                  {project.description}
+                </p>
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: overlayTextColor,
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+                    letterSpacing: labelLetterSpacing,
+                    textTransform: 'uppercase',
+                    padding: '12px 24px',
+                    border: `1px solid ${overlayTextColor}`,
+                    borderRadius: '100px',
+                    transition: 'all 300ms ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                    e.currentTarget.style.backgroundColor = overlayTextColor;
+                    e.currentTarget.style.color = project.accentColor || backgroundColor;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = overlayTextColor;
+                  }}
+                >
+                  View Project
+                  <span style={{ fontSize: '16px' }}>→</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}

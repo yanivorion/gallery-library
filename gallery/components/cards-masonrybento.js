@@ -1,0 +1,497 @@
+window.__GALLERY_MODULES__ = window.__GALLERY_MODULES__ || {};
+window.__GALLERY_MODULES__["cards-masonrybento"] = function (React) {
+  const {
+    useState,
+    useEffect,
+    useRef,
+    useMemo,
+    useCallback,
+    useLayoutEffect,
+    useReducer,
+    useContext,
+    useId,
+    useTransition,
+    useDeferredValue,
+    useImperativeHandle,
+    useSyncExternalStore,
+    useDebugValue,
+    Fragment,
+    createElement,
+    cloneElement,
+    Children,
+    memo,
+    forwardRef,
+    createContext,
+    createRef,
+    isValidElement,
+    StrictMode,
+    Suspense,
+    lazy
+  } = React;
+  /*
+   * ============================================================================
+   * COMPONENT GENERATION METADATA
+   * ============================================================================
+   * Project: Galleries, Carousels & Slideshows (1/4)
+   * Generated: Sep 15, 2026, 01:36 PM
+   * Component Type: Cards.MasonryBento
+   * ============================================================================
+   */
+
+  const MANIFEST = {
+    "type": "Cards.MasonryBento",
+    "description": "Bento-box style services grid with mixed card sizes and hover animations",
+    "editorElement": {
+      "selector": ".masonry-bento-cards",
+      "displayName": "Masonry Bento Cards",
+      "archetype": "container",
+      "data": {
+        "sectionTitle": {
+          "dataType": "text",
+          "displayName": "Section Title",
+          "defaultValue": "What We Offer",
+          "group": "Content"
+        },
+        "sectionSubtitle": {
+          "dataType": "text",
+          "displayName": "Section Subtitle",
+          "defaultValue": "Comprehensive solutions for modern businesses",
+          "group": "Content"
+        },
+        "featuredTitle": {
+          "dataType": "text",
+          "displayName": "Featured Card Title",
+          "defaultValue": "Digital Transformation",
+          "group": "Featured Card"
+        },
+        "featuredDescription": {
+          "dataType": "text",
+          "displayName": "Featured Card Description",
+          "defaultValue": "End-to-end digital solutions that modernize your business operations and customer experiences.",
+          "group": "Featured Card"
+        },
+        "featuredIcon": {
+          "dataType": "text",
+          "displayName": "Featured Card Icon",
+          "defaultValue": "⬡",
+          "group": "Featured Card"
+        },
+        "medium1Title": {
+          "dataType": "text",
+          "displayName": "Medium Card 1 Title",
+          "defaultValue": "Cloud Solutions",
+          "group": "Medium Cards"
+        },
+        "medium1Description": {
+          "dataType": "text",
+          "displayName": "Medium Card 1 Description",
+          "defaultValue": "Scalable infrastructure for seamless growth",
+          "group": "Medium Cards"
+        },
+        "medium1Icon": {
+          "dataType": "text",
+          "displayName": "Medium Card 1 Icon",
+          "defaultValue": "◎",
+          "group": "Medium Cards"
+        },
+        "medium2Title": {
+          "dataType": "text",
+          "displayName": "Medium Card 2 Title",
+          "defaultValue": "Data Analytics",
+          "group": "Medium Cards"
+        },
+        "medium2Description": {
+          "dataType": "text",
+          "displayName": "Medium Card 2 Description",
+          "defaultValue": "Insights that drive smarter decisions",
+          "group": "Medium Cards"
+        },
+        "medium2Icon": {
+          "dataType": "text",
+          "displayName": "Medium Card 2 Icon",
+          "defaultValue": "◈",
+          "group": "Medium Cards"
+        },
+        "small1Title": {
+          "dataType": "text",
+          "displayName": "Small Card 1 Title",
+          "defaultValue": "Security",
+          "group": "Small Cards"
+        },
+        "small1Icon": {
+          "dataType": "text",
+          "displayName": "Small Card 1 Icon",
+          "defaultValue": "◇",
+          "group": "Small Cards"
+        },
+        "small2Title": {
+          "dataType": "text",
+          "displayName": "Small Card 2 Title",
+          "defaultValue": "Support",
+          "group": "Small Cards"
+        },
+        "small2Icon": {
+          "dataType": "text",
+          "displayName": "Small Card 2 Icon",
+          "defaultValue": "△",
+          "group": "Small Cards"
+        },
+        "small3Title": {
+          "dataType": "text",
+          "displayName": "Small Card 3 Title",
+          "defaultValue": "Integration",
+          "group": "Small Cards"
+        },
+        "small3Icon": {
+          "dataType": "text",
+          "displayName": "Small Card 3 Icon",
+          "defaultValue": "○",
+          "group": "Small Cards"
+        },
+        "gridGap": {
+          "dataType": "select",
+          "displayName": "Grid Gap (px)",
+          "defaultValue": "16",
+          "options": ["12", "16", "20", "24"],
+          "group": "Layout"
+        },
+        "backgroundColor": {
+          "dataType": "color",
+          "displayName": "Background Color",
+          "defaultValue": "#FAFAFA",
+          "group": "Colors"
+        },
+        "cardBackgroundColor": {
+          "dataType": "color",
+          "displayName": "Card Background",
+          "defaultValue": "#FFFFFF",
+          "group": "Colors"
+        },
+        "featuredCardBg": {
+          "dataType": "color",
+          "displayName": "Featured Card Background",
+          "defaultValue": "#18181B",
+          "group": "Colors"
+        },
+        "featuredTextColor": {
+          "dataType": "color",
+          "displayName": "Featured Text Color",
+          "defaultValue": "#FAFAFA",
+          "group": "Colors"
+        },
+        "titleColor": {
+          "dataType": "color",
+          "displayName": "Title Color",
+          "defaultValue": "#18181B",
+          "group": "Colors"
+        },
+        "textColor": {
+          "dataType": "color",
+          "displayName": "Text Color",
+          "defaultValue": "#52525B",
+          "group": "Colors"
+        },
+        "borderColor": {
+          "dataType": "color",
+          "displayName": "Border Color",
+          "defaultValue": "#E4E4E7",
+          "group": "Colors"
+        },
+        "accentColor": {
+          "dataType": "color",
+          "displayName": "Accent Color",
+          "defaultValue": "#3B82F6",
+          "group": "Colors"
+        }
+      },
+      "layout": {
+        "resizeDirection": "horizontalAndVertical",
+        "contentResizeDirection": "vertical"
+      }
+    }
+  };
+  function Component({
+    config = {}
+  }) {
+    const [hoveredCard, setHoveredCard] = React.useState(null);
+    const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    const sectionTitle = config?.sectionTitle || 'What We Offer';
+    const sectionSubtitle = config?.sectionSubtitle || 'Comprehensive solutions for modern businesses';
+    const featured = {
+      title: config?.featuredTitle || 'Digital Transformation',
+      description: config?.featuredDescription || 'End-to-end digital solutions that modernize your business.',
+      icon: config?.featuredIcon || '⬡'
+    };
+    const mediumCards = [{
+      title: config?.medium1Title || 'Cloud Solutions',
+      description: config?.medium1Description || 'Scalable infrastructure for seamless growth',
+      icon: config?.medium1Icon || '◎'
+    }, {
+      title: config?.medium2Title || 'Data Analytics',
+      description: config?.medium2Description || 'Insights that drive smarter decisions',
+      icon: config?.medium2Icon || '◈'
+    }];
+    const smallCards = [{
+      title: config?.small1Title || 'Security',
+      icon: config?.small1Icon || '◇'
+    }, {
+      title: config?.small2Title || 'Support',
+      icon: config?.small2Icon || '△'
+    }, {
+      title: config?.small3Title || 'Integration',
+      icon: config?.small3Icon || '○'
+    }];
+    const gridGap = parseInt(config?.gridGap || '16');
+    const backgroundColor = config?.backgroundColor || '#FAFAFA';
+    const cardBackgroundColor = config?.cardBackgroundColor || '#FFFFFF';
+    const featuredCardBg = config?.featuredCardBg || '#18181B';
+    const featuredTextColor = config?.featuredTextColor || '#FAFAFA';
+    const titleColor = config?.titleColor || '#18181B';
+    const textColor = config?.textColor || '#52525B';
+    const borderColor = config?.borderColor || '#E4E4E7';
+    const accentColor = config?.accentColor || '#3B82F6';
+    const getCardStyle = (cardId, isLarge = false, isFeatured = false) => {
+      const isHovered = hoveredCard === cardId;
+      return {
+        backgroundColor: isFeatured ? featuredCardBg : cardBackgroundColor,
+        borderRadius: '16px',
+        border: isFeatured ? 'none' : `1px solid ${borderColor}`,
+        padding: isLarge ? '32px' : '24px',
+        cursor: 'pointer',
+        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
+        boxShadow: isHovered ? '0 20px 40px rgba(0,0,0,0.1)' : '0 2px 8px rgba(0,0,0,0.04)',
+        transition: prefersReducedMotion ? 'none' : 'all 300ms cubic-bezier(0.34, 1.56, 0.64, 1)',
+        position: 'relative',
+        overflow: 'hidden',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+      };
+    };
+
+    // useId must be called at the top level, never inside a useMemo callback
+    const reactId = React.useId();
+    const uniqueId = React.useMemo(() => reactId.replace(/:/g, ''), [reactId]);
+    return /*#__PURE__*/React.createElement("div", {
+      className: "masonry-bento-cards",
+      style: {
+        backgroundColor,
+        padding: '80px 40px',
+        minHeight: '700px'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        maxWidth: '1200px',
+        margin: '0 auto 48px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        flexWrap: 'wrap',
+        gap: '16px'
+      }
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
+      style: {
+        fontSize: '36px',
+        fontWeight: '500',
+        color: titleColor,
+        margin: '0 0 8px 0',
+        letterSpacing: '-0.02em'
+      }
+    }, sectionTitle), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: '16px',
+        color: textColor,
+        margin: 0
+      }
+    }, sectionSubtitle)), /*#__PURE__*/React.createElement("button", {
+      style: {
+        padding: '12px 24px',
+        backgroundColor: 'transparent',
+        border: `1px solid ${borderColor}`,
+        borderRadius: '8px',
+        fontSize: '14px',
+        fontWeight: '500',
+        color: titleColor,
+        cursor: 'pointer',
+        transition: prefersReducedMotion ? 'none' : 'all 200ms ease-out'
+      },
+      onMouseEnter: e => {
+        e.target.style.backgroundColor = titleColor;
+        e.target.style.color = cardBackgroundColor;
+      },
+      onMouseLeave: e => {
+        e.target.style.backgroundColor = 'transparent';
+        e.target.style.color = titleColor;
+      }
+    }, "View All Services")), /*#__PURE__*/React.createElement("div", {
+      style: {
+        maxWidth: '1200px',
+        margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gridTemplateRows: 'repeat(3, 140px)',
+        gap: gridGap + 'px'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        gridColumn: 'span 2',
+        gridRow: 'span 2',
+        ...getCardStyle('featured', true, true)
+      },
+      onMouseEnter: () => setHoveredCard('featured'),
+      onMouseLeave: () => setHoveredCard(null),
+      role: "article",
+      tabIndex: 0
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: '48px',
+        color: accentColor,
+        marginBottom: '24px',
+        opacity: hoveredCard === 'featured' ? 1 : 0.8,
+        transition: prefersReducedMotion ? 'none' : 'opacity 300ms ease-out'
+      }
+    }, featured.icon), /*#__PURE__*/React.createElement("h3", {
+      style: {
+        fontSize: '28px',
+        fontWeight: '500',
+        color: featuredTextColor,
+        margin: '0 0 12px 0',
+        letterSpacing: '-0.01em'
+      }
+    }, featured.title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: '15px',
+        color: `${featuredTextColor}99`,
+        margin: 0,
+        lineHeight: '1.6',
+        maxWidth: '320px'
+      }
+    }, featured.description), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 'auto',
+        paddingTop: '24px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        color: accentColor,
+        fontSize: '14px',
+        fontWeight: '500'
+      }
+    }, "Learn more", /*#__PURE__*/React.createElement("span", {
+      style: {
+        transform: hoveredCard === 'featured' ? 'translateX(4px)' : 'translateX(0)',
+        transition: prefersReducedMotion ? 'none' : 'transform 300ms ease-out'
+      }
+    }, "→"))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        gridColumn: 'span 2',
+        gridRow: 'span 1',
+        ...getCardStyle('medium1')
+      },
+      onMouseEnter: () => setHoveredCard('medium1'),
+      onMouseLeave: () => setHoveredCard(null),
+      role: "article",
+      tabIndex: 0
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: '16px'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: '28px',
+        color: hoveredCard === 'medium1' ? accentColor : textColor,
+        transition: prefersReducedMotion ? 'none' : 'color 300ms ease-out'
+      }
+    }, mediumCards[0].icon), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
+      style: {
+        fontSize: '18px',
+        fontWeight: '500',
+        color: titleColor,
+        margin: '0 0 6px 0'
+      }
+    }, mediumCards[0].title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: '14px',
+        color: textColor,
+        margin: 0,
+        lineHeight: '1.5'
+      }
+    }, mediumCards[0].description)))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        gridColumn: 'span 2',
+        gridRow: 'span 1',
+        ...getCardStyle('medium2')
+      },
+      onMouseEnter: () => setHoveredCard('medium2'),
+      onMouseLeave: () => setHoveredCard(null),
+      role: "article",
+      tabIndex: 0
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: '16px'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: '28px',
+        color: hoveredCard === 'medium2' ? accentColor : textColor,
+        transition: prefersReducedMotion ? 'none' : 'color 300ms ease-out'
+      }
+    }, mediumCards[1].icon), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
+      style: {
+        fontSize: '18px',
+        fontWeight: '500',
+        color: titleColor,
+        margin: '0 0 6px 0'
+      }
+    }, mediumCards[1].title), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: '14px',
+        color: textColor,
+        margin: 0,
+        lineHeight: '1.5'
+      }
+    }, mediumCards[1].description)))), smallCards.map((card, index) => /*#__PURE__*/React.createElement("div", {
+      key: `${uniqueId}-small-${index}`,
+      style: {
+        gridColumn: index === 2 ? 'span 2' : 'span 1',
+        gridRow: 'span 1',
+        ...getCardStyle(`small${index}`)
+      },
+      onMouseEnter: () => setHoveredCard(`small${index}`),
+      onMouseLeave: () => setHoveredCard(null),
+      role: "article",
+      tabIndex: 0
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        textAlign: 'center'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: '32px',
+        color: hoveredCard === `small${index}` ? accentColor : textColor,
+        marginBottom: '12px',
+        transition: prefersReducedMotion ? 'none' : 'color 300ms ease-out'
+      }
+    }, card.icon), /*#__PURE__*/React.createElement("h3", {
+      style: {
+        fontSize: '16px',
+        fontWeight: '500',
+        color: titleColor,
+        margin: 0
+      }
+    }, card.title))))));
+  }
+  return {
+    MANIFEST: typeof MANIFEST !== 'undefined' ? MANIFEST : null,
+    Component
+  };
+};

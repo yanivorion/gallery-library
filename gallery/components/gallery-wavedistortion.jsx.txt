@@ -1,0 +1,443 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (3/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.WaveDistortion
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.WaveDistortion",
+  "description": "Water wave ripple distortion effect applied to images during transitions.",
+  "editorElement": {
+    "selector": ".wave-distortion-gallery",
+    "displayName": "Wave Distortion Gallery",
+    "archetype": "container",
+    "data": {
+      "images": {
+        "dataType": "text",
+        "displayName": "Image URLs",
+        "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200&h=800&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200&h=800&fit=crop",
+        "group": "Content"
+      },
+      "autoPlay": {
+        "dataType": "booleanValue",
+        "displayName": "Auto Play",
+        "defaultValue": "true",
+        "group": "Animation"
+      },
+      "interval": {
+        "dataType": "select",
+        "displayName": "Interval (ms)",
+        "defaultValue": "5000",
+        "options": ["3000", "4000", "5000", "6000", "8000"],
+        "group": "Animation"
+      },
+      "waveIntensity": {
+        "dataType": "select",
+        "displayName": "Wave Intensity",
+        "defaultValue": "medium",
+        "options": ["gentle", "medium", "strong", "turbulent"],
+        "group": "Animation"
+      },
+      "waveSpeed": {
+        "dataType": "select",
+        "displayName": "Wave Speed",
+        "defaultValue": "medium",
+        "options": ["slow", "medium", "fast"],
+        "group": "Animation"
+      },
+      "continuousWave": {
+        "dataType": "booleanValue",
+        "displayName": "Continuous Wave",
+        "defaultValue": "false",
+        "group": "Animation"
+      },
+      "containerHeight": {
+        "dataType": "select",
+        "displayName": "Container Height",
+        "defaultValue": "600",
+        "options": ["400", "500", "600", "700", "100vh"],
+        "group": "Layout"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#0a0a1a",
+        "group": "Colors"
+      },
+      "navColor": {
+        "dataType": "color",
+        "displayName": "Navigation Color",
+        "defaultValue": "#ffffff",
+        "group": "Colors"
+      }
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [isAnimating, setIsAnimating] = React.useState(false);
+  const [waveTime, setWaveTime] = React.useState(0);
+  const canvasRef = React.useRef(null);
+  const animationRef = React.useRef(null);
+  const imageRef = React.useRef(null);
+  const uniqueId = React.useMemo(() => `wave-${Math.random().toString(36).substr(2, 9)}`, []);
+  
+  const imagesRaw = config?.images || '';
+  const autoPlay = config?.autoPlay !== false;
+  const interval = parseInt(config?.interval || '5000');
+  const waveIntensity = config?.waveIntensity || 'medium';
+  const waveSpeed = config?.waveSpeed || 'medium';
+  const continuousWave = config?.continuousWave === true;
+  const containerHeight = config?.containerHeight || '600';
+  const backgroundColor = config?.backgroundColor || '#0a0a1a';
+  const navColor = config?.navColor || '#ffffff';
+  
+  const images = React.useMemo(() => {
+    return imagesRaw.split(',').map(url => url.trim()).filter(Boolean);
+  }, [imagesRaw]);
+  
+  const prefersReducedMotion = React.useMemo(() => {
+    return typeof window !== 'undefined' 
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+      : false;
+  }, []);
+  
+  const intensityConfig = React.useMemo(() => {
+    const configs = {
+      gentle: { amplitude: 8, frequency: 0.02 },
+      medium: { amplitude: 15, frequency: 0.03 },
+      strong: { amplitude: 25, frequency: 0.04 },
+      turbulent: { amplitude: 40, frequency: 0.05 }
+    };
+    return configs[waveIntensity] || configs.medium;
+  }, [waveIntensity]);
+  
+  const speedConfig = React.useMemo(() => {
+    const speeds = { slow: 0.03, medium: 0.06, fast: 0.1 };
+    return speeds[waveSpeed] || 0.06;
+  }, [waveSpeed]);
+  
+  // SVG filter for wave distortion
+  const svgFilter = React.useMemo(() => {
+    const turbulence = continuousWave || isAnimating ? waveTime : 0;
+    return `
+      <svg style="position:absolute;width:0;height:0">
+        <defs>
+          <filter id="${uniqueId}-wave">
+            <feTurbulence 
+              type="turbulence" 
+              baseFrequency="${intensityConfig.frequency}" 
+              numOctaves="3" 
+              seed="${Math.floor(turbulence * 10)}"
+              result="turbulence"
+            />
+            <feDisplacementMap 
+              in="SourceGraphic" 
+              in2="turbulence" 
+              scale="${(continuousWave || isAnimating) ? intensityConfig.amplitude * Math.sin(waveTime * 2) : 0}" 
+              xChannelSelector="R" 
+              yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+      </svg>
+    `;
+  }, [uniqueId, waveTime, intensityConfig, continuousWave, isAnimating]);
+  
+  // Continuous wave animation
+  React.useEffect(() => {
+    if (!continuousWave || prefersReducedMotion) return;
+    
+    const animate = () => {
+      setWaveTime(prev => prev + speedConfig);
+      animationRef.current = requestAnimationFrame(animate);
+    };
+    
+    animationRef.current = requestAnimationFrame(animate);
+    
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [continuousWave, speedConfig, prefersReducedMotion]);
+  
+  const triggerTransition = React.useCallback((nextIndex) => {
+    if (isAnimating || images.length <= 1) return;
+    
+    setIsAnimating(true);
+    
+    if (prefersReducedMotion) {
+      setCurrentIndex(nextIndex);
+      setIsAnimating(false);
+      return;
+    }
+    
+    const startTime = performance.now();
+    const duration = 1200;
+    
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      setWaveTime(progress * 10);
+      
+      if (progress >= 0.5 && progress < 0.52) {
+        setCurrentIndex(nextIndex);
+      }
+      
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      } else {
+        if (!continuousWave) setWaveTime(0);
+        setIsAnimating(false);
+      }
+    };
+    
+    animationRef.current = requestAnimationFrame(animate);
+  }, [isAnimating, images.length, continuousWave, prefersReducedMotion]);
+  
+  React.useEffect(() => {
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, []);
+  
+  React.useEffect(() => {
+    if (!autoPlay || images.length <= 1 || prefersReducedMotion) return;
+    
+    const timer = setInterval(() => {
+      triggerTransition((currentIndex + 1) % images.length);
+    }, interval);
+    
+    return () => clearInterval(timer);
+  }, [autoPlay, interval, currentIndex, images.length, triggerTransition, prefersReducedMotion]);
+  
+  const handleNav = (direction) => {
+    const next = direction === 'next' 
+      ? (currentIndex + 1) % images.length
+      : (currentIndex - 1 + images.length) % images.length;
+    triggerTransition(next);
+  };
+  
+  if (images.length === 0) {
+    return (
+      <div style={{ 
+        height: containerHeight === '100vh' ? '100vh' : `${containerHeight}px`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor,
+        color: 'rgba(255,255,255,0.5)',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}>
+        Add comma-separated image URLs
+      </div>
+    );
+  }
+  
+  const heightStyle = containerHeight === '100vh' ? '100vh' : `${containerHeight}px`;
+  const showWaveEffect = (continuousWave || isAnimating) && !prefersReducedMotion;
+  
+  return (
+    <div
+      className="wave-distortion-gallery"
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: heightStyle,
+        backgroundColor,
+        overflow: 'hidden',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}
+    >
+      {/* SVG Filter */}
+      <div dangerouslySetInnerHTML={{ __html: svgFilter }} />
+      
+      {/* Image with wave effect */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          filter: showWaveEffect ? `url(#${uniqueId}-wave)` : 'none',
+          transition: 'filter 300ms ease'
+        }}
+      >
+        <img
+          ref={imageRef}
+          src={images[currentIndex]}
+          alt={`Slide ${currentIndex + 1}`}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
+      </div>
+      
+      {/* Overlay gradient */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.4))',
+          pointerEvents: 'none'
+        }}
+      />
+      
+      {/* Wave indicator */}
+      {continuousWave && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '24px',
+            left: '24px',
+            padding: '8px 14px',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '20px',
+            color: navColor,
+            fontSize: '11px',
+            fontWeight: '500',
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            zIndex: 10
+          }}
+        >
+          <span style={{
+            width: '8px',
+            height: '8px',
+            borderRadius: '50%',
+            backgroundColor: '#4ade80',
+            animation: 'pulse 1.5s infinite'
+          }} />
+          Wave Active
+        </div>
+      )}
+      
+      {/* Navigation */}
+      <button
+        onClick={() => handleNav('prev')}
+        disabled={isAnimating}
+        aria-label="Previous"
+        style={{
+          position: 'absolute',
+          left: '24px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: '50px',
+          height: '50px',
+          borderRadius: '50%',
+          backgroundColor: 'rgba(0,0,0,0.4)',
+          backdropFilter: 'blur(10px)',
+          border: `1px solid ${navColor}30`,
+          color: navColor,
+          fontSize: '20px',
+          cursor: isAnimating ? 'not-allowed' : 'pointer',
+          opacity: isAnimating ? 0.5 : 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10,
+          transition: 'all 200ms ease'
+        }}
+      >
+        ←
+      </button>
+      
+      <button
+        onClick={() => handleNav('next')}
+        disabled={isAnimating}
+        aria-label="Next"
+        style={{
+          position: 'absolute',
+          right: '24px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: '50px',
+          height: '50px',
+          borderRadius: '50%',
+          backgroundColor: 'rgba(0,0,0,0.4)',
+          backdropFilter: 'blur(10px)',
+          border: `1px solid ${navColor}30`,
+          color: navColor,
+          fontSize: '20px',
+          cursor: isAnimating ? 'not-allowed' : 'pointer',
+          opacity: isAnimating ? 0.5 : 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10,
+          transition: 'all 200ms ease'
+        }}
+      >
+        →
+      </button>
+      
+      {/* Indicators */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '30px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          gap: '10px',
+          zIndex: 10
+        }}
+      >
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => !isAnimating && triggerTransition(idx)}
+            aria-label={`Go to slide ${idx + 1}`}
+            style={{
+              width: currentIndex === idx ? '28px' : '10px',
+              height: '10px',
+              borderRadius: '5px',
+              backgroundColor: currentIndex === idx ? navColor : `${navColor}40`,
+              border: 'none',
+              cursor: isAnimating ? 'not-allowed' : 'pointer',
+              padding: 0,
+              transition: 'all 300ms ease'
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Intensity label */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '24px',
+          right: '24px',
+          padding: '8px 14px',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          backdropFilter: 'blur(10px)',
+          borderRadius: '20px',
+          color: navColor,
+          fontSize: '11px',
+          fontWeight: '500',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          zIndex: 10
+        }}
+      >
+        {waveIntensity} waves
+      </div>
+      
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+      `}</style>
+    </div>
+  );
+}

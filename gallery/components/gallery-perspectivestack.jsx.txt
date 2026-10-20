@@ -1,0 +1,498 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (2/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.PerspectiveStack
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.PerspectiveStack",
+  "description": "A perspective stack gallery where images fan out from a central vanishing point like a spread deck of cards with dramatic 3D depth",
+  "editorElement": {
+    "selector": ".perspective-stack-gallery",
+    "displayName": "Perspective Stack Gallery",
+    "archetype": "container",
+    "data": {
+      "images": {
+        "dataType": "text",
+        "displayName": "Image URLs",
+        "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=400&h=500&fit=crop,https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&h=500&fit=crop",
+        "group": "Content",
+        "description": "Comma-separated image URLs (5-7 recommended)"
+      },
+      "galleryTitle": {
+        "dataType": "text",
+        "displayName": "Gallery Title",
+        "defaultValue": "Discover Beautiful Moments",
+        "group": "Content"
+      },
+      "showTitle": {
+        "dataType": "booleanValue",
+        "displayName": "Show Title",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "spreadDirection": {
+        "dataType": "select",
+        "displayName": "Spread Direction",
+        "defaultValue": "center",
+        "options": ["left", "center", "right"],
+        "group": "Layout",
+        "description": "Origin point for the card spread"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#F5F5F4",
+        "group": "Colors"
+      },
+      "cardBorderColor": {
+        "dataType": "color",
+        "displayName": "Card Border Color",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "shadowColor": {
+        "dataType": "color",
+        "displayName": "Shadow Color",
+        "defaultValue": "#1C1917",
+        "group": "Colors"
+      },
+      "titleColor": {
+        "dataType": "color",
+        "displayName": "Title Color",
+        "defaultValue": "#1C1917",
+        "group": "Colors"
+      },
+      "accentColor": {
+        "dataType": "color",
+        "displayName": "Accent Color",
+        "defaultValue": "#44403C",
+        "group": "Colors"
+      },
+      "borderRadius": {
+        "dataType": "select",
+        "displayName": "Card Border Radius",
+        "defaultValue": "16",
+        "options": ["8", "12", "16", "20", "24"],
+        "group": "Layout"
+      },
+      "cardWidth": {
+        "dataType": "select",
+        "displayName": "Card Width",
+        "defaultValue": "200",
+        "options": ["160", "180", "200", "220", "240"],
+        "group": "Layout"
+      },
+      "cardHeight": {
+        "dataType": "select",
+        "displayName": "Card Height",
+        "defaultValue": "280",
+        "options": ["220", "250", "280", "320", "360"],
+        "group": "Layout"
+      },
+      "spreadAngle": {
+        "dataType": "select",
+        "displayName": "Spread Angle",
+        "defaultValue": "12",
+        "options": ["6", "8", "10", "12", "15", "18"],
+        "group": "Animation"
+      },
+      "depthStep": {
+        "dataType": "select",
+        "displayName": "Depth Step (px)",
+        "defaultValue": "30",
+        "options": ["15", "20", "25", "30", "40", "50"],
+        "group": "Animation"
+      },
+      "hoverLift": {
+        "dataType": "select",
+        "displayName": "Hover Lift Amount",
+        "defaultValue": "40",
+        "options": ["20", "30", "40", "50", "60"],
+        "group": "Animation"
+      },
+      "transitionSpeed": {
+        "dataType": "select",
+        "displayName": "Transition Speed",
+        "defaultValue": "400",
+        "options": ["200", "300", "400", "500", "600"],
+        "group": "Animation"
+      },
+      "cardBorderWidth": {
+        "dataType": "select",
+        "displayName": "Card Border Width",
+        "defaultValue": "4",
+        "options": ["0", "2", "3", "4", "6"],
+        "group": "Layout"
+      },
+      "titleFontSize": {
+        "dataType": "number",
+        "displayName": "Title Font Size (px)",
+        "defaultValue": 28,
+        "group": "Typography"
+      },
+      "titleFontWeight": {
+        "dataType": "select",
+        "displayName": "Title Font Weight",
+        "defaultValue": "500",
+        "options": ["300", "400", "500"],
+        "group": "Typography"
+      },
+      "showCardNumbers": {
+        "dataType": "booleanValue",
+        "displayName": "Show Card Numbers",
+        "defaultValue": false,
+        "group": "Content"
+      },
+      "perspective": {
+        "dataType": "select",
+        "displayName": "Perspective Depth",
+        "defaultValue": "1000",
+        "options": ["600", "800", "1000", "1200", "1500"],
+        "group": "Animation"
+      }
+    },
+    "layout": {
+      "resizeDirection": "horizontalAndVertical",
+      "contentResizeDirection": "horizontal"
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const [hoveredIndex, setHoveredIndex] = React.useState(null);
+  const [activeIndex, setActiveIndex] = React.useState(null);
+  const [isInView, setIsInView] = React.useState(false);
+  const containerRef = React.useRef(null);
+
+  // Safe config access
+  const images = React.useMemo(() => {
+    return (config?.images || MANIFEST.editorElement.data.images.defaultValue)
+      .split(',')
+      .map(url => url.trim())
+      .filter(Boolean);
+  }, [config?.images]);
+
+  const galleryTitle = config?.galleryTitle || 'Discover Beautiful Moments';
+  const showTitle = config?.showTitle !== false;
+  const spreadDirection = config?.spreadDirection || 'center';
+  const backgroundColor = config?.backgroundColor || '#F5F5F4';
+  const cardBorderColor = config?.cardBorderColor || '#FFFFFF';
+  const shadowColor = config?.shadowColor || '#1C1917';
+  const titleColor = config?.titleColor || '#1C1917';
+  const accentColor = config?.accentColor || '#44403C';
+  const borderRadius = parseInt(config?.borderRadius || '16');
+  const cardWidth = parseInt(config?.cardWidth || '200');
+  const cardHeight = parseInt(config?.cardHeight || '280');
+  const spreadAngle = parseFloat(config?.spreadAngle || '12');
+  const depthStep = parseInt(config?.depthStep || '30');
+  const hoverLift = parseInt(config?.hoverLift || '40');
+  const transitionSpeed = parseInt(config?.transitionSpeed || '400');
+  const cardBorderWidth = parseInt(config?.cardBorderWidth || '4');
+  const titleFontSize = parseInt(config?.titleFontSize || '28');
+  const titleFontWeight = config?.titleFontWeight || '500';
+  const showCardNumbers = config?.showCardNumbers === true;
+  const perspective = parseInt(config?.perspective || '1000');
+
+  const prefersReducedMotion = React.useMemo(() => {
+    return typeof window !== 'undefined'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false;
+  }, []);
+
+  // Intersection observer
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setIsInView(true);
+        });
+      },
+      { threshold: 0.3 }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Calculate spread origin offset
+  const getOriginOffset = () => {
+    switch (spreadDirection) {
+      case 'left': return -images.length * spreadAngle / 2;
+      case 'right': return images.length * spreadAngle / 2;
+      default: return 0;
+    }
+  };
+
+  // Get card transform based on position
+  const getCardTransform = (index) => {
+    const total = images.length;
+    const centerIndex = (total - 1) / 2;
+    const offset = index - centerIndex;
+    const originOffset = getOriginOffset();
+    
+    // Rotation angle
+    const rotation = (offset * spreadAngle) + originOffset;
+    
+    // Z-depth (front cards have higher z)
+    const zDepth = -Math.abs(offset) * depthStep;
+    
+    // X translation for spread
+    const xSpread = offset * (cardWidth * 0.4);
+    
+    // Y offset for arc effect
+    const yArc = Math.abs(offset) * 8;
+
+    const isHovered = hoveredIndex === index;
+    const isActive = activeIndex === index;
+    const isOtherActive = activeIndex !== null && activeIndex !== index;
+
+    let finalRotation = rotation;
+    let finalZ = zDepth;
+    let finalY = yArc;
+    let finalScale = 1;
+
+    if (isActive) {
+      finalRotation = 0;
+      finalZ = 100;
+      finalY = -20;
+      finalScale = 1.15;
+    } else if (isOtherActive) {
+      finalScale = 0.9;
+      finalZ = zDepth - 50;
+    } else if (isHovered) {
+      finalZ = zDepth + hoverLift;
+      finalY = yArc - 15;
+      finalScale = 1.05;
+    }
+
+    return {
+      rotation: finalRotation,
+      x: xSpread,
+      y: finalY,
+      z: finalZ,
+      scale: finalScale,
+      zIndex: isActive ? 100 : (isHovered ? 50 : total - Math.abs(Math.round(offset)))
+    };
+  };
+
+  // Parse shadow color to RGB
+  const shadowRGB = React.useMemo(() => {
+    const hex = shadowColor.replace('#', '');
+    return {
+      r: parseInt(hex.slice(0, 2), 16),
+      g: parseInt(hex.slice(2, 4), 16),
+      b: parseInt(hex.slice(4, 6), 16)
+    };
+  }, [shadowColor]);
+
+  if (images.length === 0) {
+    return (
+      <div
+        className="perspective-stack-gallery"
+        style={{
+          backgroundColor,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '400px',
+          padding: '40px',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }}
+      >
+        <div style={{ textAlign: 'center', color: '#78716C' }}>
+          <p style={{ fontSize: '18px', marginBottom: '8px' }}>No images provided</p>
+          <p style={{ fontSize: '14px', opacity: 0.7 }}>Add comma-separated image URLs</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      className="perspective-stack-gallery"
+      style={{
+        backgroundColor,
+        minHeight: '600px',
+        padding: '60px 40px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '50px',
+        overflow: 'hidden'
+      }}
+    >
+      {/* Title */}
+      {showTitle && (
+        <h2
+          style={{
+            fontSize: `${titleFontSize}px`,
+            fontWeight: titleFontWeight,
+            color: titleColor,
+            margin: 0,
+            textAlign: 'center',
+            letterSpacing: '-0.01em',
+            opacity: prefersReducedMotion ? 1 : (isInView ? 1 : 0),
+            transform: prefersReducedMotion ? 'none' : (isInView ? 'translateY(0)' : 'translateY(20px)'),
+            transition: prefersReducedMotion ? 'none' : 'opacity 600ms ease-out, transform 600ms ease-out'
+          }}
+        >
+          {galleryTitle}
+        </h2>
+      )}
+
+      {/* Cards Container */}
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: `${cardHeight + 100}px`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          perspective: `${perspective}px`,
+          perspectiveOrigin: 'center center'
+        }}
+      >
+        <div
+          style={{
+            position: 'relative',
+            transformStyle: 'preserve-3d',
+            width: `${cardWidth}px`,
+            height: `${cardHeight}px`
+          }}
+        >
+          {images.map((imageUrl, index) => {
+            const transform = getCardTransform(index);
+            const entranceDelay = index * 100;
+
+            return (
+              <div
+                key={index}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+                style={{
+                  position: 'absolute',
+                  width: `${cardWidth}px`,
+                  height: `${cardHeight}px`,
+                  borderRadius: `${borderRadius}px`,
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  transformStyle: 'preserve-3d',
+                  left: '50%',
+                  top: '50%',
+                  marginLeft: `-${cardWidth / 2}px`,
+                  marginTop: `-${cardHeight / 2}px`,
+                  border: `${cardBorderWidth}px solid ${cardBorderColor}`,
+                  boxSizing: 'border-box',
+                  opacity: prefersReducedMotion ? 1 : (isInView ? 1 : 0),
+                  transform: prefersReducedMotion
+                    ? `translateX(${transform.x}px) translateY(${transform.y}px) translateZ(${transform.z}px) rotateZ(${transform.rotation}deg) scale(${transform.scale})`
+                    : (isInView
+                      ? `translateX(${transform.x}px) translateY(${transform.y}px) translateZ(${transform.z}px) rotateZ(${transform.rotation}deg) scale(${transform.scale})`
+                      : `translateX(${transform.x}px) translateY(${transform.y + 60}px) translateZ(${transform.z - 100}px) rotateZ(${transform.rotation + 15}deg) scale(0.7)`
+                    ),
+                  zIndex: transform.zIndex,
+                  boxShadow: `
+                    0 ${10 + Math.abs(transform.z) * 0.2}px ${20 + Math.abs(transform.z) * 0.3}px rgba(${shadowRGB.r}, ${shadowRGB.g}, ${shadowRGB.b}, 0.15),
+                    0 ${5 + Math.abs(transform.z) * 0.1}px ${10 + Math.abs(transform.z) * 0.15}px rgba(${shadowRGB.r}, ${shadowRGB.g}, ${shadowRGB.b}, 0.1)
+                  `,
+                  transition: prefersReducedMotion
+                    ? 'none'
+                    : `transform ${transitionSpeed}ms cubic-bezier(0.22, 1, 0.36, 1), 
+                       box-shadow ${transitionSpeed}ms ease-out,
+                       opacity 500ms ease-out ${entranceDelay}ms`,
+                  willChange: 'transform'
+                }}
+              >
+                <img
+                  src={imageUrl}
+                  alt={`Gallery image ${index + 1}`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block'
+                  }}
+                />
+
+                {/* Card number badge */}
+                {showCardNumbers && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '12px',
+                      left: '12px',
+                      width: '28px',
+                      height: '28px',
+                      borderRadius: '50%',
+                      backgroundColor: accentColor,
+                      color: '#FFFFFF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '12px',
+                      fontWeight: '500'
+                    }}
+                  >
+                    {index + 1}
+                  </div>
+                )}
+
+                {/* Hover overlay */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: `linear-gradient(180deg, transparent 50%, rgba(${shadowRGB.r}, ${shadowRGB.g}, ${shadowRGB.b}, 0.4) 100%)`,
+                    opacity: hoveredIndex === index || activeIndex === index ? 1 : 0,
+                    transition: prefersReducedMotion ? 'none' : `opacity ${transitionSpeed}ms ease-out`,
+                    pointerEvents: 'none'
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Navigation dots */}
+      <div
+        style={{
+          display: 'flex',
+          gap: '10px',
+          opacity: prefersReducedMotion ? 1 : (isInView ? 1 : 0),
+          transition: prefersReducedMotion ? 'none' : 'opacity 600ms ease-out 400ms'
+        }}
+      >
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+            aria-label={`View image ${index + 1}`}
+            style={{
+              width: activeIndex === index ? '24px' : '8px',
+              height: '8px',
+              borderRadius: '4px',
+              border: 'none',
+              backgroundColor: activeIndex === index ? accentColor : '#D6D3D1',
+              cursor: 'pointer',
+              padding: 0,
+              transition: prefersReducedMotion ? 'none' : `all ${transitionSpeed}ms ease-out`
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}

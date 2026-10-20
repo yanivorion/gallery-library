@@ -1,0 +1,404 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (2/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.MagneticCursor
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.MagneticCursor",
+  "description": "Physics-based image gallery with magnetic cursor interactions and spring animations",
+  "editorElement": {
+    "selector": ".magnetic-gallery",
+    "displayName": "Magnetic Cursor Gallery",
+    "archetype": "container",
+    "data": {
+      "images": {
+        "dataType": "text",
+        "displayName": "Image URLs",
+        "defaultValue": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=600,https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600,https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600",
+        "group": "Content",
+        "description": "Comma-separated image URLs"
+      },
+      "magneticStrength": {
+        "dataType": "select",
+        "displayName": "Magnetic Strength",
+        "defaultValue": "0.15",
+        "options": ["0.05", "0.1", "0.15", "0.2", "0.3"],
+        "group": "Animation"
+      },
+      "springDamping": {
+        "dataType": "select",
+        "displayName": "Spring Damping",
+        "defaultValue": "0.7",
+        "options": ["0.5", "0.6", "0.7", "0.8", "0.9"],
+        "group": "Animation"
+      },
+      "hoverScale": {
+        "dataType": "select",
+        "displayName": "Hover Scale",
+        "defaultValue": "1.08",
+        "options": ["1.02", "1.05", "1.08", "1.12", "1.15"],
+        "group": "Animation"
+      },
+      "transitionSpeed": {
+        "dataType": "select",
+        "displayName": "Transition Speed (ms)",
+        "defaultValue": "400",
+        "options": ["200", "300", "400", "500", "600"],
+        "group": "Animation"
+      },
+      "gridColumns": {
+        "dataType": "select",
+        "displayName": "Grid Columns",
+        "defaultValue": "3",
+        "options": ["2", "3", "4"],
+        "group": "Layout"
+      },
+      "gridGap": {
+        "dataType": "select",
+        "displayName": "Grid Gap (px)",
+        "defaultValue": "24",
+        "options": ["12", "16", "20", "24", "32"],
+        "group": "Layout"
+      },
+      "imageAspectRatio": {
+        "dataType": "select",
+        "displayName": "Aspect Ratio",
+        "defaultValue": "4/3",
+        "options": ["1/1", "4/3", "3/2", "16/9"],
+        "group": "Layout"
+      },
+      "borderRadius": {
+        "dataType": "select",
+        "displayName": "Border Radius (px)",
+        "defaultValue": "8",
+        "options": ["0", "4", "8", "12", "16"],
+        "group": "Layout"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#F4F4F5",
+        "group": "Colors"
+      },
+      "cardBackground": {
+        "dataType": "color",
+        "displayName": "Card Background",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "shadowColor": {
+        "dataType": "color",
+        "displayName": "Shadow Color",
+        "defaultValue": "#18181B",
+        "group": "Colors"
+      },
+      "overlayColor": {
+        "dataType": "color",
+        "displayName": "Overlay Color",
+        "defaultValue": "#18181B",
+        "group": "Colors"
+      },
+      "textColor": {
+        "dataType": "color",
+        "displayName": "Text Color",
+        "defaultValue": "#FAFAFA",
+        "group": "Colors"
+      },
+      "showOverlay": {
+        "dataType": "booleanValue",
+        "displayName": "Show Hover Overlay",
+        "defaultValue": "true",
+        "group": "Content"
+      },
+      "overlayText": {
+        "dataType": "text",
+        "displayName": "Overlay Text",
+        "defaultValue": "View",
+        "group": "Content"
+      }
+    },
+    "layout": {
+      "resizeDirection": "horizontalAndVertical",
+      "contentResizeDirection": "vertical"
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const imagesString = config?.images || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600,https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600,https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600,https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=600';
+  const magneticStrength = parseFloat(config?.magneticStrength || '0.15');
+  const springDamping = parseFloat(config?.springDamping || '0.7');
+  const hoverScale = parseFloat(config?.hoverScale || '1.08');
+  const transitionSpeed = parseInt(config?.transitionSpeed || '400');
+  const gridColumns = parseInt(config?.gridColumns || '3');
+  const gridGap = parseInt(config?.gridGap || '24');
+  const imageAspectRatio = config?.imageAspectRatio || '4/3';
+  const borderRadius = parseInt(config?.borderRadius || '8');
+  const backgroundColor = config?.backgroundColor || '#F4F4F5';
+  const cardBackground = config?.cardBackground || '#FFFFFF';
+  const shadowColor = config?.shadowColor || '#18181B';
+  const overlayColor = config?.overlayColor || '#18181B';
+  const textColor = config?.textColor || '#FAFAFA';
+  const showOverlay = config?.showOverlay !== false;
+  const overlayText = config?.overlayText || 'View';
+
+  const images = React.useMemo(() => {
+    return imagesString.split(',').map(url => url.trim()).filter(Boolean);
+  }, [imagesString]);
+
+  const [transforms, setTransforms] = React.useState({});
+  const [hoveredIndex, setHoveredIndex] = React.useState(null);
+  const cardRefs = React.useRef([]);
+  const animationFrameRef = React.useRef(null);
+  const targetTransforms = React.useRef({});
+  const currentTransforms = React.useRef({});
+
+  const prefersReducedMotion = React.useMemo(() => {
+    return typeof window !== 'undefined'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false;
+  }, []);
+
+  React.useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    const lerp = (start, end, factor) => start + (end - start) * factor;
+
+    const animateTransforms = () => {
+      let needsUpdate = false;
+
+      Object.keys(targetTransforms.current).forEach(key => {
+        const target = targetTransforms.current[key];
+        const current = currentTransforms.current[key] || { x: 0, y: 0, rotateX: 0, rotateY: 0 };
+
+        const newX = lerp(current.x, target.x, springDamping);
+        const newY = lerp(current.y, target.y, springDamping);
+        const newRotateX = lerp(current.rotateX, target.rotateX, springDamping);
+        const newRotateY = lerp(current.rotateY, target.rotateY, springDamping);
+
+        if (
+          Math.abs(newX - target.x) > 0.01 ||
+          Math.abs(newY - target.y) > 0.01 ||
+          Math.abs(newRotateX - target.rotateX) > 0.01 ||
+          Math.abs(newRotateY - target.rotateY) > 0.01
+        ) {
+          needsUpdate = true;
+        }
+
+        currentTransforms.current[key] = { x: newX, y: newY, rotateX: newRotateX, rotateY: newRotateY };
+      });
+
+      if (needsUpdate) {
+        setTransforms({ ...currentTransforms.current });
+        animationFrameRef.current = requestAnimationFrame(animateTransforms);
+      }
+    };
+
+    animationFrameRef.current = requestAnimationFrame(animateTransforms);
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [springDamping, prefersReducedMotion]);
+
+  const handleMouseMove = (e, index) => {
+    if (prefersReducedMotion) return;
+
+    const card = cardRefs.current[index];
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const mouseX = e.clientX - centerX;
+    const mouseY = e.clientY - centerY;
+
+    const translateX = mouseX * magneticStrength;
+    const translateY = mouseY * magneticStrength;
+    const rotateY = (mouseX / rect.width) * 15;
+    const rotateX = -(mouseY / rect.height) * 15;
+
+    targetTransforms.current[index] = {
+      x: translateX,
+      y: translateY,
+      rotateX,
+      rotateY
+    };
+  };
+
+  const handleMouseLeave = (index) => {
+    targetTransforms.current[index] = { x: 0, y: 0, rotateX: 0, rotateY: 0 };
+    setHoveredIndex(null);
+  };
+
+  const handleMouseEnter = (index) => {
+    setHoveredIndex(index);
+  };
+
+  const getCardTransform = (index) => {
+    const t = transforms[index] || { x: 0, y: 0, rotateX: 0, rotateY: 0 };
+    const isHovered = hoveredIndex === index;
+    const scale = isHovered ? hoverScale : 1;
+    
+    if (prefersReducedMotion) {
+      return `scale(${scale})`;
+    }
+    
+    return `translate(${t.x}px, ${t.y}px) rotateX(${t.rotateX}deg) rotateY(${t.rotateY}deg) scale(${scale})`;
+  };
+
+  if (images.length === 0) {
+    return (
+      <div
+        className="magnetic-gallery"
+        style={{
+          backgroundColor: backgroundColor,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '400px',
+          padding: '40px',
+          textAlign: 'center',
+          color: '#71717A',
+          fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+        }}
+      >
+        <div>
+          <p style={{ fontSize: '18px', marginBottom: '8px', margin: 0 }}>No images provided</p>
+          <p style={{ fontSize: '14px', opacity: 0.7, margin: '8px 0 0 0' }}>Add comma-separated image URLs</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="magnetic-gallery"
+      style={{
+        position: 'relative',
+        width: '100%',
+        backgroundColor: backgroundColor,
+        padding: '40px',
+        boxSizing: 'border-box',
+        perspective: '1000px'
+      }}
+    >
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${gridColumns}, 1fr)`,
+          gap: `${gridGap}px`,
+          maxWidth: '1200px',
+          margin: '0 auto'
+        }}
+      >
+        {images.map((image, index) => (
+          <div
+            key={index}
+            ref={el => cardRefs.current[index] = el}
+            onMouseMove={(e) => handleMouseMove(e, index)}
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={() => handleMouseLeave(index)}
+            style={{
+              position: 'relative',
+              aspectRatio: imageAspectRatio,
+              borderRadius: `${borderRadius}px`,
+              overflow: 'hidden',
+              cursor: 'pointer',
+              backgroundColor: cardBackground,
+              transform: getCardTransform(index),
+              transformStyle: 'preserve-3d',
+              transition: prefersReducedMotion ? 'none' : `box-shadow ${transitionSpeed}ms ease-out`,
+              boxShadow: hoveredIndex === index
+                ? `0 25px 50px -12px ${shadowColor}40, 0 12px 24px -8px ${shadowColor}20`
+                : `0 4px 12px ${shadowColor}10`,
+              willChange: 'transform'
+            }}
+          >
+            <img
+              src={image}
+              alt={`Gallery image ${index + 1}`}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                transition: prefersReducedMotion ? 'none' : `transform ${transitionSpeed}ms ease-out`,
+                transform: hoveredIndex === index ? 'scale(1.1)' : 'scale(1)'
+              }}
+            />
+            
+            {showOverlay && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: overlayColor,
+                  opacity: hoveredIndex === index ? 0.4 : 0,
+                  transition: prefersReducedMotion ? 'none' : `opacity ${transitionSpeed}ms ease-out`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              />
+            )}
+            
+            {showOverlay && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: hoveredIndex === index 
+                    ? 'translate(-50%, -50%) scale(1)' 
+                    : 'translate(-50%, -50%) scale(0.8)',
+                  opacity: hoveredIndex === index ? 1 : 0,
+                  transition: prefersReducedMotion ? 'none' : `all ${transitionSpeed}ms ease-out`,
+                  color: textColor,
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+                  padding: '12px 24px',
+                  border: `1px solid ${textColor}`,
+                  borderRadius: '4px',
+                  backdropFilter: 'blur(4px)',
+                  pointerEvents: 'none'
+                }}
+              >
+                {overlayText}
+              </div>
+            )}
+
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: `linear-gradient(135deg, rgba(255,255,255,${hoveredIndex === index ? 0.15 : 0}) 0%, rgba(255,255,255,0) 50%)`,
+                pointerEvents: 'none',
+                transition: prefersReducedMotion ? 'none' : `opacity ${transitionSpeed}ms ease-out`
+              }}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

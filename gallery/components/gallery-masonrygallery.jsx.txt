@@ -1,0 +1,300 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (2/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.MasonryGallery
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.MasonryGallery",
+  "description": "Pinterest-style masonry gallery with dynamic column layout that adapts to image heights, creating an organic flowing grid with subtle hover interactions and lazy loading",
+  "editorElement": {
+    "selector": ".masonry-gallery",
+    "displayName": "Masonry Gallery",
+    "archetype": "container",
+    "data": {
+      "images": {
+        "dataType": "text",
+        "displayName": "Images (JSON Array)",
+        "defaultValue": JSON.stringify([
+          { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4", caption: "Mountain Vista", height: 400 },
+          { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e", caption: "Forest Path", height: 300 },
+          { url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470", caption: "Desert Sunset", height: 500 },
+          { url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05", caption: "Misty Valley", height: 350 },
+          { url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e", caption: "Wild Trail", height: 450 },
+          { url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff", caption: "Alpine Lake", height: 380 }
+        ]),
+        "group": "Content",
+        "description": "Array of image objects with url, caption, and height properties"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#FAFBFC",
+        "group": "Colors"
+      },
+      "cardBackground": {
+        "dataType": "color",
+        "displayName": "Card Background",
+        "defaultValue": "#FFFFFF",
+        "group": "Colors"
+      },
+      "textColor": {
+        "dataType": "color",
+        "displayName": "Text Color",
+        "defaultValue": "#1F2937",
+        "group": "Colors"
+      },
+      "borderColor": {
+        "dataType": "color",
+        "displayName": "Border Color",
+        "defaultValue": "#E5E7EB",
+        "group": "Colors"
+      },
+      "columnGap": {
+        "dataType": "number",
+        "displayName": "Column Gap (px)",
+        "defaultValue": 16,
+        "group": "Layout"
+      },
+      "columnsMobile": {
+        "dataType": "number",
+        "displayName": "Columns (Mobile)",
+        "defaultValue": 1,
+        "group": "Layout"
+      },
+      "columnsTablet": {
+        "dataType": "number",
+        "displayName": "Columns (Tablet)",
+        "defaultValue": 3,
+        "group": "Layout"
+      },
+      "columnsDesktop": {
+        "dataType": "number",
+        "displayName": "Columns (Desktop)",
+        "defaultValue": 4,
+        "group": "Layout"
+      },
+      "borderRadius": {
+        "dataType": "number",
+        "displayName": "Border Radius (px)",
+        "defaultValue": 8,
+        "group": "Layout"
+      },
+      "showCaptions": {
+        "dataType": "booleanValue",
+        "displayName": "Show Captions",
+        "defaultValue": true,
+        "group": "Content"
+      },
+      "enableHoverScale": {
+        "dataType": "booleanValue",
+        "displayName": "Enable Hover Scale",
+        "defaultValue": true,
+        "group": "Animation"
+      },
+      "hoverScaleAmount": {
+        "dataType": "select",
+        "displayName": "Hover Scale Amount",
+        "defaultValue": "1.02",
+        "options": ["1.01", "1.02", "1.03", "1.05"],
+        "group": "Animation"
+      },
+      "animationDuration": {
+        "dataType": "select",
+        "displayName": "Animation Duration (ms)",
+        "defaultValue": "300",
+        "options": ["200", "300", "400", "500"],
+        "group": "Animation"
+      }
+    },
+    "layout": {
+      "resizeDirection": "horizontalAndVertical",
+      "contentResizeDirection": "vertical"
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const imagesData = config?.images || JSON.stringify([
+    { url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4", caption: "Mountain Vista", height: 400 },
+    { url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e", caption: "Forest Path", height: 300 },
+    { url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470", caption: "Desert Sunset", height: 500 },
+    { url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05", caption: "Misty Valley", height: 350 },
+    { url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e", caption: "Wild Trail", height: 450 },
+    { url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff", caption: "Alpine Lake", height: 380 }
+  ]);
+  
+  const images = typeof imagesData === 'string' ? JSON.parse(imagesData) : imagesData;
+  const backgroundColor = config?.backgroundColor || "#FAFBFC";
+  const cardBackground = config?.cardBackground || "#FFFFFF";
+  const textColor = config?.textColor || "#1F2937";
+  const borderColor = config?.borderColor || "#E5E7EB";
+  const columnGap = parseInt(config?.columnGap || "16");
+  const columnsMobile = parseInt(config?.columnsMobile || "1");
+  const columnsTablet = parseInt(config?.columnsTablet || "3");
+  const columnsDesktop = parseInt(config?.columnsDesktop || "4");
+  const borderRadius = parseInt(config?.borderRadius || "8");
+  const showCaptions = config?.showCaptions !== false;
+  const enableHoverScale = config?.enableHoverScale !== false;
+  const hoverScaleAmount = parseFloat(config?.hoverScaleAmount || "1.02");
+  const animationDuration = parseInt(config?.animationDuration || "300");
+
+  const [columns, setColumns] = React.useState([]);
+  const [loadedImages, setLoadedImages] = React.useState({});
+  const containerRef = React.useRef(null);
+
+  const prefersReducedMotion = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : false;
+
+  // Calculate number of columns based on viewport width
+  const getColumnCount = () => {
+    if (typeof window === 'undefined') return columnsDesktop;
+    const width = window.innerWidth;
+    if (width < 640) return columnsMobile;
+    if (width < 1024) return columnsTablet;
+    return columnsDesktop;
+  };
+
+  // Distribute images into columns (masonry algorithm)
+  const distributeImages = React.useCallback(() => {
+    const columnCount = getColumnCount();
+    const newColumns = Array.from({ length: columnCount }, () => []);
+    const columnHeights = Array(columnCount).fill(0);
+
+    images.forEach((image, index) => {
+      // Find the shortest column
+      const shortestColumnIndex = columnHeights.indexOf(Math.min(...columnHeights));
+      newColumns[shortestColumnIndex].push({ ...image, index });
+      columnHeights[shortestColumnIndex] += image.height || 300;
+    });
+
+    setColumns(newColumns);
+  }, [images, columnsMobile, columnsTablet, columnsDesktop]);
+
+  // Initialize and handle resize
+  React.useEffect(() => {
+    distributeImages();
+
+    let resizeTimeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(distributeImages, 150);
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        clearTimeout(resizeTimeout);
+      };
+    }
+  }, [distributeImages]);
+
+  // Handle image load
+  const handleImageLoad = (index) => {
+    setLoadedImages(prev => ({ ...prev, [index]: true }));
+  };
+
+  const duration = prefersReducedMotion ? 0 : animationDuration;
+
+  return (
+    <div
+      ref={containerRef}
+      className="masonry-gallery"
+      style={{
+        backgroundColor: backgroundColor,
+        padding: `${columnGap * 2}px`,
+        minHeight: '100vh'
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          gap: `${columnGap}px`,
+          alignItems: 'flex-start'
+        }}
+      >
+        {columns.map((column, columnIndex) => (
+          <div
+            key={columnIndex}
+            style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: `${columnGap}px`
+            }}
+          >
+            {column.map((image) => (
+              <div
+                key={image.index}
+                style={{
+                  backgroundColor: cardBackground,
+                  borderRadius: `${borderRadius}px`,
+                  overflow: 'hidden',
+                  border: `1px solid ${borderColor}`,
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03)',
+                  cursor: 'pointer',
+                  transition: prefersReducedMotion ? 'none' : `transform ${duration}ms ease-out, box-shadow ${duration}ms ease-out`,
+                  transform: 'scale(1)',
+                }}
+                onMouseEnter={(e) => {
+                  if (enableHoverScale && !prefersReducedMotion) {
+                    e.currentTarget.style.transform = `scale(${hoverScaleAmount})`;
+                    e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.08), 0 12px 24px rgba(0,0,0,0.06)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (enableHoverScale && !prefersReducedMotion) {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03)';
+                  }
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.outline = '2px solid #3B82F6';
+                  e.currentTarget.style.outlineOffset = '2px';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.outline = 'none';
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={image.caption || `Gallery image ${image.index + 1}`}
+              >
+                <img
+                  src={image.url}
+                  alt={image.caption || ''}
+                  onLoad={() => handleImageLoad(image.index)}
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    opacity: loadedImages[image.index] ? 1 : 0,
+                    transition: prefersReducedMotion ? 'none' : 'opacity 400ms ease-out'
+                  }}
+                />
+                {showCaptions && image.caption && (
+                  <div
+                    style={{
+                      padding: '12px',
+                      color: textColor,
+                      fontSize: '14px',
+                      fontWeight: '400',
+                      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                    }}
+                  >
+                    {image.caption}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

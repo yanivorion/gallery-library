@@ -1,0 +1,352 @@
+/*
+ * ============================================================================
+ * COMPONENT GENERATION METADATA
+ * ============================================================================
+ * Project: Galleries, Carousels & Slideshows (3/4)
+ * Generated: Sep 15, 2026, 01:36 PM
+ * Component Type: Gallery.WorkGrid
+ * ============================================================================
+ */
+
+const MANIFEST = {
+  "type": "Gallery.WorkGrid",
+  "description": "Portfolio work gallery with clean grid layout, image-first design, and subtle hover effects. Features responsive columns and staggered entrance animations. Perfect for showcasing creative projects.",
+  "editorElement": {
+    "selector": ".work-grid-gallery",
+    "displayName": "Work Grid Gallery",
+    "archetype": "container",
+    "data": {
+      "sectionTitle": {
+        "dataType": "text",
+        "displayName": "Section Title",
+        "defaultValue": "Work",
+        "group": "Content"
+      },
+      "sectionDescription": {
+        "dataType": "text",
+        "displayName": "Section Description",
+        "defaultValue": "Highlights of cases that we passionately built with forward-thinking clients.",
+        "group": "Content"
+      },
+      "projects": {
+        "dataType": "text",
+        "displayName": "Projects (JSON Array)",
+        "defaultValue": JSON.stringify([
+          {
+            "title": "Brand Identity",
+            "description": "Visual identity for digital agency",
+            "image": "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80"
+          },
+          {
+            "title": "Web Experience",
+            "description": "E-commerce platform redesign",
+            "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+          },
+          {
+            "title": "Product Design",
+            "description": "Mobile app for content creators",
+            "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80"
+          },
+          {
+            "title": "Art Direction",
+            "description": "Campaign for lifestyle brand",
+            "image": "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=800&q=80"
+          }
+        ]),
+        "group": "Content",
+        "description": "Array of project objects with title, description, and image URL"
+      },
+      "backgroundColor": {
+        "dataType": "color",
+        "displayName": "Background Color",
+        "defaultValue": "#FAFAFA",
+        "group": "Colors"
+      },
+      "titleColor": {
+        "dataType": "color",
+        "displayName": "Title Color",
+        "defaultValue": "#171717",
+        "group": "Colors"
+      },
+      "descriptionColor": {
+        "dataType": "color",
+        "displayName": "Description Color",
+        "defaultValue": "#737373",
+        "group": "Colors"
+      },
+      "titleFontSize": {
+        "dataType": "number",
+        "displayName": "Section Title Font Size (px)",
+        "defaultValue": 72,
+        "group": "Typography"
+      },
+      "titleFontWeight": {
+        "dataType": "select",
+        "displayName": "Section Title Font Weight",
+        "defaultValue": "600",
+        "options": ["300", "400", "500", "600", "700"],
+        "group": "Typography"
+      },
+      "columns": {
+        "dataType": "select",
+        "displayName": "Desktop Columns",
+        "defaultValue": "2",
+        "options": ["2", "3"],
+        "group": "Layout",
+        "description": "Number of columns on desktop"
+      },
+      "gap": {
+        "dataType": "number",
+        "displayName": "Grid Gap (px)",
+        "defaultValue": 32,
+        "group": "Layout"
+      },
+      "animationDuration": {
+        "dataType": "select",
+        "displayName": "Animation Duration (ms)",
+        "defaultValue": "400",
+        "options": ["300", "400", "500", "600"],
+        "group": "Animation"
+      },
+      "staggerDelay": {
+        "dataType": "number",
+        "displayName": "Stagger Delay (ms)",
+        "defaultValue": 50,
+        "group": "Animation",
+        "description": "Delay between each item animation"
+      },
+      "enableAnimation": {
+        "dataType": "booleanValue",
+        "displayName": "Enable Entrance Animation",
+        "defaultValue": true,
+        "group": "Animation"
+      }
+    },
+    "layout": {
+      "resizeDirection": "horizontalAndVertical",
+      "contentResizeDirection": "vertical"
+    }
+  }
+};
+
+function Component({ config = {} }) {
+  const sectionTitle = config?.sectionTitle || "Work";
+  const sectionDescription = config?.sectionDescription || "Highlights of cases that we passionately built with forward-thinking clients.";
+  const backgroundColor = config?.backgroundColor || "#FAFAFA";
+  const titleColor = config?.titleColor || "#171717";
+  const descriptionColor = config?.descriptionColor || "#737373";
+  const titleFontSize = parseInt(config?.titleFontSize || "72");
+  const titleFontWeight = config?.titleFontWeight || "600";
+  const columns = config?.columns || "2";
+  const gap = parseInt(config?.gap || "32");
+  const animationDuration = parseInt(config?.animationDuration || "400");
+  const staggerDelay = parseInt(config?.staggerDelay || "50");
+  const enableAnimation = config?.enableAnimation !== false;
+
+  let projects = [];
+  try {
+    projects = JSON.parse(config?.projects || '[]');
+    if (!Array.isArray(projects) || projects.length === 0) {
+      projects = [
+        {
+          title: "Brand Identity",
+          description: "Visual identity for digital agency",
+          image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80"
+        },
+        {
+          title: "Web Experience",
+          description: "E-commerce platform redesign",
+          image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+        },
+        {
+          title: "Product Design",
+          description: "Mobile app for content creators",
+          image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80"
+        },
+        {
+          title: "Art Direction",
+          description: "Campaign for lifestyle brand",
+          image: "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=800&q=80"
+        }
+      ];
+    }
+  } catch (e) {
+    projects = [
+      {
+        title: "Brand Identity",
+        description: "Visual identity for digital agency",
+        image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80"
+      }
+    ];
+  }
+
+  const [visibleItems, setVisibleItems] = React.useState([]);
+  const sectionRef = React.useRef(null);
+
+  const prefersReducedMotion = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : false;
+
+  React.useEffect(() => {
+    if (!enableAnimation || prefersReducedMotion) {
+      setVisibleItems(projects.map((_, i) => i));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            projects.forEach((_, index) => {
+              setTimeout(() => {
+                setVisibleItems((prev) => [...new Set([...prev, index])]);
+              }, index * staggerDelay);
+            });
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [enableAnimation, prefersReducedMotion, staggerDelay, projects.length]);
+
+  const shouldAnimate = enableAnimation && !prefersReducedMotion;
+
+  return (
+    <div
+      ref={sectionRef}
+      className="work-grid-gallery"
+      style={{
+        backgroundColor: backgroundColor,
+        padding: 'clamp(60px, 10vw, 120px) clamp(24px, 5vw, 80px)',
+        width: '100%'
+      }}
+    >
+      {/* Section Header */}
+      <div
+        style={{
+          maxWidth: '1400px',
+          margin: '0 auto 64px auto'
+        }}
+      >
+        <h2
+          style={{
+            fontSize: `clamp(${titleFontSize * 0.5}px, ${titleFontSize * 0.08}vw + ${titleFontSize * 0.3}px, ${titleFontSize}px)`,
+            fontWeight: titleFontWeight,
+            color: titleColor,
+            margin: '0 0 24px 0',
+            lineHeight: '1.1',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          }}
+        >
+          {sectionTitle}
+        </h2>
+        <p
+          style={{
+            fontSize: '18px',
+            fontWeight: '300',
+            color: descriptionColor,
+            margin: 0,
+            maxWidth: '600px',
+            lineHeight: '1.6',
+            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          }}
+        >
+          {sectionDescription}
+        </p>
+      </div>
+
+      {/* Projects Grid */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, 400px), 1fr))`,
+          gap: `${gap}px`,
+          maxWidth: '1400px',
+          margin: '0 auto'
+        }}
+      >
+        {projects.map((project, index) => {
+          const isVisible = visibleItems.includes(index);
+          return (
+            <div
+              key={index}
+              style={{
+                opacity: shouldAnimate ? (isVisible ? 1 : 0) : 1,
+                transform: shouldAnimate ? (isVisible ? 'translateY(0)' : 'translateY(30px)') : 'translateY(0)',
+                transition: shouldAnimate ? `opacity ${animationDuration}ms ease-out, transform ${animationDuration}ms ease-out` : 'none'
+              }}
+            >
+              {/* Image Container */}
+              <div
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  paddingBottom: '75%',
+                  overflow: 'hidden',
+                  marginBottom: '20px',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1.02)';
+                }}
+                onMouseLeave={(e) => {
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1)';
+                }}
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    transition: 'transform 400ms ease-out'
+                  }}
+                />
+              </div>
+
+              {/* Project Info */}
+              <div>
+                <h3
+                  style={{
+                    fontSize: '24px',
+                    fontWeight: '500',
+                    color: titleColor,
+                    margin: '0 0 8px 0',
+                    lineHeight: '1.3',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                  }}
+                >
+                  {project.title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: '16px',
+                    fontWeight: '300',
+                    color: descriptionColor,
+                    margin: 0,
+                    lineHeight: '1.5',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                  }}
+                >
+                  {project.description}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
