@@ -259,7 +259,7 @@ a { color: inherit; }
       <div><dt>Components</dt><dd>113</dd></div>
       <div><dt>Families</dt><dd>21 (Gallery 51, Media 13)</dd></div>
       <div><dt>Editable props</dt><dd>1,716</dd></div>
-      <div><dt>Headless run</dt><dd>108 clean · 5 noisy · 0 failed</dd></div>
+      <div><dt>Headless run</dt><dd>107 clean · 6 flagged · 0 failed</dd></div>
       <div><dt>Source</dt><dd><span class="swatches" aria-hidden="true"><i style="background:#000000"></i><i style="background:#888888"></i><i style="background:#ffffff"></i></span>1.72 MB JSX</dd></div>
     </dl>
   </section>
@@ -377,8 +377,8 @@ a { color: inherit; }
     <div class="copy">
       <p class="eyebrow"><span class="num">01 / 05</span><span>The shelf</span></p>
       <h3>113 components, mounted as you scroll</h3>
-      <p>The library opens on every component at once. Cards mount their real preview when they enter the viewport, so the grid you scroll is running code, not pictures of it.</p>
-      <p>The header counts what survived the run: 108 clean, 5 with console warnings, 0 failed. Family chips below it carry their own counts, from Gallery at 51 down to the single Scroll and Slider entries.</p>
+      <p>The library opens on every component at once. Each card shows its captured frame straight away, then mounts the real component over it as the card nears the viewport, so the grid you scroll is running code and never a blank box.</p>
+      <p>The header counts what survived the run: 107 clean, 6 flagged, 0 failed. Family chips below it carry their own counts, from Gallery at 51 down to the single Scroll and Slider entries.</p>
       <div class="chips"><span class="chip">Live mount on scroll</span><span class="chip">21 family facets</span><span class="chip">Status filter</span><span class="chip">Three grid sizes</span></div>
     </div>
     <div class="frame">
@@ -440,10 +440,11 @@ a { color: inherit; }
     <div class="copy">
       <p class="eyebrow"><span class="num">05 / 05</span><span>What the run recorded</span></p>
       <h3>Every number on this page came out of the run</h3>
-      <p>The library ships with its own result file. It is the reason the status chips can be trusted, and the reason five components carry a warning instead of a clean badge.</p>
+      <p>The library ships with its own result file. It is the reason the status chips can be trusted, and the reason six components carry a warning instead of a clean badge.</p>
       <ul class="notes">
-        <li><i class="dot" style="background:#000000"></i><div><b>108 clean</b><span>Mounted, settled and finished with an empty console.</span></div></li>
+        <li><i class="dot" style="background:#000000"></i><div><b>107 clean</b><span>Mounted, settled and finished with an empty console.</span></div></li>
         <li><i class="dot" style="background:#888888"></i><div><b>5 noisy</b><span class="mono">masonrygallery ×12 · flipcardgallery · imagegallerylightbox · logocarouselinfinite · polaroidphotogrid</span></div></li>
+        <li><i class="dot" style="background:#aaaaaa"></i><div><b>1 blank</b><span class="mono">gsapcontinuousslideshow — 105 nodes, section held at opacity 0 by an entrance timeline that wants GSAP</span></div></li>
         <li><i class="dot" style="background:#cccccc"></i><div><b>0 failed</b><span>No component threw during compile or mount.</span></div></li>
         <li><i class="dot" style="background:#ffffff;border:1px solid var(--line)"></i><div><b>103.3 s of render</b><span class="mono">median 907 ms · max 1,020 ms · 3,866 DOM nodes</span></div></li>
       </ul>

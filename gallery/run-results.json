@@ -901,7 +901,9 @@
    "domNodes": 105,
    "height": 900,
    "textLength": 19,
-   "consoleErrorCount": 0
+   "consoleErrorCount": 0,
+   "blank": true,
+   "blankNote": "Mounts 105 nodes but paints nothing: the slideshow section stays at opacity 0 because its entrance timeline expects GSAP, which the pack does not bundle."
   },
   {
    "slug": "media-imagecarousel",

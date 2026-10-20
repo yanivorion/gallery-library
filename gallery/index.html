@@ -123,15 +123,26 @@ main{max-width:1760px;margin:0 auto;padding:18px 22px 80px}
   position:relative;background:#ffffff;border-bottom:1px solid var(--line);
   overflow:hidden;cursor:zoom-in;
 }
-.stage .holder{position:absolute;inset:0;overflow:hidden}
-.stage iframe{border:0;display:block;transform-origin:0 0;background:#ffffff}
-.stage .ph{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Text Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:11px;color:#999999;
-  background:repeating-linear-gradient(45deg,#ffffff,#ffffff 9px,#eeeeee 9px,#eeeeee 18px);
+.stage .shot{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:top center;display:block;
 }
+.stage .holder{
+  position:absolute;inset:0;overflow:hidden;overscroll-behavior:contain;
+  opacity:0;transition:opacity .22s ease;
+}
+.stage.live .holder{opacity:1}
+@media (prefers-reduced-motion:reduce){.stage .holder{transition:none}}
+.stage iframe{border:0;display:block;transform-origin:0 0;background:#ffffff}
 .stage .veil{position:absolute;inset:0;background:transparent}
 .stage.live .veil{display:none}
+.stage .badge{
+  position:absolute;left:8px;bottom:8px;z-index:3;
+  font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.06em;
+  text-transform:uppercase;padding:2px 6px;border-radius:3px;
+  background:rgba(255,255,255,.88);color:#687384;border:1px solid var(--line);
+}
+.stage.live .badge{background:rgba(24,32,43,.82);color:#fff;border-color:transparent}
 
 .card .body{padding:11px 13px 13px;display:flex;flex-direction:column;gap:7px;flex:1}
 .ttl{display:flex;align-items:flex-start;gap:8px}
@@ -299,6 +310,7 @@ pre.code{
     var r = RUN[slug];
     if (!r) return 'unknown';
     if (!r.ok) return 'fail';
+    if (r.blank) return 'warn';
     return (r.consoleErrorCount || 0) > 0 ? 'warn' : 'pass';
   }
 
@@ -357,48 +369,76 @@ pre.code{
     return out.sort(cmp);
   }
 
-  // ---------- lazy live previews ----------
+  // ---------- previews ----------
+  // Every card shows its captured frame. When Live is on, the component is
+  // mounted in an iframe on top of that frame while the card is near the
+  // viewport, so a card is never blank and nothing flickers as you scroll.
   var STAGE_W = 1440;
+
+  // Components can scroll their own ancestors (scrollIntoView inside a frame
+  // reaches the parent), which used to drag the grid around and unmount the
+  // cards you were looking at. Keep the page where the reader left it.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  var lastUserScroll = 0;
+  var anchor = 0;
+  ['wheel', 'touchstart', 'touchmove', 'keydown', 'mousedown'].forEach(function (ev) {
+    window.addEventListener(ev, function () { lastUserScroll = Date.now(); }, { passive: true });
+  });
+  window.addEventListener('scroll', function () {
+    var moved = Math.abs(window.scrollY - anchor);
+    // Within 500ms of real input, or for a small step, the reader did it.
+    if (Date.now() - lastUserScroll < 500 || moved < 300) { anchor = window.scrollY; return; }
+    // A big jump with no input behind it came from a frame. Put it back.
+    window.scrollTo(0, anchor);
+  }, { passive: true });
+
+  // frame.html posts a report once it has mounted and settled. Until then the
+  // card keeps showing its captured frame, so nothing flashes white.
+  window.addEventListener('message', function (e) {
+    if (!e.data || !e.data.__gallery) return;
+    var slug = e.data.report && e.data.report.slug;
+    if (!slug) return;
+    var stage = grid.querySelector('.stage[data-slug="' + slug + '"]');
+    if (stage && stage.dataset.mounted === '1') stage.classList.add('live');
+  });
+
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      var stage = e.target;
-      if (e.isIntersecting) mount(stage); else unmount(stage);
+      if (e.isIntersecting) mount(e.target);
     });
-  }, { rootMargin: '600px 0px' });
+  }, { rootMargin: '500px 0px' });
+
+  // A second, much wider band decides when a mounted frame is far enough away
+  // to drop. The gap between the two margins is the hysteresis that stops a
+  // card mounting and unmounting on every scroll tick.
+  var reaper = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) unmount(e.target);
+    });
+  }, { rootMargin: '2000px 0px' });
 
   function mount(stage) {
     if (!state.live || stage.dataset.mounted === '1') return;
     stage.dataset.mounted = '1';
     var holder = stage.querySelector('.holder');
-    var w = stage.clientWidth;
-    var scale = w / STAGE_W;
-    var h = stage.clientHeight / scale;
+    var scale = stage.clientWidth / STAGE_W;
     var f = document.createElement('iframe');
     f.src = 'frame.html?c=' + encodeURIComponent(stage.dataset.slug);
     f.width = STAGE_W;
-    f.height = Math.round(h);
-    f.loading = 'lazy';
+    f.height = Math.round(stage.clientHeight / scale);
     f.style.transform = 'scale(' + scale + ')';
     f.setAttribute('tabindex', '-1');
     f.setAttribute('aria-hidden', 'true');
     f.setAttribute('scrolling', 'no');
     holder.innerHTML = '';
     holder.appendChild(f);
-    stage.classList.add('live');
-    var ph = stage.querySelector('.ph');
-    if (ph) ph.remove();
   }
 
   function unmount(stage) {
     if (stage.dataset.mounted !== '1') return;
     stage.dataset.mounted = '0';
     stage.classList.remove('live');
-    var holder = stage.querySelector('.holder');
-    holder.innerHTML = '';
-    var ph = document.createElement('div');
-    ph.className = 'ph';
-    ph.textContent = 'paused';
-    stage.appendChild(ph);
+    stage.querySelector('.holder').innerHTML = '';
   }
 
   // ---------- cards ----------
@@ -417,8 +457,16 @@ pre.code{
     stage.style.height = previewHeight() + 'px';
     stage.dataset.slug = it.slug;
     stage.title = 'Open ' + it.name;
-    stage.innerHTML =
-      '<div class="holder"></div><div class="ph">preview</div><div class="veil"></div>';
+    var shot = document.createElement('img');
+    shot.className = 'shot';
+    shot.src = 'thumbs/' + it.slug + '.webp';
+    shot.alt = it.name + ' — captured frame';
+    shot.loading = 'lazy';
+    shot.decoding = 'async';
+    stage.appendChild(shot);
+    stage.insertAdjacentHTML('beforeend',
+      '<div class="holder"></div><div class="veil"></div>' +
+      '<span class="badge">' + (state.live ? 'live' : 'frame') + '</span>');
     stage.onclick = function () { openDetail(it); };
 
     var body = document.createElement('div');
@@ -452,6 +500,7 @@ pre.code{
     el.appendChild(stage);
     el.appendChild(body);
     observer.observe(stage);
+    reaper.observe(stage);
     return el;
   }
 
@@ -459,9 +508,11 @@ pre.code{
     var list = visible();
     grid.className = 'grid sz-' + state.size;
     observer.disconnect();
+    reaper.disconnect();
     grid.innerHTML = '';
     list.forEach(function (it) { grid.appendChild(card(it)); });
     emptyEl.classList.toggle('hidden', list.length > 0);
+    anchor = window.scrollY;
 
     var counts = { pass: 0, warn: 0, fail: 0, unknown: 0 };
     list.forEach(function (it) { counts[statusOf(it.slug)]++; });
@@ -469,7 +520,7 @@ pre.code{
       'showing ' + list.length + ' of ' + ITEMS.length +
       '   ·   ' + counts.pass + ' clean, ' + counts.warn + ' warn, ' + counts.fail + ' fail' +
       (counts.unknown ? ', ' + counts.unknown + ' not run' : '') +
-      (state.live ? '' : '   ·   previews paused');
+      (state.live ? '' : '   ·   captured frames');
   }
 
   // ---------- detail ----------
@@ -517,6 +568,9 @@ pre.code{
     if (st === 'fail') {
       html += '<div class="banner fail"><b>Failed to run</b><br>' +
         (r.error || 'unknown') + '</div>';
+    } else if (r.blank) {
+      html += '<div class="banner warn"><b>Mounts, but paints nothing</b><br>' +
+        r.blankNote + '</div>';
     } else if (st === 'warn') {
       html += '<div class="banner warn"><b>Runs, with ' + r.consoleErrorCount +
         ' console error(s)</b><br>' + (r.consoleErrors || []).join('<br><br>') + '</div>';
@@ -619,7 +673,10 @@ pre.code{
   liveBtn.onclick = function () {
     state.live = !state.live;
     liveBtn.setAttribute('aria-pressed', String(state.live));
-    liveBtn.textContent = state.live ? '● Live' : '❚❚ Paused';
+    liveBtn.textContent = state.live ? '● Live' : '▣ Frames';
+    liveBtn.title = state.live
+      ? 'Mounting components as they scroll into view'
+      : 'Showing the captured frame for each component';
     render();
   };
   var themeBtn = document.getElementById('themeBtn');

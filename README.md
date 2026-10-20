@@ -23,7 +23,8 @@ library UI around them:
 | Path | What it is |
 |---|---|
 | `index.html` | The showcase page (built from `index.src.html` by `build.py`) |
-| `gallery/` | The interactive library: 113 live previews, filters, per-component detail and JSX source |
+| `gallery/` | The interactive library: 113 captured frames that mount the live component on scroll, filters, per-component detail and JSX source |
+| `gallery/thumbs/` | The 113 captured frames the cards open on, 480px webp |
 | `gallery/assets/` | The eight photographs, 1600px webp |
 | `wall/` | 113 captured frames at 480px, used by the showcase wall |
 | `img/` | Stills of the library UI used in the showcase |
@@ -34,13 +35,15 @@ library UI around them:
 |---|---|
 | Components | 113 across 21 families (Gallery 51, Media 13, Portfolio 9, Study 9) |
 | Editable props | 1,716 — select 502, color 473, text 312, boolean 264, number 162 |
-| Result | 108 clean · 5 with console warnings · 0 failed |
+| Result | 107 clean · 6 flagged · 0 failed |
 | Render | median 907 ms, max 1,020 ms, 3,866 DOM nodes in total |
 | Source | 1.72 MB of JSX, held as plain text next to the index |
 
-The five noisy components are `gallery-masonrygallery` (12 console errors),
-`gallery-flipcardgallery`, `media-imagegallerylightbox`, `media-logocarouselinfinite` and
-`media-polaroidphotogrid` (one each). The library shows the status on every card.
+Five are noisy: `gallery-masonrygallery` (12 console errors), `gallery-flipcardgallery`,
+`media-imagegallerylightbox`, `media-logocarouselinfinite` and `media-polaroidphotogrid` (one
+each). The sixth, `media-gsapcontinuousslideshow`, mounts 105 nodes and paints nothing — its
+slideshow section stays at opacity 0 because the entrance timeline expects GSAP, which the pack
+does not bundle. The library shows the status on every card and the reason in the detail panel.
 
 ## Running it locally
 
